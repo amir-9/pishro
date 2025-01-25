@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  webpack(config, { isServer }) {
+  webpack(config, { isServer: _isServer }) {
     config.module.rules.push({
       test: /\.svg$/,
       use: [
