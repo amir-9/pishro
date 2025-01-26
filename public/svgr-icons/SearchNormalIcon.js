@@ -1,5 +1,5 @@
 import * as React from "react";
-const SvgSearchNormal = (props) => (
+const SvgSearchNormalIcon = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
@@ -16,4 +16,4 @@ const SvgSearchNormal = (props) => (
     />
   </svg>
 );
-export default SvgSearchNormal;
+export default SvgSearchNormalIcon;
