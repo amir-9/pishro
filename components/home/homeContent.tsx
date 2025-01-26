@@ -1,5 +1,13 @@
+import Categories from "@/components/home/categories";
+import Landing from "@/components/home/landing";
+
 const HomePageContent = () => {
-  return <div className="container">home</div>;
+  return (
+    <div>
+      <Landing />
+      <Categories />
+    </div>
+  );
 };
 
 export default HomePageContent;

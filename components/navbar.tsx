@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { Input } from "@/components/ui/input";
 import {
@@ -55,7 +56,7 @@ const Navbar = () => {
           {navbarData.map((item, idx) => (
             <React.Fragment key={idx}>
               <li>
-                <a href={item.link}>{item.label}</a>
+                <Link href={item.link}>{item.label}</Link>
               </li>
               {idx === 6 && (
                 <li className="border-l border-white h-6 mx-2"></li>
