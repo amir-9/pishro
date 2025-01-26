@@ -1,13 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { categories } from "@/public/data";
+import { categoriesData } from "@/public/data";
 
 const Categories = () => {
   return (
     <div className="mt-10 container">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-[72px]">
-        {categories.map((item, idx) => (
+        {categoriesData.map((item, idx) => (
           <div key={idx} className="text-center">
             <Link href={item.link} className="block">
               <Image
