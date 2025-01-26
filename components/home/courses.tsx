@@ -1,5 +1,7 @@
 import { ArrowCircleLeftIcon } from "@/public/svgr-icons";
-import Heading from "../heading";
+import Heading from "@/components/heading";
+import { coursesData } from "@/public/data";
+import CourseCard from "./courseCard";
 
 const Courses = () => {
   return (
@@ -10,7 +12,17 @@ const Courses = () => {
       >
         دوره های آموزشی
       </Heading>
-      <div className="mt-8 flex gap-4 justify-between">{}</div>
+      <div className="mt-8 flex flex-wrap gap-5 justify-between">
+        {coursesData.map((data, idx) => (
+          <CourseCard
+            key={idx}
+            title={data.title}
+            price={data.price}
+            img={data.img}
+            link="/courses"
+          />
+        ))}
+      </div>
     </div>
   );
 };

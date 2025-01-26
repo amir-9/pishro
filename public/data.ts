@@ -51,7 +51,7 @@ export const navbarData = [
   },
 ];
 
-export const categories = [
+export const categoriesData = [
   {
     src: "/images/home/crypto.png",
     label: "کریپتوکارنسی",
@@ -76,5 +76,48 @@ export const categories = [
     src: "/images/home/airdrop.png",
     label: "ایردراپ",
     link: "/airdrop",
+  },
+];
+
+export const coursesData = [
+  {
+    title: "آموزش ترید",
+    price: 250000,
+    img: "/images/courses/trade.jpg",
+  },
+  {
+    title: "آموزش ارزهای دیجیتال",
+    price: 350000,
+    img: "/images/courses/cryptocurrency.jpg",
+  },
+  {
+    title: "آموزش بورس",
+    price: 200000,
+    img: "/images/courses/stock-market.jpg",
+  },
+  {
+    title: "آموزش NFT",
+    price: 150000,
+    img: "/images/courses/nft.jpg",
+  },
+  {
+    title: "آموزش متاورس",
+    price: 400000,
+    img: "/images/courses/metaverse.jpg",
+  },
+  {
+    title: "آموزش ترید",
+    price: 250000,
+    img: "/images/courses/trade.jpg",
+  },
+  {
+    title: "آموزش ارزهای دیجیتال",
+    price: 350000,
+    img: "/images/courses/cryptocurrency.jpg",
+  },
+  {
+    title: "آموزش بورس",
+    price: 200000,
+    img: "/images/courses/stock-market.jpg",
   },
 ];
