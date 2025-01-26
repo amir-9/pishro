@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 
 import { Input } from "@/components/ui/input";
@@ -7,11 +8,12 @@ import {
   UserIcon,
   BuyIcon,
 } from "@/public/svgr-icons";
+import { navbarData } from "@/public/data";
 
 const Navbar = () => {
   return (
-    <nav className="h-[115px] w-full flex flex-col px-[60px]">
-      <div className="px-3 py-5 h-20 flex justify-between items-center">
+    <nav className="h-[115px] w-full flex flex-col">
+      <div className="px-[72px] py-5 h-20 flex justify-between items-center">
         {/* بخش سمت راست */}
         <div className="w-full max-w-[650px] flex items-center gap-6">
           <div className="h-10 w-[100px] flex items-center">
@@ -42,13 +44,26 @@ const Navbar = () => {
           </button>
           <button className="flex items-center gap-1">
             <BuyIcon width={18} height={18} />
-            <span className="text-white bg-[#D52A16] size-4 rounded-[2px] text-xs font-bold text-center">
+            <span className="text-white bg-myPrimary size-4 rounded-[2px] text-xs font-bold text-center">
               6
             </span>
           </button>
         </div>
       </div>
-      <div>down</div>
+      <div className="bg-mySecondary h-9 text-white text-xs px-[60px]">
+        <ul className="h-9 flex items-center gap-5">
+          {navbarData.map((item, idx) => (
+            <React.Fragment key={idx}>
+              <li>
+                <a href={item.link}>{item.label}</a>
+              </li>
+              {idx === 6 && (
+                <li className="border-l border-white h-6 mx-2"></li>
+              )}
+            </React.Fragment>
+          ))}
+        </ul>
+      </div>
     </nav>
   );
 };
