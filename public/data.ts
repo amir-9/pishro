@@ -50,3 +50,31 @@ export const navbarData = [
     group: 2,
   },
 ];
+
+export const categories = [
+  {
+    src: "/images/home/crypto.png",
+    label: "کریپتوکارنسی",
+    link: "/cryptocurrency",
+  },
+  {
+    src: "/images/home/stock.png",
+    label: "بورس",
+    link: "/stock-market",
+  },
+  {
+    src: "/images/home/metaverse.png",
+    label: "متاورس",
+    link: "/metaverse",
+  },
+  {
+    src: "/images/home/nft.png",
+    label: "NFT",
+    link: "/nft",
+  },
+  {
+    src: "/images/home/airdrop.png",
+    label: "ایردراپ",
+    link: "/airdrop",
+  },
+];
