@@ -1,4 +1,4 @@
-import Heading from "../heading";
+import Heading from "../utils/heading";
 
 const AboutUs: React.FC = () => {
   return (
