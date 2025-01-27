@@ -6,12 +6,12 @@ const Landing = () => {
     >
       <div className="mt-[140px] w-full mx-[90px]">
         <h1 className="text-2xl md:text-[32px] font-bold mb-6">
-          پیشرو در مسیر موفقیت مالی
+          مونت در مسیر موفقیت مالی
         </h1>
 
         <p className="text-sm md:text-base font-semibold">
           یادگیری ترید، سرمایه‌گذاری هوشمندانه و کشف فرصت‌های کریپتوکارنسی، همه
-          در کنار شما با پیشرو.
+          در کنار شما با مونت.
         </p>
       </div>
     </div>
