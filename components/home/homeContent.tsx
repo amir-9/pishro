@@ -3,6 +3,7 @@ import Landing from "@/components/home/landing";
 import AboutUs from "@/components/home/aboutUs";
 import Banner from "@/components/home/Banner";
 import Courses from "@/components/home/courses";
+import Blog from "@/components/home/blog";
 
 const HomePageContent = () => {
   return (
@@ -12,6 +13,7 @@ const HomePageContent = () => {
       <AboutUs />
       <Banner />
       <Courses />
+      <Blog />
     </div>
   );
 };
