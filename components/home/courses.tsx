@@ -1,7 +1,7 @@
 import { ArrowCircleLeftIcon } from "@/public/svgr-icons";
-import Heading from "@/components/heading";
 import { coursesData } from "@/public/data";
-import CourseCard from "./courseCard";
+import Heading from "@/components/utils/heading";
+import CourseCard from "@/components/home/courseCard";
 
 const Courses = () => {
   return (

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link"; // برای لینک کردن کامپوننت
 import { useState } from "react";
+import Price from "../utils/price";
 
 interface CourseCardProps {
   title: string;
@@ -15,7 +16,7 @@ const CourseCard = ({ title, price, img, link }: CourseCardProps) => {
   const [imageError, setImageError] = useState(false); // مدیریت خطای تصویر
 
   return (
-    <Link href={link} className="block w-full max-w-[254px]">
+    <Link href={link} className="block w-full max-w-[250px]">
       <div>
         {imageError ? (
           // نمایش کنتینر جایگزین در صورت بروز خطا
@@ -34,8 +35,8 @@ const CourseCard = ({ title, price, img, link }: CourseCardProps) => {
         )}
       </div>
       <div className="mt-6 p-4 bg-white">
-        <h4 className="text-sm font-bold">{title}</h4>
-        <p className="mt-4 text-sm text-gray-500">قیمت: {price} تومان</p>
+        <h4 className="text-sm font-bold mb-4">{title}</h4>
+        <Price price={price} monthly />
       </div>
     </Link>
   );
