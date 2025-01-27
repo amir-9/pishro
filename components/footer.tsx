@@ -41,7 +41,7 @@ const Footer = () => {
   ];
   return (
     <footer className="mt-32 mb-10 w-full container-xl">
-      <div className="flex justify-between items-center w-full border-y py-8">
+      <div className="flex justify-between items-start w-full border-y py-8">
         <div className="flex-1 flex flex-col items-start">
           <div>
             <Image src={"/icons/Logo.png"} alt="logo" width={100} height={40} />
@@ -76,8 +76,87 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex-1"></div>
-        <div className="flex-1"></div>
+        <div className="flex-1 flex justify-start items-start gap-8">
+          <div>
+            <h6 className="text-sm mb-6">دسته بندی ها</h6>
+            <ul className="flex flex-col gap-2 text-sm text-[#80878C]">
+              <li>
+                <Link href={"#"}>کریپتوکارنسی</Link>
+              </li>
+              <li>
+                <Link href={"#"}>بورس</Link>
+              </li>
+              <li>
+                <Link href={"#"}>متاورس</Link>
+              </li>
+              <li>
+                <Link href={"#"}>NFT</Link>
+              </li>
+              <li>
+                <Link href={"#"}>ایردراپ</Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h6 className="text-sm mb-6">خدمات مشتریان</h6>
+            <ul className="flex flex-col gap-2 text-sm text-[#80878C]">
+              <li>
+                <Link href={"#"}>سوال دارید؟</Link>
+              </li>
+              <li>
+                <Link href={"#"}>باشگاه مشتریان</Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h6 className="text-sm mb-6">راهنمای خرید</h6>
+            <ul className="flex flex-col gap-2 text-sm text-[#80878C]">
+              <li>
+                <Link href={"#"}>شیوه ثبت سفارش</Link>
+              </li>
+              <li>
+                <Link href={"#"}>شیوه های پرداخت</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="flex-1 flex flex-col justify-start items-end gap-8 h-full">
+          <div className="max-w-[340px]">
+            <h5 className="text-sm text-[#214254] mb-6">درباره مونت</h5>
+            <p className="text-xs text-[#80878C]">
+              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+              استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در
+              ستون و سطرآنچنان که لازم است تا نمایشگرها آماده شوند. لورم ایپسوم
+              متن ساختگی با تولید سادگی نامفهوم از صنعت است.
+            </p>
+          </div>
+          <div className="flex justify-between w-full max-w-[340px] gap-1">
+            <div className="flex justify-center items-center rounded-sm border border-[#BAC9CF] px-3 py-1.5">
+              <Image
+                src={"/images/e-namad.png"}
+                alt="e-namad"
+                width={60}
+                height={60}
+              />
+            </div>
+            <div className="flex justify-center items-center rounded-sm border border-[#BAC9CF] px-3 py-1.5">
+              <Image
+                src={"/images/united.png"}
+                alt="united"
+                width={60}
+                height={60}
+              />
+            </div>
+            <div className="flex justify-center items-center rounded-sm border border-[#BAC9CF] px-3 py-1.5">
+              <Image
+                src={"/images/samandehi.png"}
+                alt="samandehi"
+                width={60}
+                height={60}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   );
