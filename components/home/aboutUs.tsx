@@ -4,7 +4,7 @@ const AboutUs: React.FC = () => {
   return (
     <div className="mt-16 container">
       <Heading>درباره ما</Heading>
-      <p className="mt-8">
+      <p className="mt-8 leading-relaxed">
         ما در &ldquo;مونت&rdquo; به شما کمک می‌کنیم تا در دنیای پیچیده و پر سرعت
         کریپتوکارنسی و ترید موفق شوید. با ارائه منابع آموزشی، مشاوره‌های حرفه‌ای
         و ابزارهای کارآمد، هدف ما ارتقاء دانش مالی شما و دستیابی به فرصت‌های

@@ -145,3 +145,36 @@ export const blogData = [
     link: "/blog",
   },
 ];
+
+export const landingData = {
+  "/": {
+    backgroundImage: "/images/landing.jpg",
+    title: "مونت در مسیر موفقیت مالی",
+    description:
+      "یادگیری ترید، سرمایه‌گذاری هوشمندانه و کشف فرصت‌های کریپتوکارنسی، همه در کنار شما با مونت.",
+  },
+  "/cryptocurrency": {
+    backgroundImage: "/images/landing-crypto.jpg",
+    title: "کریپتوکارنسی",
+    description:
+      "مونت با ارائه خدمات حرفه‌ای در زمینه آموزش مالی و سرمایه‌گذاری در کنار شماست.",
+  },
+  "/about": {
+    backgroundImage: "/images/about.jpg",
+    title: "درباره ما",
+    description:
+      "مونت با ارائه خدمات حرفه‌ای در زمینه آموزش مالی و سرمایه‌گذاری در کنار شماست.",
+  },
+  "/services": {
+    backgroundImage: "/images/services.jpg",
+    title: "خدمات ما",
+    description:
+      "ارائه تحلیل‌های تخصصی بازار و دوره‌های جامع برای ارتقاء دانش مالی شما.",
+  },
+  "/contact": {
+    backgroundImage: "/images/contact.jpg",
+    title: "تماس با ما",
+    description:
+      "برای مشاوره و ارتباط با تیم پشتیبانی ما، همین حالا با ما در تماس باشید.",
+  },
+};
