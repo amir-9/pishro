@@ -10,6 +10,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["IrSansX", "Inter", "sans-serif"],
+        irsans: ["IrSansX", "sans-serif"],
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
