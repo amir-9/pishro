@@ -4,11 +4,12 @@ interface HeadingProps {
   children: string;
   link?: string | React.JSX.Element;
   href?: string;
+  className?: string;
 }
 
-const Heading = ({ children, link, href }: HeadingProps) => {
+const Heading = ({ children, link, href, className }: HeadingProps) => {
   return (
-    <div>
+    <div className={className}>
       <div className="flex justify-between items-center">
         <h2 className="font-bold text-[22px] mb-4">{children}</h2>
         {link && (
