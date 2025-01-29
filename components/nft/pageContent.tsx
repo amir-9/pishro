@@ -1,4 +1,4 @@
-import SectionOne from "@/components/cryptocurrency/sectionOne";
+import SectionOne from "@/components/nft/sectionOne";
 import Courses from "@/components/utils/courses";
 import Banner from "@/components/utils/Banner";
 import Blog from "@/components/utils/blog";

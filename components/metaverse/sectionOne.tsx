@@ -24,7 +24,7 @@ const SectionOne = () => {
 
   return (
     <div className="container mt-[286px]">
-      <h1 className="text-xl font-bold mb-9 text-center">کریپتو کارنسی</h1>
+      <h1 className="text-xl font-bold mb-9 text-center">متاورس</h1>
       <div className="space-y-12 relative">
         <div className="absolute border border-black rounded-full w-[2%] h-full top-0 right-[49%]"></div>
         {cryptoData.map((item, index) => (
