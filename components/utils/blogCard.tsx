@@ -32,8 +32,8 @@ const BlogCard = ({ title, date, description, img, link }: BlogCardProps) => {
           <Image
             src={img}
             alt={title}
-            sizes="full"
             layout="fill"
+            className="object-cover object-center transition-transform transform hover:scale-105"
             onError={() => setImageError(true)} // تنظیم خطای تصویر
           />
         )}

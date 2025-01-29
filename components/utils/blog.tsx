@@ -1,6 +1,6 @@
 import Heading from "@/components/utils/heading";
 import { blogData } from "@/public/data";
-import BlogCard from "@/components/home/blogCard";
+import BlogCard from "@/components/utils/blogCard";
 
 const Blog = () => {
   return (
