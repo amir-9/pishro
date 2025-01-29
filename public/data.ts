@@ -159,9 +159,9 @@ export const landingData = {
     description:
       "مونت با ارائه خدمات حرفه‌ای در زمینه آموزش مالی و سرمایه‌گذاری در کنار شماست.",
   },
-  "/about": {
-    backgroundImage: "/images/about.jpg",
-    title: "درباره ما",
+  "/stock-market": {
+    backgroundImage: "/images/landing-stock-market.jpg",
+    title: "بورس",
     description:
       "مونت با ارائه خدمات حرفه‌ای در زمینه آموزش مالی و سرمایه‌گذاری در کنار شماست.",
   },
