@@ -248,3 +248,42 @@ export const cryptoCursesData = [
       "یادگیری اصول تحلیل بنیادی و تکنیکال برای فعالیت در بازار بورس ایران و جهان.",
   },
 ];
+
+export const stockMarketData = [
+  {
+    name: "SFCL",
+    logo: "/images/stock/sfcl.png",
+    changes: "+2.5%",
+    link: "/stock-market/sfcl",
+  },
+  {
+    name: "SHIVAM",
+    logo: "/images/stock/shivam.png",
+    changes: "-1.5%",
+    link: "/stock-market/shivam",
+  },
+  {
+    name: "NTC",
+    logo: "/images/stock/ntc.png",
+    changes: "+3.5%",
+    link: "/stock-market/ntc",
+  },
+  {
+    name: "MLBL",
+    logo: "/images/stock/mlbl.png",
+    changes: "-1.5%",
+    link: "/stock-market/mlbl",
+  },
+  {
+    name: "SFCL",
+    logo: "/images/stock/sfcl.png",
+    changes: "+2.5%",
+    link: "/stock-market/sfcl",
+  },
+  {
+    name: "JGK",
+    logo: "/images/stock/jgk.png",
+    changes: "+3.5%",
+    link: "/stock-market/jgk",
+  },
+];
