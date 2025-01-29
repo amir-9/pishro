@@ -124,21 +124,21 @@ export const coursesData = [
 
 export const blogData = [
   {
-    img: "/images/blog/trade.jpg",
+    img: "/images/blog/post-1.jpg",
     date: "1403/10/25",
     title: "آموزش ترید",
     description: "آموزش ترید برای مبتدیان و حرفه‌ایان",
     link: "/blog",
   },
   {
-    img: "/images/blog/cryptocurrency.jpg",
+    img: "/images/blog/post-2.jpg",
     date: "1403/11/25",
     title: "آموزش ارزهای دیجیتال",
     description: "آموزش ارزهای دیجیتال برای مبتدیان و حرفه‌ایان",
     link: "/blog",
   },
   {
-    img: "/images/blog/stock-market.jpg",
+    img: "/images/blog/post-3.jpg",
     date: "1403/12/02",
     title: "آموزش بورس",
     description: "آموزش بورس برای مبتدیان و حرفه‌ایان",
@@ -165,9 +165,9 @@ export const landingData = {
     description:
       "مونت با ارائه خدمات حرفه‌ای در زمینه آموزش مالی و سرمایه‌گذاری در کنار شماست.",
   },
-  "/services": {
-    backgroundImage: "/images/services.jpg",
-    title: "خدمات ما",
+  "/airdrop": {
+    backgroundImage: "/images/landing-airdrop.jpg",
+    title: "ایردراپ! از این فرصت غافل نشوید",
     description:
       "ارائه تحلیل‌های تخصصی بازار و دوره‌های جامع برای ارتقاء دانش مالی شما.",
   },
@@ -232,20 +232,6 @@ export const cryptoCursesData = [
     img: "/images/courses/trade.jpg",
     description:
       "دوره جامع آموزش ترید، شامل استراتژی‌های حرفه‌ای و اصول مدیریت ریسک برای موفقیت در بازارهای مالی.",
-  },
-  {
-    title: "آموزش ارزهای دیجیتال",
-    price: 3500000,
-    img: "/images/courses/cryptocurrency.jpg",
-    description:
-      "دوره کامل آشنایی با ارزهای دیجیتال، بلاکچین و نحوه سرمایه‌گذاری ایمن در این حوزه.",
-  },
-  {
-    title: "آموزش بورس",
-    price: 2000000,
-    img: "/images/courses/stock-market.jpg",
-    description:
-      "یادگیری اصول تحلیل بنیادی و تکنیکال برای فعالیت در بازار بورس ایران و جهان.",
   },
 ];
 
