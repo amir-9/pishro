@@ -1,4 +1,5 @@
 import SectionOne from "@/components/metaverse/sectionOne";
+import MetaverseBanner from "@/components/metaverse/banner";
 import LandingVideo from "@/components/utils/landingVideo";
 import Courses from "@/components/utils/courses";
 import Banner from "@/components/utils/Banner";
@@ -13,6 +14,7 @@ const MetaversePageContent = () => {
       <LandingVideo vidSrc="/videos/metaverse.mp4" />
       <Slider items={metaverseSliderData} />
       <SectionOne />
+      <MetaverseBanner />
       <Courses />
       <Banner />
       <Blog />

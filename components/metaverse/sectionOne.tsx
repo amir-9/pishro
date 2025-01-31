@@ -51,7 +51,25 @@ const SectionOne = () => {
           </div>
         </div>
       </div>
-      <div></div>
+      <div className="flex gap-[60px] justify-between mb-[90px]">
+        <div className="flex-1 flex ">
+          <div
+            className="relative bg-no-repeat bg-center w-[398px] h-[508px] -mt-[50px]"
+            style={{
+              backgroundImage: "url('/images/metaverse/women-with-bg.png')",
+            }}
+          ></div>
+        </div>
+        <div className="flex-1 flex flex-col gap-10">
+          {metaverseSectionData.map((item, index) => (
+            <SectionCard
+              key={index}
+              title={item.title}
+              description={item.description}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
