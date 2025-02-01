@@ -450,3 +450,68 @@ export const nftData = [
   "قابل تقسیم و تعویض نیست و منحصر به فرد است",
   "هوش مصنوعی (AI) نیز در این زمینه نفوذ کرده و برای تولید NFT میتوان از آن بهره گرفت",
 ];
+
+export const newsTimeRange = [
+  {
+    value: "all",
+    label: "همه",
+  },
+  {
+    value: "lastYear",
+    label: "سال اخیر",
+  },
+  {
+    value: "lastMonth",
+    label: "ماه اخیر",
+  },
+  {
+    value: "lastWeek",
+    label: "هفته اخیر",
+  },
+];
+
+export const newsCategory = [
+  {
+    value: "all",
+    label: "همه",
+  },
+  {
+    value: "nft",
+    label: "NFT",
+  },
+  {
+    value: "crypto",
+    label: "کریپتوکارنسی",
+  },
+  {
+    value: "stockMarket",
+    label: "بورس",
+  },
+  {
+    value: "metaverse",
+    label: "متاورس",
+  },
+  {
+    value: "airdrop",
+    label: "ایردراپ",
+  },
+];
+
+export const newsDataType = [
+  {
+    value: "all",
+    label: "همه",
+  },
+  {
+    value: "Scientific",
+    label: "علمی",
+  },
+  {
+    value: "Educational",
+    label: "آموزشی",
+  },
+  {
+    value: "news",
+    label: "اخبار",
+  },
+];
