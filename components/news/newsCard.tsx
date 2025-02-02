@@ -17,9 +17,9 @@ const NewsCard = ({ data }: NewsCardProps) => {
   return (
     <Link
       href={data.link}
-      className="h-[200px] flex justify-between border-[#e1e1e1] border rounded-[5px] overflow-hidden"
+      className="h-[200px] flex justify-between border-[#e1e1e1] border rounded-[5px] overflow-hidden hover:shadow-md transition-all"
     >
-      <div className="relative flex-shrink-0 w-[230px] h-[200px]">
+      <div className="relative flex-shrink-0 w-[200px] xl:w-[230px] h-[200px]">
         <Image
           src={data.image}
           alt={data.title}
@@ -27,7 +27,7 @@ const NewsCard = ({ data }: NewsCardProps) => {
           className="object-cover"
         />
       </div>
-      <div className="px-6 py-5 flex-1">
+      <div className="px-4 xl:px-6 py-5 flex-1">
         <h5 className="font-bold text-sm text-[#131b22] mb-5 line-clamp-2 leading-7">
           {data.title}
         </h5>
