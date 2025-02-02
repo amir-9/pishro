@@ -8,7 +8,7 @@ const Banner = () => {
         alt="news-banner"
         width={1356}
         height={220}
-        className="-mt-[260px]"
+        className="-mt-[80px]"
       />
     </div>
   );
