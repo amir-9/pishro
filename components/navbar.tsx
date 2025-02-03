@@ -13,7 +13,7 @@ import { navbarData } from "@/public/data";
 
 const Navbar = () => {
   return (
-    <nav className="h-[115px] w-full flex flex-col">
+    <nav className="h-[115px] w-full flex flex-col z-30">
       <div className="px-[72px] py-5 h-20 flex justify-between items-center">
         {/* بخش سمت راست */}
         <div className="w-full max-w-[650px] flex items-center gap-6">
