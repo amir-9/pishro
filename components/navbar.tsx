@@ -14,6 +14,7 @@ import { navbarData } from "@/public/data";
 const Navbar = () => {
   return (
     <nav className="h-[115px] w-full flex flex-col z-30">
+      {/*قسمت بالایی  */}
       <div className="px-[72px] py-5 h-20 flex justify-between items-center">
         {/* بخش سمت راست */}
         <div className="w-full max-w-[650px] flex items-center gap-6">
@@ -51,6 +52,7 @@ const Navbar = () => {
           </button>
         </div>
       </div>
+      {/* قسمت پایین و منو ها   */}
       <div className="bg-mySecondary h-9 text-white text-xs px-[60px]">
         <ul className="h-9 flex items-center gap-5">
           {navbarData.map((item, idx) => (
@@ -58,7 +60,7 @@ const Navbar = () => {
               <li>
                 <Link href={item.link}>{item.label}</Link>
               </li>
-              {idx === 6 && (
+              {idx === 8 && (
                 <li className="border-l border-white h-6 mx-2"></li>
               )}
             </React.Fragment>
