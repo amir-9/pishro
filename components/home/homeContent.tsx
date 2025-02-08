@@ -1,4 +1,5 @@
 import Categories from "@/components/home/categories";
+import WhyUs from "@/components/home/whyUs";
 import AboutUs from "@/components/home/aboutUs";
 import Courses from "@/components/home/courses";
 import Landing from "@/components/utils/landing";
@@ -10,6 +11,7 @@ const HomePageContent = () => {
     <div>
       <Landing />
       <Categories />
+      <WhyUs />
       <AboutUs />
       <Banner />
       <Courses />
