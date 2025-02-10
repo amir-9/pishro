@@ -19,6 +19,7 @@ const CourseCard = ({ title, description, img, link }: CourseCardProps) => {
       href={link}
       className="w-full flex border rounded-[10px] overflow-hidden hover:shadow-lg transition-all"
     >
+      {/* image */}
       <div>
         {imageError ? (
           // نمایش کنتینر جایگزین در صورت بروز خطا
@@ -36,6 +37,7 @@ const CourseCard = ({ title, description, img, link }: CourseCardProps) => {
           />
         )}
       </div>
+      {/* texts */}
       <div className="mt-6 py-3 px-2 bg-white">
         <h4 className="text-sm leading-7 text-[#131B22] font-bold mb-3">
           {title}
