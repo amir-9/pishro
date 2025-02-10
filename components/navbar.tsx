@@ -16,6 +16,7 @@ import {
   HoverCardTrigger,
   HoverCardContent,
 } from "@/components/ui/hover-card";
+import { cn } from "@/lib/utils";
 
 const Navbar = () => {
   return (
@@ -73,7 +74,7 @@ const Navbar = () => {
                 {/* برای منوهای کشویی، HoverCard استفاده می‌شود */}
                 {item.data && (
                   <HoverCard>
-                    <HoverCardTrigger>
+                    <HoverCardTrigger asChild>
                       <Link href={item.link} className="hover:text-gray-200">
                         {item.label}
                       </Link>
@@ -81,12 +82,15 @@ const Navbar = () => {
 
                     {/* Dropdown Menu با HoverCardContent */}
                     {item.data && (
-                      <HoverCardContent className="bg-white text-gray-800 min-w-[80px] shadow-lg rounded-sm z-50">
+                      <HoverCardContent className="bg-white text-gray-800 min-w-[80px] shadow-lg rounded-sm z-50 mt-2">
                         {item.data.map((subItem, subIdx) => (
                           <Link
                             key={subIdx}
                             href={subItem.link}
-                            className="block p-1 hover:bg-gray-100 text-xs"
+                            className={cn(
+                              "block p-1 hover:bg-gray-100 text-xs",
+                              subIdx !== item.data.length ? "border-b" : ""
+                            )}
                           >
                             {subItem.label}
                           </Link>
