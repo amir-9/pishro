@@ -39,10 +39,12 @@ const Footer = () => {
       link: "#",
     },
   ];
+
   return (
     <footer className="mt-32 mb-10 w-full container-xl">
-      <div className="flex justify-between items-start w-full border-y py-8">
-        <div className="flex-1 flex flex-col items-start">
+      <div className="flex flex-col sm:flex-row justify-between items-start w-full border-y py-8">
+        {/* بخش سمت چپ */}
+        <div className="flex-1 flex flex-col items-start mb-8 sm:mb-0">
           <div>
             <Image src={"/icons/Logo.png"} alt="logo" width={100} height={40} />
             <p className="mt-6 text-xs text-[#495157]">
@@ -63,7 +65,7 @@ const Footer = () => {
             </div>
             <div className="mt-8">
               <p className="text-xs text-[#495157] mb-4">از پیشرو بروز باشید</p>
-              <div className="mt-2 relative w-80 h-9">
+              <div className="mt-2 relative w-full sm:w-80 h-9">
                 <Input
                   type="text"
                   placeholder="ایمیل خود را وارد کنید"
@@ -76,7 +78,9 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex-1 flex justify-start items-start gap-8">
+
+        {/* بخش وسط */}
+        <div className="flex-1 flex flex-col sm:flex-row justify-start items-start gap-8 mb-8 sm:mb-0">
           <div>
             <h6 className="text-sm mb-6">دسته بندی ها</h6>
             <ul className="flex flex-col gap-2 text-sm text-[#80878C]">
@@ -120,8 +124,10 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className="flex-1 flex flex-col justify-start items-end gap-8 h-full">
-          <div className="max-w-[340px]">
+
+        {/* بخش سمت راست */}
+        <div className="flex-1 flex flex-col justify-start items-center sm:items-end gap-8 h-full">
+          <div className="max-w-[340px] w-full">
             <h5 className="text-sm text-[#214254] mb-6">درباره پیشرو</h5>
             <p className="text-xs text-[#80878C]">
               لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
