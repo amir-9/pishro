@@ -2,62 +2,132 @@ export const navbarData = [
   {
     label: "صفحه اصلی",
     link: "/", // Home page
-    group: 1,
   },
   {
     label: "دوره های آموزشی",
     link: "/courses", // Courses listing
-    group: 1,
+    data: [
+      {
+        label: "طرح های سرمایه گذاری",
+        link: "/courses/investment-plans", // Courses listing
+      },
+      {
+        label: "کریپتوکارنسی",
+        link: "/courses/cryptocurrency", // Cryptocurrency section
+      },
+      {
+        label: "بورس",
+        link: "/courses/stock-market", // Stock market section
+      },
+      {
+        label: "متاورس",
+        link: "/courses/metaverse", // Metaverse section
+      },
+      {
+        label: "NFT",
+        link: "/courses/nft", // NFT section
+      },
+      {
+        label: "ایردراپ",
+        link: "/courses/airdrop", // Airdrop section
+      },
+    ],
   },
   {
     label: "طرح های سرمایه گذاری",
     link: "/investment-plans", // Courses listing
-    group: 1,
   },
   {
     label: "کریپتوکارنسی",
     link: "/cryptocurrency", // Cryptocurrency section
-    group: 1,
+    data: [
+      {
+        label: "دوره های آموزشی",
+        link: "/courses/cryptocurrency",
+      },
+    ],
   },
   {
     label: "بورس",
     link: "/stock-market", // Stock market section
-    group: 1,
+    data: [
+      {
+        label: "دوره های آموزشی",
+        link: "/courses/stock-market",
+      },
+    ],
   },
   {
     label: "متاورس",
     link: "/metaverse", // Metaverse section
-    group: 1,
+    data: [
+      {
+        label: "دوره های آموزشی",
+        link: "/courses/metaverse",
+      },
+    ],
   },
   {
     label: "NFT",
     link: "/nft", // NFT section
-    group: 1,
+    data: [
+      {
+        label: "دوره های آموزشی",
+        link: "/courses/nft",
+      },
+    ],
   },
   {
     label: "ایردراپ",
     link: "/airdrop", // Airdrop section
-    group: 1,
+    data: [
+      {
+        label: "دوره های آموزشی",
+        link: "/courses/airdrop",
+      },
+    ],
   },
   {
     label: "مشاوره کسب و کار",
     link: "/business-consulting", // Airdrop section
-    group: 1,
   },
   {
     label: "اخبار سایت",
     link: "/news", // Airdrop section
-    group: 2,
+    data: [
+      {
+        label: "طرح های سرمایه گذاری",
+        link: "/news/investment-plans", // Courses listing
+      },
+      {
+        label: "کریپتوکارنسی",
+        link: "/news/cryptocurrency", // Cryptocurrency section
+      },
+      {
+        label: "بورس",
+        link: "/news/stock-market", // Stock market section
+      },
+      {
+        label: "متاورس",
+        link: "/news/metaverse", // Metaverse section
+      },
+      {
+        label: "NFT",
+        link: "/news/nft", // NFT section
+      },
+      {
+        label: "ایردراپ",
+        link: "/news/airdrop", // Airdrop section
+      },
+    ],
   },
   {
     label: "درباره ما",
     link: "/about-us", // Airdrop section
-    group: 2,
   },
   {
     label: "سوالی دارید؟",
     link: "/faq", // Airdrop section
-    group: 2,
   },
 ];
 

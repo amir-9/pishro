@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-
 import { Input } from "@/components/ui/input";
 import {
   SearchNormalIcon,
@@ -11,10 +10,17 @@ import {
 } from "@/public/svgr-icons";
 import { navbarData } from "@/public/data";
 
+// Import HoverCard components from shadcn
+import {
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+} from "@/components/ui/hover-card";
+
 const Navbar = () => {
   return (
     <nav className="h-[115px] w-full flex flex-col z-30">
-      {/*قسمت بالایی  */}
+      {/* قسمت بالایی */}
       <div className="px-[72px] py-5 h-20 flex justify-between items-center">
         {/* بخش سمت راست */}
         <div className="w-full max-w-[650px] flex items-center gap-6">
@@ -52,13 +58,43 @@ const Navbar = () => {
           </button>
         </div>
       </div>
-      {/* قسمت پایین و منو ها   */}
-      <div className="bg-mySecondary h-9 text-white text-xs px-[60px]">
+
+      {/* قسمت پایین و منوها */}
+      <div className="bg-mySecondary h-9 text-white text-xs px-[60px] relative">
         <ul className="h-9 flex items-center gap-5">
           {navbarData.map((item, idx) => (
             <React.Fragment key={idx}>
-              <li>
-                <Link href={item.link}>{item.label}</Link>
+              <li className="group relative h-full flex items-center">
+                {!item.data && (
+                  <Link href={item.link} className="hover:text-gray-200">
+                    {item.label}
+                  </Link>
+                )}
+                {/* برای منوهای کشویی، HoverCard استفاده می‌شود */}
+                {item.data && (
+                  <HoverCard>
+                    <HoverCardTrigger>
+                      <Link href={item.link} className="hover:text-gray-200">
+                        {item.label}
+                      </Link>
+                    </HoverCardTrigger>
+
+                    {/* Dropdown Menu با HoverCardContent */}
+                    {item.data && (
+                      <HoverCardContent className="bg-white text-gray-800 min-w-[80px] shadow-lg rounded-sm z-50">
+                        {item.data.map((subItem, subIdx) => (
+                          <Link
+                            key={subIdx}
+                            href={subItem.link}
+                            className="block p-1 hover:bg-gray-100 text-xs"
+                          >
+                            {subItem.label}
+                          </Link>
+                        ))}
+                      </HoverCardContent>
+                    )}
+                  </HoverCard>
+                )}
               </li>
               {idx === 8 && (
                 <li className="border-l border-white h-6 mx-2"></li>
