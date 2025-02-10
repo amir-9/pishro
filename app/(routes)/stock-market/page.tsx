@@ -1,4 +1,4 @@
-import StockMarketPageContent from "@/components/stockMarket/stockMarketPageContent";
+import StockMarketPageContent from "@/components/stockMarket/pageContent";
 
 const StockMarket = () => {
   return <StockMarketPageContent />;
