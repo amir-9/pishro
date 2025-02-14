@@ -6,16 +6,21 @@ interface CheckoutSidebarProps {
     off: number;
     lastPrice: number;
   };
-  setStep: (i: "shoppingCart" | "pay") => void;
+  step: "shoppingCart" | "result" | "pay";
+  setStep: (i: "result" | "pay") => void;
 }
 
-const CheckoutSidebar = ({ data, setStep }: CheckoutSidebarProps) => {
+const CheckoutSidebar = ({ data, step, setStep }: CheckoutSidebarProps) => {
   const price = data.price.toLocaleString("fa-IR");
   const off = data.off.toLocaleString("fa-IR");
   const lastPrice = data.lastPrice.toLocaleString("fa-IR");
 
+  const handleStep = () => {
+    if (step === "shoppingCart") setStep("pay");
+    else if (step === "pay") setStep("result");
+  };
   return (
-    <aside>
+    <aside className={step === "result" ? "hidden" : ""}>
       <div className="w-[306px] bg-[#fafafa] rounded-sm pt-4 pb-10">
         <div className="mb-3 border-b px-4">
           <p className="font-medium text-sm mb-5">دوره های منتخب شما</p>
@@ -35,7 +40,7 @@ const CheckoutSidebar = ({ data, setStep }: CheckoutSidebarProps) => {
           </div>
         </div>
         <Button
-          onClick={() => setStep("pay")}
+          onClick={handleStep}
           variant={"destructive"}
           className="mt-10 w-full mx-4"
         >

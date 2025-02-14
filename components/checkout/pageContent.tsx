@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import CheckoutSidebar from "./sidebar";
 import ShoppingCartMain from "./shoppingCartMain";
 import PayMain from "./payMain";
+import Result from "./result";
 
 const tempData = {
   price: 19400000,
@@ -26,13 +27,17 @@ const mainData = [
 ];
 
 const CheckoutPageContent = () => {
-  const [step, setStep] = useState<"shoppingCart" | "pay">("shoppingCart");
+  const [step, setStep] = useState<"shoppingCart" | "pay" | "result">(
+    "shoppingCart"
+  );
   return (
     <div className="container-xl">
       {/* header */}
       <div className="flex justify-between shadow-sm pb-1 mt-12">
         <h4 className="font-iransans font-semibold text-lg text-[#333333]">
-          {step === "shoppingCart" ? "سبد خرید" : "پرداخت"}
+          {step === "shoppingCart" && "سبد خرید"}
+          {step === "pay" && "پرداخت"}
+          {step === "result" && "تکمیل فرایند خرید"}
         </h4>
         {step === "shoppingCart" && (
           <Button onClick={() => setStep("pay")} className="px-16">
@@ -49,7 +54,8 @@ const CheckoutPageContent = () => {
       <div className="flex justify-between gap-20 mt-8">
         {step === "shoppingCart" && <ShoppingCartMain data={mainData} />}
         {step === "pay" && <PayMain />}
-        <CheckoutSidebar data={tempData} setStep={setStep} />
+        {step === "result" && <Result />}
+        <CheckoutSidebar data={tempData} setStep={setStep} step={step} />
       </div>
     </div>
   );
