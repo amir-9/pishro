@@ -6,11 +6,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Image from "next/image";
 import Link from "next/link";
+import { Lock, Mail } from "lucide-react";
 import { LuSquareChevronRight } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { Mail } from "lucide-react";
 
 // تعریف اسکیمای ورود
 const loginSchema = z.object({
@@ -94,7 +94,10 @@ const LoginPage = () => {
     // منطق ارسال فرم (مثلاً فراخوانی API) در اینجا نوشته می‌شود
   };
 
-  const handleButtons = (e: any, type: string) => {
+  const handleButtons = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    type: string
+  ) => {
     e.preventDefault();
     console.log(type);
   };
@@ -105,7 +108,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex h-lvh overflow-hidden">
+    <div className="flex min-h-lvh overflow-x-hidden">
       <div className="w-full max-w-[570px] p-16">
         {/* دکمه بازگشت */}
         <div>
@@ -177,7 +180,14 @@ const LoginPage = () => {
                       errors.username ? "border-red-500" : ""
                     )}
                   />
-                  <Mail className="absolute bottom-2 size-5" />
+                  <Mail
+                    className={cn(
+                      "absolute bottom-2 size-5",
+                      (errors as FieldErrors<SignupFormValues>).username
+                        ? "text-red-500"
+                        : ""
+                    )}
+                  />
                 </div>
                 {errors.username && (
                   <p className="text-red-500 text-sm mt-1">
@@ -203,7 +213,14 @@ const LoginPage = () => {
                       errors.password ? "border-red-500" : ""
                     )}
                   />
-                  <Mail className="absolute bottom-2 size-5" />
+                  <Lock
+                    className={cn(
+                      "absolute bottom-2 size-5",
+                      (errors as FieldErrors<SignupFormValues>).password
+                        ? "text-red-500"
+                        : ""
+                    )}
+                  />
                 </div>
                 {errors.password && (
                   <p className="text-red-500 text-sm mt-1">
@@ -227,14 +244,22 @@ const LoginPage = () => {
                       type="password"
                       placeholder="رمز عبور خود را وارد کنید"
                       className={cn(
-                        "mt-1 pr-8 block w-full rounded none border-0 border-b border-black",
+                        "mt-1 pr-8 block w-full rounded none border-0 border-b border-black focus-visible:ring-0 focus-visible:bg-gray-100",
                         (errors as FieldErrors<SignupFormValues>)
                           .confirmPassword
                           ? "border-red-500"
                           : ""
                       )}
                     />
-                    <Mail className="absolute bottom-2 size-5" />
+                    <Lock
+                      className={cn(
+                        "absolute bottom-2 size-5",
+                        (errors as FieldErrors<SignupFormValues>)
+                          .confirmPassword
+                          ? "text-red-500"
+                          : ""
+                      )}
+                    />
                   </div>
                   {(errors as FieldErrors<SignupFormValues>)
                     .confirmPassword && (
@@ -256,7 +281,9 @@ const LoginPage = () => {
               </Button>
               <div className="mt-5 flex gap-5 justify-center">
                 <button
-                  onClick={(e: any) => handleButtons(e, "google")}
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                    handleButtons(e, "google")
+                  }
                   className="relative size-10"
                 >
                   <Image
@@ -267,7 +294,9 @@ const LoginPage = () => {
                   />
                 </button>
                 <button
-                  onClick={(e: any) => handleButtons(e, "apple")}
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                    handleButtons(e, "apple")
+                  }
                   className="relative size-10"
                 >
                   <Image
@@ -278,7 +307,9 @@ const LoginPage = () => {
                   />
                 </button>
                 <button
-                  onClick={(e: any) => handleButtons(e, "facebook")}
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                    handleButtons(e, "facebook")
+                  }
                   className="relative size-10"
                 >
                   <Image
