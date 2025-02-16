@@ -796,3 +796,30 @@ export const checkoutBank = [
   { name: "melli", label: "بانک ملی", logo: "/images/checkout/melli.png" },
   { name: "mellat", label: "بانک ملت", logo: "/images/checkout/mellat.png" },
 ];
+
+export const profileAvatars = [
+  {
+    img: "/images/profile/profile-1.png",
+  },
+  {
+    img: "/images/profile/profile-2.png",
+  },
+  {
+    img: "/images/profile/profile-3.png",
+  },
+  {
+    img: "/images/profile/profile-4.png",
+  },
+  {
+    img: "/images/profile/profile-5.png",
+  },
+  {
+    img: "/images/profile/profile-6.png",
+  },
+  {
+    img: "/images/profile/profile-7.png",
+  },
+  {
+    img: "/images/profile/profile-1.png",
+  },
+];
