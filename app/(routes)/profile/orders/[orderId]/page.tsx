@@ -3,16 +3,14 @@ import OrderDetail from "@/components/profile/orderDetail";
 
 interface OrderPageProps {
   params: {
-    orderId: string[]; // به صورت catch-all دریافت می‌شود
+    orderId: string; // اگر پوشه به صورت [orderId] تعریف شده است، params.orderId یک رشته است.
   };
 }
 
 export default async function OrderPage({ params }: OrderPageProps) {
-  // تبدیل آرایه orderId به یک رشته (payId)
+  // await کردن params برای رفع خطا
   const awaitedParams = await params;
-  const id = Array.isArray(awaitedParams.orderId)
-    ? awaitedParams.orderId.join("/")
-    : awaitedParams.orderId;
+  const id = awaitedParams.orderId;
 
   // جستجو در داده‌های محلی بر اساس payId
   const order = profileOrdersData.find((order) => order.details.payId === id);
