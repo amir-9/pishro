@@ -31,7 +31,7 @@ const ProfileAside = () => {
       label: "اکانت شما",
       outlinedIcon: <HiOutlineHome />,
       filledIcon: <HiHome />,
-      link: "/profile",
+      link: "/profile/acc",
     },
     {
       label: "سفارش ها",
@@ -72,7 +72,7 @@ const ProfileAside = () => {
       <div className="pt-8 pb-80 pr-2 flex flex-col items-start gap-4 border-b border-dashed border-[#495157]">
         {sidebarLinks.map((item, idx) => {
           // بررسی می‌کنیم که آیا مسیر فعلی برابر با لینک مورد نظر است
-          const isActive = pathname === item.link;
+          const isActive = pathname.includes(item.link);
           return (
             <button
               key={idx}
