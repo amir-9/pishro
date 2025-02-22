@@ -109,7 +109,7 @@ const LoginPage = () => {
 
   return (
     <div className="flex min-h-lvh overflow-x-hidden">
-      <div className="w-full max-w-[570px] p-16">
+      <div className="w-full max-w-[570px] p-16 bg-white">
         {/* دکمه بازگشت */}
         <div>
           <Link href={"/"}>
@@ -325,13 +325,18 @@ const LoginPage = () => {
         </div>
       </div>
       {/* تصویر پس‌زمینه */}
-      <div className="flex-1 relative h-lvh">
-        <Image
-          src={"/images/login/background.jpg"}
-          alt="background"
-          fill
-          className="object-cover"
-        />
+      <div className="flex-1 relative">
+        <div
+          className="fixed left-0 top-0 h-full -z-10"
+          style={{ width: "calc(100vw - 570px)" }}
+        >
+          <Image
+            src="/images/login/background.jpg"
+            alt="background"
+            fill
+            className="object-cover"
+          />
+        </div>
       </div>
     </div>
   );
