@@ -2,14 +2,14 @@ import { profileOrdersData } from "@/public/data";
 import OrderDetail from "@/components/profile/orderDetail";
 
 interface OrderPageProps {
-  params: {
+  params: Promise<{
     orderId: string; // اگر پوشه به صورت [orderId] تعریف شده است، params.orderId یک رشته است.
-  };
+  }>;
 }
 
-export default function OrderPage({ params }: OrderPageProps) {
+export default async function OrderPage({ params }: OrderPageProps) {
   // await کردن params برای رفع خطا
-  const { orderId } = params;
+  const { orderId } = await params;
 
   // جستجو در داده‌های محلی بر اساس payId
   const order = profileOrdersData.find(
