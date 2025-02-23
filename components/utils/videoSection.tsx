@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Plyr from "plyr";
 import "plyr/dist/plyr.css";
 
@@ -10,6 +10,12 @@ interface VideoSectionProps {
 }
 
 const VideoSection: React.FC<VideoSectionProps> = ({ videoUrl, label }) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const playerRef = useRef<Plyr | null>(null);
 
@@ -63,7 +69,9 @@ const VideoSection: React.FC<VideoSectionProps> = ({ videoUrl, label }) => {
         playerRef.current.destroy();
       }
     };
-  }, [videoUrl]);
+  }, [videoUrl, isClient]);
+
+  if (!isClient) return null;
 
   return (
     // تنظیم جهت نمایش به صورت راست به چپ
