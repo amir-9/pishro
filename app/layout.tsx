@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
-import "@/app/styles/fonts.css";
 import "@/app/styles/globals.css";
 
 const charismaExtraBold = localFont({
