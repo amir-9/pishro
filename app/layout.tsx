@@ -18,32 +18,31 @@ const charismaRegular = localFont({
   variable: "--font-charisma-regular",
 });
 
+const iransansXV = localFont({
+  src: "../public/font/IRANSansXV.woff2",
+  weight: "400",
+  style: "normal",
+  variable: "--font-iransans-xv",
+});
 const irSansXRegular = localFont({
-  src: "../public/font/woff2/IRSansXFaNum-Regular.woff2",
+  src: "../public/font/Woff2/IRSansXFaNum-Regular.woff2",
   weight: "400",
   style: "normal",
   variable: "--font-irsansx-regular",
 });
 
 const irSansXMedium = localFont({
-  src: "../public/font/woff2/IRSansXFaNum-Medium.woff2",
+  src: "../public/font/Woff2/IRSansXFaNum-Medium.woff2",
   weight: "500",
   style: "normal",
   variable: "--font-irsansx-medium",
 });
 
 const irSansXBold = localFont({
-  src: "../public/font/woff2/IRSansXFaNum-Bold.woff2",
+  src: "../public/font/Woff2/IRSansXFaNum-Bold.woff2",
   weight: "700",
   style: "normal",
   variable: "--font-irsansx-bold",
-});
-
-const iransansXV = localFont({
-  src: "../public/font/IRANSansXV.woff2",
-  weight: "400",
-  style: "normal",
-  variable: "--font-iransans-xv",
 });
 
 const montserrat = localFont({
