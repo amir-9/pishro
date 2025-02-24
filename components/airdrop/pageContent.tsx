@@ -9,7 +9,7 @@ const AirdropPageContent = () => {
     <div>
       <Landing />
       <div className="h-[600px]"></div>
-      <VideoSection videoUrl="/videos/crypto.webm" label="معرفی کریپتوکارنسی" />
+      <VideoSection videoUrl="/videos/crypto.webm" label="معرفی ایردراپ" />
       <Courses />
       <Banner />
       <Blog />
