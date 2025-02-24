@@ -6,13 +6,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Image from "next/image";
 import Link from "next/link";
-import { Lock, Mail } from "lucide-react";
+import { Lock, Mail, Eye, EyeOff } from "lucide-react"; // Import Eye icons
 import { LuSquareChevronRight } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
-// تعریف اسکیمای ورود
+// Login schema
 const loginSchema = z.object({
   username: z
     .string({ required_error: "نام کاربری الزامی است." })
@@ -23,7 +23,7 @@ const loginSchema = z.object({
     .min(8, "رمز عبور باید حداقل 8 کاراکتر باشد."),
 });
 
-// تعریف اسکیمای ثبت‌نام
+// Signup schema
 const signupSchema = z
   .object({
     username: z
@@ -49,8 +49,11 @@ type SignupFormValues = z.infer<typeof signupSchema>;
 
 const LoginPage = () => {
   const [variant, setVariant] = useState<Variant>("login");
+  // State for toggling password visibility
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // استفاده از react-hook-form همراه با zodResolver و تعیین defaultValues بر اساس variant
+  // Using react-hook-form with zodResolver
   const {
     register,
     handleSubmit,
@@ -72,7 +75,7 @@ const LoginPage = () => {
           },
   });
 
-  // ریست کردن فرم در هنگام تغییر variant
+  // Reset form on variant change
   useEffect(() => {
     reset(
       variant === "signup"
@@ -88,10 +91,10 @@ const LoginPage = () => {
     );
   }, [variant, reset]);
 
-  // عملکرد هنگام ارسال فرم
+  // Form submission handler
   const onSubmit = (data: LoginFormValues | SignupFormValues) => {
     console.log("Submitting form with values:", data);
-    // منطق ارسال فرم (مثلاً فراخوانی API) در اینجا نوشته می‌شود
+    // API call or form submission logic here
   };
 
   const handleButtons = (
@@ -102,7 +105,7 @@ const LoginPage = () => {
     console.log(type);
   };
 
-  // تغییر حالت فرم (ورود / ثبت‌نام)
+  // Switch form variant (login/signup)
   const switchVariant = (newVariant: Variant) => {
     setVariant(newVariant);
   };
@@ -110,7 +113,7 @@ const LoginPage = () => {
   return (
     <div className="flex min-h-lvh overflow-x-hidden">
       <div className="w-full max-w-[570px] p-16 bg-white">
-        {/* دکمه بازگشت */}
+        {/* Back Button */}
         <div>
           <Link href={"/"}>
             <Button
@@ -122,16 +125,16 @@ const LoginPage = () => {
             </Button>
           </Link>
         </div>
-        {/* لوگو */}
+        {/* Logo */}
         <div className="mt-[72px]">
           <div className="h-10 w-[100px] flex items-center">
             <Image src={"/icons/Logo.png"} alt="logo" width={90} height={32} />
           </div>
           <p className="text-xs mt-2">سلام اوقاتتون بخیر</p>
         </div>
-        {/* فرم */}
+        {/* Form */}
         <div className="mt-10">
-          {/* انتخاب حالت (ورود / ثبت‌نام) */}
+          {/* Variant Selection (Login/Signup) */}
           <div className="flex border-b">
             <Button
               variant={"costume"}
@@ -156,12 +159,13 @@ const LoginPage = () => {
               ثبت نام
             </Button>
           </div>
-          {/* بدنه فرم */}
+          {/* Form Body */}
           <div className="mt-8">
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="flex flex-col gap-4"
             >
+              {/* Username Field */}
               <div className="mt-5">
                 <label
                   htmlFor="username"
@@ -176,13 +180,13 @@ const LoginPage = () => {
                     type="email"
                     placeholder="نام کاربری"
                     className={cn(
-                      "mt-1 pr-8 block w-full rounded-none border-0 border-b border-black focus-visible:ring-0 focus-visible:bg-gray-100",
+                      "mt-1 pr-10 block w-full rounded-none border-0 border-b border-black focus-visible:ring-0 focus-visible:bg-gray-100",
                       errors.username ? "border-red-500" : ""
                     )}
                   />
                   <Mail
                     className={cn(
-                      "absolute bottom-2 size-5",
+                      "absolute bottom-2 right-2 size-5",
                       (errors as FieldErrors<SignupFormValues>).username
                         ? "text-red-500"
                         : ""
@@ -195,6 +199,7 @@ const LoginPage = () => {
                   </p>
                 )}
               </div>
+              {/* Password Field */}
               <div className="mt-5">
                 <label
                   htmlFor="password"
@@ -206,21 +211,35 @@ const LoginPage = () => {
                   <Input
                     id="password"
                     {...register("password")}
-                    type="password"
+                    // Toggle input type based on showPassword state
+                    type={showPassword ? "text" : "password"}
                     placeholder="رمز عبور خود را وارد کنید"
                     className={cn(
-                      "mt-1 pr-8 block w-full rounded-none border-0 border-b border-black focus-visible:ring-0 focus-visible:bg-gray-100",
+                      "mt-1 pr-10 pl-8 block w-full rounded-none border-0 border-b border-black focus-visible:ring-0 focus-visible:bg-gray-100",
                       errors.password ? "border-red-500" : ""
                     )}
                   />
+                  {/* Lock icon on the left */}
                   <Lock
                     className={cn(
-                      "absolute bottom-2 size-5",
+                      "absolute bottom-2 right-2 size-5",
                       (errors as FieldErrors<SignupFormValues>).password
                         ? "text-red-500"
                         : ""
                     )}
                   />
+                  {/* Eye icon on the right to toggle visibility */}
+                  {showPassword ? (
+                    <Eye
+                      onClick={() => setShowPassword(false)}
+                      className="absolute bottom-2 left-2 size-5 cursor-pointer"
+                    />
+                  ) : (
+                    <EyeOff
+                      onClick={() => setShowPassword(true)}
+                      className="absolute bottom-2 left-2 size-5 cursor-pointer"
+                    />
+                  )}
                 </div>
                 {errors.password && (
                   <p className="text-red-500 text-sm mt-1">
@@ -228,7 +247,7 @@ const LoginPage = () => {
                   </p>
                 )}
               </div>
-              {/* فیلد تکرار رمز عبور (فقط در حالت ثبت‌نام) */}
+              {/* Confirm Password Field (only for signup) */}
               {variant === "signup" && (
                 <div className="mt-5">
                   <label
@@ -241,25 +260,39 @@ const LoginPage = () => {
                     <Input
                       id="confirmPassword"
                       {...register("confirmPassword")}
-                      type="password"
+                      // Toggle input type based on showConfirmPassword state
+                      type={showConfirmPassword ? "text" : "password"}
                       placeholder="رمز عبور خود را وارد کنید"
                       className={cn(
-                        "mt-1 pr-8 block w-full rounded none border-0 border-b border-black focus-visible:ring-0 focus-visible:bg-gray-100",
+                        "mt-1 pr-10 pl-8 block w-full rounded-none border-0 border-b border-black focus-visible:ring-0 focus-visible:bg-gray-100",
                         (errors as FieldErrors<SignupFormValues>)
                           .confirmPassword
                           ? "border-red-500"
                           : ""
                       )}
                     />
+                    {/* Lock icon on the left */}
                     <Lock
                       className={cn(
-                        "absolute bottom-2 size-5",
+                        "absolute bottom-2 right-2 size-5",
                         (errors as FieldErrors<SignupFormValues>)
                           .confirmPassword
                           ? "text-red-500"
                           : ""
                       )}
                     />
+                    {/* Eye icon on the right to toggle visibility */}
+                    {showConfirmPassword ? (
+                      <Eye
+                        onClick={() => setShowConfirmPassword(false)}
+                        className="absolute bottom-2 left-2 size-5 cursor-pointer"
+                      />
+                    ) : (
+                      <EyeOff
+                        onClick={() => setShowConfirmPassword(true)}
+                        className="absolute bottom-2 left-2 size-5 cursor-pointer"
+                      />
+                    )}
                   </div>
                   {(errors as FieldErrors<SignupFormValues>)
                     .confirmPassword && (
@@ -306,25 +339,12 @@ const LoginPage = () => {
                     className="object-cover"
                   />
                 </button>
-                <button
-                  onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                    handleButtons(e, "facebook")
-                  }
-                  className="relative size-10"
-                >
-                  <Image
-                    src={"/images/login/facebook.png"}
-                    alt="facebook"
-                    fill
-                    className="object-cover"
-                  />
-                </button>
               </div>
             </form>
           </div>
         </div>
       </div>
-      {/* تصویر پس‌زمینه */}
+      {/* Background Image */}
       <div className="flex-1 relative">
         <div
           className="fixed left-0 top-0 h-full -z-10"
