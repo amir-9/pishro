@@ -15,7 +15,7 @@ const Categories = () => {
                 alt={item.label}
                 width={154}
                 height={154}
-                className="w-full object-cover mb-8 rounded-md"
+                className="w-full object-cover mb-8 rounded-full overflow-hidden"
               />
               <span className="text-lg font-semibold">{item.label}</span>
             </Link>

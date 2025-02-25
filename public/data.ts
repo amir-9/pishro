@@ -153,7 +153,7 @@ export const navbarData = [
 
 export const categoriesData = [
   {
-    src: "/images/home/crypto.png",
+    src: "/images/home/crypto.jpg",
     label: "کریپتوکارنسی",
     link: "/cryptocurrency",
   },
