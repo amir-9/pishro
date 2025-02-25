@@ -1,3 +1,5 @@
+"use client";
+
 interface LandingVideoProps {
   vidSrc: string;
   title?: string;
