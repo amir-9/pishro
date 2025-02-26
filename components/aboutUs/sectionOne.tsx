@@ -3,8 +3,8 @@ import Image from "next/image";
 
 const SectionOne = () => {
   return (
-    <div className="container flex justify-between lg:gap-[50px] mt-20">
-      <div className="w-full max-w-[310px]">
+    <div className="container flex justify-between lg:gap-[50px] mt-40">
+      <div className="w-full max-w-[360px]">
         <h1 className="font-medium text-sm leading-7 mb-4">
           {aboutPishro.header}
         </h1>
