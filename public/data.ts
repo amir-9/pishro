@@ -5,7 +5,7 @@ export const navbarData = [
   },
   {
     label: "دوره های آموزشی",
-    link: "#", // Courses listing
+    link: "#courses", // Courses listing
     data: [
       {
         label: "کریپتوکارنسی",
@@ -59,7 +59,7 @@ export const navbarData = [
   },
   {
     label: "اخبار سایت",
-    link: "#", // Airdrop section
+    link: "#news", // Airdrop section
     data: [
       {
         label: "طرح های سرمایه گذاری",

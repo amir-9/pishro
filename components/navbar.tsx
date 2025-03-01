@@ -22,8 +22,17 @@ import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
 
 const Navbar = () => {
-  // State to hold the indicator's position and width for the animated underline
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
+
+  // State for controlling both popovers
+  const [isCoursesPopoverOpen, setIsCoursesPopoverOpen] = useState(false);
+  const [isNewsPopoverOpen, setIsNewsPopoverOpen] = useState(false);
+
+  // Function to close both popovers
+  const handlePopoverClose = () => {
+    setIsCoursesPopoverOpen(false);
+    setIsNewsPopoverOpen(false);
+  };
 
   return (
     <nav className="h-[115px] w-full flex flex-col z-30">
@@ -35,22 +44,20 @@ const Navbar = () => {
             <Image src={"/icons/Logo.png"} alt="logo" width={90} height={32} />
           </div>
           <div className="relative h-8 w-full max-w-[526px]">
-            {/* Search Icon */}
             <button className="absolute top-1/2 transform -translate-y-1/2 h-8 px-4">
               <SearchNormalIcon width={12} height={12} />
             </button>
-            {/* Input Field */}
             <Input
               type="text"
               placeholder="جستجو"
               className="pl-12 pr-12 w-full h-8"
             />
-            {/* Filter Icon */}
             <button className="absolute left-0 top-1/2 transform -translate-y-1/2 h-full w-7 bg-[#EDF4F8] border-transparent flex justify-center items-center rounded-l-sm">
               <FilterIcon width={20} height={20} />
             </button>
           </div>
         </div>
+
         {/* Right Section */}
         <div className="flex items-center gap-7">
           <Link href={"/login"}>
@@ -73,7 +80,6 @@ const Navbar = () => {
       {/* Bottom Section with Navbar Items */}
       <div
         className="bg-mySecondary h-9 text-white text-xs px-[60px] relative"
-        // Hide the indicator when the mouse leaves the container
         onMouseLeave={() => setIndicatorStyle({ left: 0, width: 0 })}
       >
         <ul className="h-9 flex items-center gap-5 relative">
@@ -81,7 +87,6 @@ const Navbar = () => {
             <React.Fragment key={idx}>
               <li
                 className="group relative h-full flex items-center"
-                // Update the indicator position and width on mouse enter
                 onMouseEnter={(e) => {
                   const target = e.currentTarget;
                   setIndicatorStyle({
@@ -90,7 +95,6 @@ const Navbar = () => {
                   });
                 }}
               >
-                {/* If item has no dropdown data */}
                 {!item.data && (
                   <Link
                     href={item.link}
@@ -99,47 +103,81 @@ const Navbar = () => {
                     {item.label}
                   </Link>
                 )}
-                {/* If item has dropdown data, use Popover */}
-                {item.data && (
-                  <Popover>
+
+                {/* Popover for Courses */}
+                {item.link === "#courses" && item.data && (
+                  <Popover
+                    open={isCoursesPopoverOpen}
+                    onOpenChange={(open) => setIsCoursesPopoverOpen(open)}
+                  >
                     <PopoverTrigger asChild>
-                      <Link
-                        href={item.link}
-                        className="hover:text-gray-200 relative flex items-center gap-1"
-                      >
+                      <button className="hover:text-gray-200 relative flex items-center gap-1">
                         {item.label}
-                        {/* Down arrow icon added next to label */}
                         <ChevronDown className="w-4 h-4" />
-                      </Link>
+                      </button>
                     </PopoverTrigger>
                     <PopoverContent
                       align="start"
                       className="bg-white text-gray-800 min-w-[80px] w-fit shadow-lg rounded-sm z-50 mt-2 p-3"
                     >
-                      {item.data.map((subItem, subIdx) => {
-                        return (
-                          <Link
-                            key={subIdx}
-                            href={subItem.link}
-                            className={cn(
-                              "block p-1 hover:bg-gray-100 text-xs",
-                              subIdx !== item.data.length - 1 ? "border-b" : ""
-                            )}
-                          >
-                            {subItem.label}
-                          </Link>
-                        );
-                      })}
+                      {item.data.map((subItem, subIdx) => (
+                        <Link
+                          key={subIdx}
+                          href={subItem.link}
+                          className={cn(
+                            "block p-1 hover:bg-gray-100 text-xs",
+                            subIdx !== item.data.length - 1 ? "border-b" : ""
+                          )}
+                          onClick={handlePopoverClose}
+                        >
+                          {subItem.label}
+                        </Link>
+                      ))}
+                    </PopoverContent>
+                  </Popover>
+                )}
+
+                {/* Popover for News */}
+                {item.link === "#news" && item.data && (
+                  <Popover
+                    open={isNewsPopoverOpen}
+                    onOpenChange={(open) => setIsNewsPopoverOpen(open)}
+                  >
+                    <PopoverTrigger asChild>
+                      <button className="hover:text-gray-200 relative flex items-center gap-1">
+                        {item.label}
+                        <ChevronDown className="w-4 h-4" />
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent
+                      align="start"
+                      className="bg-white text-gray-800 min-w-[80px] w-fit shadow-lg rounded-sm z-50 mt-2 p-3"
+                    >
+                      {item.data.map((subItem, subIdx) => (
+                        <Link
+                          key={subIdx}
+                          href={subItem.link}
+                          className={cn(
+                            "block p-1 hover:bg-gray-100 text-xs",
+                            subIdx !== item.data.length - 1 ? "border-b" : ""
+                          )}
+                          onClick={handlePopoverClose}
+                        >
+                          {subItem.label}
+                        </Link>
+                      ))}
                     </PopoverContent>
                   </Popover>
                 )}
               </li>
+
               {idx === 8 && (
                 <li className="border-l border-white h-6 mx-2"></li>
               )}
             </React.Fragment>
           ))}
-          {/* Animated Red Underline Indicator */}
+
+          {/* Animated Underline Indicator */}
           <div
             className="absolute bottom-0 h-[2px] bg-red-500 transition-all duration-300"
             style={{ left: indicatorStyle.left, width: indicatorStyle.width }}
