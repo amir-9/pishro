@@ -1,57 +1,62 @@
 import Link from "next/link";
 import Image from "next/image";
 
+// Categories data with image sources, labels, and links
 export const categoriesData = [
   {
-    src: "/images/home/crypto.jpg",
+    src: "/images/home/c/crypto.jpg",
     label: "کریپتوکارنسی",
     link: "/cryptocurrency",
   },
   {
-    src: "/images/home/stock.png",
+    src: "/images/home/c/stock.jpg",
     label: "بورس",
     link: "/stock-market",
   },
   {
-    src: "/images/home/metaverse.png",
+    src: "/images/home/c/metaverse.webp",
     label: "متاورس",
     link: "/metaverse",
   },
   {
-    src: "/images/home/nft.png",
+    src: "/images/home/c/nft.jpg",
     label: "NFT",
     link: "/nft",
   },
   {
-    src: "/images/home/airdrop.png",
+    src: "/images/home/c/airdrop.webp",
     label: "ایردراپ",
     link: "/airdrop",
   },
 ];
+
 const Categories = () => {
   return (
     <div className="mt-20 container">
-      <div className="max-w-3xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          {categoriesData.map((item, idx) => (
-            <div key={idx} className="text-center">
-              <Link
-                href={item.link}
-                className="flex flex-col gap-6 justify-center items-center"
-              >
-                <div className="relative size-20">
-                  <Image
-                    src={item.src}
-                    alt={item.label}
-                    fill
-                    className="w-full object-cover mb-8 rounded-full overflow-hidden"
-                  />
-                </div>
-                <span className="text-lg font-medium">{item.label}</span>
-              </Link>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        {categoriesData.map((item, idx) => (
+          // Using Link as a wrapper with group to manage hover effects
+          <Link href={item.link} key={idx} className="group block relative">
+            {/* Relative container for image, overlay, and text */}
+            <div className="relative h-40 w-40 rounded-3xl group-hover:rounded-xl transition-all duration-300 overflow-hidden">
+              {/* Background image with transition effects */}
+              <Image
+                src={item.src}
+                alt={item.label}
+                fill
+                className="object-cover transition-all duration-300 group-hover:scale-105 group-hover:brightness-110"
+              />
+              {/* Dark overlay */}
+              <div className="absolute inset-0 bg-black opacity-50 transition-all duration-300 group-hover:opacity-30"></div>
+              {/* Centered text */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-lg font-medium text-white transition-all duration-300 group-hover:text-xl">
+                  {item.label}
+                </span>
+              </div>
             </div>
-          ))}
-        </div>
+          </Link>
+        ))}
       </div>
     </div>
   );
