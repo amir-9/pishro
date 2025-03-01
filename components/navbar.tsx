@@ -12,16 +12,17 @@ import {
 } from "@/public/svgr-icons";
 import { navbarData } from "@/public/data";
 
-// Import HoverCard components from shadcn
 import {
-  HoverCard,
-  HoverCardTrigger,
-  HoverCardContent,
-} from "@/components/ui/hover-card";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
 import { cn } from "@/lib/utils";
+import { ChevronDown } from "lucide-react";
 
 const Navbar = () => {
-  // State to hold the indicator's position and width
+  // State to hold the indicator's position and width for the animated underline
   const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
 
   return (
@@ -72,7 +73,7 @@ const Navbar = () => {
       {/* Bottom Section with Navbar Items */}
       <div
         className="bg-mySecondary h-9 text-white text-xs px-[60px] relative"
-        // When mouse leaves the container, hide the indicator
+        // Hide the indicator when the mouse leaves the container
         onMouseLeave={() => setIndicatorStyle({ left: 0, width: 0 })}
       >
         <ul className="h-9 flex items-center gap-5 relative">
@@ -80,7 +81,7 @@ const Navbar = () => {
             <React.Fragment key={idx}>
               <li
                 className="group relative h-full flex items-center"
-                // Update indicator position and width on mouse enter
+                // Update the indicator position and width on mouse enter
                 onMouseEnter={(e) => {
                   const target = e.currentTarget;
                   setIndicatorStyle({
@@ -89,7 +90,7 @@ const Navbar = () => {
                   });
                 }}
               >
-                {/* If item has no dropdown */}
+                {/* If item has no dropdown data */}
                 {!item.data && (
                   <Link
                     href={item.link}
@@ -98,33 +99,37 @@ const Navbar = () => {
                     {item.label}
                   </Link>
                 )}
-                {/* If item has dropdown data, use HoverCard */}
+                {/* If item has dropdown data, use Popover */}
                 {item.data && (
-                  <HoverCard>
-                    <HoverCardTrigger asChild>
+                  <Popover>
+                    <PopoverTrigger asChild>
                       <Link
                         href={item.link}
-                        className="hover:text-gray-200 relative inline-block"
+                        className="hover:text-gray-200 relative flex items-center gap-1"
                       >
                         {item.label}
+                        {/* Down arrow icon added next to label */}
+                        <ChevronDown className="w-4 h-4" />
                       </Link>
-                    </HoverCardTrigger>
-                    {/* Dropdown Menu */}
-                    <HoverCardContent className="bg-white text-gray-800 min-w-[80px] shadow-lg rounded-sm z-50 mt-2">
+                    </PopoverTrigger>
+                    <PopoverContent
+                      align="start"
+                      className="bg-white text-gray-800 min-w-[80px] w-fit shadow-lg rounded-sm z-50 mt-2 p-3"
+                    >
                       {item.data.map((subItem, subIdx) => (
                         <Link
                           key={subIdx}
                           href={subItem.link}
                           className={cn(
                             "block p-1 hover:bg-gray-100 text-xs",
-                            subIdx !== item.data.length ? "border-b" : ""
+                            subIdx !== item.data.length - 1 ? "border-b" : ""
                           )}
                         >
                           {subItem.label}
                         </Link>
                       ))}
-                    </HoverCardContent>
-                  </HoverCard>
+                    </PopoverContent>
+                  </Popover>
                 )}
               </li>
               {idx === 8 && (

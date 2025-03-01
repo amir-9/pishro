@@ -5,7 +5,29 @@ export const navbarData = [
   },
   {
     label: "دوره های آموزشی",
-    link: "/courses", // Courses listing
+    link: "#", // Courses listing
+    data: [
+      {
+        label: "کریپتوکارنسی",
+        link: "/courses/cryptocurrency", // Cryptocurrency section
+      },
+      {
+        label: "بورس",
+        link: "/courses/stock-market", // Stock market section
+      },
+      {
+        label: "متاورس",
+        link: "/courses/metaverse", // Metaverse section
+      },
+      {
+        label: "NFT",
+        link: "/courses/nft", // NFT section
+      },
+      {
+        label: "ایردراپ",
+        link: "/courses/airdrop", // Airdrop section
+      },
+    ],
   },
   {
     label: "طرح های سرمایه گذاری",
@@ -37,7 +59,7 @@ export const navbarData = [
   },
   {
     label: "اخبار سایت",
-    link: "/news", // Airdrop section
+    link: "#", // Airdrop section
     data: [
       {
         label: "طرح های سرمایه گذاری",
