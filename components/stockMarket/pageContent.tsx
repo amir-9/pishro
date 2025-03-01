@@ -3,12 +3,13 @@ import Courses from "@/components/utils/courses";
 import Banner from "@/components/utils/Banner";
 import Blog from "@/components/utils/blog";
 import VideoSection from "../utils/videoSection";
+import SectionOne from "./sectionOne";
 
 const StockMarketPageContent = () => {
   return (
     <div>
       <LandingVideo vidSrc="/videos/stock.webm" />
-      <div className="h-[600px]"></div>
+      <SectionOne />
       <VideoSection videoUrl="/videos/stock.webm" label="معرفی بورس" />
       <Courses />
       <Banner />

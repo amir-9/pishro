@@ -1,42 +1,51 @@
 import Image from "next/image";
 
-import { nftData } from "@/public/data";
-
 const SectionOne = () => {
   return (
-    <div className="container-xl py-16 bg-[#fafafa] flex justify-between">
-      {/* texts div */}
-      <div className="flex-1 flex">
-        <div className="h-full flex flex-col gap-[57px]">
-          {nftData.map((item, idx) => (
-            <div className="flex gap-2 items-center" key={idx}>
-              <div className="flex justify-center items-center p-4 w-full h-[90px] border border-black rounded-[20px]">
-                <p className="font-bold text-base text-[#222222]">{item}</p>
-              </div>
-              <div className="w-10 h-0.5 bg-black"></div>
-            </div>
-          ))}
+    <div className="container my-40 relative flex flex-col items-center ">
+      {/* section one */}
+      <div className="flex justify-between items-center gap-20">
+        <div className="flex-1">
+          <p className="font-sm text-gray-900 leading-7">
+            راهی برای بدست اوردن توکن های پروژه کریپتویی قبل از عرضه به بازار به
+            صورت رایگان است   شاید باورتان نشود ولی بیشتر ایردراپ ها را میتوان
+            به صورت رایگان هم دریافت کرد و تنها کافیست گام هایی را که برای
+            دریافت آن تعریف شده طی نمود . حضور در بازار NFT ها تقریبا بدون ریسک
+            است و تنها کافیست برای این کار اندکی زمان بگذارید
+          </p>
         </div>
-        <div className="h-full w-0.5 py-[44px]">
-          <div className="h-full w-0.5 bg-black"></div>
+        <div className="flex-1 h-[300px]">
+          <div className="size-full relative rounded-lg overflow-hidden">
+            <Image
+              src={"/images/landing-stock-market.jpg"}
+              alt="stock-market"
+              fill
+              className="object-cover"
+            />
+          </div>
         </div>
       </div>
-      {/* images div */}
-      <div className="w-full h-auto flex-1 px-[70px] relative">
-        <Image
-          alt="nft"
-          src={"/images/nft/nft.png"}
-          width={322}
-          height={488}
-          className="absolute bottom-20 z-10"
-        />
-        <Image
-          alt="nft"
-          src={"/images/nft/chart.png"}
-          width={275}
-          height={607}
-          className="absolute bottom-10 right-[220px]"
-        />
+      {/* section two */}
+      <div className="flex justify-between items-center gap-20 mt-20">
+        <div className="flex-1 h-[300px]">
+          <div className="size-full relative rounded-lg overflow-hidden">
+            <Image
+              src={"/images/landing-stock-market.jpg"}
+              alt="stock-market"
+              fill
+              className="object-cover"
+            />
+          </div>
+        </div>
+        <div className="flex-1">
+          <p className="font-sm text-gray-900 leading-7">
+            راهی برای بدست اوردن توکن های پروژه کریپتویی قبل از عرضه به بازار به
+            صورت رایگان است   شاید باورتان نشود ولی بیشتر ایردراپ ها را میتوان
+            به صورت رایگان هم دریافت کرد و تنها کافیست گام هایی را که برای
+            دریافت آن تعریف شده طی نمود . حضور در بازار NFT ها تقریبا بدون ریسک
+            است و تنها کافیست برای این کار اندکی زمان بگذارید
+          </p>
+        </div>
       </div>
     </div>
   );
