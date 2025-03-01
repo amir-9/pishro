@@ -1,11 +1,14 @@
 import StockMarketPageContent from "@/components/stockMarket/pageContent";
 import ScrollToHashClient from "@/components/utils/scrollToHashClient";
+import { Suspense } from "react";
 
 const StockMarket = () => {
   return (
     <>
       <StockMarketPageContent />
-      <ScrollToHashClient />
+      <Suspense fallback={null}>
+        <ScrollToHashClient />
+      </Suspense>
     </>
   );
 };

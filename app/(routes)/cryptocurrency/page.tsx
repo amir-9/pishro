@@ -1,11 +1,14 @@
 import CryptocurrencyPageContent from "@/components/cryptocurrency/pageContent";
 import ScrollToHashClient from "@/components/utils/scrollToHashClient";
+import { Suspense } from "react";
 
 const CryptocurrencyPage = () => {
   return (
     <>
       <CryptocurrencyPageContent />
-      <ScrollToHashClient />
+      <Suspense fallback={null}>
+        <ScrollToHashClient />
+      </Suspense>
     </>
   );
 };
