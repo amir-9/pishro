@@ -17,10 +17,10 @@ const SectionOne = () => {
         <div className="flex-[3] h-[300px]">
           <div className="size-full relative rounded-lg overflow-hidden">
             <Image
-              src={"/images/landing-airdrop.jpg"}
+              src={"/images/charisma-img.svg"}
               alt="airdrop"
               fill
-              className="object-cover"
+              className="object-contain"
             />
           </div>
         </div>
@@ -30,10 +30,10 @@ const SectionOne = () => {
         <div className="flex-[3] h-[300px]">
           <div className="size-full relative rounded-lg overflow-hidden">
             <Image
-              src={"/images/landing-airdrop.jpg"}
+              src={"/images/charisma-img.svg"}
               alt="airdrop"
               fill
-              className="object-cover"
+              className="object-contain"
             />
           </div>
         </div>
