@@ -31,10 +31,10 @@ const ClassPageContent: React.FC<ClassPageContentProps> = ({ classData }) => {
   }, [classData]);
 
   return (
-    <div className="container">
+    <div className="container-xl">
       <div className="flex gap-6">
         {/* ویدیو پلیر */}
-        <div className="flex-1 min-w-3xl">
+        <div className="flex-1 w-full min-w-4xl">
           {selectedVideo ? (
             <VideoPlayer
               label={selectedVideo.label}
@@ -48,7 +48,7 @@ const ClassPageContent: React.FC<ClassPageContentProps> = ({ classData }) => {
         </div>
 
         {/* سایدبار لیست ویدیوها */}
-        <div className="w-96 bg-[#fafafa] dark:bg-gray-900 p-4 rounded-lg shadow-md">
+        <div className="w-96 bg-[#fafafa] dark:bg-gray-900 p-4 rounded-lg shadow-md mt-8">
           <h3 className="text-lg font-semibold mb-4">ویدیو سایر جلسات</h3>
           <ul className="space-y-4 max-h-[500px] overflow-y-auto">
             {videoList.map((video) => (

@@ -80,7 +80,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, label }) => {
   return (
     // تنظیم جهت نمایش به صورت راست به چپ
     <div className="py-8" dir="rtl">
-      <div className="w-full max-w-3xl rounded-lg overflow-hidden">
+      <div className="w-full max-w-4xl rounded-lg overflow-hidden">
         <video ref={videoRef} className="plyr__video-embed" controls>
           <source src={videoUrl} type="video/mp4" />
         </video>
