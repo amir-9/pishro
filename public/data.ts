@@ -815,3 +815,33 @@ export const bankCardsInfo = [
     cardShaba: "870570038180010653892101",
   },
 ];
+
+export const videoList = [
+  {
+    id: "1",
+    label: "جلسه اول",
+    date: "1403/12/26",
+    description:
+      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ است",
+    videoUrl: "/videos/nft.webm",
+    thumbnail: "/images/home/c/crypto.jpg",
+  },
+  {
+    id: "2",
+    label: "جلسه دوم",
+    date: "1403/12/26",
+    description:
+      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ است",
+    videoUrl: "/videos/metaverse.webm",
+    thumbnail: "/images/home/c/crypto.jpg",
+  },
+  {
+    id: "3",
+    label: "جلسه سوم",
+    date: "1403/12/26",
+    description:
+      "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ است",
+    videoUrl: "/videos/stock.webm",
+    thumbnail: "/images/home/c/crypto.jpg",
+  },
+];
