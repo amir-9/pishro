@@ -845,3 +845,40 @@ export const videoList = [
     thumbnail: "/images/home/c/crypto.jpg",
   },
 ];
+
+export interface Comment {
+  id: string;
+  name: string;
+  message: string;
+  date: string;
+  profile: string;
+  replies: Comment[];
+}
+// Fake comments data with nested replies
+export const commentsData: Comment[] = [
+  {
+    id: "1",
+    name: "نام خریدار",
+    message: "متن دیدگاه اول...",
+    date: "1404/1/13",
+    profile: "/images/profile/Avatar-24-24.png",
+    replies: [],
+  },
+  {
+    id: "2",
+    name: "نام خریدار",
+    message: "متن دیدگاه دوم...",
+    date: "1404/1/13",
+    profile: "/images/profile/Avatar-24-24.png",
+    replies: [
+      {
+        id: "21",
+        name: "نام خریدار",
+        message: "پاسخ به دیدگاه دوم...",
+        date: "1404/1/13",
+        profile: "/images/profile/Avatar-24-24.png",
+        replies: [],
+      },
+    ],
+  },
+];
