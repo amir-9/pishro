@@ -6,6 +6,7 @@ import Link from "next/link";
 import { MdVideoLibrary } from "react-icons/md"; // یا می‌توان از BiVideo هم استفاده کرد
 import VideoPlayer from "./videoPlayer";
 import { videoList } from "@/public/data";
+import CommentsSection from "./comments";
 
 interface Video {
   id: string;
@@ -93,6 +94,8 @@ const ClassPageContent: React.FC<ClassPageContentProps> = ({ classData }) => {
           </ul>
         </div>
       </div>
+      {/* comments section */}
+      <CommentsSection />
     </div>
   );
 };
