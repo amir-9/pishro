@@ -1,4 +1,7 @@
-import { metaverseSectionData } from "@/public/data";
+import {
+  metaverseFirstSectionData,
+  metaverseSecondSectionData,
+} from "@/public/data";
 import SectionCard from "@/components/metaverse/sectionCard";
 import Image from "next/image";
 
@@ -7,7 +10,7 @@ const SectionOne = () => {
     <div className="container mt-32">
       <div className="flex gap-[60px] justify-between mb-[90px]">
         <div className="flex-1 flex flex-col gap-10">
-          {metaverseSectionData.map((item, index) => (
+          {metaverseFirstSectionData.map((item, index) => (
             <SectionCard
               key={index}
               title={item.title}
@@ -61,7 +64,7 @@ const SectionOne = () => {
           ></div>
         </div>
         <div className="flex-1 flex flex-col gap-10">
-          {metaverseSectionData.map((item, index) => (
+          {metaverseSecondSectionData.map((item, index) => (
             <SectionCard
               key={index}
               title={item.title}
