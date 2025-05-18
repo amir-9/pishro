@@ -3,17 +3,17 @@ import Image from "next/image";
 
 const SectionOne = () => {
   return (
-    <div className="container flex justify-between items-center lg:gap-[50px] mt-40">
-      <div className="w-full max-w-[410px]">
-        <h1 className="font-medium text-sm leading-7 mb-4">
+    <div className="container flex flex-col-reverse justify-between items-center lg:gap-[50px] mt-40">
+      <div className="w-full">
+        <h1 className="font-medium text-base leading-7 mb-4">
           {aboutPishro.header}
         </h1>
         <h3 className="font-bold text-lg mb-5">{aboutPishro.title}</h3>
-        <p className="font-medium text-sm leading-7 text-[#666666]">
+        <p className="font-medium text-base leading-7 text-[#555]">
           {aboutPishro.description}
         </p>
       </div>
-      <div className="relative h-[396px] w-full max-w-[780px] rounded-[10px] overflow-hidden">
+      <div className="relative h-[496px] w-full max-w-[984px] rounded-[10px] overflow-hidden">
         <Image
           src={aboutPishro.image}
           alt="business"

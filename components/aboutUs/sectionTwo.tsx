@@ -3,17 +3,19 @@ import Image from "next/image";
 
 const SectionTwo = () => {
   return (
-    <div className="container flex justify-between lg:gap-[104px] mt-20 bg-[#fafafa] rounded-md px-10 py-12">
-      <div className="w-full max-w-[455px]">
-        <h1 className="font-medium text-sm leading-7 mb-4">
-          {pishroBranding.header}
-        </h1>
+    <div className="container flex justify-between lg:gap-[80px] mt-20 bg-[#fafafa] rounded-md px-10 py-12">
+      <div className="w-full max-w-[485px]">
+        {pishroBranding.header && (
+          <h1 className="font-medium text-base leading-7 mb-4">
+            {pishroBranding.header}
+          </h1>
+        )}
         <h3 className="font-bold text-lg mb-5">{pishroBranding.title}</h3>
-        <p className="font-medium text-sm leading-7 text-[#1D1D1B]">
+        <p className="font-medium text-base leading-7 text-[#555]">
           {pishroBranding.description}
         </p>
       </div>
-      <div className="relative h-[350px] w-full max-w-[600px] rounded-[10px] overflow-hidden">
+      <div className="relative h-[330px] w-full max-w-[600px] rounded-[10px] overflow-hidden">
         <Image
           src={pishroBranding.image}
           alt="business"
