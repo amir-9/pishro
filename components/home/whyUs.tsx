@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { whyUsData } from "@/public/data";
 import { cn } from "@/lib/utils";
 import LottieRemote from "@/components/utils/LottieAnimation"; // مطمئن شو مسیر درسته
+import Link from "next/link";
 
 const textVariants = {
   initial: { opacity: 0, x: 50 },
@@ -67,7 +68,12 @@ const WhyUs = () => {
                 {whyUsData[index].text}
               </p>
               <button className="rounded-full text-[#344052] hover:text-white hover:bg-[#344052] transition-all duration-300 font-bold px-4 py-2.5 border-2 border-[#344052] flex items-center justify-center w-fit mt-4">
-                اطلاعات بیشتر
+                <Link
+                  href={whyUsData[index].btnHref}
+                  className="flex items-center gap-2"
+                >
+                  {whyUsData[index].btnLabel}
+                </Link>
               </button>
             </motion.div>
           </AnimatePresence>
