@@ -1,4 +1,4 @@
-import LottieRemote from "../utils/LottieAnimation";
+import LottieRemote from "@/components/utils/LottieAnimation";
 
 const SectionOne = () => {
   return (
