@@ -1,11 +1,12 @@
 import Image from "next/image";
+import LottieRemote from "../utils/LottieAnimation";
 
 const SectionOne = () => {
   return (
     <div className="container my-40 relative flex flex-col items-center ">
       {/* section one */}
       <div className="flex justify-between items-center gap-20">
-        <div className="flex-[2]">
+        <div className="flex-1">
           <p className="text-lg text-[#707177] leading-9">
             بورس از دانش تا سودآوری، حرفه‌ای بیاموزید! سرمایه‌گذاری در بورس، یک
             بازی شانسی نیست؛ بلکه دانشی است که مسیر رشد مالی را هموار می‌کند. در
@@ -14,30 +15,24 @@ const SectionOne = () => {
             را از یک معامله‌گر مبتدی به یک تحلیل‌گر حرفه‌ای تبدیل می‌کنیم.
           </p>
         </div>
-        <div className="flex-[3] h-[300px]">
-          <div className="size-full relative rounded-lg overflow-hidden">
-            <Image
-              src={"/images/charisma-img.svg"}
-              alt="stock-market"
-              fill
-              className="object-contain"
-            />
-          </div>
+        <div className="flex-1 h-[300px]">
+          <LottieRemote
+            path="/animations/man-thinking-about-investment.json" // ← آدرس دلخواه خودت رو بزار
+            className="w-full h-full"
+          />
         </div>
       </div>
       {/* section two */}
       <div className="flex justify-between items-center gap-20 mt-32">
-        <div className="flex-[3] h-[300px]">
-          <div className="size-full relative rounded-lg overflow-hidden">
-            <Image
-              src={"/images/charisma-img.svg"}
-              alt="stock-market"
-              fill
-              className="object-contain"
+        <div className="flex-1 h-[300px]">
+          <div className="flex-1 h-[300px]">
+            <LottieRemote
+              path="/animations/financial-growth-chart.json" // ← آدرس دلخواه خودت رو بزار
+              className="w-full h-full"
             />
           </div>
         </div>
-        <div className="flex-[2]">
+        <div className="flex-1">
           <p className="text-lg text-[#707177] leading-9">
             دوره‌های ما شامل
             <br /> ✅ تحلیل تکنیکال پیشرفته (الیوت، ایچیموکو، پرایس اکشن،
