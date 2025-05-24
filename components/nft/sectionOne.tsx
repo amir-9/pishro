@@ -1,8 +1,10 @@
-import Image from "next/image";
+"use client";
+
+import LottieRemote from "@/components/utils/LottieAnimation";
 
 const SectionOne = () => {
   return (
-    <div className="container my-40 relative flex flex-col items-center ">
+    <div className="container my-40 relative flex flex-col items-center">
       {/* section one */}
       <div className="flex justify-between items-center gap-20">
         <div className="flex-[2]">
@@ -16,28 +18,21 @@ const SectionOne = () => {
             بازتعریف کرده‌اند.
           </p>
         </div>
-        <div className="flex-[3] h-[300px]">
-          <div className="size-full relative rounded-lg overflow-hidden">
-            <Image
-              src={"/images/charisma-img.svg"}
-              alt="stock-market"
-              fill
-              className="object-contain"
-            />
-          </div>
+        <div className="flex-[2] h-[300px]">
+          <LottieRemote
+            path="/animations/man-working-on-nft-blockchain.json" // ← آدرس دلخواه خودت رو بزار
+            className="w-full h-full"
+          />
         </div>
       </div>
+
       {/* section two */}
       <div className="flex justify-between items-center gap-20 mt-32">
-        <div className="flex-[3] h-[300px]">
-          <div className="size-full relative rounded-lg overflow-hidden">
-            <Image
-              src={"/images/charisma-img.svg"}
-              alt="stock-market"
-              fill
-              className="object-contain"
-            />
-          </div>
+        <div className="flex-[2] h-[300px]">
+          <LottieRemote
+            path="/animations/boy-create-nft-using-vr-tech.json" // ← آدرس دلخواه خودت رو بزار
+            className="w-full h-full"
+          />
         </div>
         <div className="flex-[2]">
           <p className="text-lg text-[#707177] leading-9">
