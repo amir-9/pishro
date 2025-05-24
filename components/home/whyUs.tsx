@@ -22,7 +22,7 @@ const WhyUs = () => {
   const [index, setIndex] = useState(0);
 
   return (
-    <div className="my-48 container">
+    <div className="my-48 container-xl">
       <h2 className="text-4xl text-center">چرا پیشرو</h2>
 
       {/* لیست لیبل‌ها */}
@@ -70,7 +70,7 @@ const WhyUs = () => {
           </AnimatePresence>
         </div>
         {/* انیمیشن */}
-        <div className="w-[300px] h-[300px] relative">
+        <div className="size-[400px] relative">
           <AnimatePresence mode="wait">
             <motion.div
               key={index}
