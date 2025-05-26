@@ -1,9 +1,9 @@
+import Image from "next/image";
 import {
   metaverseFirstSectionData,
   metaverseSecondSectionData,
 } from "@/public/data";
 import SectionCard from "@/components/metaverse/sectionCard";
-import Image from "next/image";
 
 const SectionOne = () => {
   return (
