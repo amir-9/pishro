@@ -2,8 +2,13 @@
 
 import { usePathname } from "next/navigation";
 import { landingData } from "@/public/data";
+import { cn } from "@/lib/utils";
 
-const Landing = () => {
+interface LandingProps {
+  size?: "small" | "normal";
+}
+
+const Landing = ({ size = "normal" }: LandingProps) => {
   const pathname = usePathname();
 
   // داده پیش‌فرض در صورتی که مسیر مطابقت نداشته باشد
@@ -12,7 +17,11 @@ const Landing = () => {
 
   return (
     <div
-      className="relative h-[454px] bg-no-repeat bg-cover bg-center flex justify-center text-white"
+      className={cn(
+        "relative bg-no-repeat bg-cover bg-center flex justify-center text-white",
+        size === "small" ? "h-[360px]" : "",
+        size === "normal" ? "h-[474px]" : ""
+      )}
       style={{ backgroundImage: `url('${data.backgroundImage}')` }}
     >
       {/* Overlay */}
