@@ -11,6 +11,7 @@ import { CiLinkedin } from "react-icons/ci";
 import { LiaTelegram } from "react-icons/lia";
 import { SlSocialTwitter } from "react-icons/sl";
 import { Input } from "./ui/input";
+import Logo from "./utils/Logo";
 
 const Footer = () => {
   const socials = [
@@ -46,7 +47,7 @@ const Footer = () => {
         {/* بخش سمت چپ */}
         <div className="flex-1 flex flex-col items-start mb-8 sm:mb-0">
           <div>
-            <Image src={"/icons/Logo.png"} alt="logo" width={100} height={40} />
+            <Logo />
             <p className="mt-6 text-xs text-[#495157]">
               تلفن پشتیبانی: 021-23456789
             </p>
