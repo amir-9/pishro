@@ -5,8 +5,8 @@ import BusinessConsulting from "@/components/home/businessConsulting";
 import Courses from "@/components/home/courses";
 import Banner from "@/components/utils/Banner";
 import Blog from "@/components/utils/blog";
-import Landing from "../utils/landing";
-import TransparentVideoPlayer from "../utils/TransparentVideoPlayer";
+import Landing from "@/components/utils/landing";
+import TransparentVideoPlayer from "@/components/utils/TransparentVideoPlayer";
 
 const HomePageContent = () => {
   return (
