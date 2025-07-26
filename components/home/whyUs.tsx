@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import { whyUsData } from "@/public/data";
 import { cn } from "@/lib/utils";
 import LottieRemote from "@/components/utils/LottieAnimation"; // مطمئن شو مسیر درسته
-import Link from "next/link";
 
 const textVariants = {
   initial: { opacity: 0, x: 50 },
