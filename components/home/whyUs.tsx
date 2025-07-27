@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { whyUsData } from "@/public/data";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
-import LottieRemote from "@/components/utils/LottieAnimation"; // مطمئن شو مسیر درسته
+import { whyUsData } from "@/public/data";
 
 const textVariants = {
   initial: { opacity: 0, x: 50 },
@@ -90,9 +90,11 @@ const WhyUs = () => {
               exit="exit"
               transition={{ duration: 0.3 }}
             >
-              <LottieRemote
-                key={whyUsData[index].animationPath}
-                path={whyUsData[index].animationPath}
+              <Image
+                fill
+                className="object-cover"
+                src={whyUsData[index].imagePath}
+                alt="img"
               />
             </motion.div>
           </AnimatePresence>

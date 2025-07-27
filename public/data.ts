@@ -136,6 +136,7 @@ export const whyUsData = [
     btnLabel: "اطلاعات بیشتر",
     btnHref: "/about-us",
     animationPath: "/animations/investment-education.json",
+    imagePath: "/images/landing/img-1.jpg",
   },
   {
     label: "سبدهای شخصی‌سازی‌شده",
@@ -147,6 +148,7 @@ export const whyUsData = [
     btnLabel: "اطلاعات بیشتر",
     btnHref: "/investment-plans",
     animationPath: "/animations/man-taking-payout-of-cryptocurrency.json",
+    imagePath: "/images/landing/img-2.jpg",
   },
   {
     label: "پشتیبانی و رشد",
@@ -158,6 +160,7 @@ export const whyUsData = [
     btnLabel: "اطلاعات بیشتر",
     btnHref: "/business-consulting",
     animationPath: "/animations/transaction-in-cryptocurrency.json",
+    imagePath: "/images/landing/img-3.jpg",
   },
 ];
 
