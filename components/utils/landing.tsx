@@ -25,7 +25,7 @@ const Landing = ({ imageUrl, title }: LandingProps) => {
       <div className="absolute inset-0 bg-black/60 z-10" />
 
       {/* White bottom gradient overlay */}
-      <div className="absolute inset-x-0 bottom-0 h-[320px] bg-gradient-to-t from-white via-white/60 to-transparent z-20 pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-[320px] bg-gradient-to-t from-white via-white/80 to-transparent z-20 pointer-events-none" />
 
       {/* Title */}
       <div className="absolute inset-0 z-30 flex items-start justify-center px-4 text-center">
