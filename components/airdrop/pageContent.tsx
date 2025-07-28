@@ -1,4 +1,4 @@
-import Landing from "@/components/utils/landing";
+import Landing from "@/components/utils/homeLanding";
 import Courses from "@/components/utils/courses";
 import Blog from "@/components/utils/blog";
 import VideoSection from "../utils/videoSection";

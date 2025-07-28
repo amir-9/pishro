@@ -3,14 +3,14 @@ import WhyUs from "@/components/home/whyUs";
 import BusinessConsulting from "@/components/home/businessConsulting";
 import Courses from "@/components/home/courses";
 import Blog from "@/components/utils/blog";
-import Landing from "@/components/utils/landing";
+import HomeLanding from "@/components/utils/homeLanding";
 import TransparentVideoPlayer from "@/components/utils/TransparentVideoPlayer";
 import CommentsSlider from "@/components/utils/CommentsSlider";
 
 const HomePageContent = () => {
   return (
     <div>
-      <Landing size="normal" />
+      <HomeLanding size="normal" />
       <Categories />
       <WhyUs />
       <TransparentVideoPlayer src="/videos/landing-vid.webm" />
