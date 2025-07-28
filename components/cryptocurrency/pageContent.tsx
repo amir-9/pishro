@@ -1,14 +1,19 @@
-import LandingVideo from "@/components/utils/landingVideo";
 import Courses from "@/components/utils/courses";
 import Blog from "@/components/utils/blog";
 import VideoSection from "../utils/videoSection";
-import SectionOne from "./sectionOne";
+import Landing2 from "../utils/Landing2";
+import AboutIt from "./aboutIt";
+import Questions from "../faq/questions";
 
 const CryptocurrencyPageContent = () => {
   return (
     <div>
-      <LandingVideo vidSrc="/videos/crypto.webm" />
-      <SectionOne />
+      <Landing2
+        imageUrl="/images/crypto/landing-img.png"
+        title="به دنیای کریپتوکارنسی خوش آمدید"
+      />
+      <AboutIt />
+      <Questions />
       <VideoSection videoUrl="/videos/crypto.webm" label="معرفی کریپتوکارنسی" />
       <Courses />
       <Blog />
