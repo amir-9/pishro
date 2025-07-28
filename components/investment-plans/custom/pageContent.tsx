@@ -6,7 +6,7 @@ const InvestmentCustomPageContent = () => {
     <div>
       <InvestmentCustomLanding />
       <VideoSection
-        videoUrl="/videos/crypto.webm"
+        videoUrl="/videos/aboutUs.webm"
         label="سبد سرمایه گذاری شخصی"
       />
     </div>

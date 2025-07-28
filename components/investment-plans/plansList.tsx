@@ -66,6 +66,9 @@ const PlansList = () => {
 
   return (
     <div className="mt-24 mb-20 container">
+      <h3 className="text-center mb-16 font-bold text-3xl">
+        انواع سبد های سرمایه گذاری
+      </h3>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
         {PlansListData.map((item, idx) => (
           <Drawer key={idx}>

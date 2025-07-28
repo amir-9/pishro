@@ -10,7 +10,7 @@ const InvestmentPlansPageContent = () => {
       <InvestmentPlansLanding />
       <PlansList />
       <VideoSection
-        videoUrl="/videos/crypto.webm"
+        videoUrl="/videos/aboutUs.webm"
         label="برنامه های سرمایه گذاری پیشرو"
       />
       <Courses />
