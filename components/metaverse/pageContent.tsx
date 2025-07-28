@@ -1,15 +1,18 @@
-import SectionOne from "@/components/metaverse/sectionOne";
-import MetaverseBanner from "@/components/metaverse/banner";
-import LandingVideo from "@/components/utils/landingVideo";
 import Courses from "@/components/utils/courses";
 import Blog from "@/components/utils/blog";
+import Landing2 from "../utils/Landing2";
+import AboutIt from "./aboutIt";
+import Questions from "../faq/questions";
 
 const MetaversePageContent = () => {
   return (
     <div>
-      <LandingVideo vidSrc="/videos/metaverse.webm" />
-      <SectionOne />
-      <MetaverseBanner />
+      <Landing2
+        imageUrl="/images/metaverse/banner.jpg"
+        title="به دنیای متاورس خوش آمدید"
+      />
+      <AboutIt />
+      <Questions />
       <Courses />
       <Blog />
     </div>
