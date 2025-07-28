@@ -16,7 +16,7 @@ export default {
         "charisma-extra": ["var(--font-charisma-extra-bold)", "sans-serif"],
         "charisma-regular": ["var(--font-charisma-regular)", "sans-serif"],
         iransans: ["var(--font-iransans-xv)", "sans-serif"],
-        montserrat: ["var(--font-montserrat)", "sans-serif"], 
+        montserrat: ["var(--font-montserrat)", "sans-serif"],
       },
       colors: {
         background: "hsl(var(--background))",
@@ -66,6 +66,9 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      height: {
+        "screen-minus-navbar": "calc(100vh - 115px)",
       },
     },
   },
