@@ -107,7 +107,7 @@ const HoverCard = ({ title, description, onHover }: HoverCardProps) => {
         <h2 className="text-2xl font-bold">{title}</h2>
       </motion.div>
 
-      {/* Description and Button */}
+      {/* Description */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{
@@ -115,21 +115,22 @@ const HoverCard = ({ title, description, onHover }: HoverCardProps) => {
           y: hovered ? 0 : 30,
         }}
         transition={{ duration: 0.4 }}
-        className="absolute inset-0 z-30 p-6 text-center flex flex-col items-center justify-center space-y-6"
+        className="absolute top-8 left-0 right-0 z-30 px-6 text-center flex flex-col items-center"
       >
-        <p className="leading-relaxed text-sm md:text-base mb-8">
-          {description}
-        </p>
+        <p className="leading-relaxed text-sm md:text-base">{description}</p>
+      </motion.div>
 
-        <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          animate={{
-            opacity: hovered ? 1 : 0,
-            y: hovered ? 0 : 20,
-          }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          className="px-5 py-2 text-sm md:text-base rounded-full border border-white/70 hover:bg-white hover:text-black transition-colors duration-300"
-        >
+      {/* Fixed-position More button */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{
+          opacity: hovered ? 1 : 0,
+          y: hovered ? 0 : 40,
+        }}
+        transition={{ duration: 0.4, delay: 0.2 }}
+        className="absolute bottom-6 left-0 right-0 z-30 flex justify-center"
+      >
+        <motion.button className="px-5 py-2 text-sm md:text-base rounded-full border border-white/70 bg-transparent text-white transition-all duration-300 hover:bg-red-500 hover:border-red-500 hover:text-white">
           مطالعه بیشتر
         </motion.button>
       </motion.div>
