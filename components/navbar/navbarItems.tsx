@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import NavbarPopover from "./navbarPopover";
+import { UserIcon } from "lucide-react";
+import { BuyIcon } from "@/public/svgr-icons";
 
 interface NavbarItemsProps {
   navbarData: (
@@ -40,11 +42,11 @@ const NavbarItems = ({
 
   return (
     <div
-      className="bg-mySecondary h-9 text-white text-xs px-[60px] relative"
+      className="bg-mySecondary h-12 text-white text-xs px-[60px] relative flex justify-between items-center"
       // When mouse leaves the container, mark indicator as inactive (faded)
       onMouseLeave={() => setIsIndicatorActive(false)}
     >
-      <ul className="h-9 flex items-center gap-5 relative">
+      <ul className="h-full flex items-center gap-5 relative">
         {navbarData.map((item, idx: number) => (
           <React.Fragment key={idx}>
             <li
@@ -83,6 +85,23 @@ const NavbarItems = ({
           style={{ left: indicatorStyle.left, width: indicatorStyle.width }}
         ></div>
       </ul>
+      <div className="flex items-center gap-7">
+        <div className="bg-white w-[1px] h-[24px]"></div>
+        <Link href={"/login"} className="hover:underline">
+          <button className="flex items-center gap-1">
+            <UserIcon width={18} height={18} />
+            <span className="font-medium text-xs"> ورود یا ثبت نام</span>
+          </button>
+        </Link>
+        <Link href={"/checkout"} className="hover:underline">
+          <button className="flex items-center gap-1">
+            <BuyIcon className="text-white" width={18} height={18} />
+            <span className="text-white bg-myPrimary size-4 rounded-[2px] text-xs font-bold text-center">
+              2
+            </span>
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };

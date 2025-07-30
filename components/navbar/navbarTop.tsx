@@ -12,7 +12,7 @@ import Logo from "../utils/Logo";
 const NavbarTop = () => {
   return (
     <div className="px-[72px] py-5 h-20 flex justify-between items-center">
-      {/* بخش سمت چپ */}
+      {/* بخش سمت راست */}
       <div className="w-full max-w-[650px] flex items-center gap-6">
         <Logo />
         <div className="relative h-8 w-full max-w-[526px]">
@@ -30,7 +30,7 @@ const NavbarTop = () => {
         </div>
       </div>
 
-      {/* بخش سمت راست */}
+      {/* بخش سمت چپ */}
       <div className="flex items-center gap-7">
         <Link href={"/login"}>
           <button className="flex items-center gap-1">
