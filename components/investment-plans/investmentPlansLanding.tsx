@@ -18,7 +18,7 @@ const InvestmentPlansLanding = () => {
 
       {/* Image Section */}
       <div className="flex-1 relative flex items-center justify-center mt-12 lg:mt-0">
-        <div className="relative w-full h-[630px] overflow-hidden isolate">
+        <div className="relative w-full h-screen-minus-navbar overflow-hidden isolate">
           <div className="absolute inset-y-0 left-0 w-[80px] bg-[linear-gradient(to_right,_#fefefe_50%,_transparent_100%)] z-10 pointer-events-none" />
           <div className="absolute inset-y-0 right-0 w-[110px] bg-[linear-gradient(to_left,_#fefefe_40%,_transparent_100%)] z-10 pointer-events-none" />
           <Image

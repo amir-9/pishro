@@ -68,7 +68,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       height: {
-        "screen-minus-navbar": "calc(100vh - 115px)",
+        "screen-minus-navbar": "calc(100vh - 64px)",
       },
     },
   },
