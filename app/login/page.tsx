@@ -11,7 +11,6 @@ import { LuSquareChevronRight } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import Logo from "@/components/utils/Logo";
 
 // Login schema
 const loginSchema = z.object({
@@ -128,7 +127,6 @@ const LoginPage = () => {
         </div>
         {/* Logo */}
         <div className="mt-[72px]">
-          <Logo />
           <p className="text-xs mt-2">سلام اوقاتتون بخیر</p>
         </div>
         {/* Form */}
