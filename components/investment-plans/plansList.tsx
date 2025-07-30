@@ -22,15 +22,8 @@ export const PlansListData = [
   { src: "/images/home/c/metaverse.webp", label: "ترکیبی" },
 ];
 
-const animationVariants = {
-  initial: { opacity: 0, x: -50 },
-  animate: { opacity: 1, x: 0 },
-  exit: { opacity: 0, x: 0 },
-};
-
 const riskLevels = ["کم ریسک", "ریسک متوسط", "ریسک بالا"];
 const durations = ["۱ ماه", "۳ ماه", "۶ ماه", "۱۲ ماه", "۲ سال", "۳ سال"];
-const animationPath = "/animations/investment-education.json";
 
 // Format amount: display in میلیون or میلیارد
 function formatAmount(amount: number) {
