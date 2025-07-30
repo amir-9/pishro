@@ -25,7 +25,7 @@ const Landing2 = ({ imageUrl, title, titleColor = "#fff" }: LandingProps) => {
       />
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/75 z-10" />
+      <div className="absolute inset-0 bg-black/55 z-10" />
 
       {/* White bottom gradient overlay */}
       <div className="absolute inset-x-0 bottom-0 h-[160px] bg-gradient-to-t from-black/80 via-black/30 to-transparent z-20 pointer-events-none" />
