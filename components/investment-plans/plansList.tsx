@@ -3,7 +3,6 @@
 import { useState } from "react";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
 
 import {
   Drawer,
@@ -15,7 +14,6 @@ import {
   DrawerClose,
 } from "@/components/ui/drawer";
 import { Slider } from "@/components/ui/slider";
-import LottieRemote from "@/components/utils/LottieAnimation";
 import { useInvestmentStore } from "@/stores/investmentStore"; // ✅ import store
 
 export const PlansListData = [
@@ -69,7 +67,7 @@ const PlansList = () => {
         {PlansListData.map((item, idx) => (
           <Drawer key={idx}>
             <DrawerTrigger asChild>
-              <button className="relative text-white text-lg font-medium transition-all duration-300 group px-0 py-4 rounded-md bg-white/5 hover:bg-white/70 backdrop-blur-sm border border-white/10 shadow-sm hover:shadow-md hover:text-black">
+              <button className="relative text-white text-xl font-medium transition-all duration-300 group px-0 py-4 rounded-md bg-white/5 hover:bg-white/70 backdrop-blur-sm border border-white/10 shadow-sm hover:shadow-md hover:text-black">
                 {item.label}
                 <span className="absolute -bottom-1 left-1/2 w-0 h-[1px] bg-red-400 transition-all duration-300 group-hover:w-full group-hover:left-0" />
               </button>
@@ -87,7 +85,7 @@ const PlansList = () => {
 
               <div className="flex gap-6 justify-center items-center">
                 {/* sliders */}
-                <div className="space-y-8 mt-6 w-full max-w-xl">
+                <div className="space-y-8 mt-6 w-full max-w-2xl">
                   {/* Amount */}
                   <div className="w-full">
                     <label className="block mb-2 text-sm font-medium text-gray-700">
@@ -191,23 +189,6 @@ const PlansList = () => {
                       ))}
                     </div>
                   </div>
-                </div>
-
-                {/* Animation */}
-                <div className="w-[400px] h-[300px] relative">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={"index"}
-                      className="absolute inset-0"
-                      variants={animationVariants}
-                      initial="initial"
-                      animate="animate"
-                      exit="exit"
-                      transition={{ duration: 0.3 }}
-                    >
-                      <LottieRemote key={animationPath} path={animationPath} />
-                    </motion.div>
-                  </AnimatePresence>
                 </div>
               </div>
 
