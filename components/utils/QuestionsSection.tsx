@@ -4,7 +4,6 @@ import { useState } from "react";
 import { FaChevronUp } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { faqData } from "@/public/data";
-import Heading from "./heading";
 
 const QuestionsSection = () => {
   // Store the index of the currently opened question
@@ -16,8 +15,7 @@ const QuestionsSection = () => {
   };
 
   return (
-    <div className="mt-16 mb-20 container">
-      <Heading className="mb-10">سوالات متداول شما</Heading>
+    <div className="mt-16 mb-20 w-full px-4">
       {faqData.map((item, idx) => (
         <div
           key={idx}
