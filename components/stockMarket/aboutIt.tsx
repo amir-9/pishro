@@ -52,10 +52,12 @@ const cards = [
 
 const AboutIt = () => {
   return (
-    <div className="container-xl mb-20 -mt-44 z-30 relative">
+    <div className="container-xl mb-20 -mt-24 z-30 relative">
       <div className="flex items-center mb-8">
-        <StarIcon className="w-10 h-10 text-gray-900 ml-3 mb-1" />
-        <h4 className="font-bold text-2xl">آنچه برای شروع نیاز دارید</h4>
+        <StarIcon className="size-8 text-white ml-3 mb-2" />
+        <h4 className="font-bold text-2xl text-gray-50">
+          آنچه برای شروع نیاز دارید
+        </h4>
       </div>
 
       <Swiper
