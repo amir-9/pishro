@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -65,29 +64,14 @@ const PlansList = () => {
   };
 
   return (
-    <div className="mt-24 mb-20 container">
-      <h3 className="text-center mb-16 font-bold text-3xl">
-        انواع سبد های سرمایه گذاری
-      </h3>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+    <div className="mt-10 w-full">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {PlansListData.map((item, idx) => (
           <Drawer key={idx}>
             <DrawerTrigger asChild>
-              <button className="group block relative">
-                <div className="relative h-44 w-full rounded-tr-3xl rounded-bl-3xl group-hover:rounded-xl overflow-hidden transition-all shadow-2xl">
-                  <Image
-                    src={item.src}
-                    alt={item.label}
-                    fill
-                    className="object-cover group-hover:scale-105 group-hover:brightness-110 transition-all"
-                  />
-                  <div className="absolute inset-0 bg-gray-900/60 group-hover:bg-gray-900/40 transition-all"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-xl font-bold text-white transition-all">
-                      {item.label}
-                    </span>
-                  </div>
-                </div>
+              <button className="relative text-white text-lg font-medium transition-all duration-300 group px-0 py-4 rounded-md bg-white/5 hover:bg-white/70 backdrop-blur-sm border border-white/10 shadow-sm hover:shadow-md hover:text-black">
+                {item.label}
+                <span className="absolute -bottom-1 left-1/2 w-0 h-[1px] bg-red-400 transition-all duration-300 group-hover:w-full group-hover:left-0" />
               </button>
             </DrawerTrigger>
 

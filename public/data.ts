@@ -959,7 +959,7 @@ export const investmentPlansData = {
   text: `هر سبد سرمایه‌گذاری با تکیه بر تحلیل‌های کمّی، رویکرد مدیریت ریسک و ارزیابی جامع بازارها تدوین می‌شود.
 با بهره‌گیری هم‌زمان از ظرفیت‌های بازار سرمایه و دارایی‌های دیجیتال، بهینه‌سازی بازده در چارچوب اصول مالی دنبال می‌گردد.
 هدف ما، ایجاد مسیرهای باثبات برای رشد سرمایه و حفظ ارزش دارایی در بلندمدت است.`,
-  image: "/images/investment-plans/img-1.webp",
+  image: "/images/investment-plans/landing.jpg",
 };
 
 export const aboutItCardsData = [

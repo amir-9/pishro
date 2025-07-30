@@ -2,32 +2,32 @@
 
 import Image from "next/image";
 import { investmentPlansData } from "@/public/data";
+import PlansList from "./plansList";
 
 const InvestmentPlansLanding = () => {
   return (
-    <div className="container flex flex-col lg:flex-row justify-between gap-8 py-1 mb-20">
-      {/* Text & Actions */}
-      <div className="flex-1 flex flex-col gap-y-10 text-center justify-center">
-        <h3 className="text-4xl font-bold text-gray-900 leading-tight">
+    <div className="relative w-full h-screen-minus-navbar lg:h-screen-minus-navbar overflow-hidden isolate flex items-center justify-start text-center px-4 mb-32">
+      {/* Image behind everything */}
+      <Image
+        src={investmentPlansData.image}
+        alt="مشاوره سرمایه‌گذاری"
+        fill
+        className="object-cover z-0"
+        priority
+      />
+
+      {/* Gradient overlay to make text readable */}
+      <div className="absolute inset-0 bg-gradient-to-l from-black/95 via-black/60 to-black/5 z-10 pointer-events-none" />
+
+      {/* Text content over image */}
+      <div className="relative z-20 max-w-2xl text-white flex flex-col items-center gap-y-8 px-4">
+        <h1 className="text-4xl lg:text-5xl font-bold leading-tight">
           {investmentPlansData.title}
-        </h3>
-        <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+        </h1>
+        <p className="text-lg lg:text-xl text-white/90 lg:leading-8">
           {investmentPlansData.text}
         </p>
-      </div>
-
-      {/* Image Section */}
-      <div className="flex-1 relative flex items-center justify-center mt-12 lg:mt-0">
-        <div className="relative w-full h-screen-minus-navbar overflow-hidden isolate">
-          <div className="absolute inset-y-0 left-0 w-[80px] bg-[linear-gradient(to_right,_#fefefe_50%,_transparent_100%)] z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-[110px] bg-[linear-gradient(to_left,_#fefefe_40%,_transparent_100%)] z-10 pointer-events-none" />
-          <Image
-            className="object-contain"
-            fill
-            src={investmentPlansData.image}
-            alt="مشاوره سرمایه‌گذاری"
-          />
-        </div>
+        <PlansList />
       </div>
     </div>
   );
