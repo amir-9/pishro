@@ -2,6 +2,7 @@ import Courses from "@/components/utils/courses";
 import Blog from "@/components/utils/blog";
 import Landing2 from "../utils/Landing2";
 import AboutIt from "@/components/utils/AboutIt";
+import VideoSection from "../utils/videoSection";
 import QuestionsSection from "../utils/QuestionsSection";
 
 const MetaversePageContent = () => {
@@ -14,6 +15,8 @@ const MetaversePageContent = () => {
       />
       <AboutIt />
       <QuestionsSection />
+      <VideoSection videoUrl="/videos/metaverse.webm" label="معرفی متاورس" />
+
       <Courses />
       <Blog />
     </div>
