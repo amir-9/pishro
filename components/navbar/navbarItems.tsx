@@ -73,7 +73,7 @@ const NavbarItems = ({
               )}
             </li>
 
-            {idx === 8 && <li className="border-l border-white h-6 mx-2"></li>}
+            {idx === 9 && <li className="border-l border-white h-6 mx-2"></li>}
           </React.Fragment>
         ))}
 

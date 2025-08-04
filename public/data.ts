@@ -58,6 +58,10 @@ export const navbarData = [
     link: "/investment-consulting", // Airdrop section
   },
   {
+    label: "کتابخانه دیجیتال",
+    link: "/digital-lib", // Airdrop section
+  },
+  {
     label: "اخبار سایت",
     link: "#news", // Airdrop section
     data: [
