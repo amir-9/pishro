@@ -16,11 +16,14 @@ const CourseCard = ({ title, price, img, link }: CourseCardProps) => {
   const [imageError, setImageError] = useState(false); // مدیریت خطای تصویر
 
   return (
-    <Link href={link} className="block w-full">
+    <Link
+      href={link}
+      className="block w-full hover:shadow-md transition-shadow"
+    >
       <div className="relative w-full overflow-hidden">
         {imageError ? (
           // نمایش کنتینر جایگزین در صورت بروز خطا
-          <div className="w-full h-[148px] bg-[#e5e5e5] flex items-center justify-center">
+          <div className="w-full min-h-[148px] aspect-square bg-[#e5e5e5] flex items-center justify-center">
             <span className="text-gray-400">تصویر در دسترس نیست</span>
           </div>
         ) : (
