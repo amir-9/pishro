@@ -64,7 +64,7 @@ const WhyUs = () => {
               <h4 className="text-4xl leading-[56px] font-bold font-iransans text-[#172b3d] mb-4">
                 {whyUsData[index].title}
               </h4>
-              <p className="text-xl text-[#707177] leading-9 whitespace-pre-line">
+              <p className="text-xl text-[#707177] leading-9 whitespace-pre-line text-justify">
                 {whyUsData[index].text}
               </p>
               <button className="rounded-full text-[#344052] hover:text-white hover:bg-[#344052] transition-all duration-300 font-bold px-4 py-2.5 border-2 border-[#344052] flex items-center justify-center w-fit mt-4">
