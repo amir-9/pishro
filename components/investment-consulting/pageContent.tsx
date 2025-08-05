@@ -14,6 +14,7 @@ const InvestmentPageContent = () => {
         middleImages={alibabaData.middleImages}
         bottomImages={alibabaData.bottomImages}
       />
+      <div className="h-24"></div>
       <VideoSection videoUrl="/videos/crypto.webm" label="سرمایه گذاری پیشرو" />
       <Courses />
       <Blog />
