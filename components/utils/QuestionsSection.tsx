@@ -19,7 +19,7 @@ const QuestionsSection = () => {
       {faqData.map((item, idx) => (
         <div
           key={idx}
-          className="border border-[#ebebeb] rounded-sm p-6 mb-4 cursor-pointer border-r-4 border-r-red-500"
+          className="border border-[#ebebeb] rounded-sm px-6 py-4 mb-4 cursor-pointer border-r-4 border-r-red-500"
           onClick={() => toggleQuestion(idx)}
         >
           {/* Question Header */}
