@@ -34,7 +34,10 @@ const Landing2 = ({ imageUrl, title, titleColor = "#fff" }: LandingProps) => {
       <div className="absolute inset-0 z-30 flex items-center justify-center px-4 text-center">
         <h1 className="text-white text-3xl md:text-5xl font-bold drop-shadow-md mb-12">
           به دنیای{" "}
-          <span className="inline-block" style={{ color: titleColor }}>
+          <span
+            className="inline-block text:4xl md:text-7xl"
+            style={{ color: titleColor }}
+          >
             <Typewriter
               words={[title]}
               loop={0} // infinite
