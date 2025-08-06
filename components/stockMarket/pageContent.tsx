@@ -4,6 +4,8 @@ import VideoSection from "@/components/utils/videoSection";
 import AboutIt from "@/components/utils/AboutIt";
 import Landing from "@/components/utils/Landing2";
 import QuestionsSection from "../utils/QuestionsSection";
+import { investmentTagsData } from "@/public/data";
+import TagsList from "../utils/TagsList";
 
 const StockMarketPageContent = () => {
   return (
@@ -14,6 +16,7 @@ const StockMarketPageContent = () => {
         titleColor="#58D68D"
       />
       <AboutIt />
+      <TagsList tags={investmentTagsData} />
       <QuestionsSection />
       <VideoSection videoUrl="/videos/stock.webm" label="معرفی بورس" />
       <Courses />

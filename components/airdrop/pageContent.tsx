@@ -4,6 +4,8 @@ import VideoSection from "../utils/videoSection";
 import Landing2 from "../utils/Landing2";
 import AboutIt from "@/components/utils/AboutIt";
 import QuestionsSection from "../utils/QuestionsSection";
+import TagsList from "../utils/TagsList";
+import { investmentTagsData } from "@/public/data";
 
 const AirdropPageContent = () => {
   return (
@@ -14,6 +16,7 @@ const AirdropPageContent = () => {
         titleColor="#5DADE2"
       />
       <AboutIt />
+      <TagsList tags={investmentTagsData} />
       <QuestionsSection />
       <VideoSection videoUrl="/videos/crypto.webm" label="معرفی ایردراپ" />
       <Courses />
