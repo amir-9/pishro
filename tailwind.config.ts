@@ -70,6 +70,11 @@ export default {
       height: {
         "screen-minus-navbar": "calc(100vh - 48px)",
       },
+      boxShadow: {
+        sm: "0px 2px 15px 0px #00000011", // subtle
+        md: "0px 4px 25px 0px #0000001A", // medium
+        lg: "0px 4px 25px 0px #0000002A", // deep shadow
+      },
     },
   },
   plugins: [animate],
