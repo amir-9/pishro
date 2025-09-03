@@ -190,3 +190,19 @@ body {
     margin-right: auto;
   }
 }
+
+/* swiper opinion */
+
+.swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  background: #c0c0c0 !important;
+  border-radius: 12px !important;
+  transition: all 0.2s ease-in-out !important;
+  opacity: 1 !important;
+}
+.swiper-pagination-bullet-active {
+  width: 40px !important;
+  height: 12px !important;
+  background: #214254 !important;
+}

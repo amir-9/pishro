@@ -1,79 +1,95 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
-import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import { Autoplay, Pagination } from "swiper/modules";
 import Image from "next/image";
 
 import "swiper/css";
-import "swiper/css/navigation";
-import Heading from "./heading";
+import "swiper/css/pagination";
 
 import { homeCommentsData } from "@/public/data";
-
-// Custom Navigation Buttons
-const PrevButton = () => (
-  <button className="custom-prev text-gray-600 hover:text-primary transition">
-    <BsChevronRight size={24} />
-  </button>
-);
-
-const NextButton = () => (
-  <button className="custom-next text-gray-600 hover:text-primary transition">
-    <BsChevronLeft size={24} />
-  </button>
-);
+import RatingStars from "./RatingStars";
 
 const CommentsSlider = () => {
   return (
-    <section className="container my-16 relative">
-      <Heading className="text-2xl font-bold mb-8 text-center">
-        نظرات کاربران
-      </Heading>
+    <section className="container-xl my-16 relative">
+      <h2 className="text-5xl font-bold mb-8 text-center">نظرات دوره آموزان</h2>
       <div className="relative">
         <Swiper
-          modules={[Navigation, Autoplay]}
-          slidesPerView={4}
-          spaceBetween={20}
+          modules={[Autoplay, Pagination]}
+          className="!px-2"
+          centeredSlides={true}
+          slidesPerView={3}
+          spaceBetween={0}
           loop={true}
-          navigation={{
-            nextEl: ".custom-next",
-            prevEl: ".custom-prev",
-          }}
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,
           }}
+          pagination={{
+            clickable: true,
+            el: ".custom-pagination-opinion", // ✅ مکان دلخواه
+          }}
           breakpoints={{
             320: { slidesPerView: 1 },
             640: { slidesPerView: 2 },
-            1024: { slidesPerView: 4 },
+            1024: { slidesPerView: 3 },
           }}
         >
           {homeCommentsData.map((comment) => (
-            <SwiperSlide className="pb-8" key={comment.id}>
-              <div className="bg-white rounded-mb shadow-lg p-4 flex flex-col items-center text-center h-full">
-                <Image
-                  src={comment.avatar}
-                  alt={comment.name}
-                  width={60}
-                  height={60}
-                  className="rounded-full mb-3"
-                />
-                <h3 className="font-semibold">{comment.name}</h3>
-                <p className="text-sm text-gray-500 mb-2">{comment.position}</p>
-                <p className="text-gray-700 text-sm my-4">{comment.comment}</p>
+            <SwiperSlide
+              key={comment.id}
+              className="px-2.5 py-6 !overflow-visible"
+            >
+              <div className="bg-white rounded-3xl shadow-sm border border-gray-200 py-8 px-5 flex flex-col items-center justify-between text-center h-[255px]">
+                <p className="text-[#8E8E8E] text-xs leading-5 font-bold mb-4">
+                  {comment.comment}
+                </p>
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center justify-start w-full">
+                    <Image
+                      src={comment.avatar}
+                      alt={comment.name}
+                      width={48}
+                      height={48}
+                      className="rounded-full ml-2"
+                    />
+                    <div>
+                      <p className="font-bold text-[#353535]">{comment.name}</p>
+                      <p className="text-xs font-bold text-[#8e8e8e]">
+                        {comment.position}
+                      </p>
+                    </div>
+                  </div>
+                  <div>
+                    <RatingStars rating={4} />
+                  </div>
+                </div>
               </div>
             </SwiperSlide>
           ))}
+          <div className="custom-pagination-opinion h-3 flex justify-center gap-1.5 mt-6"></div>
         </Swiper>
       </div>
-      {/* Navigation Buttons */}
-      <div className="absolute top-1/2 -translate-y-1/2 right-8 z-10">
-        <PrevButton />
+      <div className="absolute top-0 right-8">
+        <div className="relative w-[180px] h-[100px]">
+          <Image
+            src={"/icons/circle-arrow-left.svg"}
+            alt="پیکان"
+            fill
+            className="object-cover"
+          />
+        </div>
       </div>
-      <div className="absolute top-1/2 -translate-y-1/2 left-8 z-10">
-        <NextButton />
+      <div className="absolute -bottom-10 left-8">
+        <div className="relative w-[180px] h-[100px]">
+          <Image
+            src={"/icons/circle-arrow-right.svg"}
+            alt="پیکان"
+            fill
+            className="object-cover"
+          />
+        </div>
       </div>
     </section>
   );
