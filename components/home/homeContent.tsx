@@ -1,23 +1,23 @@
-import Categories from "@/components/home/categories";
-import WhyUs from "@/components/home/whyUs";
-import BusinessConsulting from "@/components/home/businessConsulting";
+// import Categories from "@/components/home/categories";
+// import WhyUs from "@/components/home/whyUs";
+// import BusinessConsulting from "@/components/home/businessConsulting";
 import Courses from "@/components/home/courses";
-import Blog from "@/components/utils/blog";
+// import Blog from "@/components/utils/blog";
 import HomeLanding from "@/components/utils/homeLanding";
-import TransparentVideoPlayer from "@/components/utils/TransparentVideoPlayer";
+// import TransparentVideoPlayer from "@/components/utils/TransparentVideoPlayer";
 import CommentsSlider from "@/components/utils/CommentsSlider";
 
 const HomePageContent = () => {
   return (
     <div>
       <HomeLanding size="normal" />
-      <Categories />
-      <WhyUs />
-      <TransparentVideoPlayer src="/videos/landing-vid.webm" />
-      <BusinessConsulting />
-      <CommentsSlider />
+      {/* <Categories /> */}
+      {/* <WhyUs /> */}
+      {/* <TransparentVideoPlayer src="/videos/landing-vid.webm" /> */}
+      {/* <BusinessConsulting /> */}
       <Courses />
-      <Blog />
+      <CommentsSlider />
+      {/* <Blog /> */}
     </div>
   );
 };
