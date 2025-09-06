@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Courses = () => {
   return (
-    <div className="container-xl mt-20">
+    <div className="container-xl mt-0">
       <div className="text-center w-full">
         <h2 className="font-bold text-5xl flex items-center justify-center gap-3 mr-16">
           <span>دوره ها</span>

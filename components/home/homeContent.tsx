@@ -6,6 +6,7 @@ import Courses from "@/components/home/courses";
 import HomeLanding from "@/components/utils/homeLanding";
 // import TransparentVideoPlayer from "@/components/utils/TransparentVideoPlayer";
 import CommentsSlider from "@/components/utils/CommentsSlider";
+import AboutUs from "./aboutUs";
 
 const HomePageContent = () => {
   return (
@@ -15,6 +16,7 @@ const HomePageContent = () => {
       {/* <WhyUs /> */}
       {/* <TransparentVideoPlayer src="/videos/landing-vid.webm" /> */}
       {/* <BusinessConsulting /> */}
+      <AboutUs />
       <Courses />
       <CommentsSlider />
       {/* <Blog /> */}
