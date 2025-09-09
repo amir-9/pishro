@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 import { aboutUsData } from "@/public/data";
 import { useCounter } from "@/hooks/useCounter";
 import { AboutUsDecorations } from "./aboutUsDecorations";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
 
 const AboutUs: React.FC = () => {
   const ref = useRef<HTMLDivElement | null>(null);
