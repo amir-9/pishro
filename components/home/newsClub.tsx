@@ -21,7 +21,7 @@ const NewsClub = () => {
     reset,
   } = useForm<NewsletterInput>({
     resolver: zodResolver(newsletterSchema),
-    defaultValues: { email: "" },
+    defaultValues: { phone: "" },
   });
 
   // handle submit
@@ -59,16 +59,22 @@ const NewsClub = () => {
         {/* form section */}
         <div className="flex-1 flex flex-col h-full justify-end gap-10 items-center">
           <div className="w-full aspect-[685/500] flex flex-col justify-between">
-            <h4 className="text-7xl font-bold text-mySecondary">
-              باشگاه خبری <span className="text-myPrimary">پیشرو</span>
-            </h4>
+            <div>
+              <h4 className="text-7xl font-bold text-mySecondary">
+                باشگاه خبری <span className="text-myPrimary">پیشرو</span>
+              </h4>
+              <p className="mt-8 text-lg text-gray-600 leading-relaxed pl-12">
+                با عضویت در باشگاه خبری پیشرو، جدیدترین اخبار و مقالات آموزشی را
+                مستقیماً در تلفن همراه خود دریافت کنید.
+              </p>
+            </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="w-full pl-32">
               <div className="w-full flex items-center justify-center">
                 <Input
-                  {...register("email")}
+                  {...register("phone")}
                   className="rounded-full h-12 ml-2 ltr !text-lg placeholder:text-lg"
-                  placeholder="example@mail.com"
+                  placeholder="09121234567"
                 />
                 <Button
                   type="submit"
@@ -78,9 +84,9 @@ const NewsClub = () => {
                 </Button>
               </div>
 
-              {errors.email && (
+              {errors.phone && (
                 <p className="text-red-500 text-sm mt-2 text-center">
-                  {errors.email.message}
+                  {errors.phone.message}
                 </p>
               )}
             </form>

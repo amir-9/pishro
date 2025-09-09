@@ -10,15 +10,15 @@ export const AboutUsDecorations = () => {
         <Image src={"/icons/circle-arrow-left.svg"} fill alt="پیکان" />
       </div>
       {/* triangles */}
-      <div className="absolute top-0 right-[47%] size-[260px] -z-10">
+      <div className="absolute top-0 right-[47%] size-[250px] -z-10">
         <div className="size-full relative">
           <div className="absolute bottom-0 right-8 size-[80px]">
             <Image src={"/icons/triangle1.svg"} fill alt="مثلث" />
           </div>
-          <div className="absolute top-8 left-0 size-[110px]">
+          <div className="absolute top-8 left-0 size-[100px]">
             <Image src={"/icons/triangle2.svg"} fill alt="مثلث" />
           </div>
-          <div className="absolute top-0 right-0 size-[150px]">
+          <div className="absolute top-0 right-0 size-[130px]">
             <Image src={"/icons/triangle3.svg"} fill alt="مثلث" />
           </div>
         </div>
