@@ -49,7 +49,7 @@ export default function MobileScrollSection() {
   return (
     <section
       ref={sectionRef}
-      style={{ height: `calc(${mobileScrollerSteps.length * 505}px + 100vh)` }}
+      style={{ height: `calc(${mobileScrollerSteps.length * 501}px + 100vh)` }}
       className="relative w-full"
     >
       {/* Sticky content */}

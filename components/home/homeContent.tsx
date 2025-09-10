@@ -2,7 +2,7 @@ import LandingOverlay from "./landingOverlay";
 import MobileScrollSection from "./mobileScrollSection";
 import Courses from "@/components/home/courses";
 import CommentsSlider from "@/components/utils/CommentsSlider";
-// import StepsSection from "./stepsSection";
+import StepsSection from "./stepsSection";
 import NewsClub from "./newsClub";
 
 const HomePageContent = () => {
@@ -11,7 +11,7 @@ const HomePageContent = () => {
       <LandingOverlay />
       <MobileScrollSection />
       <Courses />
-      {/* <StepsSection /> */}
+      <StepsSection />
       <CommentsSlider />
       <NewsClub />
     </div>
