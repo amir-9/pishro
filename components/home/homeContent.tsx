@@ -1,9 +1,11 @@
+// homePageContent.tsx
 import LandingOverlay from "./landingOverlay";
 import MobileScrollSection from "./mobileScrollSection";
 import Courses from "@/components/home/courses";
 import CommentsSlider from "@/components/utils/CommentsSlider";
 import StepsSection from "./stepsSection";
 import NewsClub from "./newsClub";
+import { stepsData } from "@/public/data";
 
 const HomePageContent = () => {
   return (
@@ -11,7 +13,14 @@ const HomePageContent = () => {
       <LandingOverlay />
       <MobileScrollSection />
       <Courses />
-      <StepsSection />
+
+      {/* Steps Section */}
+      <StepsSection
+        steps={stepsData}
+        sectionTitle="مراحل یادگیری در پیشرو"
+        sectionSubtitle="با طی کردن این مراحل به صورت قدم‌به‌قدم، می‌توانید مسیر یادگیری خود را کامل کنید."
+      />
+
       <CommentsSlider />
       <NewsClub />
     </div>
