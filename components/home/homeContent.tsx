@@ -1,5 +1,6 @@
 // homePageContent.tsx
 import LandingOverlay from "./landingOverlay";
+import BikeSection from "./bikeSection";
 import MobileScrollSection from "./mobileScrollSection";
 import Courses from "@/components/home/courses";
 import CommentsSlider from "@/components/utils/CommentsSlider";
@@ -11,6 +12,7 @@ const HomePageContent = () => {
   return (
     <div>
       <LandingOverlay />
+      <BikeSection />
       <MobileScrollSection />
       <Courses />
 
