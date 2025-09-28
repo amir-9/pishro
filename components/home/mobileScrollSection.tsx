@@ -3,7 +3,27 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { mobileScrollerSteps } from "@/public/data";
+import clsx from "clsx";
+// import { mobileScrollerSteps } from "@/public/data";
+const mobileScrollerSteps = [
+  {
+    id: 1,
+    text: "با مشاوره‌های تخصصی و آموزش‌های کاربردی، اولین قدم مطمئن در بازار سرمایه را بردارید.",
+
+    img: "/images/mobile-1.png",
+  },
+  {
+    id: 2,
+    text: "دسترسی به تحلیل‌های روزانه و فرصت‌های طلایی در بورس و بازارهای نوین.",
+
+    img: "/images/mobile-2.png",
+  },
+  {
+    id: 3,
+    text: "با استراتژی‌های پیشرفته و ابزارهای مدرن، سبد سرمایه خود را حرفه‌ای مدیریت کنید.",
+    img: "/images/mobile-3.png",
+  },
+];
 
 export default function MobileScrollSection() {
   const [index, setIndex] = useState(0);
@@ -53,34 +73,67 @@ export default function MobileScrollSection() {
       className="relative w-full"
     >
       {/* Sticky content */}
-      <div className="sticky top-0 h-screen flex items-center justify-center container-xl pt-8">
-        <div className="w-full h-full bg-mySecondary/5 rounded-t-[40px] rounded-b-xl px-12">
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={mobileScrollerSteps[index].id}
-              variants={variants}
-              custom={direction} // pass direction to variants
-              initial="enter"
-              animate="center"
-              exit="exit"
-              className="w-full h-full flex items-center justify-center gap-8 overflow-hidden"
-            >
+      <div className="sticky top-0 h-screen flex items-center justify-center container-xl py-8">
+        {/* header */}
+        <div className="w-full px-40 flex flex-col items-start justify-start absolute top-10">
+          <h2 className="text-5xl mb-2">سامانه پیشرو</h2>
+          <p className="text-base text-gray-500">
+            مشاور و همراه مالی شما در مسیر پیشرفت
+          </p>
+        </div>
+        {/* body */}
+        <div className="w-full h-[650px] overflow-hidden flex flex-col justify-end">
+          <div className="w-full h-[550px] bg-mySecondary rounded-[40px] relative">
+            {/* bg colors */}
+            <div className="absolute size-full rounded-[36px] flex overflow-hidden">
+              <div className="relative size-full rounded-[36px] flex">
+                <div className="w-[63%] h-full"></div>
+                <div className="w-[37%] h-full bg-[#48e4c7]"></div>
+                <div className="absolute rotate-12 h-[900px] w-[10%] bg-[#48e4c7] left-[30%] -top-10"></div>
+              </div>
+            </div>
+
+            <div className="w-full h-full flex items-center justify-center">
               {/* Text and content */}
-              <div className="flex-1 flex flex-col justify-between h-full pt-40 pb-20">
+              <div className="flex-1 flex flex-col justify-between h-full pt-32 pb-20 pr-12 pl-8 z-10">
                 <div>
-                  <h2 className="text-5xl font-extrabold text-gray-900 mb-8">
-                    {mobileScrollerSteps[index].header ?? "عنوان اصلی"}
-                  </h2>
-                  <ul className="space-y-3">
-                    {mobileScrollerSteps[index].items.map((item, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <span className="size-1.5 mt-2.5 rounded-full bg-myPrimary/90" />
-                        <span className="text-lg text-gray-600">{item}</span>
+                  <h4 className="text-4xl font-bold text-white mb-12">
+                    مزایای <span className="text-[#48e4c7]">پیشرو</span> بودن
+                  </h4>
+
+                  <ul className="space-y-4">
+                    {mobileScrollerSteps.map((step, i) => (
+                      <li
+                        key={i}
+                        className="flex items-center space-x-4 space-x-reverse"
+                      >
+                        {/* بولت سفارشی */}
+                        <span
+                          className={clsx(
+                            "size-2 rounded-full border transition-all duration-300",
+                            i === index
+                              ? "bg-white border-white" // حالت فعال
+                              : "bg-gray-600 border-gray-500" // حالت غیرفعال
+                          )}
+                        ></span>
+
+                        {/* متن */}
+                        <span
+                          className={clsx(
+                            "text-base transition-all duration-300",
+                            i === index
+                              ? "text-white font-semibold"
+                              : "text-gray-400"
+                          )}
+                        >
+                          {step.text}
+                        </span>
                       </li>
                     ))}
                   </ul>
+
                   <div className="pt-10">
-                    <button className="px-10 py-3 bg-mySecondary/95 text-white rounded-full shadow-md hover:bg-mySecondary transition">
+                    <button className="px-10 py-3 bg-white/10 text-white rounded-full shadow-md hover:bg-white/5 transition">
                       شروع کنید
                     </button>
                   </div>
@@ -88,18 +141,28 @@ export default function MobileScrollSection() {
               </div>
 
               {/* Image */}
-              <div className="flex-1 flex justify-center">
-                <div className="relative h-[980px] w-[500px] -mb-[500px]">
-                  <Image
-                    src={"/images/home/mobile-scroll/mobile.webp"}
-                    alt="mobile screen"
-                    fill
-                    className="object-cover rounded-2xl"
-                  />
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={mobileScrollerSteps[index].id}
+                  variants={variants}
+                  custom={direction} // pass direction to variants
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  className="w-[500px] flex justify-center pl-12"
+                >
+                  <div className="relative w-[435px] aspect-[500/980] -mb-[80px]">
+                    <Image
+                      src={"/images/home/mobile-scroll/mobile.webp"}
+                      alt="mobile screen"
+                      fill
+                      className="object-cover rounded-2xl"
+                    />
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
         </div>
       </div>
     </section>
