@@ -145,7 +145,7 @@ const StepsSection = ({
   return (
     <section
       ref={sectionRef}
-      style={{ height: `calc(${steps.length} * 100vh)` }}
+      style={{ height: `calc(${steps.length} * 100vh + 200px)` }}
       className="relative w-full mt-20"
     >
       <div className="sticky top-0 h-screen container-xl">
