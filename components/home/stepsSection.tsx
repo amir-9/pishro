@@ -125,7 +125,7 @@ const StepsSection = ({
     const vbWidth = vb.width;
     const vbHeight = vb.height;
 
-    const start = 0.12; // 12%
+    const start = 0.11; // 11%
     const end = 0.95; // 95%
 
     const points = steps.map((_, i) => {
@@ -145,7 +145,7 @@ const StepsSection = ({
   return (
     <section
       ref={sectionRef}
-      style={{ height: `calc(${steps.length} * 100vh + 200px)` }}
+      style={{ height: `calc(${steps.length} * 100vh + 300px)` }}
       className="relative w-full mt-20"
     >
       <div className="sticky top-0 h-screen container-xl">
