@@ -4,10 +4,11 @@ import Image from "next/image";
 
 const Courses = () => {
   return (
-    <div className="container-xl mt-20">
+    <section className="relative h-screen overflow-hidden flex flex-col justify-center container-xl">
+      {/* Header */}
       <div className="text-center w-full">
-        <h2 className="font-bold text-5xl flex items-center justify-center gap-3 mr-16">
-          <span>دوره ها</span>
+        <h2 className="font-bold text-5xl flex items-center justify-center gap-3">
+          <span>دوره‌ها</span>
           <div className="relative w-16 h-8">
             <Image
               src={"/icons/smile.svg"}
@@ -18,15 +19,17 @@ const Courses = () => {
           </div>
         </h2>
         <p className="text-[#8A8A8A] mt-2 font-bold">
-          این دوره ها منتخب بهترین دوره های مجموعه ماست
+          این دوره‌ها منتخب بهترین دوره‌های مجموعه ماست
         </p>
       </div>
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+
+      {/* Course grid */}
+      <div className="mt-6 flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 gap-x-8 place-items-center pb-4">
         {coursesData.map((data, idx) => (
           <CourseCard key={idx} data={data} link="/courses" />
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
