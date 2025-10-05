@@ -87,23 +87,27 @@ export default LandingOverlay;
 // ------------ overlay text component -------------
 const OverlayText = () => {
   return (
-    <div className="w-full flex items-start justify-center">
-      <div className="z-10 flex flex-col items-center justify-center text-right w-full space-y-16 px-4">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white max-w-5xl">
-          پیشرو در مسیر سرمایه‌گذاری هوشمند
-        </h1>
-        <h2 className="text-4xl md:text-6xl lg:text-7xl font-light text-white max-w-5xl ">
-          ما در <span className="font-semibold">پیشرو</span> با ارائه آموزش‌های
-          تخصصی بورس، بازارهای مالی و ...
-        </h2>
-        <h2 className="text-4xl md:text-6xl lg:text-7xl font-medium text-white max-w-5xl ">
-          از آموزش اصولی و گام‌به‌گام تا مشاوره‌های حرفه‌ای و همراهی در مسیر رشد
-          سرمایه...
-        </h2>
-        <h2 className="text-4xl md:text-6xl lg:text-7xl font-normal text-white max-w-5xl ">
-          پیشرو انتخابی مطمئن برای کسانی است که به دنبال امنیت مالی، رشد پایدار
-          و آینده‌ای روشن هستند.
-        </h2>
+    <div className="w-full flex items-start justify-center h-screen">
+      <div className="z-10 flex flex-col items-center justify-center text-center w-full">
+        <div className="container space-y-12 px-4">
+          <h4 className="text-2xl md:text-4xl lg:text-5xl lg:leading-[64px] font-medium text-white w-full max-w-5xl">
+            پیشرو در مسیر سرمایه‌گذاری هوشمند
+          </h4>
+          <h4 className="text-2xl md:text-4xl lg:text-5xl lg:leading-[64px] font-medium text-white w-full max-w-5xl ">
+            ما در <span className="font-medium">پیشرو</span> با ارائه آموزش‌های
+            تخصصی بورس، بازارهای مالی و سرمایه‌گذاری، شما را در مسیر رشد مالی
+            همراهی می‌کنیم.
+          </h4>
+          <h4 className="text-2xl md:text-4xl lg:text-5xl lg:leading-[64px] font-medium text-white w-full max-w-5xl ">
+            از آموزش اصولی و گام‌به‌گام تا مشاوره‌های حرفه‌ای و همراهی در مسیر
+            رشد سرمایه شما، همه و همه در{" "}
+            <span className="font-medium">پیشرو</span> فراهم است.
+          </h4>
+          <h4 className="text-2xl md:text-4xl lg:text-5xl lg:leading-[64px] font-medium text-white w-full max-w-5xl ">
+            پیشرو انتخابی مطمئن برای کسانی است که به دنبال امنیت مالی، رشد
+            پایدار و آینده‌ای روشن هستند.
+          </h4>
+        </div>
       </div>
     </div>
   );
