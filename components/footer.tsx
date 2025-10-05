@@ -42,8 +42,8 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="mt-32 mb-10 w-full container-xl">
-      <div className="flex flex-col sm:flex-row justify-between items-start w-full border-y py-8">
+    <footer className="pt-32 pb-10 w-full bg-white">
+      <div className="flex flex-col sm:flex-row justify-between items-start w-full border-y py-8 container-xl">
         {/* بخش سمت چپ */}
         <div className="flex-1 flex flex-col items-start mb-8 sm:mb-0">
           <div>

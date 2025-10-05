@@ -64,7 +64,7 @@ const LandingOverlay = () => {
       {/* اورلی سفید */}
       <motion.div
         style={{ opacity: overlayOpacity }}
-        className="fixed inset-0 bg-white -z-10"
+        className="fixed inset-0 bg-black -z-10"
       />
 
       {/* سکشن لندینگ فقط برای ارتفاع */}
@@ -87,26 +87,23 @@ export default LandingOverlay;
 // ------------ overlay text component -------------
 const OverlayText = () => {
   return (
-    <div className="w-full flex items-start pt-0 justify-center mb-20">
-      <div className="z-10 flex flex-col items-center justify-center text-center w-full space-y-6 px-4">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-mySecondary leading-tight max-w-4xl">
+    <div className="w-full flex items-start justify-center">
+      <div className="z-10 flex flex-col items-center justify-center text-right w-full space-y-16 px-4">
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white max-w-5xl">
           پیشرو در مسیر سرمایه‌گذاری هوشمند
         </h1>
-        <p className="text-xl md:text-2xl lg:text-3xl font-light text-gray-700 max-w-3xl leading-relaxed">
+        <h2 className="text-4xl md:text-6xl lg:text-7xl font-light text-white max-w-5xl ">
           ما در <span className="font-semibold">پیشرو</span> با ارائه آموزش‌های
-          تخصصی بورس، بازارهای مالی و مشاوره سرمایه‌گذاری، به شما کمک می‌کنیم تا
-          دانش مالی خود را ارتقا دهید و تصمیم‌های آگاهانه‌تری برای آینده‌ی
-          اقتصادی‌تان بگیرید.
-        </p>
-        <p className="text-lg md:text-xl lg:text-2xl font-medium text-gray-600 max-w-2xl leading-relaxed">
+          تخصصی بورس، بازارهای مالی و ...
+        </h2>
+        <h2 className="text-4xl md:text-6xl lg:text-7xl font-medium text-white max-w-5xl ">
           از آموزش اصولی و گام‌به‌گام تا مشاوره‌های حرفه‌ای و همراهی در مسیر رشد
-          سرمایه، ما در کنار شما هستیم تا مسیر موفقیت در بازارهای مالی را
-          هموارتر کنید.
-        </p>
-        <p className="text-base md:text-lg lg:text-xl font-normal text-gray-500 max-w-2xl leading-relaxed">
+          سرمایه...
+        </h2>
+        <h2 className="text-4xl md:text-6xl lg:text-7xl font-normal text-white max-w-5xl ">
           پیشرو انتخابی مطمئن برای کسانی است که به دنبال امنیت مالی، رشد پایدار
           و آینده‌ای روشن هستند.
-        </p>
+        </h2>
       </div>
     </div>
   );
