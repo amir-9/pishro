@@ -19,9 +19,6 @@ const HomePageContent = () => {
         <BikeSection />
       </SnapSingleSection>
       <SnapSingleSection>
-        <MobileScrollSection />
-      </SnapSingleSection>
-      <SnapSingleSection>
         <Courses />
       </SnapSingleSection>
       <SnapSingleSection>
@@ -32,6 +29,9 @@ const HomePageContent = () => {
       </SnapSingleSection>
       <SnapSingleSection>
         <NewsClub />
+      </SnapSingleSection>
+      <SnapSingleSection>
+        <MobileScrollSection />
       </SnapSingleSection>
     </div>
   );
