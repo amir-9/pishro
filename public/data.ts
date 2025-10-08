@@ -3,36 +3,32 @@ export const navbarData = [
     label: "صفحه اصلی",
     link: "/", // Home page
   },
-  {
-    label: "دوره های آموزشی",
-    link: "#courses", // Courses listing
-    data: [
-      {
-        label: "کریپتوکارنسی",
-        link: "/cryptocurrency?section=courses", // اضافه کردن به Query Parameters
-      },
-      {
-        label: "بورس",
-        link: "/stock-market?section=courses",
-      },
-      {
-        label: "متاورس",
-        link: "/metaverse?section=courses",
-      },
-      {
-        label: "NFT",
-        link: "/nft?section=courses",
-      },
-      {
-        label: "ایردراپ",
-        link: "/airdrop?section=courses",
-      },
-    ],
-  },
-  {
-    label: "سبد های سرمایه گذاری",
-    link: "/investment-plans", // Courses listing
-  },
+  // {
+  //   label: "دوره های آموزشی",
+  //   link: "#courses", // Courses listing
+  //   data: [
+  //     {
+  //       label: "کریپتوکارنسی",
+  //       link: "/cryptocurrency?section=courses", // اضافه کردن به Query Parameters
+  //     },
+  //     {
+  //       label: "بورس",
+  //       link: "/stock-market?section=courses",
+  //     },
+  //     {
+  //       label: "متاورس",
+  //       link: "/metaverse?section=courses",
+  //     },
+  //     {
+  //       label: "NFT",
+  //       link: "/nft?section=courses",
+  //     },
+  //     {
+  //       label: "ایردراپ",
+  //       link: "/airdrop?section=courses",
+  //     },
+  //   ],
+  // },
   {
     label: "کریپتوکارنسی",
     link: "/cryptocurrency", // Cryptocurrency section
@@ -58,47 +54,51 @@ export const navbarData = [
     link: "/investment-consulting", // Airdrop section
   },
   {
-    label: "کتابخانه دیجیتال",
-    link: "/digital-lib", // Airdrop section
+    label: "سبد های سرمایه گذاری",
+    link: "/investment-plans", // Courses listing
   },
-  {
-    label: "اخبار سایت",
-    link: "#news", // Airdrop section
-    data: [
-      {
-        label: "همگی اخبار",
-        link: "/news", // Courses listing
-      },
-      {
-        label: "کریپتوکارنسی",
-        link: "/cryptocurrency?section=news", // Cryptocurrency section
-      },
-      {
-        label: "بورس",
-        link: "/stock-market?section=news", // Stock market section
-      },
-      {
-        label: "متاورس",
-        link: "/metaverse?section=news", // Metaverse section
-      },
-      {
-        label: "NFT",
-        link: "/nft?section=news", // NFT section
-      },
-      {
-        label: "ایردراپ",
-        link: "/airdrop?section=news", // Airdrop section
-      },
-    ],
-  },
-  {
-    label: "درباره ما",
-    link: "/about-us", // Airdrop section
-  },
-  {
-    label: "سوالی دارید؟",
-    link: "/faq", // Airdrop section
-  },
+  // {
+  //   label: "کتابخانه دیجیتال",
+  //   link: "/digital-lib", // Airdrop section
+  // },
+  // {
+  //   label: "اخبار سایت",
+  //   link: "#news", // Airdrop section
+  //   data: [
+  //     {
+  //       label: "همگی اخبار",
+  //       link: "/news", // Courses listing
+  //     },
+  //     {
+  //       label: "کریپتوکارنسی",
+  //       link: "/cryptocurrency?section=news", // Cryptocurrency section
+  //     },
+  //     {
+  //       label: "بورس",
+  //       link: "/stock-market?section=news", // Stock market section
+  //     },
+  //     {
+  //       label: "متاورس",
+  //       link: "/metaverse?section=news", // Metaverse section
+  //     },
+  //     {
+  //       label: "NFT",
+  //       link: "/nft?section=news", // NFT section
+  //     },
+  //     {
+  //       label: "ایردراپ",
+  //       link: "/airdrop?section=news", // Airdrop section
+  //     },
+  //   ],
+  // },
+  // {
+  //   label: "درباره ما",
+  //   link: "/about-us", // Airdrop section
+  // },
+  // {
+  //   label: "سوالی دارید؟",
+  //   link: "/faq", // Airdrop section
+  // },
 ];
 
 export const categoriesData = [

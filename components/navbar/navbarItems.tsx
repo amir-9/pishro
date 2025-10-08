@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { HiMiniArrowLeftEndOnRectangle } from "react-icons/hi2";
+import { FaInstagram, FaXTwitter } from "react-icons/fa6"; // 👈 آیکون‌های شبکه‌ها
+import { RiTelegram2Fill } from "react-icons/ri";
 import NavbarPopover from "./navbarPopover";
-import { UserIcon } from "lucide-react";
 import { BuyIcon } from "@/public/svgr-icons";
 
 interface NavbarItemsProps {
@@ -37,21 +39,19 @@ const NavbarItems = ({
   indicatorStyle,
   setIndicatorStyle,
 }: NavbarItemsProps) => {
-  // State to control if the indicator should appear in active color or faded
   const [isIndicatorActive, setIsIndicatorActive] = useState(true);
 
   return (
     <div
-      className="bg-mySecondary h-12 text-white text-xs px-[60px] relative flex justify-between items-center"
-      // When mouse leaves the container, mark indicator as inactive (faded)
+      className="absolute top-0 w-full z-[100] pt-8 pb-8 text-white text-xs px-[60px] flex justify-between items-center
+  bg-gradient-to-b from-black/70 via-black/40 to-transparent backdrop-blur-[2px]"
       onMouseLeave={() => setIsIndicatorActive(false)}
     >
       <ul className="h-full flex items-center gap-5 relative">
         {navbarData.map((item, idx: number) => (
           <React.Fragment key={idx}>
             <li
-              className="group relative h-full flex items-center"
-              // On mouse enter update indicator position and activate it
+              className="group relative h-full flex items-center pb-1"
               onMouseEnter={(e) => {
                 const target = e.currentTarget;
                 setIndicatorStyle({
@@ -79,31 +79,57 @@ const NavbarItems = ({
 
         {/* Animated Underline Indicator */}
         <div
-          className={`absolute bottom-0 h-[4px] rounded transition-all duration-300 ${
+          className={`absolute bottom-0 h-[2px] rounded transition-all duration-300 ${
             isIndicatorActive ? "bg-red-500" : "bg-red-500 opacity-0"
           }`}
           style={{ left: indicatorStyle.left, width: indicatorStyle.width }}
         ></div>
       </ul>
-      <div className="flex items-center gap-7">
-        <div className="bg-white w-[1px] h-[24px]"></div>
-        <Link
-          href={"/login"}
-          className="hover:bg-red-700 bg-myPrimary transition-colors pr-2 pl-3 py-1 rounded-lg"
-        >
-          <button className="flex items-center gap-1">
-            <UserIcon width={18} height={18} />
-            <span className="font-medium text-xs"> ورود یا ثبت نام</span>
-          </button>
-        </Link>
-        <Link href={"/checkout"} className="group">
-          <button className="flex items-center gap-1">
-            <BuyIcon className="text-white" width={18} height={18} />
-            <span className="text-white bg-myPrimary group-hover:bg-red-700 transition-colors size-4 rounded-[2px] text-xs font-bold text-center">
-              2
-            </span>
-          </button>
-        </Link>
+
+      <div className="flex items-center gap-10">
+        <div className="flex items-center gap-4">
+          <Link
+            href={"/login"}
+            className="border hover:bg-black/20 transition-colors pr-4 pl-5 py-1.5 rounded-lg"
+          >
+            <button className="flex items-center gap-1">
+              <HiMiniArrowLeftEndOnRectangle className="size-5" />
+              <span className="font-medium text-xs"> ورود | ثبت نام</span>
+            </button>
+          </Link>
+
+          <Link href={"/checkout"} className="group">
+            <button className="flex items-center gap-1">
+              <BuyIcon className="text-white" width={20} height={20} />
+            </button>
+          </Link>
+        </div>
+
+        {/* 👇 بخش شبکه‌های اجتماعی */}
+        <div className="flex items-center gap-2 text-white">
+          <Link
+            href="https://x.com/YourXAccount"
+            target="_blank"
+            className="hover:text-gray-300 transition-colors p-1"
+          >
+            <FaXTwitter className="size-5" />
+          </Link>
+          <Link
+            href="https://instagram.com/YourInstagram"
+            target="_blank"
+            className="hover:text-[#E1306C] transition-colors p-1"
+          >
+            <FaInstagram className="size-5" />
+          </Link>
+
+          <Link
+            href="https://t.me/YourTelegram"
+            target="_blank"
+            className="hover:text-[#229ED9] transition-colors p-1"
+          >
+            <RiTelegram2Fill className="size-5" />
+          </Link>
+        </div>
       </div>
     </div>
   );
