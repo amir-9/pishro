@@ -88,8 +88,8 @@ export default function MobileScrollSection() {
             <div className="absolute size-full rounded-[36px] flex overflow-hidden">
               <div className="relative size-full rounded-[36px] flex">
                 <div className="w-[63%] h-full"></div>
-                <div className="w-[37%] h-full bg-[#48e4c7]"></div>
-                <div className="absolute rotate-12 h-[900px] w-[10%] bg-[#48e4c7] left-[30%] -top-10"></div>
+                <div className="w-[37%] h-full bg-[#8E8E8E]"></div>
+                <div className="absolute rotate-12 h-[900px] w-[10%] bg-[#8E8E8E] left-[30%] -top-10"></div>
               </div>
             </div>
 
@@ -98,7 +98,7 @@ export default function MobileScrollSection() {
               <div className="flex-1 flex flex-col justify-between h-full pt-32 pb-20 pr-12 pl-8 z-10">
                 <div>
                   <h4 className="text-[40px] font-bold text-white mb-10">
-                    از مزایای <span className="text-[#48e4c7]">پیشرو</span> بودن
+                    از مزایای <span className="text-[#8E8E8E]">پیشرو</span> بودن
                   </h4>
 
                   <ul className="space-y-4">
