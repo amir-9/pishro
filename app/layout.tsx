@@ -65,7 +65,7 @@ export default function RootLayout({
   return (
     <html lang="fa">
       <body
-        className={`${iransansXV.variable} ${charismaExtraBold.variable} ${charismaRegular.variable} ${montserrat.variable} ${irSansXRegular.variable} ${irSansXMedium.variable} ${irSansXBold.variable} rtl`}
+        className={`font-yekan ${charismaExtraBold.variable} ${charismaRegular.variable} ${montserrat.variable} rtl`}
       >
         {children}
         <Toaster

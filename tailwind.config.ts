@@ -17,6 +17,7 @@ export default {
         "charisma-regular": ["var(--font-charisma-regular)", "sans-serif"],
         iransans: ["var(--font-iransans-xv)", "sans-serif"],
         montserrat: ["var(--font-montserrat)", "sans-serif"],
+        yekan: ["IRANYekanX", "sans-serif"],
       },
       colors: {
         background: "hsl(var(--background))",
