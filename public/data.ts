@@ -943,7 +943,7 @@ export const commentsData: Comment[] = [
 export const homeCommentsData = [
   {
     id: 1,
-    avatar: "/images/profile/profile-1.png",
+    avatar: "/images/home/comments-prf/1.jpg",
     name: "علی رضایی",
     position: "تحلیل‌گر بازار",
     comment:
@@ -951,7 +951,7 @@ export const homeCommentsData = [
   },
   {
     id: 2,
-    avatar: "/images/profile/profile-2.png",
+    avatar: "/images/home/comments-prf/2.jpg",
     name: "سمیرا محمدی",
     position: "سرمایه‌گذار",
     comment:
@@ -959,7 +959,7 @@ export const homeCommentsData = [
   },
   {
     id: 3,
-    avatar: "/images/profile/profile-3.png",
+    avatar: "/images/home/comments-prf/3.jpg",
     name: "مهدی کاظمی",
     position: "معامله‌گر بورس",
     comment:
@@ -967,7 +967,7 @@ export const homeCommentsData = [
   },
   {
     id: 4,
-    avatar: "/images/profile/profile-4.png",
+    avatar: "/images/home/comments-prf/5.jpg",
     name: "زهرا کریمی",
     position: "مشاور مالی",
     comment:
@@ -975,7 +975,7 @@ export const homeCommentsData = [
   },
   {
     id: 5,
-    avatar: "/images/profile/profile-1.png",
+    avatar: "/images/home/comments-prf/4.jpg",
     name: "رضا کریمی",
     position: "مشاور مالی",
     comment:
