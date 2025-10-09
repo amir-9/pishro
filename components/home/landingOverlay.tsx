@@ -125,7 +125,6 @@ const OverlayText = ({ onEnter }: { onEnter: (bol: boolean) => void }) => {
                 delay: i * 0.1, // دونه‌دونه ظاهر می‌شن
                 ease: "easeOut",
               }}
-              whileHover={{ scale: 1.02 }}
               exit={{
                 opacity: 0,
                 y: i % 2 === 0 ? -50 : 50, // خروج متناسب با جهت ورود
