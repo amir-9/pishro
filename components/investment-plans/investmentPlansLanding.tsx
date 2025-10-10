@@ -6,7 +6,7 @@ import PlansList from "./plansList";
 
 const InvestmentPlansLanding = () => {
   return (
-    <div className="relative w-full h-screen-minus-navbar lg:h-screen-minus-navbar overflow-hidden isolate flex items-center justify-start text-center px-4 mb-32">
+    <div className="relative w-full h-screen lg:h-screen overflow-hidden isolate flex items-center justify-start text-center px-4 mb-32">
       {/* Image behind everything */}
       <Image
         src={investmentPlansData.image}

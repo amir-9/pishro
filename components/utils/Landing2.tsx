@@ -13,7 +13,7 @@ interface LandingProps {
 
 const Landing2 = ({ imageUrl, title, titleColor = "#fff" }: LandingProps) => {
   return (
-    <div className={cn("relative w-full h-screen-minus-navbar")}>
+    <div className={cn("relative w-full h-screen")}>
       {/* Background image */}
       <Image
         src={imageUrl}

@@ -17,7 +17,7 @@ import { PhoneCall, Send, GraduationCap, XIcon } from "lucide-react"; // 🧠 ا
 
 const InvestmentLanding = () => {
   return (
-    <div className="relative w-full h-screen-minus-navbar overflow-hidden isolate flex items-center justify-start text-center px-4 mb-32">
+    <div className="relative w-full h-screen overflow-hidden isolate flex items-center justify-start text-center px-4 mb-32">
       {/* 📷 Background Image */}
       <Image
         src={investmentConsultingData.image}

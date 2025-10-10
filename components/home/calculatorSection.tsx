@@ -216,7 +216,7 @@ const CalculatorSection = () => {
             </div>
 
             <Link
-              href="/plans/gold#plan-banner"
+              href="/investment-plans"
               className="mt-10 w-full bg-mySecondary text-white rounded-full py-3 font-bold text-center hover:bg-[#ffd6b6] transition-colors"
             >
               سرمایه‌گذاری

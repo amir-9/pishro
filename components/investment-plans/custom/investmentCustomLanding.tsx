@@ -11,7 +11,7 @@ const InvestmentCustomLanding = () => {
   return (
     <>
       {/* Landing Section */}
-      <div className="relative h-screen-minus-navbar w-full">
+      <div className="relative h-screen w-full">
         {/* Background Image */}
         <Image
           alt="landing"
