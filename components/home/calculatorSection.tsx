@@ -1,21 +1,3 @@
-// const CalculatorSection = () => {
-//   return (
-//     <section className="relative w-full h-screen bg-[#152c44] text-white snap-start">
-//       <div className="absolute inset-0 bg-[url('/images/utiles/pattern1.svg')] opacity-10" />
-//       <div className="container-xl h-full z-10">
-//         {/* header */}
-//         <div className="flex justify-center items-center flex-col mb-[72px]">
-//           <h3>ماشین حساب</h3>
-//         </div>
-//         {/* body */}
-//         <div></div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default CalculatorSection;
-
 "use client";
 
 import Link from "next/link";
@@ -30,7 +12,7 @@ const CalculatorSection = () => {
         {/* Header */}
         <div className="text-center mb-20">
           <h2 className="font-ch text-4xl lg:text-5xl mb-6">ماشین حساب</h2>
-          <p className="font-ir text-lg lg:text-xl text-gray-200 max-w-2xl mx-auto">
+          <p className="font-ir text-lg lg:text-xl text-gray-200 max-w-2xl mx-auto bg-[#152c44]/70">
             ماشین حساب زیر نشون می‌ده که اگر در این طرح سرمایه‌گذاری می‌کردی،
             چقدر بازده بدست می‌آوردی.
           </p>
