@@ -4,7 +4,6 @@ import {
   motion,
   useScroll,
   useTransform,
-  useMotionValueEvent,
   AnimatePresence,
 } from "framer-motion";
 import { useRef, useState } from "react";
@@ -12,7 +11,6 @@ import { useRef, useState } from "react";
 const LandingOverlay = () => {
   const ref = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(true);
 
   const [hideMainText, setHideMainText] = useState(false);
 
@@ -30,25 +28,11 @@ const LandingOverlay = () => {
     [0, 0.7, 0.9, 1]
   );
 
-  // const mainTextOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
-  // const mainTextY = useTransform(scrollYProgress, [0, 0.1], [0, -20]);
-
   const TextOpacity = useTransform(
     scrollYProgress,
     [0, 0.1, 0.15],
     [0, 0.8, 1]
   );
-
-  // کنترل پخش ویدیو
-  useMotionValueEvent(overlayOpacity, "change", (latest) => {
-    if (latest >= 0.98 && isVideoPlaying) {
-      videoRef.current?.pause();
-      setIsVideoPlaying(false);
-    } else if (latest < 0.98 && !isVideoPlaying) {
-      videoRef.current?.play();
-      setIsVideoPlaying(true);
-    }
-  });
 
   return (
     <section ref={ref} className="relative w-full">
@@ -65,7 +49,7 @@ const LandingOverlay = () => {
         >
           <source src="/videos/aboutUs.webm" type="video/webm" />
         </video>
-        <div className="absolute inset-0 bg-black/20 transition-none" />
+        <div className="absolute inset-0 bg-black/25 transition-none" />
         {/* اورلی سیاه که با اسکرول تاریک‌تر میشه */}
         <motion.div
           style={{ opacity: overlayOpacity }}
@@ -156,8 +140,23 @@ const OverlayText = ({ onEnter }: { onEnter: (bol: boolean) => void }) => {
 
 const OverlayMainText = () => {
   return (
-    <div className="h-screen container-xl pt-32 flex items-start justify-start">
-      <h4 className="text-white text-9xl font-bold max-w-md">پیشرو</h4>
+    <div className="h-screen container-xl pt-32 flex flex-col items-start justify-start space-y-8">
+      <div>
+        <h4 className="text-white text-6xl md:text-[88px] font-extrabold !leading-tight max-w-4xl">
+          پیشرو بزرگترین مؤسسه سرمایه‌گذاری در ایران
+        </h4>
+        {/* <p className="text-white text-2xl md:text-3xl font-semibold mt-4 max-w-2xl leading-relaxed"> */}
+        {/* </p> */}
+      </div>
+
+      <motion.a
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="bg-white text-black font-bold px-8 py-4 rounded-full text-lg shadow-lg hover:bg-white/90 transition-all"
+        href="/investment-consulting"
+      >
+        شروع مسیر موفقیت
+      </motion.a>
     </div>
   );
 };
