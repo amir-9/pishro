@@ -58,27 +58,30 @@ const NewsClub = () => {
 
         {/* form section */}
         <div className="flex-1 flex flex-col h-full justify-end gap-10 items-center">
-          <div className="w-full aspect-[685/500] flex flex-col justify-between">
+          <div className="w-full aspect-[661/504] flex flex-col justify-between">
             <div>
-              <h4 className="text-7xl font-bold text-mySecondary">
-                باشگاه خبری <span className="text-myPrimary">پیشرو</span>
+              <h4 className="text-[76px] font-bold text-mySecondary">
+                باشگاه خبری <span className="text-[#8E8E8E]">پیشرو</span>
               </h4>
-              <p className="mt-8 text-lg text-gray-600 leading-relaxed pl-12">
+              <p className="mt-4 text-lg text-gray-500 leading-relaxed pl-12">
                 با عضویت در باشگاه خبری پیشرو، جدیدترین اخبار و مقالات آموزشی را
                 مستقیماً در تلفن همراه خود دریافت کنید.
               </p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full pl-32">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="w-full pl-32 pb-16"
+            >
               <div className="w-full flex items-center justify-center">
                 <Input
                   {...register("phone")}
-                  className="rounded-full h-12 ml-2 ltr !text-lg placeholder:text-lg"
+                  className="rounded-full h-12 ml-2 ltr !text-lg max-w-[290px] placeholder:text-lg"
                   placeholder="09121234567"
                 />
                 <Button
                   type="submit"
-                  className="bg-mySecondary hover:bg-mySecondary/95 transition-colors h-12 px-12 rounded-full text-white font-medium"
+                  className="bg-mySecondary hover:bg-mySecondary/95 transition-colors h-12 px-16 rounded-full text-white text-lg font-medium"
                 >
                   عضویت
                 </Button>
