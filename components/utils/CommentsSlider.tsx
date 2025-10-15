@@ -31,7 +31,7 @@ const CommentsSlider = () => {
             spaceBetween={0}
             loop={true}
             autoplay={{
-              delay: 50000,
+              delay: 5000,
               disableOnInteraction: false,
             }}
             pagination={{
