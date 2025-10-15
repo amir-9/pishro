@@ -96,14 +96,14 @@ const NewsClub = () => {
 
       {/* decorations */}
       <>
-        <div className="absolute top-0 right-0 w-[240px] h-[88vh] -z-10">
+        <div className="absolute top-0 -right-8 w-[240px] h-[88vh] -z-10">
           <Image
             src={"/images/home/news-club/right-vector.png"}
             fill
             alt="دکور"
           />
         </div>
-        <div className="absolute bottom-0 left-0 w-[220px] h-[90vh] -z-10">
+        <div className="absolute bottom-0 -left-8 w-[220px] h-[90vh] -z-10">
           <Image
             src={"/images/home/news-club/left-vector.png"}
             fill
