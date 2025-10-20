@@ -7,6 +7,19 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import { useRef, useState } from "react";
+import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
+import { Swiper as SwiperType } from "swiper/types";
+
+import "swiper/css";
+import "swiper/css/navigation";
+const images = [
+  "/images/home/c/metaverse.webp",
+  "/images/home/c/airdrop.jpg",
+  "/images/home/c/nft.jpg",
+];
 
 const LandingOverlay = () => {
   const ref = useRef<HTMLElement>(null);
@@ -86,7 +99,7 @@ const LandingOverlay = () => {
           </motion.div>
         </div>
       </section>
-      <ImageZoomSection parentRef={ref} />
+      <ImageZoomSliderSection parentRef={ref} />
     </>
   );
 };
@@ -169,35 +182,112 @@ const OverlayMainText = () => {
   );
 };
 
-const ImageZoomSection = ({
+const ImageZoomSliderSection = ({
   parentRef,
 }: {
   parentRef: React.RefObject<HTMLElement | null>;
 }) => {
-  // از ref سکشن اصلی (LandingOverlay) استفاده می‌کنیم
+  const [activeIndex, setActiveIndex] = useState(0);
+  const swiperRef = useRef<SwiperType | null>(null);
+
+  // 🔹 انیمیشن زوم در حین خروج متن‌ها
   const { scrollYProgress } = useScroll({
     target: parentRef,
     offset: ["end end", "end start"],
-    // یعنی از لحظه‌ای که پایین سکشن متن به بالای صفحه نزدیک میشه تا وقتی کامل از صفحه خارج میشه
   });
 
-  // از 1.5 تا 1 (زوم کامل در زمان خروج متن‌ها)
-  const scale = useTransform(scrollYProgress, [0, 1], [1.5, 1]);
-
-  // ظاهر شدن تدریجی
-  const opacity = useTransform(scrollYProgress, [0, 0.001], [0, 1]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1.2, 1]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1.2, 0.66]);
+  const opacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+  const revealSlides = useTransform(scrollYProgress, [0, 0.4, 1], [0, 0, 1]);
+  const slides = [...images, ...images];
 
   return (
-    <div className="relative h-[200vh] -mt-[100vh]">
-      <div className="sticky top-0 h-screen overflow-hidden">
-        <motion.img
-          src="/images/home/c/metaverse.webp"
-          alt="Zoom Background"
-          style={{ scale, opacity }}
-          className="absolute inset-0 w-full h-full object-cover will-change-transform"
+    <motion.div style={{ opacity }} className="relative h-[210vh] -mt-[100vh]">
+      <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center bg-black">
+        {/* زمینه‌ی محو */}
+        <motion.div
+          style={{ opacity }}
+          className="absolute inset-0 bg-black/30 z-0"
         />
-        <div className="absolute inset-0 bg-black/10" />
+
+        {/* تصویر و اسلایدر */}
+        <motion.div
+          style={{
+            scale,
+            opacity,
+          }}
+          className="relative w-full flex items-center justify-center"
+        >
+          {/* اسلایدر */}
+          <motion.div style={{ opacity: revealSlides }} className="w-full">
+            <Swiper
+              id="landing-image-zoom-slider"
+              modules={[Autoplay]}
+              onSwiper={(swiper) => (swiperRef.current = swiper)}
+              slidesPerView={1.5} // ✅ بازگشت به مقدار عددی
+              centeredSlides
+              loop={slides.length >= 4} // ✅ شرطی
+              allowTouchMove={false}
+              spaceBetween={30}
+              onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+              autoplay={{
+                delay: 10000,
+                disableOnInteraction: false,
+              }}
+              className="w-full flex items-center justify-center"
+            >
+              {slides.map((src, index) => (
+                <SwiperSlide key={`slide-${index}`}>
+                  <motion.div
+                    animate={{
+                      opacity: activeIndex === index ? 1 : 0.6,
+                    }}
+                    transition={{ duration: 0.4 }}
+                    className="relative w-full aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl"
+                  >
+                    <Image
+                      src={src}
+                      alt={`slide-${index}`}
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                  </motion.div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            {/* دکمه‌های ناوبری */}
+            <div className="absolute inset-0 flex items-center justify-between px-[5vw]">
+              <button
+                onClick={() => swiperRef.current?.slidePrev()}
+                className="pointer-events-auto text-white/80 hover:text-white transition-colors z-50"
+              >
+                <HiChevronRight size={60} />
+              </button>
+              <button
+                onClick={() => swiperRef.current?.slideNext()}
+                className="pointer-events-auto text-white/80 hover:text-white transition-colors z-50"
+              >
+                <HiChevronLeft size={60} />
+              </button>
+            </div>
+          </motion.div>
+
+          {/* تصویر اولیه در پس‌زمینه قبل از ورود اسلایدر */}
+          <motion.img
+            src={images[activeIndex]}
+            alt="Zoom Background"
+            style={{
+              scale: bgScale,
+              opacity: useTransform(scrollYProgress, [0, 0.99, 1], [1, 1, 0]),
+              position: "absolute",
+            }}
+            className="w-full aspect-[16/9] object-cover rounded-3xl will-change-transform"
+          />
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
