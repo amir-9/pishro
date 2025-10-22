@@ -27,13 +27,10 @@ const MiniMovingSlider = ({
     setIsHovered(index);
     // if (swiperRef.current) {
     //   const swiper = swiperRef.current;
-
     //   // متوقف کردن autoplay
     //   swiper.autoplay.stop();
-
     //   // تغییر سرعت
     //   swiper.params.speed = HOVER_SPEED;
-
     //   // شروع مجدد با سرعت جدید
     //   swiper.autoplay.start();
     // }
