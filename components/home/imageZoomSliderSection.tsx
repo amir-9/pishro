@@ -21,6 +21,11 @@ import { miniSliderData1, miniSliderData2 } from "@/public/data";
 /* ------------------------- 🖼️ Image Data ------------------------- */
 const SLIDES = [
   {
+    src: "/images/home/c/main.webp",
+    title: "پیشرو در فناوری",
+    text: "کشف نوآوری‌های برتر در دنیای دیجیتال.",
+  },
+  {
     src: "/images/home/c/metaverse.webp",
     title: "آینده متاورس",
     text: "کشف نسل بعدی از جهان‌های دیجیتال.",

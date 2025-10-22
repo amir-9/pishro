@@ -1226,7 +1226,7 @@ export const miniSliderData1 = [
   "/images/home/c/metaverse.webp",
   "/images/home/c/airdrop.jpg",
   "/images/home/c/nft.jpg",
-  "/images/home/c/metaverse.webp",
+  "/images/home/c/crypto.jpg",
   "/images/home/c/airdrop.jpg",
 ];
 

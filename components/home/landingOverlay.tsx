@@ -27,8 +27,8 @@ const LandingOverlay = () => {
   // افکت‌ها
   const overlayOpacity = useTransform(
     scrollYProgress,
-    [0.05, 0.2, 0.55, 0.7],
-    [0, 0.7, 0.9, 1]
+    [0.05, 0.2, 0.65, 0.95],
+    [0, 0.7, 0.7, 1]
   );
   const textOpacity = useTransform(
     scrollYProgress,
@@ -37,7 +37,7 @@ const LandingOverlay = () => {
   );
   const bgColor = useTransform(
     scrollYProgress,
-    [0, 0.7, 0.71],
+    [0, 0.9, 0.91],
     ["transparent", "transparent", "black"]
   );
 
@@ -113,8 +113,8 @@ const OverlayText = ({ onEnter }: { onEnter: (visible: boolean) => void }) => {
   ];
 
   return (
-    <div className="w-full flex justify-center pb-40">
-      <div className="z-10 flex flex-col items-center text-right w-full container space-y-12 px-4">
+    <div className="w-full flex justify-center py-32">
+      <div className="z-10 flex flex-col items-center text-right w-full container-xl space-y-12 px-4">
         {texts.map((text, i) => (
           <motion.h4
             key={i}
@@ -129,7 +129,7 @@ const OverlayText = ({ onEnter }: { onEnter: (visible: boolean) => void }) => {
             viewport={{ once: false, amount: 0.1 }}
             onViewportEnter={i === 0 ? () => onEnter(true) : undefined}
             onViewportLeave={i === 0 ? () => onEnter(false) : undefined}
-            className="text-2xl md:text-4xl lg:text-5xl font-bold text-white w-full max-w-5xl leading-[1.5]"
+            className="text-2xl md:text-4xl lg:text-5xl font-bold text-white w-full !leading-[1.5]"
           >
             {text.includes("پیشرو") ? (
               <>
