@@ -1,4 +1,4 @@
-import Landing2 from "../utils/Landing2";
+import Landing3 from "../utils/Landing3";
 import { investmentTagsData, stepsData } from "@/public/data";
 import TagsList from "../utils/TagsList";
 import Courses from "../utils/Courses2";
@@ -10,11 +10,7 @@ import UserLevelSection from "../utils/UserLevelSelection";
 const CryptocurrencyPageContent = () => {
   return (
     <div>
-      <Landing2
-        imageUrl="/images/crypto/landing-img.png"
-        title="کریپتو"
-        titleColor="#EC7063"
-      />
+      <Landing3 />
       <AboutOtherPages />
       <UserLevelSection />
       <StepsSection {...stepsData} />
