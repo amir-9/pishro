@@ -1,13 +1,19 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import clsx from "clsx";
 import { LuTarget, LuBookOpen, LuUsers } from "react-icons/lu";
 
+// ✅ Load CountUp dynamically (no SSR)
+const CountUp = dynamic(() => import("react-countup"), { ssr: false });
+
+// 🟩 Box Data
 const boxes = [
   {
-    text: "محتوای کاربردی ",
+    text: "محتوای کاربردی",
     number: "1K+",
     imgSrc: "/images/utiles/ring.svg",
     top: "5%",
@@ -19,7 +25,7 @@ const boxes = [
     text: "ویدئوهای آموزشی",
     number: "250+",
     imgSrc: "/images/utiles/icon1.svg",
-    top: "85%",
+    top: "80%",
     left: "9%",
     align: "right",
     col: false,
@@ -35,11 +41,42 @@ const boxes = [
   },
 ];
 
+// 🟦 Stats Data
+const stats = [
+  { number: 1000, suffix: "+", label: "دانشجو" },
+  { number: 250, suffix: "+", label: "دوره آموزشی" },
+  { number: 95, suffix: "%", label: "رضایت کاربران" },
+  { number: 5, suffix: "سال", label: "تجربه آموزشی" },
+];
+
+const features = [
+  {
+    icon: <LuTarget className="text-myPrimary text-3xl" />,
+    text: "نقشه راه کامل از صفر",
+  },
+  {
+    icon: <LuBookOpen className="text-myPrimary text-3xl" />,
+    text: "کامل‌ترین محتوا",
+  },
+  {
+    icon: <LuUsers className="text-myPrimary text-3xl" />,
+    text: "اجتماع بزرگ دانش‌آموزان",
+  },
+];
+
 const Landing3 = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  // ✅ Prevent hydration mismatch (CountUp only runs after mount)
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
-    <section className="h-screen relative overflow-hidden">
+    <section className="h-screen relative overflow-hidden flex flex-col justify-between">
+      {/* 🔹 Top Section */}
       <div className="container-xl flex items-center justify-between mt-28">
-        {/* ✅ سمت راست */}
+        {/* 🟢 Right Side */}
         <div className="w-1/2 space-y-6 z-10">
           <h4 className="text-6xl font-extrabold text-mySecondary leading-tight">
             مسیر یادگیریتو از همین امروز با{" "}
@@ -50,7 +87,7 @@ const Landing3 = () => {
             دانش‌آموز موفق ما بپیوند.
           </p>
 
-          {/* دکمه‌ها */}
+          {/* 🔘 Buttons */}
           <div className="flex gap-4 pt-4">
             <button className="px-6 py-3 bg-mySecondary text-white font-semibold rounded-xl shadow-md hover:bg-blue-950 transition">
               از کجا شروع کنم؟
@@ -60,22 +97,9 @@ const Landing3 = () => {
             </button>
           </div>
 
-          {/* ویژگی‌ها */}
+          {/* 🌟 Features */}
           <div className="flex gap-8 pt-8">
-            {[
-              {
-                icon: <LuTarget className="text-myPrimary text-3xl" />,
-                text: "نقشه راه کامل از صفر",
-              },
-              {
-                icon: <LuBookOpen className="text-myPrimary text-3xl" />,
-                text: "کامل‌ترین محتوا",
-              },
-              {
-                icon: <LuUsers className="text-myPrimary text-3xl" />,
-                text: "اجتماع بزرگ دانش‌آموزان",
-              },
-            ].map((item, i) => (
+            {features.map((item, i) => (
               <div key={i} className="flex items-center gap-3">
                 {item.icon}
                 <p className="text-gray-700 font-medium">{item.text}</p>
@@ -84,9 +108,8 @@ const Landing3 = () => {
           </div>
         </div>
 
-        {/* ✅ سمت چپ */}
+        {/* 🟣 Left Side */}
         <div className="w-1/2 flex justify-end items-center relative">
-          {/* دایره سبز */}
           <div className="size-[495px] rounded-full bg-emerald-500 flex items-center justify-center relative shadow-lg">
             <Image
               src="/images/utiles/student.svg"
@@ -95,21 +118,17 @@ const Landing3 = () => {
               className="object-contain rounded-full"
             />
 
-            {/* 🟩 مستطیل‌ها اطراف دایره */}
+            {/* 🟩 Floating Boxes */}
             {boxes.map((box, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                animate={{
-                  opacity: 1,
-                  scale: [1, 1.2, 1], // 🔁 بزرگ و کوچیک شدن
-                  y: 0,
-                }}
+                initial={{ opacity: 0.95, scale: 0.8, y: 20 }}
+                animate={{ opacity: 1, scale: [1, 1.15, 1], y: 0 }}
                 transition={{
                   delay: 0.8 * i,
-                  duration: 2.5,
+                  duration: 3,
                   repeat: Infinity,
-                  repeatType: "loop",
+                  repeatType: "mirror",
                   ease: "easeInOut",
                 }}
                 className={clsx(
@@ -124,29 +143,22 @@ const Landing3 = () => {
                   transform: "translate(-50%, -50%)",
                 }}
               >
-                {box.col ? (
-                  <div className="flex items-center justify-center rounded-xl size-20">
-                    <Image
-                      src={box.imgSrc}
-                      alt={box.text}
-                      width={80}
-                      height={80}
-                      className="object-contain"
-                    />
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center bg-mySecondary rounded-xl p-2 size-12">
-                    <Image
-                      src={box.imgSrc}
-                      alt={box.text}
-                      width={30}
-                      height={30}
-                      className="object-contain"
-                    />
-                  </div>
-                )}
-                <div className={box.col ? "text-center" : ""}>
-                  <span className="text-mySecondary font-bold text-2xl text-left">
+                <div
+                  className={clsx(
+                    "flex items-center justify-center rounded-xl",
+                    box.col ? "size-20" : "bg-mySecondary p-2 size-12"
+                  )}
+                >
+                  <Image
+                    src={box.imgSrc}
+                    alt={box.text}
+                    width={box.col ? 80 : 30}
+                    height={box.col ? 80 : 30}
+                    className="object-contain"
+                  />
+                </div>
+                <div className={clsx(box.col && "text-center")}>
+                  <span className="text-mySecondary font-bold text-2xl">
                     {box.number}
                   </span>
                   <p className="text-gray-800 font-medium whitespace-nowrap text-sm">
@@ -157,6 +169,32 @@ const Landing3 = () => {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* 🔻 Bottom Stats */}
+      <div className="container-xl flex justify-around items-center py-8 border-t border-gray-100">
+        {stats.map((item, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.2, duration: 0.6 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center"
+          >
+            <span className="text-5xl font-extrabold text-mySecondary">
+              {isClient ? (
+                <CountUp start={0} end={item.number} duration={2.5} />
+              ) : (
+                0
+              )}
+              {item.suffix}
+            </span>
+            <p className="text-gray-600 mt-2 font-medium text-lg">
+              {item.label}
+            </p>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
