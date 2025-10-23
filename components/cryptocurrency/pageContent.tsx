@@ -6,6 +6,7 @@ import Courses from "../home/courses";
 import CommentsSlider from "../utils/CommentsSlider";
 import StepsSection from "../home/stepsSection";
 import AboutOtherPages from "../utils/AboutOtherPages";
+import UserLevelSection from "../utils/UserLevelSelection";
 
 const CryptocurrencyPageContent = () => {
   return (
@@ -17,6 +18,7 @@ const CryptocurrencyPageContent = () => {
       />
       <AboutIt />
       <AboutOtherPages />
+      <UserLevelSection />
       <StepsSection {...stepsData} />
       <Courses />
       <CommentsSlider />
