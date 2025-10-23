@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 const topics = [
   "دوره های آموزشی",
   "سبد های سرمایه گذاری",
-  "کریپتوکارنسی",
+  "کریپتو",
   "بورس",
   "متاورس",
   "NFT",

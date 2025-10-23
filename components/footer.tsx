@@ -86,7 +86,7 @@ const Footer = () => {
             <h6 className="text-sm mb-6">دسته بندی ها</h6>
             <ul className="flex flex-col gap-2 text-sm text-[#80878C]">
               <li>
-                <Link href={"#"}>کریپتوکارنسی</Link>
+                <Link href={"#"}>کریپتو</Link>
               </li>
               <li>
                 <Link href={"#"}>بورس</Link>

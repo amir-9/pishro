@@ -8,7 +8,7 @@ export const navbarData = [
   //   link: "#courses", // Courses listing
   //   data: [
   //     {
-  //       label: "کریپتوکارنسی",
+  //       label: "کریپتو",
   //       link: "/cryptocurrency?section=courses", // اضافه کردن به Query Parameters
   //     },
   //     {
@@ -30,7 +30,7 @@ export const navbarData = [
   //   ],
   // },
   {
-    label: "کریپتوکارنسی",
+    label: "کریپتو",
     link: "/cryptocurrency", // Cryptocurrency section
   },
   {
@@ -70,7 +70,7 @@ export const navbarData = [
   //       link: "/news", // Courses listing
   //     },
   //     {
-  //       label: "کریپتوکارنسی",
+  //       label: "کریپتو",
   //       link: "/cryptocurrency?section=news", // Cryptocurrency section
   //     },
   //     {
@@ -104,7 +104,7 @@ export const navbarData = [
 export const categoriesData = [
   {
     src: "/images/home/crypto.jpg",
-    label: "کریپتوکارنسی",
+    label: "کریپتو",
     link: "/cryptocurrency",
   },
   {
@@ -291,7 +291,7 @@ export const landingData = {
   },
   // "/cryptocurrency": {
   //   backgroundImage: "/images/landing-crypto.jpg",
-  //   title: "کریپتوکارنسی",
+  //   title: "کریپتو",
   //   description:
   //     "پیشرو با ارائه خدمات حرفه‌ای در زمینه آموزش مالی و سرمایه‌گذاری در کنار شماست.",
   // },
@@ -634,7 +634,7 @@ export const newsCategory = [
   },
   {
     value: "crypto",
-    label: "کریپتوکارنسی",
+    label: "کریپتو",
   },
   {
     value: "stockMarket",
@@ -792,7 +792,7 @@ export const homeSliderData = [
   },
   {
     image: "/images/landing-crypto.jpg",
-    text: "کریپتوکارنسی",
+    text: "کریپتو",
     linkText: "برو به صفحه کریپتو",
     linkUrl: "/cryptocurrency",
   },
@@ -1143,7 +1143,7 @@ export const fakeQuestions = [
 
 export const aboutUsData = {
   title: "درباره شرکت پیشرو",
-  description: `ما در "پیشرو" به شما کمک می‌کنیم تا در دنیای پیچیده و پر سرعت کریپتوکارنسی و ترید موفق شوید. 
+  description: `ما در "پیشرو" به شما کمک می‌کنیم تا در دنیای پیچیده و پر سرعت کریپتو و ترید موفق شوید. 
   با ارائه منابع آموزشی، مشاوره‌های حرفه‌ای و ابزارهای کارآمد، هدف ما ارتقاء دانش مالی شما و دستیابی به 
   فرصت‌های سرمایه‌گذاری هوشمندانه است. به جمع پیشروها بپیوندید و گام‌های اول را به سوی موفقیت بردارید.`,
   stats: [

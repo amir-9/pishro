@@ -13,7 +13,7 @@ const CryptocurrencyPageContent = () => {
     <div>
       <Landing2
         imageUrl="/images/crypto/landing-img.png"
-        title="کریپتوکارنسی"
+        title="کریپتو"
         titleColor="#EC7063"
       />
       <AboutIt />
@@ -22,7 +22,7 @@ const CryptocurrencyPageContent = () => {
       <StepsSection {...stepsData} />
       <Courses />
       <CommentsSlider />
-      <TagsList tags={investmentTagsData} title="کلید واژه های کریپتوکارنسی" />
+      <TagsList tags={investmentTagsData} title="کلید واژه های کریپتو" />
     </div>
   );
 };

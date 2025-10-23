@@ -5,7 +5,7 @@ import Image from "next/image";
 export const categoriesData = [
   {
     src: "/images/home/c/crypto.jpg",
-    label: "کریپتوکارنسی",
+    label: "کریپتو",
     link: "/cryptocurrency",
   },
   {
