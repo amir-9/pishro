@@ -1,5 +1,4 @@
 import Landing2 from "../utils/Landing2";
-import AboutIt from "@/components/utils/AboutIt";
 import { investmentTagsData, stepsData } from "@/public/data";
 import TagsList from "../utils/TagsList";
 import Courses from "../utils/Courses2";
@@ -16,7 +15,6 @@ const CryptocurrencyPageContent = () => {
         title="کریپتو"
         titleColor="#EC7063"
       />
-      <AboutIt />
       <AboutOtherPages />
       <UserLevelSection />
       <StepsSection {...stepsData} />
