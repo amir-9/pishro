@@ -27,6 +27,7 @@ const SnapSingleSection = ({
     setIsScrolling,
     // targetSection,
     setTargetSection,
+    snapEnabled,
   } = useScrollStore();
 
   const isSnappingRef = useRef(false); // 🚫 جلوگیری از اسکرول تکراری
@@ -40,7 +41,7 @@ const SnapSingleSection = ({
         const entry = entries[0];
 
         // 🚫 اگر در حال انیمیشن هستیم یا قبلاً فعال شده، خروج
-        if (isScrolling || isSnappingRef.current) return;
+        if (!snapEnabled || isScrolling || isSnappingRef.current) return;
 
         // ✅ وقتی سکشن واقعا وارد دید می‌شود
         if (entry.isIntersecting && entry.intersectionRatio >= threshold) {
@@ -85,6 +86,7 @@ const SnapSingleSection = ({
     id,
     isScrolling,
     activeSection,
+    snapEnabled,
     setTargetSection,
     setIsScrolling,
     setActiveSection,

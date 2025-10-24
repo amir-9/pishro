@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import { ArrowUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useScrollStore } from "@/stores/scroll-store";
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { setSnapEnabled } = useScrollStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,7 +19,11 @@ const ScrollToTopButton = () => {
   }, []);
 
   const scrollToTop = () => {
+    setSnapEnabled(false);
+
     window.scrollTo({ top: 0, behavior: "smooth" });
+
+    setTimeout(() => setSnapEnabled(true), 1200);
   };
 
   return (
