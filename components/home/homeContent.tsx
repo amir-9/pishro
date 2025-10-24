@@ -1,13 +1,13 @@
 "use client";
 
 import LandingOverlay from "./landingOverlay";
+import MobileScrollSection from "./mobileScrollSection";
+import CalculatorSection from "./calculatorSection";
 import BikeSection from "./bikeSection";
 import Courses from "./courses";
 import CommentsSlider from "@/components/utils/CommentsSlider";
 import NewsClub from "./newsClub";
-import SnapSingleSection from "../utils/SnapSingleSection";
-import CalculatorSection from "./calculatorSection";
-import MobileScrollSection from "./mobileScrollSection";
+import SnapSingleSection from "@/components/utils/SnapSingleSection";
 
 const HomePageContent = () => {
   return (
