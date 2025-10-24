@@ -1,25 +1,35 @@
 "use client";
 
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import { animate } from "framer-motion";
+import { useScrollStore } from "@/stores/scroll-store";
 
 type Props = {
   children: ReactNode;
   duration?: number;
   offset?: number;
   threshold?: number;
-  id?: string;
+  id: string;
 };
 
 const SnapSingleSection = ({
   children,
   duration = 0.8,
   offset = 0,
-  threshold = 0.1, // وقتی حداقل 10٪ از سکشن دیده بشه فعال میشه
+  threshold = 0.1,
+  id,
 }: Props) => {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [hasSnapped, setHasSnapped] = useState(false);
+  const {
+    activeSection,
+    setActiveSection,
+    isScrolling,
+    setIsScrolling,
+    // targetSection,
+    setTargetSection,
+  } = useScrollStore();
+
+  const isSnappingRef = useRef(false); // 🚫 جلوگیری از اسکرول تکراری
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -29,65 +39,59 @@ const SnapSingleSection = ({
       (entries) => {
         const entry = entries[0];
 
-        // اگر قبلاً اسنپ شده یا در حال انیمیشن هست، کاری نکن
-        if (isAnimating || hasSnapped) return;
+        // 🚫 اگر در حال انیمیشن هستیم یا قبلاً فعال شده، خروج
+        if (isScrolling || isSnappingRef.current) return;
 
-        // اگر سکشن وارد صفحه شد (حتی کمی)
+        // ✅ وقتی سکشن واقعا وارد دید می‌شود
         if (entry.isIntersecting && entry.intersectionRatio >= threshold) {
+          if (activeSection === id) return; // جلوگیری از تریگر دوباره
+
+          isSnappingRef.current = true;
+          setTargetSection(id);
+          setIsScrolling(true);
+
           const targetY =
             window.scrollY + section.getBoundingClientRect().top - offset;
-
-          setIsAnimating(true);
 
           const controls = animate(window.scrollY, targetY, {
             duration,
             ease: [0.25, 0.1, 0.25, 1],
             onUpdate: (latest) => window.scrollTo(0, latest),
             onComplete: () => {
-              setIsAnimating(false);
-              setHasSnapped(true); // ✅ فقط یک بار فعال شود تا زمانی که خارج نشود
+              setActiveSection(id);
+              setIsScrolling(false);
+              isSnappingRef.current = false;
             },
           });
 
-          // در صورت لغو اسکرول ناگهانی
           const stop = () => {
             controls.stop();
-            setIsAnimating(false);
+            setIsScrolling(false);
+            isSnappingRef.current = false;
           };
           window.addEventListener("wheel", stop, { once: true });
         }
       },
-      {
-        threshold: Array.from({ length: 20 }, (_, i) => i / 20),
-      }
+      { threshold: Array.from({ length: 20 }, (_, i) => i / 20) }
     );
 
     observer.observe(section);
 
     return () => observer.disconnect();
-  }, [duration, offset, threshold, isAnimating, hasSnapped]);
-
-  // وقتی سکشن از صفحه خارج شد → دوباره اجازه فعال شدن بده
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-
-      // اگر سکشن به‌طور کامل از دید خارج شده
-      const completelyOut =
-        rect.bottom < 10 || rect.top > window.innerHeight - 10;
-
-      if (completelyOut && hasSnapped) {
-        setHasSnapped(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [hasSnapped]);
+  }, [
+    duration,
+    offset,
+    threshold,
+    id,
+    isScrolling,
+    activeSection,
+    setTargetSection,
+    setIsScrolling,
+    setActiveSection,
+  ]);
 
   return (
-    <section ref={sectionRef} className="min-h-screen w-full">
+    <section ref={sectionRef} id={id} className="min-h-screen w-full">
       {children}
     </section>
   );
