@@ -1,16 +1,20 @@
-import Landing3 from "../utils/Landing3";
-import { investmentTagsData, stepsData } from "@/public/data";
-import TagsList from "../utils/TagsList";
-import Courses from "../utils/Courses2";
-import CommentsSlider from "../utils/CommentsSlider";
-import StepsSection from "../home/stepsSection";
-import AboutOtherPages from "../utils/AboutOtherPages";
-import UserLevelSection from "../utils/UserLevelSelection";
+import Landing3 from "@/components/utils/Landing3";
+import AboutOtherPages from "@/components/utils/AboutOtherPages";
+import UserLevelSection from "@/components/utils/UserLevelSelection";
+import StepsSection from "@/components/utils/stepsSection";
+import Courses from "@/components/utils/Courses2";
+import CommentsSlider from "@/components/utils/CommentsSlider";
+import TagsList from "@/components/utils/TagsList";
+import {
+  cryptoLandingData,
+  investmentTagsData,
+  stepsData,
+} from "@/public/data";
 
 const CryptocurrencyPageContent = () => {
   return (
     <div>
-      <Landing3 />
+      <Landing3 data={cryptoLandingData} />
       <AboutOtherPages />
       <UserLevelSection />
       <StepsSection {...stepsData} />
