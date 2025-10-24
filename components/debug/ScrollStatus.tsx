@@ -20,10 +20,19 @@ const ScrollStatus = () => {
   }, [isScrolling]);
 
   return (
-    <div className="fixed bottom-20 left-20 bg-black/95 text-white text-3xl p-6 rounded-md z-50 flex flex-col gap-4 ltr">
-      <p>📍 Active: {activeSection ?? "None"}</p>
-      <p>🎯 Target: {targetSection ?? "None"}</p>
-      <p>🌀 Scrolling: {isScrolling ? "Yes" : "No"}</p>
+    <div className="fixed bottom-20 left-20 bg-black/75 text-white text-3xl p-6 rounded-md z-50 flex flex-col gap-8 ltr">
+      <p>
+        📍 <span className="text-gray-400">Active: </span>
+        {activeSection ?? "None"}
+      </p>
+      <p>
+        🎯 <span className="text-gray-400">Target: </span>
+        {targetSection ?? "None"}
+      </p>
+      <p>
+        🌀 <span className="text-gray-400">Scrolling: </span>
+        {isScrolling ? "Yes" : "No"}
+      </p>
     </div>
   );
 };
