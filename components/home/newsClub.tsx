@@ -60,7 +60,7 @@ const NewsClub = () => {
         <div className="flex-1 flex flex-col h-full justify-end gap-10 items-center">
           <div className="w-full aspect-[661/504] flex flex-col justify-between">
             <div>
-              <h4 className="text-[76px] font-bold text-mySecondary">
+              <h4 className="text-[76px] leading-none font-bold text-mySecondary">
                 باشگاه خبری <span className="text-[#8E8E8E]">پیشرو</span>
               </h4>
               <p className="mt-4 text-lg text-gray-500 leading-relaxed pl-12">
