@@ -28,6 +28,7 @@ interface StatData {
 interface Landing3Props {
   data: {
     title: string;
+    mainWord?: string;
     description: string;
     button1: string;
     button2: string;
@@ -78,14 +79,17 @@ const Landing3 = ({ data }: Landing3Props) => {
         <div className="w-1/2 space-y-6 z-10">
           <h4 className="text-6xl font-extrabold text-mySecondary leading-tight">
             {title.includes("پیشرو") ? (
-              title
-            ) : (
               <>
-                {title} <span className="text-myPrimary">پیشرو</span>
+                {title.split("پیشرو")[0]}
+                <span className="text-myPrimary">پیشرو</span>
+                {title.split("پیشرو")[1]}
               </>
+            ) : (
+              <>{title}</>
             )}
           </h4>
-          <p className="text-gray-600 text-lg leading-relaxed max-w-md">
+
+          <p className="text-gray-600 text-lg leading-relaxed max-w-xl">
             {description}
           </p>
 
