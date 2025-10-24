@@ -28,7 +28,7 @@ const NavbarItems = ({
   const [isIndicatorActive, setIsIndicatorActive] = useState(true);
   const pathname = usePathname(); // 👈 get current route
 
-  const isDark = pathname !== "/cryptocurrency"; // 👈 check if we are on homepage
+  const isDark = pathname === "/"; // 👈 check if we are on homepage
 
   return (
     <div
