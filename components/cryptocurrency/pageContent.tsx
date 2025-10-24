@@ -6,6 +6,7 @@ import Courses from "@/components/utils/Courses2";
 import CommentsSlider from "@/components/utils/CommentsSlider";
 import TagsList from "@/components/utils/TagsList";
 import {
+  cryptoAboutData,
   cryptoLandingData,
   investmentTagsData,
   stepsData,
@@ -15,7 +16,7 @@ const CryptocurrencyPageContent = () => {
   return (
     <div>
       <Landing3 data={cryptoLandingData} />
-      <AboutOtherPages />
+      <AboutOtherPages data={cryptoAboutData} />
       <UserLevelSection />
       <StepsSection {...stepsData} />
       <Courses />
