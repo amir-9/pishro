@@ -1,5 +1,5 @@
 import { coursesData } from "@/public/data";
-import CourseCard from "@/components/home/courseCard";
+import CourseCard from "@/components/utils/courseCard";
 import Image from "next/image";
 
 const Courses = () => {
