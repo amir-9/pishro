@@ -78,6 +78,22 @@ const useImageZoomScroll = (
 
   // 🔹 Text appearance opacity (when scale → 1)
   const textOpacity = useTransform(bgScale, [1.05, 1], [0, 1]);
+  const overlayTextOpacity = useTransform(
+    bgScale,
+    [1.8, 1.75, 1.07, 1.05],
+    [0, 1, 1, 0]
+  );
+  const overlayTextRight = useTransform(
+    bgScale,
+    [1.8, 1.7, 1.05],
+    [118, 112, 48]
+  );
+
+  const overlayTextTop = useTransform(
+    bgScale,
+    [1.8, 1.7, 1.05],
+    ["90%", "33%", "33%"]
+  );
 
   return {
     parentScroll,
@@ -89,6 +105,9 @@ const useImageZoomScroll = (
     btnOpacity,
     revealSlides,
     textOpacity,
+    overlayTextOpacity,
+    overlayTextRight,
+    overlayTextTop,
   };
 };
 
@@ -145,6 +164,9 @@ const ImageZoomSliderSection = ({
     btnOpacity,
     revealSlides,
     textOpacity,
+    overlayTextOpacity,
+    overlayTextRight,
+    overlayTextTop,
   } = useImageZoomScroll(parentRef, sectionRef);
 
   const [showMiniSlider, setShowMiniSlider] = useState(false);
@@ -225,6 +247,22 @@ const ImageZoomSliderSection = ({
                           className="object-cover"
                           priority
                         />
+                        {/* 🔹 Text Appears When Scale = 1 */}
+                        <motion.div
+                          style={{ opacity: textOpacity }}
+                          transition={{ duration: 0.6, ease: "easeOut" }}
+                          className="absolute top-[33%] right-12 text-right text-white z-20"
+                        >
+                          <h3 className="text-4xl font-semibold mb-3 drop-shadow-lg">
+                            {slide.title}
+                          </h3>
+                          <p className="text-base text-white/80 max-w-[260px] leading-snug drop-shadow">
+                            {slide.text}
+                          </p>
+                          <button className="text-base bg-mySecondary/50 py-2 px-10 rounded-full mt-4">
+                            اطلاعات بیشتر
+                          </button>
+                        </motion.div>
                       </motion.div>
 
                       {/* Zoomed Overlay */}
@@ -234,27 +272,34 @@ const ImageZoomSliderSection = ({
                             style={{ scale: bgScale }}
                             className="absolute inset-0 z-10 rounded-3xl overflow-hidden"
                           >
-                            <Image
-                              src={slide.src}
-                              alt="Zoom Background"
-                              fill
-                              className="object-cover"
-                              priority
-                            />
-                          </motion.div>
-
-                          {/* 🔹 Text Appears When Scale = 1 */}
-                          <motion.div
-                            style={{ opacity: textOpacity }}
-                            transition={{ duration: 0.6, ease: "easeOut" }}
-                            className="absolute top-6 right-8 text-right text-white z-20"
-                          >
-                            <h3 className="text-2xl font-semibold mb-1 drop-shadow-lg">
-                              {slide.title}
-                            </h3>
-                            <p className="text-sm text-white/80 max-w-[240px] leading-snug drop-shadow">
-                              {slide.text}
-                            </p>
+                            <div className="size-full relative">
+                              <Image
+                                src={slide.src}
+                                alt="Zoom Background"
+                                fill
+                                className="object-cover"
+                                priority
+                              />
+                              <motion.div
+                                style={{
+                                  opacity: overlayTextOpacity,
+                                  right: overlayTextRight,
+                                  top: overlayTextTop,
+                                }}
+                                transition={{ duration: 0.6, ease: "easeOut" }}
+                                className="absolute top-[30%] right-28 text-right text-white z-20"
+                              >
+                                <h3 className="text-4xl font-semibold mb-3 drop-shadow-lg">
+                                  {slide.title}
+                                </h3>
+                                <p className="text-base text-white/80 max-w-[260px] leading-snug drop-shadow">
+                                  {slide.text}
+                                </p>
+                                <button className="text-base bg-mySecondary/50 py-2 px-10 rounded-full mt-4">
+                                  اطلاعات بیشتر
+                                </button>
+                              </motion.div>
+                            </div>
                           </motion.div>
                         </>
                       )}
