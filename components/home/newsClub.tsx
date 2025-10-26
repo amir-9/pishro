@@ -60,10 +60,10 @@ const NewsClub = () => {
         <div className="flex-1 flex flex-col h-full justify-end gap-10 items-center">
           <div className="w-full aspect-[661/504] flex flex-col justify-between">
             <div>
-              <h4 className="text-[76px] leading-none font-bold text-mySecondary">
-                باشگاه خبری <span className="text-[#8E8E8E]">پیشرو</span>
+              <h4 className="text-8xl leading-none font-semibold text-mySecondary mt-8">
+                باشگاه <span className="text-[#8E8E8E]">پیشرو</span>
               </h4>
-              <p className="mt-4 text-lg text-gray-500 leading-relaxed pl-12">
+              <p className="mt-6 text-lg text-gray-400 leading-relaxed pl-12">
                 با عضویت در باشگاه خبری پیشرو، جدیدترین اخبار و مقالات آموزشی را
                 مستقیماً در تلفن همراه خود دریافت کنید.
               </p>
@@ -99,14 +99,14 @@ const NewsClub = () => {
 
       {/* decorations */}
       <>
-        <div className="absolute top-0 -right-8 w-[240px] h-[88vh] -z-10">
+        <div className="absolute top-0 -right-8 w-[260px] h-[86vh] -z-10">
           <Image
             src={"/images/home/news-club/right-vector.png"}
             fill
             alt="دکور"
           />
         </div>
-        <div className="absolute bottom-0 -left-8 w-[220px] h-[90vh] -z-10">
+        <div className="absolute bottom-0 -left-24 w-[240px] h-[90vh] -z-10">
           <Image
             src={"/images/home/news-club/left-vector.png"}
             fill
