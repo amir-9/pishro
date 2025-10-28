@@ -80,19 +80,18 @@ const useImageZoomScroll = (
   const textOpacity = useTransform(bgScale, [1.05, 1], [0, 1]);
   const overlayTextOpacity = useTransform(
     bgScale,
-    [1.8, 1.75, 1.07, 1.05],
-    [0, 1, 1, 0]
+    [1.78, 1.75, 1.72, 1.01, 1],
+    [0, 0.1, 1, 1, 0]
   );
   const overlayTextRight = useTransform(
     bgScale,
     [1.8, 1.7, 1.05],
     [118, 112, 48]
   );
-
   const overlayTextTop = useTransform(
     bgScale,
     [1.8, 1.7, 1.05],
-    ["90%", "33%", "33%"]
+    ["33%", "33%", "33%"]
   );
 
   return {
@@ -259,7 +258,7 @@ const ImageZoomSliderSection = ({
                           <p className="text-base text-white/80 max-w-[260px] leading-snug drop-shadow">
                             {slide.text}
                           </p>
-                          <button className="text-base bg-mySecondary/50 py-2 px-10 rounded-full mt-4">
+                          <button className="text-base bg-mySecondary/95 border border-mySecondary hover:bg-black/5 hover:border-mySecondary backdrop-blur-[4px] py-2 px-10 rounded-full mt-4 transition-all">
                             اطلاعات بیشتر
                           </button>
                         </motion.div>
@@ -287,7 +286,7 @@ const ImageZoomSliderSection = ({
                                   top: overlayTextTop,
                                 }}
                                 transition={{ duration: 0.6, ease: "easeOut" }}
-                                className="absolute top-[30%] right-28 text-right text-white z-20"
+                                className="absolute top-[33%] right-28 text-right text-white z-20"
                               >
                                 <h3 className="text-4xl font-semibold mb-3 drop-shadow-lg">
                                   {slide.title}
@@ -295,7 +294,7 @@ const ImageZoomSliderSection = ({
                                 <p className="text-base text-white/80 max-w-[260px] leading-snug drop-shadow">
                                   {slide.text}
                                 </p>
-                                <button className="text-base bg-mySecondary/50 py-2 px-10 rounded-full mt-4">
+                                <button className="text-base bg-mySecondary/95 border border-mySecondary hover:bg-transparent hover:text-mySecondary hover:border-mySecondary backdrop-blur-[4px] py-2 px-10 rounded-full mt-4 transition-all">
                                   اطلاعات بیشتر
                                 </button>
                               </motion.div>
