@@ -95,10 +95,10 @@ const Landing3 = ({ data }: Landing3Props) => {
 
           {/* 🔘 دکمه‌ها */}
           <div className="flex gap-4 pt-4">
-            <button className="px-6 py-3 bg-mySecondary text-white font-semibold rounded-xl shadow-md hover:bg-blue-950 transition">
+            <button className="px-6 py-3 bg-mySecondary text-white border border-mySecondary hover:bg-white hover:text-mySecondary font-semibold rounded-xl shadow-md transition">
               {button1}
             </button>
-            <button className="px-6 py-3 border border-mySecondary text-mySecondary font-semibold rounded-xl hover:bg-[#DCFCE7] transition">
+            <button className="px-6 py-3 border border-mySecondary text-mySecondary font-semibold rounded-xl hover:bg-mySecondary hover:text-white transition">
               {button2}
             </button>
           </div>
