@@ -40,7 +40,7 @@ const BikeSection = () => {
       delay: 0.6,
       depth: 0.7,
     },
-    { text: "بزن بریم 🚴‍♂️", top: "35%", left: "58%", delay: 1.2, depth: 0.4 },
+    { text: "بزن بریم!!", top: "35%", left: "58%", delay: 1.2, depth: 0.4 },
   ];
 
   const translateX1 = useTransform(smoothX, (v) => v * 60 * texts[0].depth);
