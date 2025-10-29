@@ -70,13 +70,20 @@ const StepItem = ({
         transition={{ duration: 0.6 }}
         className="relative size-full flex flex-col items-start justify-start pt-8"
       >
-        <h3 className="text-xl font-semibold text-gray-900 mb-3 mt-1">
+        <h3 className="text-[22px] font-bold text-gray-900 mb-2 mt-1">
           {step.title}
         </h3>
-        <p className="text-gray-600 mb-4 leading-7">{step.description}</p>
+        <p className="text-gray-600 mb-4 leading-7 max-w-[240px]">
+          {step.description}
+        </p>
 
-        <div className="absolute -left-16 -top-10 -z-10">
-          <p className="text-[120px] font-black text-gray-300">{step.id}</p>
+        <div
+          className={clsx(
+            "absolute -z-10",
+            index === 0 ? "-left-[26px] -top-10" : "-left-[64px] -top-[58]"
+          )}
+        >
+          <p className="text-[160px] font-black text-gray-300">{step.id}</p>
         </div>
       </motion.div>
     </motion.div>
@@ -160,10 +167,10 @@ const StepsSection = ({
             <p className="text-myPrimary font-bold text-sm mb-2">
               {sectionQuote}
             </p>
-            <h2 className="text-5xl leading-tight font-extrabold text-gray-800 max-w-[400px]">
+            <h2 className="text-5xl leading-tight font-extrabold text-gray-800 max-w-[700px]">
               {sectionTitle}
             </h2>
-            <p className="mt-4 max-w-[440px] text-gray-600 leading-7">
+            <p className="mt-4 max-w-[620px] text-gray-600 leading-7">
               {sectionSubtitle}
             </p>
             <button className="rounded-full hover:text-[#344052] text-white bg-[#344052] hover:bg-white transition-all duration-300 font-bold px-4 py-2.5 border-2 border-[#344052] flex items-center justify-center w-fit mt-8">
@@ -200,7 +207,7 @@ const StepsSection = ({
           {stepPoints.map((p, i) => (
             <div
               key={steps[i].id}
-              className="absolute w-[280px] -translate-x-[215px] -translate-y-[8px]"
+              className="absolute w-[320px] -translate-x-[245px] -translate-y-[8px]"
               style={{ left: `${p.x}%`, top: `${p.y}%` }}
             >
               <StepItem step={steps[i]} index={i} activeIndex={activeIndex} />
