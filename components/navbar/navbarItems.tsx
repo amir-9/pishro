@@ -32,7 +32,8 @@ const NavbarItems = ({
   const isDark =
     pathname === "/" ||
     pathname === "/investment-consulting" ||
-    pathname === "/investment-plans"; // 👈 check if we are on homepage
+    pathname === "/investment-plans" ||
+    pathname === "/investment-plans/custom";
 
   return (
     <div
