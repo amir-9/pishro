@@ -175,8 +175,14 @@ const UserLevelSection = () => {
                 ))}
               </div>
 
-              <DialogFooter className="mt-4">
-                <Button onClick={handleSubmit}>تعیین سطح</Button>
+              <DialogFooter className="mt-4 !justify-center">
+                <Button
+                  onClick={handleSubmit}
+                  size={"lg"}
+                  className="bg-mySecondary"
+                >
+                  تعیین سطح
+                </Button>
               </DialogFooter>
             </>
           )}

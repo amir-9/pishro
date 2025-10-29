@@ -145,6 +145,7 @@ const StepsSection = ({
   return (
     <section
       ref={sectionRef}
+      id="stepsSection"
       style={{ height: `calc(${steps.length} * 100vh + 300px)` }}
       className="relative w-full"
     >
