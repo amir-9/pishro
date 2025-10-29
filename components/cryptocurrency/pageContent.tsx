@@ -1,3 +1,5 @@
+"use client";
+
 import Landing3 from "@/components/utils/Landing3";
 import AboutOtherPages from "@/components/utils/AboutOtherPages";
 import UserLevelSection from "@/components/utils/UserLevelSelection";
@@ -9,10 +11,21 @@ import {
   cryptoAboutData,
   cryptoLandingData,
   investmentTagsData,
-  stepsData,
+  beginnerSteps,
+  intermediateSteps,
+  advancedSteps,
 } from "@/public/data";
+import { useUserLevelStore } from "@/stores/user-level-store";
 
 const CryptocurrencyPageContent = () => {
+  const { level } = useUserLevelStore();
+
+  const stepsData =
+    level === "حرفه‌ای"
+      ? advancedSteps
+      : level === "متوسط"
+      ? intermediateSteps
+      : beginnerSteps;
   return (
     <div>
       <Landing3 data={cryptoLandingData} />
