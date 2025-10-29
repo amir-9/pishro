@@ -45,8 +45,8 @@ const UserLevelSection = () => {
               </div>
 
               {/* دکمه */}
-              <button className="mt-6 px-12 py-4 bg-[#fff] text-[#214254] font-bold rounded-full border border-white/50 hover:bg-[#fff]/10 hover:text-white transition-all">
-                انتخاب سطح
+              <button className="mt-6 px-12 py-4 bg-[#fff] text-[#214254] text-lg font-semibold rounded-full border border-white/50 hover:bg-[#fff]/5 hover:text-white transition-all">
+                آزمون تعیین سطح
               </button>
             </div>
           ))}
