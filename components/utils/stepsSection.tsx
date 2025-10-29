@@ -150,14 +150,14 @@ const StepsSection = ({
     >
       <div className="sticky top-0 h-screen container-xl">
         {/* Background Decorations */}
-        <StepsDecorations />
-        <div className="w-full h-24"></div>
+        {/* <StepsDecorations /> */}
+        <div className="w-full h-28"></div>
         {/* steps section */}
-        <div className="relative flex w-[78%] [aspect-ratio:1071/449]">
+        <div className="relative flex w-[80%] [aspect-ratio:1071/449]">
           {/* Header */}
           <div className="absolute flex flex-col justify-start py-6 px-4 w-[65%] right-0 -top-12 z-10">
             <p className="text-myPrimary font-bold mb-4">{sectionQuote}</p>
-            <h2 className="text-5xl font-bold text-gray-800 max-w-[400px]">
+            <h2 className="text-5xl font-bold text-gray-800 max-w-[500px]">
               {sectionTitle}
             </h2>
             <p className="mt-4 max-w-[440px] text-gray-600 leading-7">
