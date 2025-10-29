@@ -1,3 +1,5 @@
+"use client";
+
 import Landing3 from "@/components/utils/Landing3";
 import AboutOtherPages from "@/components/utils/AboutOtherPages";
 import UserLevelSection from "@/components/utils/UserLevelSelection";
@@ -9,10 +11,13 @@ import {
   airdropAboutData,
   airdropLandingData,
   investmentTagsData,
-  stepsData,
 } from "@/public/data";
+import { useScrollToSteps } from "@/hooks/useScrollToSteps";
+import { useStepsData } from "@/hooks/useStepsData";
 
 const AirdropPageContent = () => {
+  useScrollToSteps();
+  const { stepsData } = useStepsData();
   return (
     <div>
       <Landing3 data={airdropLandingData} />

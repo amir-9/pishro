@@ -11,24 +11,13 @@ import {
   cryptoAboutData,
   cryptoLandingData,
   investmentTagsData,
-  beginnerSteps,
-  intermediateSteps,
-  advancedSteps,
 } from "@/public/data";
-import { useUserLevelStore } from "@/stores/user-level-store";
 import { useScrollToSteps } from "@/hooks/useScrollToSteps";
+import { useStepsData } from "@/hooks/useStepsData";
 
 const CryptocurrencyPageContent = () => {
-  const { level } = useUserLevelStore();
-
   useScrollToSteps();
-
-  const stepsData =
-    level === "حرفه‌ای"
-      ? advancedSteps
-      : level === "متوسط"
-      ? intermediateSteps
-      : beginnerSteps;
+  const { stepsData } = useStepsData();
 
   return (
     <div>
@@ -36,7 +25,7 @@ const CryptocurrencyPageContent = () => {
       <AboutOtherPages data={cryptoAboutData} />
       <UserLevelSection />
 
-      {/* بخش StepsSection با id برای اسکرول */}
+      {/* Steps Section */}
       <div id="stepsSection">
         <StepsSection {...stepsData} />
       </div>
