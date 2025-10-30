@@ -59,7 +59,7 @@ const BikeSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="container-xl cursor-default relative overflow-hidden h-screen mt-20"
+      className="container-xl cursor-default relative overflow-hidden h-[420px] sm:h-[550px] md:h-[80vh] lg:h-screen mt-10 md:mt-20 px-0 sm:px-3 md:px-8 lg:px-0 flex items-center justify-center"
       onMouseMove={handleMouseMove}
     >
       <motion.div
@@ -68,7 +68,7 @@ const BikeSection = () => {
           rotateY,
           transformStyle: "preserve-3d",
         }}
-        className="relative w-full aspect-[1361/646] flex items-center justify-center overflow-hidden"
+        className="relative w-full aspect-[1.7] md:aspect-[1361/646] flex items-center justify-center overflow-hidden"
       >
         <Image
           src="/images/home/bike.svg"
@@ -112,9 +112,9 @@ const BikeSection = () => {
                 delay: item.delay + 1.2,
               },
             }}
-            className="absolute px-6 py-3 rounded-xl bg-white/80 backdrop-blur-md border border-white/60 shadow-lg will-change-transform"
+            className="absolute px-3 py-2 md:px-6 md:py-3 rounded-xl bg-white/80 backdrop-blur-md border border-white/60 shadow-lg will-change-transform"
           >
-            <p className="text-lg md:text-xl font-semibold text-gray-800 whitespace-nowrap">
+            <p className="text-base md:text-lg lg:text-xl font-semibold text-gray-800 whitespace-nowrap">
               {item.text}
             </p>
           </motion.div>

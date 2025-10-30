@@ -37,7 +37,7 @@ const NavbarItems = ({
 
   return (
     <div
-      className={`absolute top-0 w-full z-[100] pt-8 pb-8 text-xs px-[60px] flex justify-between items-center transition-colors duration-300
+      className={`absolute top-0 w-full z-[100] pt-4 md:pt-8 pb-4 md:pb-8 text-xs px-2 sm:px-8 md:px-[60px] flex flex-col md:flex-row justify-between items-center transition-colors duration-300
         ${
           isDark
             ? "text-white bg-gradient-to-b from-black/70 via-black/40 to-transparent backdrop-blur-[2px]"
@@ -45,7 +45,7 @@ const NavbarItems = ({
         }`}
       onMouseLeave={() => setIsIndicatorActive(false)}
     >
-      <ul className="h-full flex items-center gap-5 relative">
+      <ul className="h-full flex items-center gap-3 sm:gap-5 relative flex-wrap justify-center md:justify-start mb-2 md:mb-0">
         {navbarData.map((item, idx) => (
           <React.Fragment key={idx}>
             <li
@@ -96,7 +96,7 @@ const NavbarItems = ({
         ></div>
       </ul>
 
-      <div className="flex items-center gap-10">
+      <div className="flex items-center gap-6 sm:gap-10 mt-2 md:mt-0">
         {/* login / signup */}
         <div className="flex items-center gap-4">
           <Link
@@ -127,7 +127,7 @@ const NavbarItems = ({
 
         {/* social links */}
         <div
-          className={`flex items-center gap-2 ${
+          className={`flex items-center gap-2 text-xs sm:text-sm md:text-base ${
             isDark ? "text-white" : "text-mySecondary"
           }`}
         >

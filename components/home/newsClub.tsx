@@ -42,11 +42,11 @@ const NewsClub = () => {
   };
 
   return (
-    <section className="relative w-full h-screen pb-16 pt-8 mt-0">
-      <div className="container-xl h-full flex items-center gap-8">
-        <div className="flex-1 flex items-end h-full">
+    <section className="relative w-full min-h-[480px] h-[90vh] md:h-screen pb-8 md:pb-16 pt-4 md:pt-8 mt-0">
+      <div className="container-xl h-full flex flex-col md:flex-row items-center md:items-center md:gap-8 gap-3">
+        <div className="flex-1 w-full flex items-end md:h-full justify-center md:justify-start order-2 md:order-1 mt-2 md:mt-0">
           {/* wrapper با نسبت درست */}
-          <div className="relative w-full aspect-[661/504]">
+          <div className="relative w-full max-w-[400px] md:max-w-full aspect-[1.3] md:aspect-[661/504]">
             <Image
               src={"/images/home/news-club/news-club.svg"}
               fill
@@ -57,42 +57,34 @@ const NewsClub = () => {
         </div>
 
         {/* form section */}
-        <div className="flex-1 flex flex-col h-full justify-end gap-10 items-center">
-          <div className="w-full aspect-[661/504] flex flex-col justify-between">
+        <div className="flex-1 w-full flex flex-col md:h-full justify-end gap-6 md:gap-10 items-center order-1 md:order-2">
+          <div className="w-full aspect-[1.1] md:aspect-[661/504] flex flex-col justify-between">
             <div>
-              <h4 className="text-8xl leading-none font-semibold text-mySecondary mt-16 flex gap-3">
+              <h4 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl leading-none font-semibold text-mySecondary mt-2 md:mt-16 flex gap-2 md:gap-3">
                 <span className="inline-block">باشگاه</span>
-                <span className="inline-block text-[#8E8E8E] -translate-y-1">
-                  پیشرو
-                </span>
+                <span className="inline-block text-[#8E8E8E] -translate-y-1">پیشرو</span>
               </h4>
-
-              <p className="mt-6 text-lg text-gray-400 leading-relaxed pl-[128px] pr-1">
-                با عضویت در باشگاه خبری پیشرو، از تازه‌ترین مقالات آموزشی، نکات
-                تخصصی و تحلیل‌های روز دنیای دیجیتال باخبر شوید و همیشه یک گام
-                جلوتر از رقبا بمانید. جدیدترین مطالب مستقیماً در تلفن همراه شما
-                ارسال خواهد شد.
+              <p className="mt-4 md:mt-6 text-base md:text-lg text-gray-400 leading-relaxed md:pl-[128px] pr-1">
+                با عضویت در باشگاه خبری پیشرو، از تازه‌ترین مقالات آموزشی، نکات تخصصی و تحلیل‌های روز دنیای دیجیتال باخبر شوید و همیشه یک گام جلوتر از رقبا بمانید. جدیدترین مطالب مستقیماً در تلفن همراه شما ارسال خواهد شد.
               </p>
             </div>
-
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="w-full pl-32 pb-16"
+              className="w-full pl-0 md:pl-32 pb-4 md:pb-16"
             >
-              <div className="w-full flex items-center justify-center">
+              <div className="w-full flex flex-col sm:flex-row items-center justify-center gap-3">
                 <Input
                   {...register("phone")}
-                  className="rounded-full h-12 ml-2 ltr !text-lg max-w-[290px] placeholder:text-lg"
+                  className="rounded-full h-10 sm:h-12 ml-0 sm:ml-2 ltr !text-base sm:!text-lg max-w-[100%] sm:max-w-[290px] placeholder:text-base sm:placeholder:text-lg"
                   placeholder="09121234567"
                 />
                 <Button
                   type="submit"
-                  className="bg-mySecondary hover:bg-mySecondary/95 transition-colors h-12 px-16 rounded-full text-white text-lg font-medium"
+                  className="bg-mySecondary hover:bg-mySecondary/95 transition-colors h-10 sm:h-12 px-8 sm:px-16 rounded-full text-white text-base sm:text-lg font-medium"
                 >
                   عضویت
                 </Button>
               </div>
-
               {errors.phone && (
                 <p className="text-red-500 text-sm mt-2 text-center">
                   {errors.phone.message}
@@ -105,14 +97,14 @@ const NewsClub = () => {
 
       {/* decorations */}
       <>
-        <div className="absolute top-0 -right-8 w-[260px] h-[86vh] -z-10">
+        <div className="hidden md:block absolute top-0 -right-8 w-[180px] lg:w-[260px] h-[50vh] lg:h-[86vh] -z-10">
           <Image
             src={"/images/home/news-club/right-vector.png"}
             fill
             alt="دکور"
           />
         </div>
-        <div className="absolute bottom-0 -left-24 w-[240px] h-[90vh] -z-10">
+        <div className="hidden md:block absolute bottom-0 -left-10 lg:-left-24 w-[140px] lg:w-[240px] h-[60vh] lg:h-[90vh] -z-10">
           <Image
             src={"/images/home/news-club/left-vector.png"}
             fill

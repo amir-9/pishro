@@ -61,24 +61,24 @@ const CalculatorSection = () => {
     arr[arr.indexOf(current) - 1] ?? current;
 
   return (
-    <section className="relative w-full min-h-screen bg-[#152c44] text-white overflow-hidden mt-20">
+    <section className="relative w-full min-h-[600px] md:min-h-screen bg-[#152c44] text-white overflow-hidden mt-8 md:mt-20">
       {/* pattern background */}
       <div className="absolute inset-0 bg-[url('/images/utiles/pattern1.svg')] opacity-10 z-0" />
 
-      <div className="container-xl relative z-10 py-10 flex flex-col justify-center">
+      <div className="container-xl relative z-10 py-6 md:py-10 flex flex-col justify-center">
         {/* Header */}
-        <div className="text-center mb-10">
-          <h4 className="font-bold text-4xl lg:text-5xl mb-4">ماشین حساب</h4>
-          <p className="font-ir text-lg lg:text-xl text-gray-200 max-w-2xl mx-auto bg-[#152c44]/70">
+        <div className="text-center mb-6 md:mb-10 px-2">
+          <h4 className="font-bold text-2xl sm:text-3xl md:text-5xl mb-2 md:mb-4">ماشین حساب</h4>
+          <p className="font-ir text-sm sm:text-base md:text-lg lg:text-xl text-gray-200 max-w-2xl mx-auto bg-[#152c44]/70">
             با انتخاب نوع سبد سرمایه‌گذاری، مبلغ و مدت، میزان بازده خود را
             مشاهده کنید.
           </p>
         </div>
 
         {/* Body */}
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-10">
+        <div className="flex flex-col gap-6 md:gap-10 lg:flex-row items-center justify-center">
           {/* Controls */}
-          <div className="flex flex-col w-full lg:w-7/12 gap-4">
+          <div className="flex flex-col w-full lg:w-7/12 gap-4 px-1 md:px-0">
             {/* سبد سرمایه‌گذاری */}
             <div className="rounded-2xl border border-[#8B9BB4] bg-white text-[#1A0A3B] px-6 py-4">
               <p className="text-center text-lg font-semibold mb-4 flex items-center justify-center gap-2">
@@ -236,7 +236,7 @@ const CalculatorSection = () => {
           </div>
 
           {/* Result */}
-          <div className="w-full h-[-webkit-fill-available] lg:w-5/12 flex flex-col items-center justify-center bg-[#1a0a3b]/50 rounded-2xl p-10">
+          <div className="w-full h-[-webkit-fill-available] lg:w-5/12 flex flex-col items-center justify-center bg-[#1a0a3b]/50 rounded-2xl p-4 md:p-10 mt-6 md:mt-0">
             <p className="text-center text-2xl font-ch mb-8">
               نتیجه سرمایه‌گذاریت
             </p>

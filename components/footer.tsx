@@ -42,16 +42,16 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="pt-32 pb-10 w-full bg-white">
-      <div className="flex flex-col sm:flex-row justify-between items-start w-full border-y py-8 container-xl">
+    <footer className="pt-16 md:pt-32 pb-6 md:pb-10 w-full bg-white mt-8">
+      <div className="flex flex-col sm:flex-row flex-wrap gap-12 sm:gap-0 justify-between items-start w-full border-y py-4 md:py-8 container-xl px-2 md:px-0">
         {/* بخش سمت چپ */}
-        <div className="flex-1 flex flex-col items-start mb-8 sm:mb-0">
+        <div className="flex-1 min-w-[200px] flex flex-col items-start mb-8 sm:mb-0">
           <div>
             <Logo />
             <p className="mt-6 text-xs text-[#495157]">
               تلفن پشتیبانی: 021-23456789
             </p>
-            <div className="mt-6 flex gap-2">
+            <div className="mt-6 flex flex-wrap gap-2">
               {socials.map((social, index) => (
                 <Link
                   href={social.link}
@@ -64,24 +64,22 @@ const Footer = () => {
                 </Link>
               ))}
             </div>
-            <div className="mt-8">
-              <p className="text-xs text-[#495157] mb-4">از پیشرو بروز باشید</p>
-              <div className="mt-2 relative w-full sm:w-80 h-9">
+            <div className="mt-8 w-full min-w-[120px] max-w-xs">
+              <p className="text-xs text-[#495157] mb-2 md:mb-4">از پیشرو بروز باشید</p>
+              <div className="mt-2 relative w-full h-9">
                 <Input
                   type="text"
                   placeholder="ایمیل خود را وارد کنید"
-                  className="w-full h-9 rounded-[2px] border border-[#D7D7D7] text-xs px-2 pl-20"
+                  className="w-full h-9 rounded-[2px] border border-[#D7D7D7] text-xs px-2 md:pl-20"
                 />
-                <button className="absolute left-0 top-0 h-full px-4 bg-myPrimary text-white text-xs rounded-l-[2px]">
-                  عضویت
-                </button>
+                <button className="absolute left-0 top-0 h-full px-4 bg-myPrimary text-white text-xs rounded-l-[2px]">عضویت</button>
               </div>
             </div>
           </div>
         </div>
 
         {/* بخش وسط */}
-        <div className="flex-1 flex flex-col sm:flex-row justify-start items-start gap-8 mb-8 sm:mb-0">
+        <div className="flex-1 flex flex-col sm:flex-row justify-start items-start gap-10 md:gap-8 mb-8 sm:mb-0 w-full min-w-[200px]">
           <div>
             <h6 className="text-sm mb-6">دسته بندی ها</h6>
             <ul className="flex flex-col gap-2 text-sm text-[#80878C]">
@@ -127,7 +125,7 @@ const Footer = () => {
         </div>
 
         {/* بخش سمت راست */}
-        <div className="flex-1 flex flex-col justify-start items-center sm:items-end gap-8 h-full">
+        <div className="flex-1 flex flex-col justify-start items-center sm:items-end gap-8 h-full min-w-[200px]">
           <div className="max-w-[340px] w-full">
             <h5 className="text-sm text-[#214254] mb-6">درباره پیشرو</h5>
             <p className="text-xs text-[#80878C]">
@@ -137,7 +135,7 @@ const Footer = () => {
               متن ساختگی با تولید سادگی نامفهوم از صنعت است.
             </p>
           </div>
-          <div className="flex justify-between w-full max-w-[340px] gap-1">
+          <div className="flex justify-between w-full max-w-[340px] gap-1 flex-wrap">
             <div className="flex justify-center items-center rounded-sm border border-[#BAC9CF] px-3 py-1.5">
               <Image
                 src={"/images/e-namad.png"}
