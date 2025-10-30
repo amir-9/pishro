@@ -74,7 +74,7 @@ const UserLevelSection = () => {
   const [open, setOpen] = useState(false);
   const [answers, setAnswers] = useState<number[]>([]);
   const [quizFinished, setQuizFinished] = useState(false);
-  const { level, setLevel } = useUserLevelStore(); // ✅ از Zustand
+  const { level, setLevel, setHasScrolled } = useUserLevelStore(); // ✅ از Zustand
 
   const handleAnswer = (index: number, value: number) => {
     const updated = [...answers];
@@ -90,7 +90,9 @@ const UserLevelSection = () => {
     let userLevel = "مبتدی";
     if (score >= 4) userLevel = "حرفه‌ای";
     else if (score >= 2) userLevel = "متوسط";
+    setHasScrolled(false);
     setLevel(userLevel); // ✅ ذخیره در Zustand
+
     setQuizFinished(true);
   };
 
