@@ -42,9 +42,9 @@ const NewsClub = () => {
   };
 
   return (
-    <section className="relative w-full min-h-[480px] h-[90vh] md:h-screen pb-8 md:pb-16 pt-4 md:pt-8 mt-20 md:mt-0">
+    <section className="relative w-full min-h-[480px] h-[90vh] md:h-screen pb-8 md:pb-0 pt-4 md:pt-8 mt-20 md:mt-0">
       <div className="container-xl h-full flex flex-col md:flex-row items-center md:items-center md:gap-8 gap-3">
-        <div className="md:flex-1 w-full flex items-end md:h-full justify-center md:justify-start order-2 md:order-1 mt-2 md:mt-0">
+        <div className="md:flex-1 w-full flex items-end md:h-full justify-center md:justify-start order-2 md:order-1 mt-10 md:mt-0">
           {/* wrapper با نسبت درست */}
           <div className="relative w-full max-w-[400px] md:max-w-full aspect-[1.3] md:aspect-[661/504]">
             <Image
