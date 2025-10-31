@@ -7,6 +7,7 @@ import { FiMenu, FiX } from "react-icons/fi";
 import { HiMiniArrowLeftEndOnRectangle } from "react-icons/hi2";
 import NavbarLinks from "./NavbarLinks";
 import NavbarActions from "./NavbarActions";
+import useHideOnScroll from "./useHideOnScroll";
 
 type NavbarLinksProps = React.ComponentProps<typeof NavbarLinks>;
 
@@ -50,12 +51,14 @@ const NavbarMobile = ({
 }: NavbarMobileProps) => {
   const { isMounted, isOpen, openMenu, closeMenu } =
     useMobileMenu(transitionDuration);
+  const isHidden = useHideOnScroll({ disabled: isOpen });
 
   return (
     <>
       <div
         className={clsx(
-          "fixed top-0 left-0 w-full flex justify-between items-center md:hidden py-2 px-4 z-[100]",
+          "fixed top-0 left-0 w-full flex justify-between items-center md:hidden py-2 px-4 z-[100] transition-transform duration-300",
+          isHidden ? "-translate-y-full" : "translate-y-0",
           isOpen
             ? "bg-transparent text-white border-b border-white/20"
             : "bg-white shadow-md"
