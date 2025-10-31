@@ -48,9 +48,8 @@ const NavbarMobile = ({
   navbarData,
   transitionDuration = DEFAULT_TRANSITION_DURATION,
 }: NavbarMobileProps) => {
-  const { isMounted, isOpen, openMenu, closeMenu } = useMobileMenu(
-    transitionDuration
-  );
+  const { isMounted, isOpen, openMenu, closeMenu } =
+    useMobileMenu(transitionDuration);
 
   return (
     <>
@@ -58,8 +57,8 @@ const NavbarMobile = ({
         className={clsx(
           "fixed top-0 left-0 w-full flex justify-between items-center md:hidden py-2 px-4 z-[100]",
           isOpen
-            ? "bg-mySecondary/5 text-white border-b border-white/20"
-            : "bg-white/95 backdrop-blur-sm shadow-md"
+            ? "bg-transparent text-white border-b border-white/20"
+            : "bg-white shadow-md"
         )}
       >
         <div className="flex justify-between items-center w-full relative">
@@ -106,7 +105,7 @@ const NavbarMobile = ({
       {isMounted && (
         <div
           className={clsx(
-            "fixed inset-0 z-50 flex flex-col pt-20 backdrop-blur-md bg-mySecondary/95 transition-opacity duration-300 ease-out md:hidden",
+            "fixed inset-0 z-[51] flex flex-col pt-20 bg-mySecondary transition-opacity duration-300 ease-out md:hidden",
             isOpen
               ? "opacity-100 pointer-events-auto"
               : "opacity-0 pointer-events-none"
@@ -114,16 +113,16 @@ const NavbarMobile = ({
         >
           <div
             className={clsx(
-              "transition-transform duration-300 ease-out",
+              "transition-transform duration-300 ease-out h-full flex flex-col justify-between",
               isOpen ? "translate-y-0" : "-translate-y-4"
             )}
           >
             <NavbarLinks
               navbarData={navbarData}
               onClick={closeMenu}
-              className="flex flex-col items-start gap-6 px-8 text-lg text-white"
+              className="flex flex-col items-start gap-6 px-4 text-lg text-white"
             />
-            <div className="flex flex-col items-center mt-10 gap-4">
+            <div className="flex flex-col items-center mt-10 pb-12 gap-4">
               <NavbarActions isDark={isDark} />
             </div>
           </div>
@@ -134,4 +133,3 @@ const NavbarMobile = ({
 };
 
 export default NavbarMobile;
-

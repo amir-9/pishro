@@ -11,7 +11,7 @@ interface NavbarActionsProps {
 }
 
 const NavbarActions: React.FC<NavbarActionsProps> = ({ isDark }) => (
-  <div className="flex items-center gap-6 sm:gap-10 mt-2 md:mt-0">
+  <div className="w-full md:w-fit flex items-center justify-between sm:justify-center px-8 md:px-0 gap-6 sm:gap-10 mt-2 md:mt-0">
     {/* login/signup & cart */}
     <div className="flex items-center gap-4">
       <Link
