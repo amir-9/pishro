@@ -33,7 +33,7 @@ const ClassPageContent: React.FC<ClassPageContentProps> = ({ classData }) => {
   }, [classData]);
 
   return (
-    <div className="container-xl">
+    <div className="container-xl mt-24">
       <div className="flex gap-6">
         {/* ویدیو پلیر */}
         <div className="flex-1 w-full min-w-4xl">

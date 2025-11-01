@@ -7,6 +7,7 @@ const DARK_PATHS = new Set([
   "/investment-plans",
   "/investment-plans/custom",
   "/library",
+  "/about-us",
 ]);
 
 export const useIsDarkNavbar = () => {
@@ -16,4 +17,3 @@ export const useIsDarkNavbar = () => {
 };
 
 export default useIsDarkNavbar;
-
