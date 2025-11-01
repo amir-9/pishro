@@ -55,7 +55,7 @@ const LibraryPageContent = () => {
 
   return (
     <div className="w-full pb-24">
-      <LibraryHero query={query} onQueryChange={setQuery} stats={stats} />
+      <LibraryHero stats={stats} />
 
       <section className="relative -mt-16 z-10">
         <div className="container-xl space-y-12">
@@ -102,8 +102,6 @@ export default LibraryPageContent;
 const LibraryHero = ({
   stats,
 }: {
-  query: string;
-  onQueryChange: (value: string) => void;
   stats: {
     totalBooks: number;
     highlighted: number;
@@ -130,24 +128,6 @@ const LibraryHero = ({
             محتوای پیشرو انتخاب شده‌اند تا شما را در مسیر رشد شخصی، حرفه‌ای و
             خلاقانه همراهی کنند.
           </p>
-
-          {/* <div className="flex flex-col gap-4 sm:flex-row">
-            <div className="relative flex-1">
-              <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-300" />
-              <Input
-                value={query}
-                onChange={(event) => onQueryChange(event.target.value)}
-                placeholder="جستجوی عنوان، نویسنده یا برچسب"
-                className="h-12 rounded-2xl border-white/20 bg-white/10 pr-12 text-white placeholder:text-slate-300 focus-visible:ring-white"
-              />
-            </div>
-            <Button
-              variant="secondary"
-              className="h-12 rounded-2xl bg-white/15 text-white hover:bg-white/25"
-            >
-              کاوش هوشمند کتابخانه
-            </Button>
-          </div> */}
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
