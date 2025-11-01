@@ -57,44 +57,18 @@ export const navbarData = [
     label: "سبد های سرمایه گذاری",
     link: "/investment-plans", // Courses listing
   },
-  // {
-  //   label: "کتابخانه دیجیتال",
-  //   link: "/digital-lib", // Airdrop section
-  // },
-  // {
-  //   label: "اخبار سایت",
-  //   link: "#news", // Airdrop section
-  //   data: [
-  //     {
-  //       label: "همگی اخبار",
-  //       link: "/news", // Courses listing
-  //     },
-  //     {
-  //       label: "کریپتو",
-  //       link: "/cryptocurrency?section=news", // Cryptocurrency section
-  //     },
-  //     {
-  //       label: "بورس",
-  //       link: "/stock-market?section=news", // Stock market section
-  //     },
-  //     {
-  //       label: "متاورس",
-  //       link: "/metaverse?section=news", // Metaverse section
-  //     },
-  //     {
-  //       label: "NFT",
-  //       link: "/nft?section=news", // NFT section
-  //     },
-  //     {
-  //       label: "ایردراپ",
-  //       link: "/airdrop?section=news", // Airdrop section
-  //     },
-  //   ],
-  // },
-  // {
-  //   label: "درباره ما",
-  //   link: "/about-us", // Airdrop section
-  // },
+  {
+    label: "کتابخانه دیجیتال",
+    link: "/library", // Digital library section
+  },
+  {
+    label: "اخبار",
+    link: "/news", // News section
+  },
+  {
+    label: "درباره ما",
+    link: "/about-us", // About us section
+  },
   // {
   //   label: "سوالی دارید؟",
   //   link: "/faq", // Airdrop section
