@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const SectionOne = () => {
   return (
-    <div className="container flex justify-between items-center lg:gap-[80px] mt-40">
+    <div className="container-md flex justify-between items-center lg:gap-[80px] mt-40">
       <div className="w-full max-w-md">
         <h3 className="font-bold text-xl mb-5">{aboutPishro.title}</h3>
         <p className="font-medium text-lg leading-7 text-[#555]">

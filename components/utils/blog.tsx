@@ -4,7 +4,7 @@ import BlogCard from "@/components/utils/blogCard";
 
 const Blog = () => {
   return (
-    <div className="container mt-20 mb-6" id="news">
+    <div className="container-md mt-20 mb-6" id="news">
       <Heading link="مطالعه بیشتر" href="/news">
         مجله خبری و مقالات
       </Heading>

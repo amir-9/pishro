@@ -2,7 +2,7 @@ import LottieRemote from "@/components/utils/LottieAnimation";
 
 const SectionOne = () => {
   return (
-    <div className="container my-40 relative flex flex-col items-center">
+    <div className="container-md my-40 relative flex flex-col items-center">
       {/* بخش اول */}
       <div className="flex justify-between items-center gap-20">
         <div className="flex-1">

@@ -45,7 +45,7 @@ const BusinessConsulting = () => {
   };
 
   return (
-    <div className="container flex justify-between gap-20 my-20">
+    <div className="container-md flex justify-between gap-20 my-20">
       <motion.div
         initial={{ x: "-100%", opacity: 0 }}
         whileInView={{ x: 0, opacity: 1 }}

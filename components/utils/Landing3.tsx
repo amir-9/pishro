@@ -125,7 +125,7 @@ const Landing3 = ({ data }: Landing3Props) => {
 
         {/* 🟣 سمت چپ */}
         <div className="w-full lg:w-1/2 flex justify-center lg:justify-end items-center relative order-1 lg:order-2">
-          {/* Container برای باکس‌های شناور - برای موبایل بزرگتر */}
+          {/* container-md برای باکس‌های شناور - برای موبایل بزرگتر */}
           <div className="relative size-[100%] sm:w-[380px] sm:h-[380px] md:w-[450px] md:h-[450px] lg:w-[550px] lg:h-[550px] flex items-center justify-center overflow-visible">
             {/* تصویر اصلی */}
             <div className="size-[320px] sm:size-[350px] md:size-[420px] lg:size-[495px] rounded-full bg-emerald-500 flex items-center justify-center relative shadow-lg">
@@ -137,7 +137,7 @@ const Landing3 = ({ data }: Landing3Props) => {
               />
             </div>
 
-            {/* 🟩 باکس‌های شناور - در container بزرگتر قرار می‌گیرند تا از تصویر خارج نشوند */}
+            {/* 🟩 باکس‌های شناور - در container-md بزرگتر قرار می‌گیرند تا از تصویر خارج نشوند */}
             {boxes.map((box, i) => (
               <motion.div
                 key={i}
@@ -198,7 +198,7 @@ const Landing3 = ({ data }: Landing3Props) => {
               </motion.div>
             ))}
 
-            {/* decors - داخل container باکس‌ها */}
+            {/* decors - داخل container-md باکس‌ها */}
             <>
               {/* line */}
               <div

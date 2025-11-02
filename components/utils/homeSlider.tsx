@@ -15,7 +15,7 @@ import "swiper/css/pagination";
 
 const HomeSlider = () => {
   return (
-    // Outer container with group to manage hover effects for navigation buttons
+    // Outer container-md with group to manage hover effects for navigation buttons
     <div className="relative w-full h-[500px] overflow-hidden group transition">
       <Swiper
         modules={[Autoplay, Navigation, Pagination]}
@@ -37,7 +37,7 @@ const HomeSlider = () => {
             ></div>
             {/* Dark overlay for better text readability */}
             <div className="absolute inset-0 bg-black opacity-30"></div>
-            {/* Content container positioned on the right center */}
+            {/* Content container-md positioned on the right center */}
             <div className="absolute inset-0 flex items-center justify-start pr-16">
               <div className="text-right">
                 <h2 className="text-4xl font-bold text-white mb-4">

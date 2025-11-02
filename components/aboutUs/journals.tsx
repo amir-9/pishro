@@ -5,7 +5,7 @@ import { pishroJournals } from "@/public/data";
 
 const Journals = () => {
   return (
-    <div className="container mt-12">
+    <div className="container-md mt-12">
       <h2 className="font-medium text-base mb-4 text-center">
         اطلاعیه ها و مقالات پیشرو
       </h2>

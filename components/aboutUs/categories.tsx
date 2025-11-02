@@ -5,7 +5,7 @@ import { categoriesData } from "@/public/data";
 
 const Categories = () => {
   return (
-    <div className="mt-10 container">
+    <div className="mt-10 container-md ">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-[72px] rounded-[20px] bg-[#d9d9d9] py-6 px-16">
         {categoriesData.map((item, idx) => (
           <div key={idx} className="text-center">

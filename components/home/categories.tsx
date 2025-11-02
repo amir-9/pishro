@@ -32,12 +32,12 @@ export const categoriesData = [
 
 const Categories = () => {
   return (
-    <div className="mt-20 container">
+    <div className="mt-20 container-md ">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {categoriesData.map((item, idx) => (
           // Using Link as a wrapper with group to manage hover effects
           <Link href={item.link} key={idx} className="group block relative">
-            {/* Relative container for image, overlay, and text */}
+            {/* Relative container-md for image, overlay, and text */}
             <div className="relative h-36 w-48 rounded-tr-3xl rounded-bl-3xl group-hover:rounded-xl transition-all duration-300 overflow-hidden">
               {/* Background image with transition effects */}
               <Image

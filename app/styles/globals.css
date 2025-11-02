@@ -136,7 +136,7 @@ h3 {
   text-align: left;
 }
 
-.container {
+.container-md {
   max-width: 1440px;
   width: 100%;
   padding-right: 1rem;
@@ -146,7 +146,7 @@ h3 {
 }
 
 @media only screen and (min-width: 640px) {
-  .container {
+  .container-md {
     max-width: 1440px;
     width: 100%;
     padding-right: 1.5rem;
@@ -156,7 +156,7 @@ h3 {
   }
 }
 @media only screen and (min-width: 768px) {
-  .container {
+  .container-md {
     max-width: 1440px;
     width: 100%;
     padding-right: 60px;
@@ -166,7 +166,7 @@ h3 {
   }
 }
 @media only screen and (min-width: 1024px) {
-  .container {
+  .container-md {
     max-width: 1240px;
     width: 100%;
     padding-right: 80px;

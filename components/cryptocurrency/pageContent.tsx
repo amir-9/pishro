@@ -3,7 +3,7 @@
 import Landing3 from "@/components/utils/Landing3";
 import AboutOtherPages from "@/components/utils/AboutOtherPages";
 import UserLevelSection from "@/components/utils/UserLevelSelection";
-import StepsSection from "@/components/utils/stepsSection";
+import StepsSection from "@/components/utils/steps/stepsSection";
 import Courses from "@/components/utils/CoursesSec";
 import CommentsSlider from "@/components/utils/CommentsSlider";
 import TagsList from "@/components/utils/TagsList";
@@ -20,7 +20,7 @@ const CryptocurrencyPageContent = () => {
   const { stepsData } = useStepsData();
 
   return (
-    <main className="w-full overflow-x-hidden">
+    <main className="w-full">
       <Landing3 data={cryptoLandingData} />
 
       <section

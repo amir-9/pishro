@@ -60,7 +60,7 @@ const Footer = () => {
   return (
     <footer className="w-full bg-white mt-8 border-t border-gray-200">
       {/* Main Footer Content */}
-      <div className="container px-4 md:px-0">
+      <div className="container-md">
         <div className="pt-12 md:pt-16 pb-8 md:pb-12">
           <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             {/* بخش سمت چپ - Logo & Contact */}
@@ -70,18 +70,18 @@ const Footer = () => {
                   <p className="text-sm font-medium text-[#214254] mb-2 md:mt-6">
                     پشتیبانی و تماس
                   </p>
-                  <a
+                  <Link
                     href="tel:02123456789"
                     className="text-xs text-[#495157] hover:text-myPrimary transition-colors block mb-1"
                   >
                     تلفن: 021-23456789
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="tel:09121234567"
                     className="text-xs text-[#495157] hover:text-myPrimary transition-colors block"
                   >
                     موبایل: 0912-123-4567
-                  </a>
+                  </Link>
                 </div>
                 <div className="flex-1 md:ml-auto">
                   <Logo />
