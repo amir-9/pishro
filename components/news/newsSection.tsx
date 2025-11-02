@@ -5,8 +5,8 @@ import NewsList from "./NewsList";
 const NewsSection = () => {
   return (
     <div>
-      <Filter />
       <Banner />
+      <Filter />
       <NewsList />
     </div>
   );
