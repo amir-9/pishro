@@ -20,20 +20,52 @@ const CryptocurrencyPageContent = () => {
   const { stepsData } = useStepsData();
 
   return (
-    <div>
+    <main className="w-full overflow-x-hidden">
       <Landing3 data={cryptoLandingData} />
-      <AboutOtherPages data={cryptoAboutData} />
-      <UserLevelSection />
 
-      {/* Steps Section */}
-      <div id="stepsSection">
+      <section
+        className="w-full mt-8 sm:mt-12 md:mt-16 lg:mt-20"
+        aria-label="درباره کریپتو"
+      >
+        <AboutOtherPages data={cryptoAboutData} />
+      </section>
+
+      <section
+        className="w-full mt-8 sm:mt-12 md:mt-16"
+        aria-label="انتخاب سطح کاربری"
+      >
+        <UserLevelSection />
+      </section>
+
+      <section
+        id="stepsSection"
+        className="w-full mt-8 sm:mt-12 md:mt-16 lg:mt-20"
+        aria-label="مراحل یادگیری"
+      >
         <StepsSection {...stepsData} />
-      </div>
+      </section>
 
-      <Courses />
-      <CommentsSlider />
-      <TagsList tags={investmentTagsData} title="کلید واژه های کریپتو" />
-    </div>
+      <section
+        className="w-full mt-8 sm:mt-12 md:mt-16 lg:mt-20"
+        aria-label="دوره‌های آموزشی"
+      >
+        <Courses />
+      </section>
+
+      <section
+        className="w-full mt-12 sm:mt-16 md:mt-20 lg:mt-24"
+        aria-label="نظرات کاربران"
+      >
+        <CommentsSlider />
+      </section>
+
+      <section
+        className="w-full mt-12 sm:mt-16 md:mt-20 lg:mt-24 pb-8 sm:pb-12 md:pb-16 lg:pb-20"
+        aria-label="کلید واژه‌های کریپتو"
+      >
+        <TagsList tags={investmentTagsData} title="کلید واژه های کریپتو" />
+      </section>
+    </main>
   );
 };
 

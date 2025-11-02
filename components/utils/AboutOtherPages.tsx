@@ -25,7 +25,7 @@ const AboutOtherPages = ({ data }: AboutOtherPagesProps) => {
   } = data;
 
   return (
-    <div className="h-[1010px] relative mt-20">
+    <div className="min-h-[400px] sm:min-h-[500px] md:min-h-[650px] lg:min-h-[800px] xl:h-[1010px] relative mt-8 sm:mt-12 md:mt-16 lg:mt-20">
       {/* 🌄 پس‌زمینه */}
       <div className="absolute bottom-0 left-0 w-full aspect-[1440/847] pointer-events-none !-z-10">
         <div className="size-full relative">
@@ -35,36 +35,39 @@ const AboutOtherPages = ({ data }: AboutOtherPagesProps) => {
             fill
             className="object-cover object-center"
             priority
+            sizes="100vw"
           />
         </div>
       </div>
       <div className="absolute bottom-0 left-0 size-full pointer-events-none !-z-20 bg-[#F4F0EA]" />
 
       {/* ✍️ متن اصلی */}
-      <div className="container-xl flex pt-40 justify-end h-full z-[999]">
-        <div className="max-w-[750px] text-right space-y-6">
+      <div className="container-xl flex pt-16 sm:pt-24 md:pt-32 lg:pt-40 justify-end h-full z-[999] px-4 sm:px-6 md:px-8">
+        <div className="max-w-full sm:max-w-[550px] md:max-w-[650px] lg:max-w-[750px] text-right space-y-4 sm:space-y-5 md:space-y-6">
           {/* 🔹 تیتر اصلی با دو رنگ */}
-          <h2 className="text-[120px] leading-[1.1] font-extrabold">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[120px] leading-[1.1] font-extrabold">
             <span className="text-[#214254]">{title1}</span>{" "}
-            <span className="text-[#FFA135] ml-2">{title2}</span>
+            <span className="text-[#FFA135] ml-1 sm:ml-2">{title2}</span>
           </h2>
 
           {/* 🔸 متن توضیحی */}
-          <p className="text-[#8E8E8E] leading-8 text-lg font-medium !z-[10000] max-w-[650px]">
+          <p className="text-[#8E8E8E] leading-6 sm:leading-7 md:leading-8 text-sm sm:text-base md:text-lg font-medium !z-[10000] max-w-full sm:max-w-[500px] md:max-w-[650px]">
             {description}
           </p>
 
           {/* 🔘 دکمه‌ها */}
-          <div className="flex gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4">
             <Link
               href="#"
-              className="px-8 py-3 w-1/2 flex justify-center items-center rounded-full text-lg font-bold bg-[#214254] text-white hover:bg-[#214254]/5 hover:text-[#214254] hover:border-[#214254] border transition-all"
+              className="px-6 sm:px-8 py-2.5 sm:py-3 w-full sm:w-1/2 flex justify-center items-center rounded-full text-sm sm:text-base md:text-lg font-bold bg-[#214254] text-white hover:bg-[#214254]/5 hover:text-[#214254] hover:border-[#214254] border transition-all"
+              aria-label={button1}
             >
               {button1}
             </Link>
             <Link
               href="#"
-              className="px-8 py-3 w-1/2 flex justify-center items-center rounded-full text-lg font-bold border-2 border-[#FFA135] hover:text-[#FFA135] hover:bg-transparent bg-[#FFA135] text-white transition-all"
+              className="px-6 sm:px-8 py-2.5 sm:py-3 w-full sm:w-1/2 flex justify-center items-center rounded-full text-sm sm:text-base md:text-lg font-bold border-2 border-[#FFA135] hover:text-[#FFA135] hover:bg-transparent bg-[#FFA135] text-white transition-all"
+              aria-label={button2}
             >
               {button2}
             </Link>

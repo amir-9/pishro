@@ -35,20 +35,20 @@ const StepItem = ({
   return (
     <motion.div
       key={step.id}
-      className="relative min-w-[220px] min-h-[200px] p-6"
+      className="relative min-w-[200px] sm:min-w-[220px] md:min-w-[240px] min-h-[180px] sm:min-h-[200px] p-4 sm:p-5 md:p-6"
     >
       {/* Circle + pulse animation */}
-      <div className="absolute -top-6 right-8 bg-gray-50/50 rounded-full size-16 flex justify-center items-center">
+      <div className="absolute -top-4 sm:-top-5 md:-top-6 right-4 sm:right-6 md:right-8 bg-gray-50/50 rounded-full size-12 sm:size-14 md:size-16 flex justify-center items-center">
         <div
           className={clsx(
-            "size-8 rounded-full transition",
+            "size-6 sm:size-7 md:size-8 rounded-full transition",
             isActive ? "bg-yellow-300" : "bg-gray-300"
           )}
         />
 
         {isActive && (
           <motion.div
-            className="absolute size-8 rounded-full bg-yellow-300"
+            className="absolute size-6 sm:size-7 md:size-8 rounded-full bg-yellow-300"
             initial={{ scale: 1, opacity: 0.8 }}
             animate={{ scale: [1, 1.8, 1], opacity: [0.8, 0, 0.8] }}
             transition={{
@@ -68,22 +68,26 @@ const StepItem = ({
           x: isActive ? 0 : 100,
         }}
         transition={{ duration: 0.6 }}
-        className="relative size-full flex flex-col items-start justify-start pt-8"
+        className="relative size-full flex flex-col items-start justify-start pt-6 sm:pt-7 md:pt-8"
       >
-        <h3 className="text-[22px] font-bold text-gray-900 mb-2 mt-1">
+        <h3 className="text-lg sm:text-[20px] md:text-[22px] font-bold text-gray-900 mb-1 sm:mb-2 mt-1">
           {step.title}
         </h3>
-        <p className="text-gray-600 mb-4 leading-7 max-w-[240px]">
+        <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 leading-6 sm:leading-7 max-w-[200px] sm:max-w-[220px] md:max-w-[240px]">
           {step.description}
         </p>
 
         <div
           className={clsx(
             "absolute -z-10",
-            index === 0 ? "-left-[26px] -top-10" : "-left-[64px] -top-[58]"
+            index === 0
+              ? "-left-[20px] sm:-left-[24px] md:-left-[26px] -top-8 sm:-top-9 md:-top-10"
+              : "-left-[50px] sm:-left-[58px] md:-left-[64px] -top-[50px] sm:-top-[54px] md:-top-[58px]"
           )}
         >
-          <p className="text-[160px] font-black text-gray-300">{step.id}</p>
+          <p className="text-[100px] sm:text-[130px] md:text-[160px] font-black text-gray-300">
+            {step.id}
+          </p>
         </div>
       </motion.div>
     </motion.div>
@@ -153,27 +157,33 @@ const StepsSection = ({
     <section
       ref={sectionRef}
       id="stepsSection"
-      style={{ height: `calc(${steps.length} * 100vh + 300px)` }}
+      style={{ height: `calc(${steps.length} * 100vh + 200px)` }}
       className="relative w-full"
+      aria-label="مراحل یادگیری"
     >
-      <div className="sticky top-0 h-screen container-xl">
+      <div className="sticky top-0 h-screen container-xl px-4 sm:px-6 md:px-8">
         {/* Background Decorations */}
         {/* <StepsDecorations /> */}
-        <div className="w-full h-32"></div>
+        <div className="w-full h-16 sm:h-24 md:h-32"></div>
         {/* steps section */}
-        <div className="relative flex w-[80%] [aspect-ratio:1071/449]">
+        <div className="relative flex w-full sm:w-[90%] md:w-[85%] lg:w-[80%] mx-auto [aspect-ratio:1071/449]">
           {/* Header */}
-          <div className="absolute flex flex-col justify-start py-6 px-4 w-[65%] right-0 -top-16 z-10">
-            <p className="text-myPrimary font-bold text-sm mb-2">
-              {sectionQuote}
-            </p>
-            <h2 className="text-5xl leading-tight font-extrabold text-gray-800 max-w-[700px]">
+          <div className="absolute flex flex-col justify-start py-3 sm:py-4 md:py-6 px-3 sm:px-4 md:px-6 w-full sm:w-[75%] md:w-[70%] lg:w-[65%] right-0 -top-12 sm:-top-14 md:-top-16 z-10">
+            {sectionQuote && (
+              <p className="text-myPrimary font-bold text-xs sm:text-sm mb-1 sm:mb-2">
+                {sectionQuote}
+              </p>
+            )}
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight font-extrabold text-gray-800 max-w-full sm:max-w-[500px] md:max-w-[600px] lg:max-w-[700px]">
               {sectionTitle}
             </h2>
-            <p className="mt-4 max-w-[620px] text-gray-600 leading-7">
+            <p className="mt-2 sm:mt-3 md:mt-4 max-w-full sm:max-w-[500px] md:max-w-[580px] lg:max-w-[620px] text-sm sm:text-base md:text-lg text-gray-600 leading-6 sm:leading-7">
               {sectionSubtitle}
             </p>
-            <button className="rounded-full hover:text-[#344052] text-white bg-[#344052] hover:bg-white transition-all duration-300 font-bold px-4 py-2.5 border-2 border-[#344052] flex items-center justify-center w-fit mt-8">
+            <button
+              className="rounded-full hover:text-[#344052] text-white bg-[#344052] hover:bg-white transition-all duration-300 font-bold px-3 sm:px-4 py-2 sm:py-2.5 border-2 border-[#344052] flex items-center justify-center w-fit mt-4 sm:mt-6 md:mt-8 text-sm sm:text-base"
+              aria-label={sectionCta}
+            >
               {sectionCta}
             </button>
           </div>
@@ -188,6 +198,7 @@ const StepsSection = ({
                 xmlns="http://www.w3.org/2000/svg"
                 preserveAspectRatio="xMidYMid meet"
                 className="absolute inset-0"
+                aria-hidden="true"
               >
                 <path
                   id="stepsPath"
@@ -197,9 +208,10 @@ const StepsSection = ({
                   C478.187 225 388.687 308.5 294.187 188
                   C199.687 67.5003 153.687 -11.4997 26.69 5.50027"
                   stroke="#D32F2F"
-                  strokeWidth="5"
+                  strokeWidth="4"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  vectorEffect="non-scaling-stroke"
                 />
               </svg>
             </div>
@@ -207,7 +219,7 @@ const StepsSection = ({
           {stepPoints.map((p, i) => (
             <div
               key={steps[i].id}
-              className="absolute w-[320px] -translate-x-[245px] -translate-y-[8px]"
+              className="absolute w-[200px] sm:w-[280px] md:w-[320px] -translate-x-[150px] sm:-translate-x-[200px] md:-translate-x-[245px] -translate-y-[6px] sm:-translate-y-[7px] md:-translate-y-[8px]"
               style={{ left: `${p.x}%`, top: `${p.y}%` }}
             >
               <StepItem step={steps[i]} index={i} activeIndex={activeIndex} />

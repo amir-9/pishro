@@ -16,9 +16,9 @@ const CommentsSlider = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="container-xl flex items-center justify-center mt-40 md:mt-32 px-1 sm:px-6 md:px-10 lg:px-24">
+    <section className="container-xl flex items-center justify-center mt-20 sm:mt-24 md:mt-28 lg:mt-32 px-4 sm:px-6 md:px-10 lg:px-24" aria-label="نظرات کاربران">
       <div className="relative w-full">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-20 -mt-16 sm:mt-0 sm:mb-8 text-center">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-8 sm:mb-12 md:mb-16 lg:mb-20 text-center">
           نظرات دوره‌آموزان
         </h2>
 
@@ -94,23 +94,25 @@ const CommentsSlider = () => {
         </div>
 
         {/* پیکان‌ها */}
-        <div className="absolute top-0 right-1 sm:right-8">
-          <div className="relative w-[90px] sm:w-[180px] h-[50px] sm:h-[100px]">
+        <div className="absolute top-0 right-0 sm:right-4 md:right-8 hidden sm:block">
+          <div className="relative w-[80px] sm:w-[120px] md:w-[180px] h-[45px] sm:h-[65px] md:h-[100px]">
             <Image
               src={"/icons/circle-arrow-left.svg"}
-              alt="پیکان"
+              alt="پیکان چپ"
               fill
               className="object-cover"
+              sizes="(max-width: 640px) 80px, (max-width: 768px) 120px, 180px"
             />
           </div>
         </div>
-        <div className="absolute -bottom-4 sm:-bottom-10 left-1 sm:left-8">
-          <div className="relative w-[90px] sm:w-[180px] h-[50px] sm:h-[100px]">
+        <div className="absolute -bottom-2 sm:-bottom-6 md:-bottom-10 left-0 sm:left-4 md:left-8 hidden sm:block">
+          <div className="relative w-[80px] sm:w-[120px] md:w-[180px] h-[45px] sm:h-[65px] md:h-[100px]">
             <Image
               src={"/icons/circle-arrow-right.svg"}
-              alt="پیکان"
+              alt="پیکان راست"
               fill
               className="object-cover"
+              sizes="(max-width: 640px) 80px, (max-width: 768px) 120px, 180px"
             />
           </div>
         </div>
