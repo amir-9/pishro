@@ -65,8 +65,8 @@ const Footer = () => {
           <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
             {/* بخش سمت چپ - Logo & Contact */}
             <div className="space-y-6">
-              <div className="flex flex-row md:flex-col-reverse md:justify-between">
-                <div className="md:flex-1">
+              <div className="flex flex-row md:flex-col-reverse">
+                <div className="flex-1">
                   <p className="text-sm font-medium text-[#214254] mb-2 md:mt-6">
                     پشتیبانی و تماس
                   </p>
@@ -83,7 +83,7 @@ const Footer = () => {
                     موبایل: 0912-123-4567
                   </a>
                 </div>
-                <div className="md:flex-1 md:ml-auto">
+                <div className="flex-1 md:ml-auto">
                   <Logo />
                 </div>
               </div>
