@@ -1,164 +1,276 @@
+"use client";
+
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 
-import {
-  PiInstagramLogoThin,
-  PiYoutubeLogoThin,
-  PiWhatsappLogoThin,
-} from "react-icons/pi";
+import { PiInstagramLogoThin, PiWhatsappLogoThin } from "react-icons/pi";
 import { CiLinkedin } from "react-icons/ci";
 import { LiaTelegram } from "react-icons/lia";
 import { SlSocialTwitter } from "react-icons/sl";
-import { Input } from "./ui/input";
 import Logo from "./utils/Logo";
 
 const Footer = () => {
   const socials = [
     {
       icon: <PiInstagramLogoThin />,
-      link: "#",
+      link: "https://instagram.com/pishro_financial",
+      name: "اینستاگرام",
     },
     {
       icon: <CiLinkedin />,
-      link: "#",
+      link: "https://linkedin.com/company/pishro-financial",
+      name: "لینکدین",
     },
     {
       icon: <SlSocialTwitter />,
-      link: "#",
+      link: "https://x.com/pishro_financial",
+      name: "توییتر",
     },
     {
       icon: <PiWhatsappLogoThin />,
-      link: "#",
+      link: "https://wa.me/989121234567",
+      name: "واتساپ",
     },
     {
       icon: <LiaTelegram />,
-      link: "#",
-    },
-    {
-      icon: <PiYoutubeLogoThin />,
-      link: "#",
+      link: "https://t.me/pishro_financial",
+      name: "تلگرام",
     },
   ];
 
+  const categories = [
+    { label: "کریپتو", link: "/cryptocurrency" },
+    { label: "بورس", link: "/stock-market" },
+    { label: "متاورس", link: "/metaverse" },
+    { label: "NFT", link: "/nft" },
+    { label: "ایردراپ", link: "/airdrop" },
+  ];
+
+  const customerService = [
+    { label: "سوال دارید؟", link: "/faq" },
+    { label: "درباره ما", link: "/about-us" },
+  ];
+
+  const shoppingGuide = [
+    { label: "شیوه ثبت سفارش", link: "/faq#order" },
+    { label: "شیوه های پرداخت", link: "/faq#payment" },
+  ];
+
   return (
-    <footer className="pt-16 md:pt-32 pb-6 md:pb-10 w-full bg-white mt-8">
-      <div className="flex flex-col sm:flex-row flex-wrap gap-12 sm:gap-0 justify-between items-start w-full border-y py-4 md:py-8 container-xl px-2 md:px-0">
-        {/* بخش سمت چپ */}
-        <div className="flex-1 min-w-[200px] flex flex-col items-start mb-8 sm:mb-0">
-          <div>
-            <Logo />
-            <p className="mt-6 text-xs text-[#495157]">
-              تلفن پشتیبانی: 021-23456789
-            </p>
-            <div className="mt-6 flex flex-wrap gap-2">
-              {socials.map((social, index) => (
-                <Link
-                  href={social.link}
-                  key={index}
-                  className="size-8 flex justify-center items-center rounded-[2px] border border-[#D7D7D7] hover:bg-myPrimary hover:border-myPrimary group"
-                >
-                  {React.cloneElement(social.icon, {
-                    className: "size-5 text-[#80878C] group-hover:text-white",
-                  })}
-                </Link>
-              ))}
+    <footer className="w-full bg-white mt-8 border-t border-gray-200">
+      {/* Main Footer Content */}
+      <div className="container px-4 md:px-0">
+        <div className="pt-12 md:pt-16 pb-8 md:pb-12">
+          <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+            {/* بخش سمت چپ - Logo & Contact */}
+            <div className="space-y-6">
+              <div className="flex flex-row md:flex-col-reverse md:justify-between">
+                <div className="md:flex-1">
+                  <p className="text-sm font-medium text-[#214254] mb-2 md:mt-6">
+                    پشتیبانی و تماس
+                  </p>
+                  <a
+                    href="tel:02123456789"
+                    className="text-xs text-[#495157] hover:text-myPrimary transition-colors block mb-1"
+                  >
+                    تلفن: 021-23456789
+                  </a>
+                  <a
+                    href="tel:09121234567"
+                    className="text-xs text-[#495157] hover:text-myPrimary transition-colors block"
+                  >
+                    موبایل: 0912-123-4567
+                  </a>
+                </div>
+                <div className="md:flex-1 md:ml-auto">
+                  <Logo />
+                </div>
+              </div>
+
+              {/* Social Media */}
+              <div>
+                <p className="text-xs text-[#495157] mb-3">
+                  ما را در شبکه‌های اجتماعی دنبال کنید
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {socials.map((social, index) => (
+                    <Link
+                      href={social.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      key={index}
+                      aria-label={social.name}
+                      className="size-9 flex justify-center items-center rounded-md border border-[#D7D7D7] hover:bg-myPrimary hover:border-myPrimary group transition-all duration-200"
+                    >
+                      {React.cloneElement(social.icon, {
+                        className:
+                          "size-5 text-[#80878C] group-hover:text-white transition-colors",
+                      })}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              {/* {/* Newsletter */}
+              {/* <div className="w-full">
+                <p className="text-xs text-[#495157] mb-3 font-medium">
+                  از پیشرو بروز باشید
+                </p>
+                <form onSubmit={handleNewsletterSubmit} className="relative">
+                  <Input
+                    type="email"
+                    placeholder="ایمیل خود را وارد کنید"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full h-10 rounded-md border border-[#D7D7D7] text-xs px-3 pr-12 focus:border-myPrimary focus:ring-1 focus:ring-myPrimary"
+                  />
+                  <button
+                    type="submit"
+                    className="absolute left-1 top-1 h-8 px-4 bg-myPrimary text-white text-xs rounded-md hover:bg-myPrimary/90 transition-colors font-medium"
+                  >
+                    عضویت
+                  </button>
+                </form>
+              </div>  */}
             </div>
-            <div className="mt-8 w-full min-w-[120px] max-w-xs">
-              <p className="text-xs text-[#495157] mb-2 md:mb-4">از پیشرو بروز باشید</p>
-              <div className="mt-2 relative w-full h-9">
-                <Input
-                  type="text"
-                  placeholder="ایمیل خود را وارد کنید"
-                  className="w-full h-9 rounded-[2px] border border-[#D7D7D7] text-xs px-2 md:pl-20"
-                />
-                <button className="absolute left-0 top-0 h-full px-4 bg-myPrimary text-white text-xs rounded-l-[2px]">عضویت</button>
+
+            {/* بخش وسط و راست - در موبایل کنار هم */}
+            <div className="grid grid-cols-2 md:contents gap-6 md:gap-0">
+              {/* بخش وسط - Categories */}
+              <div className="space-y-6">
+                <div>
+                  <h6 className="text-sm font-semibold text-[#214254] mb-4">
+                    دسته بندی ها
+                  </h6>
+                  <ul className="flex flex-col gap-3">
+                    {categories.map((category, index) => (
+                      <li key={index}>
+                        <Link
+                          href={category.link}
+                          className="text-sm text-[#80878C] hover:text-myPrimary transition-colors"
+                        >
+                          {category.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* بخش راست - Services & Guide */}
+              <div className="space-y-6">
+                <div>
+                  <h6 className="text-sm font-semibold text-[#214254] mb-4">
+                    خدمات مشتریان
+                  </h6>
+                  <ul className="flex flex-col gap-3">
+                    {customerService.map((item, index) => (
+                      <li key={index}>
+                        <Link
+                          href={item.link}
+                          className="text-sm text-[#80878C] hover:text-myPrimary transition-colors"
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <h6 className="text-sm font-semibold text-[#214254] mb-4">
+                    راهنمای خرید
+                  </h6>
+                  <ul className="flex flex-col gap-3">
+                    {shoppingGuide.map((item, index) => (
+                      <li key={index}>
+                        <Link
+                          href={item.link}
+                          className="text-sm text-[#80878C] hover:text-myPrimary transition-colors"
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* بخش آخر - About */}
+            <div className="space-y-6">
+              <div>
+                <h5 className="text-sm font-semibold text-[#214254] mb-4">
+                  درباره پیشرو
+                </h5>
+                <p className="text-xs text-[#80878C] leading-6">
+                  پیشرو ارائه‌دهنده خدمات حرفه‌ای در زمینه آموزش مالی و
+                  سرمایه‌گذاری است. با ارائه منابع آموزشی، مشاوره‌های حرفه‌ای و
+                  ابزارهای کارآمد، هدف ما ارتقاء دانش مالی شما و دستیابی به
+                  فرصت‌های سرمایه‌گذاری هوشمندانه است.
+                </p>
+              </div>
+
+              {/* Certificates */}
+              <div className="flex flex-wrap w-full justify-evenly md:justify-start gap-2">
+                <div className="flex justify-center items-center rounded-md border border-[#BAC9CF] px-3 py-2 hover:border-myPrimary transition-colors cursor-pointer">
+                  <Image
+                    src={"/images/e-namad.png"}
+                    alt="نماد اعتماد الکترونیک"
+                    width={50}
+                    height={50}
+                    className="object-contain"
+                  />
+                </div>
+                <div className="flex justify-center items-center rounded-md border border-[#BAC9CF] px-3 py-2 hover:border-myPrimary transition-colors cursor-pointer">
+                  <Image
+                    src={"/images/united.png"}
+                    alt="اتحادیه"
+                    width={50}
+                    height={50}
+                    className="object-contain"
+                  />
+                </div>
+                <div className="flex justify-center items-center rounded-md border border-[#BAC9CF] px-3 py-2 hover:border-myPrimary transition-colors cursor-pointer">
+                  <Image
+                    src={"/images/samandehi.png"}
+                    alt="ساماندهی"
+                    width={50}
+                    height={50}
+                    className="object-contain"
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* بخش وسط */}
-        <div className="flex-1 flex flex-col sm:flex-row justify-start items-start gap-10 md:gap-8 mb-8 sm:mb-0 w-full min-w-[200px]">
-          <div>
-            <h6 className="text-sm mb-6">دسته بندی ها</h6>
-            <ul className="flex flex-col gap-2 text-sm text-[#80878C]">
-              <li>
-                <Link href={"#"}>کریپتو</Link>
-              </li>
-              <li>
-                <Link href={"#"}>بورس</Link>
-              </li>
-              <li>
-                <Link href={"#"}>متاورس</Link>
-              </li>
-              <li>
-                <Link href={"#"}>NFT</Link>
-              </li>
-              <li>
-                <Link href={"#"}>ایردراپ</Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h6 className="text-sm mb-6">خدمات مشتریان</h6>
-            <ul className="flex flex-col gap-2 text-sm text-[#80878C]">
-              <li>
-                <Link href={"#"}>سوال دارید؟</Link>
-              </li>
-              <li>
-                <Link href={"#"}>باشگاه مشتریان</Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h6 className="text-sm mb-6">راهنمای خرید</h6>
-            <ul className="flex flex-col gap-2 text-sm text-[#80878C]">
-              <li>
-                <Link href={"#"}>شیوه ثبت سفارش</Link>
-              </li>
-              <li>
-                <Link href={"#"}>شیوه های پرداخت</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* بخش سمت راست */}
-        <div className="flex-1 flex flex-col justify-start items-center sm:items-end gap-8 h-full min-w-[200px]">
-          <div className="max-w-[340px] w-full">
-            <h5 className="text-sm text-[#214254] mb-6">درباره پیشرو</h5>
-            <p className="text-xs text-[#80878C]">
-              لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-              استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در
-              ستون و سطرآنچنان که لازم است تا نمایشگرها آماده شوند. لورم ایپسوم
-              متن ساختگی با تولید سادگی نامفهوم از صنعت است.
+        {/* Footer Bottom */}
+        <div className="border-t border-gray-200 py-4 md:py-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#80878C]">
+            <p className="text-center md:text-right">
+              © {new Date().getFullYear()} پیشرو سرمایه. تمامی حقوق محفوظ است.
             </p>
-          </div>
-          <div className="flex justify-between w-full max-w-[340px] gap-1 flex-wrap">
-            <div className="flex justify-center items-center rounded-sm border border-[#BAC9CF] px-3 py-1.5">
-              <Image
-                src={"/images/e-namad.png"}
-                alt="e-namad"
-                width={60}
-                height={60}
-              />
-            </div>
-            <div className="flex justify-center items-center rounded-sm border border-[#BAC9CF] px-3 py-1.5">
-              <Image
-                src={"/images/united.png"}
-                alt="united"
-                width={60}
-                height={60}
-              />
-            </div>
-            <div className="flex justify-center items-center rounded-sm border border-[#BAC9CF] px-3 py-1.5">
-              <Image
-                src={"/images/samandehi.png"}
-                alt="samandehi"
-                width={60}
-                height={60}
-              />
+            <div className="flex flex-wrap justify-center md:justify-end gap-4">
+              <Link
+                href="/about-us"
+                className="hover:text-myPrimary transition-colors"
+              >
+                قوانین و مقررات
+              </Link>
+              <Link
+                href="/faq"
+                className="hover:text-myPrimary transition-colors"
+              >
+                سوالات متداول
+              </Link>
+              <Link
+                href="/about-us"
+                className="hover:text-myPrimary transition-colors"
+              >
+                حریم خصوصی
+              </Link>
             </div>
           </div>
         </div>
