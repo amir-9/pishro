@@ -73,7 +73,7 @@ const NavbarDesktop = ({ isDark, navbarData }: NavbarDesktopProps) => {
     >
       {/* لیست منو */}
       <div className="relative w-full md:w-auto flex-1 flex justify-center md:justify-start">
-        <ul className="h-full flex items-center gap-1 sm:gap-2 relative flex-wrap">
+        <ul className="h-full flex items-center gap-2 relative flex-wrap">
           {desktopNavbarData.map((item, idx) => (
             <li
               key={idx}
@@ -100,7 +100,7 @@ const NavbarDesktop = ({ isDark, navbarData }: NavbarDesktopProps) => {
             className={`absolute bottom-0 h-[2px] rounded transition-all duration-300 ${
               isIndicatorActive
                 ? isDark
-                  ? "bg-red-500"
+                  ? "bg-myGray"
                   : "bg-mySecondary"
                 : "opacity-0"
             }`}

@@ -28,7 +28,7 @@ const NavbarLinks: React.FC<NavbarLinksProps> = ({
       <li key={idx}>
         <Link
           href={item.link}
-          className="block py-2 px-4 rounded transition-colors"
+          className="block py-2 px-2 rounded transition-colors"
           onClick={onClick}
         >
           {item.label}
