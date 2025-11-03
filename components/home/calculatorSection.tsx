@@ -243,21 +243,42 @@ const CalculatorSection = () => {
               نتیجه سرمایه‌گذاریت
             </p>
 
-            <div className="bg-white text-[#1A0A3B] rounded-2xl py-8 px-12 flex items-center justify-center text-3xl font-medium">
-              <CountUp
-                start={prevResultRef.current}
-                end={result}
-                duration={0.8}
-                separator=","
-                formattingFn={(n) => formatNumber(n)}
-              />
-              <span className="mr-1 text-lg font-bold text-gray-400">
-                تومان
-              </span>
+            {/* Result box */}
+            <div className="bg-white text-[#1A0A3B] rounded-2xl pt-8 pb-4 px-4 flex flex-col items-center justify-center text-3xl font-medium shadow-lg relative">
+              <div>
+                <CountUp
+                  start={prevResultRef.current}
+                  end={result}
+                  duration={0.8}
+                  separator=","
+                  formattingFn={(n) => formatNumber(n)}
+                />
+                <span className="mr-1 text-lg font-bold text-gray-400">
+                  تومان
+                </span>
+              </div>
+              {/* 🛡 پیام تضمین سرمایه */}
+              <div className="mt-6 flex items-center gap-2 bg-green-100 border border-green-300 rounded-xl px-4 py-2 text-green-700 text-sm font-medium shadow-sm">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5 text-green-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 11c.667-2 2.333-2 3 0m-3 0c-.667 2-2.333 2-3 0m3 0v6m0 0c-3 0-6-2-6-6 0-4 3-6 6-6s6 2 6 6c0 4-3 6-6 6z"
+                  />
+                </svg>
+                <p>این عدد حداقل سود تضمینی با حفظ سرمایه اولیه است</p>
+              </div>
             </div>
 
             <Link
-              href="/plans/gold#plan-banner"
+              href="/investment-plans"
               className="mt-10 px-16 w-full sm:w-fit bg-mySecondary border border-mySecondary text-white rounded-full py-4 font-bold text-center hover:bg-mySecondary/30 hover:border-white transition-colors"
             >
               سرمایه‌گذاری
