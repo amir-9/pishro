@@ -72,7 +72,7 @@ const Landing3 = ({ data }: Landing3Props) => {
   } = data;
 
   return (
-    <section className="min-h-screen relative overflow-hidden flex flex-col justify-between pt-6 sm:pt-8 md:pt-8 lg:pt-0 pb-8 sm:pb-12">
+    <section className="min-h-screen relative overflow-hidden flex flex-col justify-between pt-6 sm:pt-8 md:pt-8 lg:pt-0 pb-8 lg:pb-0">
       {/* 🔹 بخش بالا */}
       <div className="container-xl flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-4 mt-12 sm:mt-16 md:mt-20 lg:mt-24 px-4 sm:px-6 md:px-8">
         {/* 🟢 سمت راست */}
