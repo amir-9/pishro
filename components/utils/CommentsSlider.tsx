@@ -97,7 +97,7 @@ const CommentsSlider = () => {
         </div>
 
         {/* پیکان‌ها */}
-        <div className="absolute top-0 right-0 sm:right-4 md:right-8 hidden sm:block">
+        <div className="absolute top-0 lg:top-12 right-0 sm:right-4 md:right-8 hidden sm:block">
           <div className="relative w-[80px] sm:w-[120px] md:w-[180px] h-[45px] sm:h-[65px] md:h-[100px]">
             <Image
               src={"/icons/circle-arrow-left.svg"}
