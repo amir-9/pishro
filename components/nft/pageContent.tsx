@@ -3,7 +3,6 @@
 import Landing3 from "@/components/utils/Landing3";
 import AboutOtherPages from "@/components/utils/AboutOtherPages";
 import UserLevelSection from "@/components/utils/UserLevelSelection";
-import StepsSection from "@/components/utils/steps/stepsSection";
 import Courses from "@/components/utils/CoursesSec";
 import CommentsSlider from "@/components/utils/CommentsSlider";
 import TagsList from "@/components/utils/TagsList";
@@ -12,13 +11,8 @@ import {
   nftLandingData,
   investmentTagsData,
 } from "@/public/data";
-import { useScrollToSteps } from "@/hooks/useScrollToSteps";
-import { useStepsData } from "@/hooks/useStepsData";
 
 const NftPageContent = () => {
-  useScrollToSteps();
-  const { stepsData } = useStepsData();
-
   return (
     <main className="w-full">
       <Landing3 data={nftLandingData} />
@@ -35,14 +29,6 @@ const NftPageContent = () => {
         aria-label="انتخاب سطح کاربری"
       >
         <UserLevelSection />
-      </section>
-
-      <section
-        id="stepsSection"
-        className="w-full mt-8 sm:mt-12 md:mt-16 lg:mt-20"
-        aria-label="مراحل یادگیری"
-      >
-        {/* <StepsSection {...stepsData} /> */}
       </section>
 
       <section
