@@ -42,7 +42,7 @@ const AirdropPageContent = () => {
         className="w-full mt-8 sm:mt-12 md:mt-16 lg:mt-20"
         aria-label="مراحل یادگیری"
       >
-        <StepsSection {...stepsData} />
+        {/* <StepsSection {...stepsData} /> */}
       </section>
 
       <section
