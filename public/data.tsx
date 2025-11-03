@@ -144,7 +144,7 @@ export const whyUsData = [
 
 export const coursesData = [
   {
-    subject: " ترید",
+    subject: "بورس",
     price: 2500000,
     img: "/images/courses/placeholder.png",
     rating: 4.5,
@@ -155,7 +155,7 @@ export const coursesData = [
     videosCount: 15,
   },
   {
-    subject: " ارزهای دیجیتال",
+    subject: "ارزهای دیجیتال",
     price: 3500000,
     img: "/images/courses/placeholder.png",
     rating: 4,
@@ -166,7 +166,7 @@ export const coursesData = [
     videosCount: 15,
   },
   {
-    subject: " بورس",
+    subject: "بورس",
     price: 2000000,
     img: "/images/courses/placeholder.png",
     rating: 2.5,
@@ -177,7 +177,7 @@ export const coursesData = [
     videosCount: 15,
   },
   {
-    subject: " NFT",
+    subject: "NFT",
     price: 1500000,
     img: "/images/courses/placeholder.png",
     rating: 4,
@@ -188,7 +188,7 @@ export const coursesData = [
     videosCount: 15,
   },
   {
-    subject: " متاورس",
+    subject: "متاورس",
     price: 4000000,
     img: "/images/courses/placeholder.png",
     rating: 4,
@@ -199,7 +199,7 @@ export const coursesData = [
     videosCount: 15,
   },
   {
-    subject: " ارزهای دیجیتال",
+    subject: "ارزهای دیجیتال",
     price: 3500000,
     img: "/images/courses/placeholder.png",
     rating: 4,
@@ -209,28 +209,6 @@ export const coursesData = [
     students: 250,
     videosCount: 15,
   },
-  // {
-  //   subject: " بورس",
-  //   price: 2000000,
-  //   img: "/images/courses/placeholder.png",
-  //   rating: 2.5,
-  //   description: "آموزش ترید برای مبتدیان و حرفه‌ایان",
-  //   discountPercent: 19,
-  //   time: "12:30",
-  //   students: 250,
-  //   videosCount: 15,
-  // },
-  // {
-  //   subject: " ترید",
-  //   price: 2500000,
-  //   img: "/images/courses/placeholder.png",
-  //   rating: 4,
-  //   description: "آموزش ترید برای مبتدیان و حرفه‌ایان",
-  //   discountPercent: 19,
-  //   time: "12:30",
-  //   students: 250,
-  //   videosCount: 15,
-  // },
 ];
 
 export const blogData = [
