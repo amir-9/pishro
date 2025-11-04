@@ -45,7 +45,7 @@ export const authConfig: NextAuthConfig = {
             name: user.name ?? undefined,
           };
         } catch (err) {
-          console.error("❌ authorize error:", err);
+          console.error("[❌] authorize error:", err);
           return null;
         }
       },
