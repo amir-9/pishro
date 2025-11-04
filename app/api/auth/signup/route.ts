@@ -11,8 +11,13 @@ function generateOtpDigits(length = 4) {
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const phone = body.phone ?? body.username;
+    const body: { phone?: string; password?: string } = await req.json();
+    const phone = body.phone;
+
+    if (!phone) {
+      return NextResponse.json({ error: "phone required" }, { status: 400 });
+    }
+
     const password = body.password;
 
     if (!phone || !password)
@@ -38,7 +43,7 @@ export async function POST(req: Request) {
     console.log("code: ", code);
 
     await prisma.otp.upsert({
-      where: { phone },
+      where: { phone: phone! },
       update: { code, expiresAt, createdAt: new Date() },
       create: { phone, code, expiresAt },
     });
