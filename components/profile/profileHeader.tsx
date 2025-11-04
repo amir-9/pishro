@@ -2,7 +2,7 @@ import { CiCalendarDate } from "react-icons/ci";
 import { IoIosNotificationsOutline } from "react-icons/io";
 
 const user = {
-  name: "نام کاربر",
+  name: "خوش آمدید",
   phone: "09123456789",
 };
 

@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "../ui/button";
+import { signOut } from "next-auth/react"; // ← import signOut
 
-// استفاده از آیکون‌های Heroicons برای یکدست بودن
+// Heroicons
 import {
   HiOutlineHome,
   HiHome,
@@ -17,14 +18,16 @@ import {
   HiUser,
 } from "react-icons/hi";
 
+// Mock user data (در عمل، این داده از session گرفته می‌شود)
 const user = {
-  name: "نام کاربر",
+  name: "خوش امدید",
   phone: "09123456789",
   image: "/images/profile/profile-1.png",
 };
 
 const ProfileAside = () => {
   const pathname = usePathname();
+  const router = useRouter(); // برای ریدایرکت دستی بعد از signOut
 
   const sidebarLinks = [
     {
@@ -53,9 +56,17 @@ const ProfileAside = () => {
     },
   ];
 
+  // ✅ تابع خروج از حساب
+  const handleLogout = async () => {
+    await signOut({
+      redirect: false, // از ریدایرکت خودکار جلوگیری می‌کنیم تا خودمان مسیر را کنترل کنیم
+    });
+    router.push("/login"); // انتقال کاربر به صفحه ورود
+  };
+
   return (
     <aside className="rounded-md bg-[#131B22] text-white w-[286px]">
-      {/* پروفایل */}
+      {/* بخش پروفایل کاربر */}
       <div className="w-full flex flex-col justify-center items-center pt-8 pb-16 border-b border-dashed border-[#495157]">
         <div className="relative rounded-full overflow-hidden w-20 h-20 mb-2">
           <Image
@@ -68,17 +79,16 @@ const ProfileAside = () => {
         <p className="font-medium text-sm">{user.phone}</p>
         <p className="font-medium text-sm">{user.name}</p>
       </div>
+
       {/* لینک‌های ناوبری */}
       <div className="pt-8 pb-80 pr-2 flex flex-col items-start gap-4 border-b border-dashed border-[#495157]">
         {sidebarLinks.map((item, idx) => {
-          // بررسی می‌کنیم که آیا مسیر فعلی برابر با لینک مورد نظر است
           const isActive = pathname.includes(item.link);
           return (
             <button
               key={idx}
               className="relative w-full text-left hover:bg-blue-500/5"
             >
-              {/* خط قرمز در سمت چپ در صورت فعال بودن */}
               {isActive && (
                 <span className="absolute left-0 top-0 h-full w-1 bg-red-500 rounded-r-md"></span>
               )}
@@ -101,8 +111,14 @@ const ProfileAside = () => {
           );
         })}
       </div>
+
+      {/* دکمه خروج */}
       <div className="flex justify-center items-center w-full py-8">
-        <Button variant={"destructive"} className="text-xs py-1.5 px-8">
+        <Button
+          variant="destructive"
+          className="text-xs py-1.5 px-8"
+          onClick={handleLogout} // ← تابع خروج
+        >
           خروج از حساب
         </Button>
       </div>
