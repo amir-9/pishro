@@ -1,4 +1,3 @@
-// lib/auth.ts
 import axios from "axios";
 
 interface SignupData {
@@ -11,26 +10,38 @@ interface LoginData {
   password: string;
 }
 
+interface SignupResponse {
+  message: string;
+  user?: { id: string; phone: string };
+  smsError?: boolean;
+}
+
 interface ApiError {
   error: string;
 }
 
-export const signupUser = async (data: SignupData) => {
+/**
+ * ثبت‌نام کاربر + ارسال کد تایید (OTP)
+ */
+export const signupUser = async (data: SignupData): Promise<SignupResponse> => {
   try {
     const res = await axios.post("/api/auth/signup", {
       phone: data.username,
       password: data.password,
     });
-    return res.data;
+
+    return res.data; // { message, user, smsError }
   } catch (error) {
-    // ✅ استفاده از type narrowing برای خطای Axios
     if (axios.isAxiosError<ApiError>(error)) {
-      throw error.response?.data?.error ?? "خطای ناشناخته در ثبت‌نام.";
+      return { message: error.response?.data?.error ?? "خطا در ثبت‌نام." };
     }
-    throw "خطای ناشناخته در ثبت‌نام.";
+    return { message: "خطای ناشناخته در ثبت‌نام." };
   }
 };
 
+/**
+ * ورود کاربر با credentials
+ */
 export const loginUser = async (data: LoginData) => {
   try {
     const res = await axios.post("/api/auth/callback/credentials", {
@@ -40,8 +51,8 @@ export const loginUser = async (data: LoginData) => {
     return res.data;
   } catch (error) {
     if (axios.isAxiosError<ApiError>(error)) {
-      throw error.response?.data?.error ?? "خطای ناشناخته در ورود.";
+      return { error: error.response?.data?.error ?? "خطای ناشناخته در ورود." };
     }
-    throw "خطای ناشناخته در ورود.";
+    return { error: "خطای ناشناخته در ورود." };
   }
 };
