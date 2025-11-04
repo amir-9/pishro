@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import ProfileHeader from "@/components/profile/profileHeader";
 import ProfileAside from "@/components/profile/profileAside";
-import { auth } from "@/auth"; // ✅ از فایل خودت که NextAuth رو ساخته‌ای
+import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
