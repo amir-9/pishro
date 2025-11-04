@@ -9,7 +9,7 @@ import {
   newsletterSchema,
   NewsletterInput,
 } from "@/lib/validations/newsletter";
-import { subscribeToNewsletter } from "@/services/newsletter";
+import { subscribeToNewsletter } from "@/lib/services/newsletter";
 import toast from "react-hot-toast";
 
 const NewsClub = () => {
