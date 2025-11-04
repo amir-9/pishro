@@ -2,8 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { HiMiniArrowLeftEndOnRectangle } from "react-icons/hi2";
 import { FiShoppingCart } from "react-icons/fi";
-import { FaInstagram, FaXTwitter } from "react-icons/fa6";
-import { RiTelegram2Fill } from "react-icons/ri";
+import { FaInstagram } from "react-icons/fa6";
 import clsx from "clsx";
 
 interface NavbarActionsProps {
@@ -45,27 +44,27 @@ const NavbarActions: React.FC<NavbarActionsProps> = ({ isDark }) => (
         isDark ? "text-white" : "text-mySecondary"
       )}
     >
-      <Link
+      {/* <Link
         href="https://x.com/YourXAccount"
         target="_blank"
         className="hover:opacity-80 transition-colors p-1"
       >
         <FaXTwitter className="size-5" />
-      </Link>
+      </Link> */}
       <Link
-        href="https://instagram.com/YourInstagram"
+        href="https://instagram.com/academi_maali_jahani"
         target="_blank"
         className="hover:text-[#E1306C] transition-colors p-1"
       >
-        <FaInstagram className="size-5" />
+        <FaInstagram className="size-6" />
       </Link>
-      <Link
+      {/* <Link
         href="https://t.me/YourTelegram"
         target="_blank"
         className="hover:text-[#229ED9] transition-colors p-1"
       >
         <RiTelegram2Fill className="size-5" />
-      </Link>
+      </Link> */}
     </div>
   </div>
 );
