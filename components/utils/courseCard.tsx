@@ -10,20 +10,10 @@ import { FormatTime } from "./FormatTime";
 import RatingStars from "./RatingStars";
 import { useCartStore } from "@/stores/cart-store";
 import toast from "react-hot-toast";
+import { Course } from "@prisma/client";
 
 interface CourseCardProps {
-  data: {
-    id?: string;
-    subject: string;
-    price: number;
-    img?: string | null;
-    rating?: number | null;
-    description?: string | null;
-    discountPercent?: number | null;
-    time?: string | null;
-    students?: number | null;
-    videosCount?: number | null;
-  };
+  data: Course;
   link: string;
 }
 
@@ -37,8 +27,14 @@ const CourseCard = ({ data, link }: CourseCardProps) => {
       id: data.id,
       subject: data.subject,
       price: data.price,
-      img: data.img,
-      discountPercent: data.discountPercent,
+      img: data.img || "/public/images/courses/placeholder.png",
+      discountPercent: data.discountPercent || 0,
+      createdAt: data.createdAt,
+      description: data.description,
+      rating: data.rating,
+      students: data.students,
+      time: data.time,
+      videosCount: data.videosCount,
     });
     toast.success(`«${data.subject}» به سبد خرید اضافه شد 🛒`);
   };
