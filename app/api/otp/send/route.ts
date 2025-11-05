@@ -12,29 +12,33 @@ function generateOtpDigits(length = 4) {
 export async function POST(req: Request) {
   try {
     const { phone } = await req.json();
-    if (!phone)
-      return NextResponse.json({ error: "phone required" }, { status: 400 });
+    if (!phone || !/^09\d{9}$/.test(phone)) {
+      return NextResponse.json({ error: "phone_invalid" }, { status: 400 });
+    }
 
     const code = generateOtpDigits(4);
-    const expiresAt = new Date(Date.now() + 2 * 60 * 1000); // 2 minutes
+    const expiresAt = new Date(Date.now() + 2 * 60 * 1000); // valid for 2 minutes
 
-    // save OTP
+    // Save OTP to DB (using Prisma)
     await prisma.otp.create({
       data: { phone, code, expiresAt },
     });
 
-    // send SMS
-    const text = `کد تایید شما: ${code}`;
+    // Prepare SMS text
+    const text = `کد تایید شما: ${code}\nاین کد تا ۲ دقیقه معتبر است.`;
+
+    // Send SMS
     try {
-      await sendSmsMelipayamak(phone, text);
+      const response = await sendSmsMelipayamak(phone, text);
+      console.log("SMS sent:", response);
     } catch (err) {
       console.error("SMS send failed:", err);
       return NextResponse.json({ error: "sms_failed" }, { status: 500 });
     }
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, expiresAt });
   } catch (err) {
-    console.error("otp send error:", err);
+    console.error("OTP send error:", err);
     return NextResponse.json({ error: "internal" }, { status: 500 });
   }
 }

@@ -2,7 +2,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
-// import { sendSmsMelipayamak } from "@/lib/sms";
+import { sendSmsMelipayamak } from "@/lib/sms";
 
 function generateOtpDigits(length = 4) {
   const min = 10 ** (length - 1);
@@ -68,17 +68,17 @@ export async function POST(req: Request) {
         data: { phone, passwordHash: hashedPassword },
       });
     }
+    // Prepare SMS text
+    const text = `کد تایید شما: ${code}\nاین کد تا ۲ دقیقه معتبر است.`;
 
-    // TODO add meliPayamak
-
-    // ارسال پیامک
-    // const text = `کد تایید شما: ${code}`;
-    // try {
-    //   await sendSmsMelipayamak(phone, text);
-    // } catch (err) {
-    //   console.error("SMS send failed:", err);
-    //   return NextResponse.json({ error: "sms_failed" }, { status: 500 });
-    // }
+    // Send SMS
+    try {
+      const response = await sendSmsMelipayamak(phone, text);
+      console.log("SMS sent:", response);
+    } catch (err) {
+      console.error("SMS send failed:", err);
+      return NextResponse.json({ error: "sms_failed" }, { status: 500 });
+    }
 
     return NextResponse.json({ message: "کد تایید ارسال شد." });
   } catch (error) {

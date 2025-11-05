@@ -1,26 +1,46 @@
-// lib/sms.ts
-import fetch from "node-fetch";
+// @/lib/sms.ts
+import { URLSearchParams } from "url";
+const MELI_USERNAME = process.env.MELIPAYAMAK_USERNAME!;
+const MELIPAYAMAK_API_KEY = process.env.MELIPAYAMAK_API_KEY!;
+const MELI_SENDER = process.env.MELIPAYAMAK_SENDER!; // e.g. "5000XXXXXXX"
 
-const MELI_API_TOKEN = process.env.MELIPAYAMAK_API_KEY;
-
-// send sms via Melipayamak REST console
+/**
+ * Send SMS via Melipayamak REST API
+ * Docs: https://www.melipayamak.com/docs/
+ */
 export async function sendSmsMelipayamak(phone: string, text: string) {
-  // NOTE: adjust endpoint/headers according to your panel (token or username/password).
-  // This example uses the console REST endpoint pattern (token-based).
-  const url = "https://api.melipayamak.ir/v1/messages"; // check your panel docs
+  if (!MELI_USERNAME || !MELIPAYAMAK_API_KEY || !MELI_SENDER) {
+    throw new Error(
+      "Melipayamak credentials are missing in environment variables."
+    );
+  }
+
+  const url = "https://api.payamak-panel.com/post/Send.asmx/SendSimpleSMS2";
+
+  // Prepare parameters in form-urlencoded format
+  const params = new URLSearchParams({
+    username: MELI_USERNAME,
+    password: MELIPAYAMAK_API_KEY,
+    to: phone,
+    from: MELI_SENDER,
+    text,
+    isflash: "false",
+  });
+
   const res = await fetch(url, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${MELI_API_TOKEN}`,
+      "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: JSON.stringify({
-      mobile: phone,
-      message: text,
-      // other fields per API: from, urllink, isFlash, ...
-    }),
+    body: params.toString(),
   });
 
-  const body = await res.json();
-  return body;
+  const responseText = await res.text();
+
+  if (!res.ok || responseText.includes("Error")) {
+    console.error("Melipayamak API error:", responseText);
+    throw new Error("Failed to send SMS via Melipayamak");
+  }
+
+  return responseText;
 }
