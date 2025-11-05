@@ -8,11 +8,7 @@ import { z } from "zod";
 /** 🔐 Schema validation for login form */
 const signInSchema = z.object({
   phone: z.string().regex(/^09\d{9}$/, "شماره تلفن معتبر نیست."),
-  password: z
-    .string()
-    .min(8, "رمز عبور باید حداقل 8 کاراکتر باشد.")
-    .regex(/[A-Za-z]/, "رمز عبور باید شامل حروف باشد.")
-    .regex(/[0-9]/, "رمز عبور باید شامل اعداد باشد."),
+  password: z.string().min(8, "رمز عبور باید حداقل 8 کاراکتر باشد."),
 });
 
 /** ⚙️ NextAuth configuration */
