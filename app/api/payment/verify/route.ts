@@ -1,59 +1,87 @@
-// app/api/payment/verify/route.ts
+// @/app/api/payment/verify/route.ts
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-// import Zarinpal from "zarinpal-node-sdk";
-const prisma = new PrismaClient();
-// const zarinpal = Zarinpal.create(process.env.ZARINPAL_MERCHANT_ID);
+import { prisma } from "@/lib/prisma";
+// import Zarinpal from "zarinpal-nodejs"; // (در آینده فعال می‌شود)
 
 export async function GET(req: Request) {
-  const url = new URL(req.url);
-  // const authority = url.searchParams.get("Authority");
-  const status = url.searchParams.get("Status");
-  const orderId = url.searchParams.get("orderId");
+  try {
+    const { searchParams } = new URL(req.url);
+    const authority = searchParams.get("Authority");
+    const status = searchParams.get("Status");
+    const orderId = searchParams.get("orderId");
 
-  if (!orderId) {
-    return NextResponse.redirect(
-      `${process.env.NEXTAUTH_URL}/checkout?status=failed`
-    );
-  }
+    if (!orderId || !authority || !status) {
+      return NextResponse.json(
+        { error: "پارامترهای پرداخت ناقص است" },
+        { status: 400 }
+      );
+    }
 
-  // حالا orderId حتما string است
-  await prisma.order.update({
-    where: { id: orderId },
-    data: { status: "failed" },
-  });
+    // 🔍 دریافت سفارش از دیتابیس
+    const order = await prisma.order.findUnique({ where: { id: orderId } });
+    if (!order) {
+      return NextResponse.json({ error: "سفارش یافت نشد" }, { status: 404 });
+    }
 
-  if (status !== "OK") {
-    await prisma.order.update({
-      where: { id: orderId },
-      data: { status: "failed" },
+    // 💳 حالت واقعی (فعلاً کامنت شده)
+    /*
+    const zarinpal = Zarinpal.create(process.env.ZARINPAL_MERCHANT_ID!, true);
+    const verifyRes = await zarinpal.PaymentVerification({
+      Amount: order.total,
+      Authority: authority,
     });
-    return NextResponse.redirect(
-      `${process.env.NEXTAUTH_URL}/checkout?status=failed`
+
+    if (verifyRes.Status === 100) {
+      // ✅ موفق
+      await prisma.order.update({
+        where: { id: orderId },
+        data: {
+          status: "paid",
+          paymentRef: verifyRes.RefID?.toString(),
+        },
+      });
+
+      return NextResponse.redirect(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/checkout?result=success&orderId=${orderId}`
+      );
+    } else {
+      // ❌ ناموفق
+      await prisma.order.update({
+        where: { id: orderId },
+        data: { status: "failed" },
+      });
+
+      return NextResponse.redirect(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/checkout?result=failed&orderId=${orderId}`
+      );
+    }
+    */
+
+    // 🧪 حالت تستی (Fake response)
+    if (status === "OK") {
+      await prisma.order.update({
+        where: { id: orderId },
+        data: { status: "paid", paymentRef: `TEST-${authority}` },
+      });
+
+      return NextResponse.redirect(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/checkout?result=success&orderId=${orderId}`
+      );
+    } else {
+      await prisma.order.update({
+        where: { id: orderId },
+        data: { status: "failed" },
+      });
+
+      return NextResponse.redirect(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/checkout?result=failed&orderId=${orderId}`
+      );
+    }
+  } catch (err) {
+    console.error("[Payment Verify Error]:", err);
+    return NextResponse.json(
+      { error: "خطایی در بررسی پرداخت رخ داد" },
+      { status: 500 }
     );
   }
-
-  // verify
-  // const verification = await zarinpal.PaymentVerification({
-  //   Authority: authority,
-  //   Amount: /* fetch order total */ 0,
-  // });
-
-  // if (verification && verification.Status === 100) {
-  //   await prisma.order.update({
-  //     where: { id: orderId },
-  //     data: { status: "paid", paymentRef: verification.RefID },
-  //   });
-  //   return NextResponse.redirect(
-  //     `${process.env.NEXTAUTH_URL}/checkout?status=success`
-  //   );
-  // }
-
-  await prisma.order.update({
-    where: { id: orderId },
-    data: { status: "failed" },
-  });
-  return NextResponse.redirect(
-    `${process.env.NEXTAUTH_URL}/checkout?status=failed`
-  );
 }

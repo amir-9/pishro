@@ -7,24 +7,29 @@ interface CheckoutSidebarProps {
     lastPrice: number;
   };
   step: "shoppingCart" | "result" | "pay";
-  setStep: (i: "result" | "pay") => void;
+  setStep: (i: "result" | "pay" | "shoppingCart") => void;
+  handlePayment: () => void;
+  loading: boolean;
 }
 
-const CheckoutSidebar = ({ data, step, setStep }: CheckoutSidebarProps) => {
+const CheckoutSidebar = ({
+  data,
+  step,
+  setStep,
+  handlePayment,
+  loading,
+}: CheckoutSidebarProps) => {
   const price = data.price.toLocaleString("fa-IR");
   const off = data.off.toLocaleString("fa-IR");
   const lastPrice = data.lastPrice.toLocaleString("fa-IR");
 
-  const handleStep = () => {
-    if (step === "shoppingCart") setStep("pay");
-    else if (step === "pay") setStep("result");
-  };
   return (
     <aside className={step === "result" ? "hidden" : ""}>
       <div className="w-[306px] bg-[#fafafa] rounded-sm pt-4 pb-10">
         <div className="mb-3 border-b px-4">
-          <p className="font-medium text-sm mb-5">دوره های منتخب شما</p>
+          <p className="font-medium text-sm mb-5">دوره‌های منتخب شما</p>
         </div>
+
         <div className="px-4 flex flex-col gap-5 font-medium text-sm text-[#666666] pb-4 border-b">
           <div className="flex justify-between items-center">
             <span>قیمت دوره :</span>
@@ -39,13 +44,27 @@ const CheckoutSidebar = ({ data, step, setStep }: CheckoutSidebarProps) => {
             <span className="text-[#d52a16]">{lastPrice}</span>
           </div>
         </div>
-        <Button
-          onClick={handleStep}
-          variant={"destructive"}
-          className="mt-10 w-full mx-4"
-        >
-          ادامه
-        </Button>
+
+        {step === "shoppingCart" && (
+          <Button
+            onClick={() => setStep("pay")}
+            variant={"destructive"}
+            className="mt-10 w-full mx-4"
+          >
+            ادامه
+          </Button>
+        )}
+
+        {step === "pay" && (
+          <Button
+            onClick={handlePayment}
+            variant={"destructive"}
+            className="mt-10 w-full mx-4"
+            disabled={loading}
+          >
+            {loading ? "در حال اتصال..." : "پرداخت"}
+          </Button>
+        )}
       </div>
     </aside>
   );

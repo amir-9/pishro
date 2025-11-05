@@ -1,52 +1,86 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { useSession } from "next-auth/react";
+import { toast } from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import CheckoutSidebar from "./sidebar";
 import ShoppingCartMain from "./shoppingCartMain";
 import PayMain from "./payMain";
-import Result from "./result";
 import { useCartStore } from "@/stores/cart-store";
+import { checkoutService } from "@/lib/services/checkout-service";
 
 const CheckoutPageContent = () => {
   const [step, setStep] = useState<"shoppingCart" | "pay" | "result">(
     "shoppingCart"
   );
+  const [loading, setLoading] = useState(false);
 
-  // 🛒 گرفتن داده از استور
-  const { items } = useCartStore();
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
+  const { items, clearCart } = useCartStore();
 
-  // 🧮 محاسبه قیمت‌ها
+  // 🔹 اگر پارامتر result در URL باشد، مستقیماً مرحله نتیجه را نمایش بده
+
+  // 🧮 محاسبه مجموع قیمت‌ها
   const priceSummary = useMemo(() => {
-    let totalFinalPrice = 0; // جمع قیمت‌های نهایی (بعد از تخفیف)
-    let totalDiscountAmount = 0; // جمع مقدار تخفیف (تومان)
+    let totalFinalPrice = 0;
+    let totalDiscountAmount = 0;
 
     items.forEach((item) => {
       const finalPrice = item.price;
       totalFinalPrice += finalPrice;
 
       if (item.discountPercent && item.discountPercent > 0) {
-        // محاسبه قیمت اصلی
         const originalPrice = Math.round(
           finalPrice / (1 - item.discountPercent / 100)
         );
-        const discountAmount = originalPrice - finalPrice;
-        totalDiscountAmount += discountAmount;
+        totalDiscountAmount += originalPrice - finalPrice;
       }
     });
 
-    const totalOriginalPrice = totalFinalPrice + totalDiscountAmount;
-
     return {
-      price: totalOriginalPrice, // قیمت قبل از هر تخفیف
-      off: totalDiscountAmount, // مجموع تخفیف‌ها
-      lastPrice: totalFinalPrice, // قیمت نهایی قابل پرداخت
+      price: totalFinalPrice + totalDiscountAmount,
+      off: totalDiscountAmount,
+      lastPrice: totalFinalPrice,
     };
   }, [items]);
 
+  // 💳 هندل پرداخت
+  const handlePayment = async () => {
+    if (items.length === 0) return;
+    if (!userId) {
+      toast.error("برای ادامه ابتدا وارد حساب خود شوید");
+      return;
+    }
+
+    setLoading(true);
+
+    const formattedItems = items.map((item) => ({
+      courseId: item.id,
+    }));
+
+    const res = await checkoutService.createCheckoutSession({
+      userId,
+      items: formattedItems,
+    });
+
+    setLoading(false);
+
+    if (res.error) {
+      toast.error(res.error);
+      return;
+    }
+
+    if (res.payUrl) {
+      toast.success("در حال انتقال به صفحه پرداخت...");
+      clearCart();
+      window.location.href = res.payUrl;
+    }
+  };
+
   return (
     <div className="container-xl pt-12">
-      {/* header */}
       <div className="flex justify-between pb-1 mt-12">
         <h4 className="font-iransans font-semibold text-lg text-[#333333]">
           {step === "shoppingCart" && "سبد خرید"}
@@ -63,19 +97,34 @@ const CheckoutPageContent = () => {
             ادامه
           </Button>
         )}
+
         {step === "pay" && (
-          <Button onClick={() => setStep("shoppingCart")} className="px-16">
-            بازگشت
-          </Button>
+          <div className="flex gap-3">
+            <Button onClick={() => setStep("shoppingCart")} variant="outline">
+              بازگشت
+            </Button>
+            <Button
+              onClick={handlePayment}
+              className="px-12"
+              disabled={loading}
+            >
+              {loading ? "در حال اتصال..." : "پرداخت"}
+            </Button>
+          </div>
         )}
       </div>
 
-      {/* body */}
       <div className="flex justify-between gap-20 mt-8">
         {step === "shoppingCart" && <ShoppingCartMain data={items} />}
         {step === "pay" && <PayMain />}
-        {step === "result" && <Result />}
-        <CheckoutSidebar data={priceSummary} setStep={setStep} step={step} />
+
+        <CheckoutSidebar
+          data={priceSummary}
+          step={step}
+          setStep={setStep}
+          handlePayment={handlePayment}
+          loading={loading}
+        />
       </div>
     </div>
   );

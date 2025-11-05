@@ -20,8 +20,9 @@ const ItemCard = ({ data }: ItemCardProps) => {
   // محاسبه قیمت اصلی بر اساس درصد تخفیف
   const hasDiscount = data.discountPercent && data.discountPercent > 0;
   const originalPrice = hasDiscount
-    ? Math.round(data.price / (1 - data.discountPercent! / 100))
-    : data.price;
+    ? Math.round(data.price / (1 - data.discountPercent! / 100) / 100_000) *
+      100_000
+    : Math.round(data.price / 100_000) * 100_000;
 
   return (
     <div className="w-full h-fit max-w-[410px] bg-[#fafafa] shadow-sm rounded-xl overflow-hidden">
@@ -59,14 +60,14 @@ const ItemCard = ({ data }: ItemCardProps) => {
       {/* price section with discount */}
       <div className="p-4 space-y-2">
         <div className="flex items-center justify-between">
-          <p className="text-base text-[#546f7d] font-medium">قیمت کل:</p>
+          <p className="text-base text-[#546f7d] font-medium">قیمت نهایی:</p>
           <div className="text-right flex gap-2 items-center">
             {/* قیمت نهایی */}
 
             {/* قیمت اصلی (خط خورده) */}
             {hasDiscount && originalPrice && (
               <p className="text-sm text-gray-400 line-through">
-                {originalPrice.toLocaleString("fa-IR")} تومان
+                {originalPrice.toLocaleString("fa-IR")}
               </p>
             )}
             <p

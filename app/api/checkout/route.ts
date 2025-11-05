@@ -1,43 +1,67 @@
 // app/api/checkout/route.ts
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
-// import Zarinpal from "zarinpal-node-sdk"; // or use REST v3
+import { prisma } from "@/lib/prisma";
 
-const prisma = new PrismaClient();
-// const zarinpal = Zarinpal.create(process.env.ZARINPAL_MERCHANT_ID);
-
-// client sends { userId?, items: [{courseId, qty}], total }
 export async function POST(req: Request) {
-  const body = await req.json();
-  const { userId, items, total, _callbackUrl } = body;
-  if (!items || !total)
-    return NextResponse.json({ error: "missing" }, { status: 400 });
+  try {
+    const body = await req.json();
+    const { userId, items, _callbackUrl } = body;
 
-  // create order
-  const order = await prisma.order.create({
-    data: {
-      userId,
-      items,
+    // ✅ Validate input
+    if (!userId || !items || items.length === 0) {
+      return NextResponse.json(
+        { error: "اطلاعات ارسالی ناقص است" },
+        { status: 400 }
+      );
+    }
+
+    // ✅ Extract all course IDs
+    const courseIds = items.map((item: { courseId: string }) => item.courseId);
+
+    // ✅ Fetch courses from DB
+    const courses = await prisma.course.findMany({
+      where: { id: { in: courseIds } },
+      select: { id: true, price: true, discountPercent: true },
+    });
+
+    if (courses.length === 0) {
+      return NextResponse.json(
+        { error: "دوره‌ای با شناسه‌های ارسالی یافت نشد" },
+        { status: 400 }
+      );
+    }
+
+    // 🧮 Calculate total from real DB data
+    const total = courses.reduce((sum, course) => {
+      return sum + course.price;
+    }, 0);
+
+    // ✅ Create order in DB
+    const order = await prisma.order.create({
+      data: {
+        userId,
+        items: courses.map((c) => ({ courseId: c.id })), // stored as JSON
+        total,
+        status: "pending",
+      },
+    });
+
+    console.log(`[Checkout] Order ${order.id} created. Total: ${total}`);
+
+    // ⚠️ Fake payment URL (until Zarinpal integration)
+    const fakePayUrl = `https://sandbox.zarinpal.com/pg/StartPay/fake-${order.id}`;
+
+    return NextResponse.json({
+      ok: true,
+      orderId: order.id,
+      payUrl: fakePayUrl,
       total,
-      status: "pending",
-    },
-  });
-  console.log(["[Checkout] "], order);
-
-  // create zarinpal payment request
-  // Using SDK example - adjust according to package API
-  // const description = `Payment for order ${order.id}`;
-  // const res = await zarinpal.PaymentRequest({
-  //   Amount: total,
-  //   CallbackURL: `${callbackUrl || process.env.NEXTAUTH_URL}/api/payment/verify?orderId=${order.id}`,
-  //   Description: description,
-  // });
-
-  // SDK may return an authority or url
-  // if (res && res.Status === 100) {
-  //   const payUrl = `https://www.zarinpal.com/pg/StartPay/${res.Authority}`;
-  //   return NextResponse.json({ ok: true, payUrl, orderId: order.id });
-  // }
-
-  return NextResponse.json({ error: "payment_init_failed" }, { status: 500 });
+    });
+  } catch (err) {
+    console.error("[Checkout POST error]:", err);
+    return NextResponse.json(
+      { error: "خطایی در پردازش سفارش رخ داد" },
+      { status: 500 }
+    );
+  }
 }
