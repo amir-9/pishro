@@ -3,8 +3,10 @@ import type { Course } from "@prisma/client";
 
 export async function getCourses(): Promise<Course[]> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-
+    const baseUrl =
+      process.env.NODE_ENV === "production"
+        ? process.env.NEXT_PUBLIC_SITE_URL
+        : "http://localhost:3000";
     const { data } = await axios.get<Course[]>(`${baseUrl}/api/courses`, {
       headers: { "Cache-Control": "no-cache" },
     });
