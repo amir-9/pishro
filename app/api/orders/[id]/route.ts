@@ -1,13 +1,13 @@
-// api/orders/[id]/route.ts
-
+// @/app/api/orders/[id]/route.ts
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 export async function GET(
   _req: Request,
-  { params }: { params: { id: string } }
+  context: Promise<{ params: { id: string } }>
 ) {
   try {
+    const { params } = await context;
     const order = await prisma.order.findUnique({
       where: { id: params.id },
       include: {
@@ -28,7 +28,7 @@ export async function GET(
       );
     }
 
-    // آیتم‌ها از نوع JSON هستند، برای هر دوره جزئیات را اضافه می‌کنیم
+    // ✅ Parse items and fetch related courses
     const courseIds = (order.items as { courseId: string }[]).map(
       (item) => item.courseId
     );
