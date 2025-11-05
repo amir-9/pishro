@@ -1,15 +1,16 @@
 // @/app/api/orders/[id]/route.ts
 import { NextResponse } from "next/server";
+// import { use } from "react";
 import { prisma } from "@/lib/prisma";
 
 export async function GET(
   _req: Request,
-  context: Promise<{ params: { id: string } }>
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { params } = await context;
+    const id = (await params).id;
     const order = await prisma.order.findUnique({
-      where: { id: params.id },
+      where: { id: id },
       include: {
         user: {
           select: {
