@@ -42,7 +42,7 @@ export async function GET(req: Request) {
       });
 
       return NextResponse.redirect(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/checkout?result=success&orderId=${orderId}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/result?result=success&orderId=${orderId}`
       );
     } else {
       // ❌ ناموفق
@@ -52,7 +52,7 @@ export async function GET(req: Request) {
       });
 
       return NextResponse.redirect(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/checkout?result=failed&orderId=${orderId}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/result?result=failed&orderId=${orderId}`
       );
     }
     */
@@ -65,7 +65,7 @@ export async function GET(req: Request) {
       });
 
       return NextResponse.redirect(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/checkout?result=success&orderId=${orderId}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/result?result=success&orderId=${orderId}`
       );
     } else {
       await prisma.order.update({
@@ -74,7 +74,7 @@ export async function GET(req: Request) {
       });
 
       return NextResponse.redirect(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/checkout?result=failed&orderId=${orderId}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/result?result=failed&orderId=${orderId}`
       );
     }
   } catch (err) {
