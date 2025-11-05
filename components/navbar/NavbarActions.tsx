@@ -9,6 +9,7 @@ import { RiTelegram2Fill } from "react-icons/ri";
 import clsx from "clsx";
 import { contactInfo } from "@/lib/constants/contact";
 import { useSession } from "next-auth/react";
+import { useCartStore } from "@/stores/cart-store";
 
 interface NavbarActionsProps {
   isDark?: boolean;
@@ -16,6 +17,8 @@ interface NavbarActionsProps {
 
 const NavbarActions: React.FC<NavbarActionsProps> = ({ isDark }) => {
   const { data: session } = useSession();
+  const { items } = useCartStore(); // ✅ get cart items
+  const cartCount = items.length; // ✅ number of items in cart
 
   // تعیین مقصد دکمه: اگر کاربر لاگین باشد، به پروفایل/داشبورد هدایت شود
   const authLink = session ? "/profile/acc" : "/login";
@@ -40,15 +43,22 @@ const NavbarActions: React.FC<NavbarActionsProps> = ({ isDark }) => {
           </span>
         </Link>
 
-        <Link href={"/checkout"} className="group">
-          <span className="flex items-center gap-1">
-            <FiShoppingCart
-              className={clsx(
-                "size-6",
-                isDark ? "text-white" : "text-mySecondary"
-              )}
-            />
-          </span>
+        {/* ✅ Checkout + badge */}
+        <Link href={"/checkout"} className="relative group">
+          <FiShoppingCart
+            className={clsx(
+              "size-6 transition-colors",
+              isDark ? "text-white" : "text-mySecondary"
+            )}
+          />
+          {cartCount > 0 && (
+            <span
+              className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center"
+              aria-label={`تعداد محصولات در سبد: ${cartCount}`}
+            >
+              {cartCount}
+            </span>
+          )}
         </Link>
       </div>
 

@@ -10,7 +10,6 @@ const Navbar = () => {
 
   return (
     <nav className="w-full flex flex-col z-[100]">
-      {/* دسکتاپ: NavbarDesktop نمایش فقط در سایز md به بالا */}
       <div className="hidden md:block">
         <NavbarDesktop isDark={isDark} navbarData={navbarData} />
       </div>
