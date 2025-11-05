@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm, FieldErrors } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
@@ -18,10 +18,12 @@ import {
 
 interface AuthFormProps {
   variant: Variant;
-  onSubmit?: (data: LoginFormValues | SignupFormValues) => void;
+  onSubmit?: (data: LoginFormValues | SignupFormValues) => Promise<void> | void;
 }
 
 export function AuthForm({ variant, onSubmit }: AuthFormProps) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -34,8 +36,17 @@ export function AuthForm({ variant, onSubmit }: AuthFormProps) {
 
   useEffect(() => reset(), [variant, reset]);
 
-  const handleFormSubmit = (data: LoginFormValues | SignupFormValues) => {
-    onSubmit?.(data);
+  const handleFormSubmit = async (data: LoginFormValues | SignupFormValues) => {
+    if (isLoading) return; // جلوگیری از کلیک دوباره
+    setIsLoading(true);
+
+    try {
+      await onSubmit?.(data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -50,6 +61,7 @@ export function AuthForm({ variant, onSubmit }: AuthFormProps) {
         icon={<Phone className={cn(errors.username && "text-red-500")} />}
         {...register("username")}
         error={errors.username?.message as string}
+        disabled={isLoading}
       />
 
       <PasswordInput
@@ -58,6 +70,7 @@ export function AuthForm({ variant, onSubmit }: AuthFormProps) {
         placeholder="رمز عبور"
         {...register("password")}
         error={errors.password?.message as string}
+        disabled={isLoading}
       />
 
       {variant === "signup" && (
@@ -70,14 +83,28 @@ export function AuthForm({ variant, onSubmit }: AuthFormProps) {
             (errors as FieldErrors<SignupFormValues>).confirmPassword
               ?.message as string
           }
+          disabled={isLoading}
         />
       )}
 
       <Button
         type="submit"
-        className="mt-6 w-full h-10 max-w-[306px] bg-[#d52a16] text-white font-bold text-xl mx-auto"
+        disabled={isLoading}
+        className={cn(
+          "mt-6 w-full h-10 max-w-[306px] bg-[#d52a16] text-white font-bold text-xl mx-auto",
+          isLoading && "opacity-80 cursor-not-allowed"
+        )}
       >
-        {variant === "login" ? "ورود" : "ثبت نام"}
+        {isLoading ? (
+          <div className="flex items-center justify-center gap-2">
+            {variant === "login" ? "در حال ورود" : "در حال ثبت‌نام"}
+            <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+          </div>
+        ) : variant === "login" ? (
+          "ورود"
+        ) : (
+          "ثبت نام"
+        )}
       </Button>
     </form>
   );
