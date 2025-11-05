@@ -1,35 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { checkoutBank } from "@/public/data";
-
-const data = [
-  {
-    title: "عنوان دوره",
-    date: "1403/11/11",
-    price: 4200000,
-    off: 1400000,
-    lastPrice: 1800000,
-  },
-  {
-    title: "2 عنوان دوره",
-    date: "1403/11/11",
-    price: 5100000,
-    off: 2400000,
-    lastPrice: 1700000,
-  },
-];
+import { useCartStore } from "@/stores/cart-store";
 
 const PayMain = () => {
   const [bank, setBank] = useState<"saman" | "melli" | "mellat">("saman");
+  const { items } = useCartStore(); // ✅ Get real cart data from Zustand
+
+  // ✅ Calculate discount and total dynamically
+  const cartSummary = useMemo(() => {
+    return items.map((course) => {
+      const price = course.price || 0;
+      const discountPercent = course.discountPercent || 0;
+      const off = Math.round((price * discountPercent) / 100);
+      const lastPrice = price - off;
+
+      return {
+        title: course.subject,
+        price,
+        off,
+        lastPrice,
+        date: new Date(course.createdAt).toLocaleDateString("fa-IR"),
+      };
+    });
+  }, [items]);
+
+  const totalPrice = cartSummary.reduce((sum, item) => sum + item.lastPrice, 0);
+
   return (
     <main className="w-full">
       {/* header */}
       <div className="border-b border-[#e1e1e1] pb-4">
         <h6 className="text-[#333] font-medium text-sm">انتخاب شیوه پرداخت</h6>
       </div>
+
       {/* choose bank */}
       <div className="mt-9 bg-[#fafafa]">
         <div className="p-4 border-b">
@@ -59,46 +66,65 @@ const PayMain = () => {
                   />
                 </div>
               </div>
-              <div>
-                <p
-                  className={cn(
-                    "text-xs text-[#879ca6] transition",
-                    bank === item.name && "text-black font-bold"
-                  )}
-                >
-                  {item.label}
-                </p>
-              </div>
+              <p
+                className={cn(
+                  "text-xs text-[#879ca6] transition",
+                  bank === item.name && "text-black font-bold"
+                )}
+              >
+                {item.label}
+              </p>
             </button>
           ))}
         </div>
       </div>
-      {/* last info */}
+
+      {/* summary table */}
       <div className="mt-9">
         <div className="p-4 border-b">
           <h6 className="text-[#131b22] font-medium text-sm">بررسی نهایی</h6>
         </div>
-        <div className="mt-9 py-4 border">
+
+        <div className="mt-9 py-4 border rounded-md">
           {/* table header */}
           <div className="grid grid-cols-5 gap-20 text-sm font-medium border-b pb-2 px-4">
             <div>عنوان دوره</div>
             <div>قیمت</div>
             <div>تاریخ</div>
-            <div>سود شما از خرید</div>
+            <div>تخفیف</div>
             <div>قیمت نهایی</div>
           </div>
+
           {/* table body */}
-          <div className="mt-4 flex flex-col gap-4 px-4">
-            {data.map((item, idx) => (
-              <div key={idx} className="grid grid-cols-5 gap-20 text-sm">
-                <div>{item.title}</div>
-                <div>{item.price.toLocaleString("fa-IR")}</div>
-                <div className="font-irsans">{item.date}</div>
-                <div>{item.off.toLocaleString("fa-IR")}</div>
-                <div>{item.lastPrice.toLocaleString("fa-IR")}</div>
+          {cartSummary.length > 0 ? (
+            <div className="mt-4 flex flex-col gap-4 px-4">
+              {cartSummary.map((item, idx) => (
+                <div key={idx} className="grid grid-cols-5 gap-20 text-sm">
+                  <div>{item.title}</div>
+                  <div className="text-gray-700">
+                    {item.price.toLocaleString("fa-IR")}
+                  </div>
+                  <div className="text-gray-700">{item.date}</div>
+                  <div className="text-green-600">
+                    {item.off.toLocaleString("fa-IR")}
+                  </div>
+                  <div className="font-semibold">
+                    {item.lastPrice.toLocaleString("fa-IR")}
+                  </div>
+                </div>
+              ))}
+
+              {/* total */}
+              <div className="border-t pt-4 mt-2 grid grid-cols-5 gap-20 text-sm font-semibold">
+                <div className="col-span-4 text-right">مبلغ قابل پرداخت :</div>
+                <div>{totalPrice.toLocaleString("fa-IR")} تومان</div>
               </div>
-            ))}
-          </div>
+            </div>
+          ) : (
+            <div className="text-center text-gray-500 py-8 text-sm">
+              سبد خرید شما خالی است.
+            </div>
+          )}
         </div>
       </div>
     </main>
