@@ -18,14 +18,30 @@ const CheckoutPageContent = () => {
 
   // 🧮 محاسبه قیمت‌ها
   const priceSummary = useMemo(() => {
-    const price = items.reduce((sum, i) => sum + i.price, 0);
-    const off = items.reduce(
-      (sum, i) =>
-        sum + (i.discountPercent ? (i.price * i.discountPercent) / 100 : 0),
-      0
-    );
-    const lastPrice = price - off;
-    return { price, off, lastPrice };
+    let totalFinalPrice = 0; // جمع قیمت‌های نهایی (بعد از تخفیف)
+    let totalDiscountAmount = 0; // جمع مقدار تخفیف (تومان)
+
+    items.forEach((item) => {
+      const finalPrice = item.price;
+      totalFinalPrice += finalPrice;
+
+      if (item.discountPercent && item.discountPercent > 0) {
+        // محاسبه قیمت اصلی
+        const originalPrice = Math.round(
+          finalPrice / (1 - item.discountPercent / 100)
+        );
+        const discountAmount = originalPrice - finalPrice;
+        totalDiscountAmount += discountAmount;
+      }
+    });
+
+    const totalOriginalPrice = totalFinalPrice + totalDiscountAmount;
+
+    return {
+      price: totalOriginalPrice, // قیمت قبل از هر تخفیف
+      off: totalDiscountAmount, // مجموع تخفیف‌ها
+      lastPrice: totalFinalPrice, // قیمت نهایی قابل پرداخت
+    };
   }, [items]);
 
   return (
