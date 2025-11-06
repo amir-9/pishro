@@ -15,8 +15,6 @@ export async function GET(
           select: {
             id: true,
             phone: true,
-            firstName: true,
-            lastName: true,
           },
         },
       },
