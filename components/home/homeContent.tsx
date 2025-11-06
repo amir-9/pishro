@@ -1,5 +1,4 @@
 // @/components/home/homeContent.tsx
-
 import LandingOverlay from "./landingOverlay";
 import MobileScrollSection from "./mobileScrollSection";
 import CalculatorSection from "./calculatorSection";

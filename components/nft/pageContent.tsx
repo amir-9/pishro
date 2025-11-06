@@ -1,9 +1,7 @@
-"use client";
-
 import Landing3 from "@/components/utils/Landing3";
 import AboutOtherPages from "@/components/utils/AboutOtherPages";
 import UserLevelSection from "@/components/utils/UserLevelSelection";
-import Courses from "@/components/utils/CoursesSec";
+import Courses from "@/components/utils/CoursesSec.server";
 import CommentsSlider from "@/components/utils/CommentsSlider";
 import TagsList from "@/components/utils/TagsList";
 import {
