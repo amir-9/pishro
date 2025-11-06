@@ -2,40 +2,27 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { orderService, OrderDetail } from "@/lib/services/order-service";
 import { Loader2 } from "lucide-react";
 import { format } from "date-fns-jalali";
 import clsx from "clsx";
 import { useSearchParams } from "next/navigation";
+import { useOrder } from "@/lib/hooks/useCheckout";
 
 const Result = () => {
   const searchParams = useSearchParams();
   const result = searchParams.get("result");
   const orderId = searchParams.get("orderId");
   const [status, setStatus] = useState<"success" | "failed" | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [order, setOrder] = useState<OrderDetail | null>(null);
-  const [error, setError] = useState<string | null>(null);
+
+  // استفاده از React Query hook
+  const { data: orderResponse, isLoading: loading } = useOrder(orderId || "");
+  const order = orderResponse?.order;
+  const error = orderResponse?.error;
 
   useEffect(() => {
     if (result === "success") setStatus("success");
     else if (result === "failed") setStatus("failed");
   }, [result]);
-
-  useEffect(() => {
-    if (!orderId) return;
-    const fetchOrder = async () => {
-      setLoading(true);
-      const res = await orderService.getOrderById(orderId);
-      if (res.ok && res.order) {
-        setOrder(res.order);
-      } else {
-        setError(res.error || "اطلاعات سفارش یافت نشد");
-      }
-      setLoading(false);
-    };
-    fetchOrder();
-  }, [orderId]);
 
   if (!status) {
     return (

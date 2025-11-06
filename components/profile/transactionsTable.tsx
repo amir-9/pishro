@@ -1,33 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProfileHeader from "./header";
-import { getUserTransactions, Transaction } from "@/lib/services/user-service";
-import toast from "react-hot-toast";
+import { useUserTransactions } from "@/lib/hooks/useUser";
 
 const TransactionsTable = () => {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
-  const [pageSize] = useState(10);
+  const pageSize = 10;
 
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        setLoading(true);
-        const response = await getUserTransactions(page, pageSize);
-        setTransactions(response.data.items);
-        setTotal(response.data.pagination.total);
-      } catch (error) {
-        console.error("Error fetching transactions:", error);
-        toast.error("خطا در دریافت تراکنش‌ها");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchTransactions();
-  }, [page, pageSize]);
+  // استفاده از React Query hook
+  const { data: response, isLoading: loading } = useUserTransactions(page, pageSize);
+  const transactions = response?.data?.items || [];
+  const total = response?.data?.pagination?.total || 0;
 
   const getStatusBadge = (status: string) => {
     switch (status) {

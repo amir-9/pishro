@@ -8,17 +8,19 @@ import CheckoutSidebar from "./sidebar";
 import ShoppingCartMain from "./shoppingCartMain";
 import PayMain from "./payMain";
 import { useCartStore } from "@/stores/cart-store";
-import { checkoutService } from "@/lib/services/checkout-service";
+import { useCreateCheckout } from "@/lib/hooks/useCheckout";
 
 const CheckoutPageContent = () => {
   const [step, setStep] = useState<"shoppingCart" | "pay" | "result">(
     "shoppingCart"
   );
-  const [loading, setLoading] = useState(false);
 
   const { data: session } = useSession();
   const userId = session?.user?.id;
   const { items, clearCart } = useCartStore();
+
+  // استفاده از React Query mutation
+  const createCheckoutMutation = useCreateCheckout();
 
   // 🔹 اگر پارامتر result در URL باشد، مستقیماً مرحله نتیجه را نمایش بده
 
@@ -54,29 +56,25 @@ const CheckoutPageContent = () => {
       return;
     }
 
-    setLoading(true);
-
     const formattedItems = items.map((item) => ({
       courseId: item.id,
     }));
 
-    const res = await checkoutService.createCheckoutSession({
-      userId,
-      items: formattedItems,
-    });
-
-    setLoading(false);
-
-    if (res.error) {
-      toast.error(res.error);
-      return;
-    }
-
-    if (res.payUrl) {
-      toast.success("در حال انتقال به صفحه پرداخت...");
-      clearCart();
-      window.location.href = res.payUrl;
-    }
+    // استفاده از mutation برای ایجاد checkout
+    createCheckoutMutation.mutate(
+      {
+        userId,
+        items: formattedItems,
+      },
+      {
+        onSuccess: (data) => {
+          if (data.ok && data.payUrl) {
+            toast.success("در حال انتقال به صفحه پرداخت...");
+            clearCart();
+          }
+        },
+      }
+    );
   };
 
   return (
@@ -106,9 +104,9 @@ const CheckoutPageContent = () => {
             <Button
               onClick={handlePayment}
               className="px-12"
-              disabled={loading}
+              disabled={createCheckoutMutation.isPending}
             >
-              {loading ? "در حال اتصال..." : "پرداخت"}
+              {createCheckoutMutation.isPending ? "در حال اتصال..." : "پرداخت"}
             </Button>
           </div>
         )}
@@ -123,7 +121,7 @@ const CheckoutPageContent = () => {
           step={step}
           setStep={setStep}
           handlePayment={handlePayment}
-          loading={loading}
+          loading={createCheckoutMutation.isPending}
         />
       </div>
     </div>

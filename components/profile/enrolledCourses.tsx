@@ -1,39 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProfileHeader from "./header";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  getEnrolledCourses,
-  EnrolledCourse,
-} from "@/lib/services/user-service";
-import toast from "react-hot-toast";
+import { useEnrolledCourses } from "@/lib/hooks/useUser";
 import { Button } from "@/components/ui/button";
 
 const EnrolledCourses = () => {
-  const [courses, setCourses] = useState<EnrolledCourse[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
-  const [total, setTotal] = useState<number>(0);
   const pageSize = 9;
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        setLoading(true);
-        const response = await getEnrolledCourses(page, pageSize);
-        setCourses(response.data.items);
-        setTotal(response.data.pagination.total);
-      } catch (error) {
-        console.error("Error fetching enrolled courses:", error);
-        toast.error("خطا در دریافت دوره‌ها");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCourses();
-  }, [page]);
+  // استفاده از React Query hook
+  const { data: response, isLoading: loading } = useEnrolledCourses(page, pageSize);
+  const courses = response?.data?.items || [];
+  const total = response?.data?.pagination?.total || 0;
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);

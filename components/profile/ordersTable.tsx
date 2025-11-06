@@ -1,36 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProfileHeader from "./header";
 import Link from "next/link";
 import { LuSquareChevronLeft } from "react-icons/lu";
-import { getUserOrders, UserOrder } from "@/lib/services/user-service";
-import toast from "react-hot-toast";
+import { useUserOrders } from "@/lib/hooks/useUser";
 import { Button } from "@/components/ui/button";
 
 const OrdersTable = () => {
-  const [orders, setOrders] = useState<UserOrder[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
-  const [total, setTotal] = useState<number>(0);
   const pageSize = 10;
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        setLoading(true);
-        const response = await getUserOrders(page, pageSize);
-        setOrders(response.data.items);
-        setTotal(response.data.pagination.total);
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-        toast.error("خطا در دریافت سفارشات");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchOrders();
-  }, [page]);
+  // استفاده از React Query hook
+  const { data: response, isLoading: loading } = useUserOrders(page, pageSize);
+  const orders = response?.data?.items || [];
+  const total = response?.data?.pagination?.total || 0;
 
   const getStatusBadge = (status: string) => {
     switch (status) {

@@ -2,27 +2,11 @@
 
 import { CiCalendarDate } from "react-icons/ci";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { useEffect, useState } from "react";
-import { getCurrentUser, UserData } from "@/lib/services/user-service";
+import { useCurrentUser } from "@/lib/hooks/useUser";
 
 const ProfileHeader = () => {
-  const [user, setUser] = useState<UserData | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
-  const fetchUser = async () => {
-    try {
-      const response = await getCurrentUser();
-      setUser(response.data);
-    } catch (error) {
-      console.error("Error fetching user:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { data: userResponse, isLoading: loading } = useCurrentUser();
+  const user = userResponse?.data;
 
   const today = new Date().toLocaleDateString("fa-IR", {
     day: "numeric",

@@ -10,8 +10,7 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import "react-multi-date-picker/styles/colors/teal.css";
 import { ProfileIcon } from "@/public/svgr-icons";
-import { updatePersonalInfo } from "@/lib/services/user-service";
-import toast from "react-hot-toast";
+import { useCurrentUser, useUpdatePersonalInfo } from "@/lib/hooks/useUser";
 
 // تعریف اسکیمای اعتبارسنجی با zod
 const personalInfoSchema = z.object({
@@ -33,7 +32,10 @@ const personalInfoSchema = z.object({
 type PersonalInfoFormValues = z.infer<typeof personalInfoSchema>;
 
 const PersonalInfoForm = forwardRef((props, ref) => {
-  const [loading, setLoading] = React.useState(true);
+  // استفاده از React Query hooks
+  const { data: userResponse, isLoading: loading } = useCurrentUser();
+  const updateMutation = useUpdatePersonalInfo();
+  const user = userResponse?.data;
 
   const {
     register,
@@ -53,45 +55,26 @@ const PersonalInfoForm = forwardRef((props, ref) => {
     },
   });
 
-  // Fetch user data on mount
+  // به‌روزرسانی فرم با داده‌های کاربر
   React.useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const { getCurrentUser } = await import("@/lib/services/user-service");
-        const response = await getCurrentUser();
-        const user = response.data;
+    if (user) {
+      setValue("firstName", user.firstName || "");
+      setValue("lastName", user.lastName || "");
+      setValue("phone", user.phone);
+      setValue("email", user.email || "");
+      setValue("nationalCode", user.nationalCode || "");
 
-        setValue("firstName", user.firstName || "");
-        setValue("lastName", user.lastName || "");
-        setValue("phone", user.phone);
-        setValue("email", user.email || "");
-        setValue("nationalCode", user.nationalCode || "");
-
-        if (user.birthDate) {
-          setValue("birthDate", new DateObject(new Date(user.birthDate)));
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        toast.error("خطا در بارگذاری اطلاعات");
-      } finally {
-        setLoading(false);
+      if (user.birthDate) {
+        setValue("birthDate", new DateObject(new Date(user.birthDate)));
       }
-    };
-    fetchUserData();
-  }, [setValue]);
+    }
+  }, [user, setValue]);
 
   const onSubmit = async (data: PersonalInfoFormValues) => {
-    try {
-      const response = await updatePersonalInfo({
-        ...data,
-        birthDate: data.birthDate ? data.birthDate.toDate() : null,
-      });
-      console.log(response);
-      toast.success("اطلاعات با موفقیت به‌روزرسانی شد");
-    } catch (err) {
-      console.log(err);
-      toast.error("خطا در به‌روزرسانی اطلاعات");
-    }
+    updateMutation.mutate({
+      ...data,
+      birthDate: data.birthDate ? data.birthDate.toDate() : null,
+    });
   };
   useImperativeHandle(ref, () => ({
     submit: handleSubmit(onSubmit),

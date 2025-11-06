@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -12,8 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import CourseCard from "@/components/utils/courseCard";
-import { getCourses } from "@/lib/services/course-service";
-import { Course } from "@prisma/client";
+import { useCourses } from "@/lib/hooks/useCourses";
 
 const categories = [
   { label: "همه", href: "/" },
@@ -26,17 +25,9 @@ const categories = [
 
 const CoursesSec = () => {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    getCourses()
-      .then((data) => {
-        setCourses(data);
-      })
-      .catch((err) => console.error(err))
-      .finally(() => setLoading(false));
-  }, []);
+  // استفاده از React Query hook
+  const { data: courses = [], isLoading: loading } = useCourses();
 
   const filteredCourses =
     selectedCategory.label === "همه"
