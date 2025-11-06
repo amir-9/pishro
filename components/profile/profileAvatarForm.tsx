@@ -3,19 +3,23 @@ import Image from "next/image";
 import { IoCheckmarkCircle } from "react-icons/io5";
 import { profileAvatars } from "@/public/data";
 import { ProfileIcon } from "@/public/svgr-icons";
+import { updateAvatar } from "@/lib/services/user-service";
+import toast from "react-hot-toast";
 
 const ProfileAvatarForm = forwardRef((props, ref) => {
   // مدیریت انتخاب آواتار
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   useImperativeHandle(ref, () => ({
-    submit: () => {
-      // در اینجا می‌توانید منطق ارسال فرم (مثلاً فراخوانی API) را پیاده کنید.
-      console.log(
-        "ProfileAvatarForm submitted. Selected avatar index:",
-        selectedIndex
-      );
-      return selectedIndex;
+    submit: async () => {
+      try {
+        const selectedAvatarUrl = profileAvatars[selectedIndex].img;
+        await updateAvatar(selectedAvatarUrl);
+        toast.success("آواتار با موفقیت ذخیره شد");
+      } catch (err) {
+        console.log(err);
+        toast.error("خطا در ذخیره آواتار");
+      }
     },
   }));
 

@@ -10,6 +10,8 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import "react-multi-date-picker/styles/colors/teal.css";
 import { ProfileIcon } from "@/public/svgr-icons";
+import { updatePersonalInfo } from "@/lib/services/user-service";
+import toast from "react-hot-toast";
 
 // تعریف اسکیمای اعتبارسنجی با zod
 const personalInfoSchema = z.object({
@@ -48,8 +50,18 @@ const PersonalInfoForm = forwardRef((props, ref) => {
     },
   });
 
-  const onSubmit = (data: PersonalInfoFormValues) => {
-    console.log("Submitted:", data);
+  const onSubmit = async (data: PersonalInfoFormValues) => {
+    try {
+      const response = await updatePersonalInfo({
+        ...data,
+        birthDate: data.birthDate ? data.birthDate.toDate() : null,
+      });
+      console.log(response);
+      toast.success("اطلاعات با موفقیت به‌روزرسانی شد");
+    } catch (err) {
+      console.log(err);
+      toast.error("خطا در به‌روزرسانی اطلاعات");
+    }
   };
   useImperativeHandle(ref, () => ({
     submit: handleSubmit(onSubmit),
