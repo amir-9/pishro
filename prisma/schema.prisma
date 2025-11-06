@@ -11,8 +11,21 @@ model User {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   phone         String    @unique
   passwordHash  String
-  name          String?
   phoneVerified Boolean   @default(false)
+
+  // Personal Info
+  firstName     String?
+  lastName      String?
+  email         String?
+  nationalCode  String?
+  birthDate     DateTime?
+  avatarUrl     String?
+
+  // Pay Info
+  cardNumber    String?     // شماره کارت
+  shebaNumber   String?     // شماره شبا
+  accountOwner  String?     // نام صاحب حساب
+
   createdAt     DateTime  @default(now())
   comments      Comment[] @relation("UserComments")
   orders        Order[]   @relation("UserOrders")

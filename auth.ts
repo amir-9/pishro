@@ -1,3 +1,4 @@
+// @/auth.ts
 import NextAuth, { type NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -38,7 +39,10 @@ export const authConfig: NextAuthConfig = {
           return {
             id: user.id,
             phone: user.phone,
-            name: user.name ?? undefined,
+            name:
+              user.firstName && user.lastName
+                ? `${user.firstName} ${user.lastName}`
+                : undefined,
           };
         } catch (err) {
           console.error("[❌] authorize error:", err);
