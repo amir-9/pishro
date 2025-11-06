@@ -1297,19 +1297,33 @@ export const advancedSteps = {
 };
 
 export const miniSliderData1 = [
-  "/images/home/c/metaverse.webp",
-  "/images/home/c/airdrop.jpg",
-  "/images/home/c/nft.jpg",
-  "/images/home/c/crypto.jpg",
-  "/images/home/c/airdrop.jpg",
+  "/images/home/landing-slider/p01.jpg",
+  "/images/home/landing-slider/p02.jpg",
+  "/images/home/landing-slider/p03.jpg",
+  "/images/home/landing-slider/p04.jpg",
+  "/images/home/landing-slider/p05.jpg",
+  "/images/home/landing-slider/p06.jpg",
+  "/images/home/landing-slider/p07.jpg",
+  "/images/home/landing-slider/p08.jpg",
+  "/images/home/landing-slider/p09.jpg",
+  "/images/home/landing-slider/p10.jpg",
+  "/images/home/landing-slider/p11.jpg",
+  "/images/home/landing-slider/p12.jpg",
 ];
 
 export const miniSliderData2 = [
-  "/images/home/c/metaverse.webp",
-  "/images/home/c/nft.jpg",
-  "/images/home/c/crypto.jpg",
-  "/images/home/c/metaverse.webp",
-  "/images/home/c/airdrop.jpg",
+  "/images/home/landing-slider/p06.jpg",
+  "/images/home/landing-slider/p05.jpg",
+  "/images/home/landing-slider/p07.jpg",
+  "/images/home/landing-slider/p03.jpg",
+  "/images/home/landing-slider/p04.jpg",
+  "/images/home/landing-slider/p08.jpg",
+  "/images/home/landing-slider/p02.jpg",
+  "/images/home/landing-slider/p10.jpg",
+  "/images/home/landing-slider/p01.jpg",
+  "/images/home/landing-slider/p12.jpg",
+  "/images/home/landing-slider/p09.jpg",
+  "/images/home/landing-slider/p11.jpg",
 ];
 
 import { LuTarget, LuBookOpen, LuUsers } from "react-icons/lu";
