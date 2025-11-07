@@ -178,17 +178,17 @@ export default async function CategoryPage({
       image: aboutContentData?.image || "/images/utiles/font-iran-section.svg",
     };
 
-    // Transform testimonials for CommentsSlider
-    const comments = category.testimonials.map((t) => ({
-      id: t.id,
-      userName: t.userName,
-      userAvatar: t.userAvatar || "/images/default-avatar.png",
-      userRole: t.userRole || "کاربر",
-      rating: t.rating,
-      content: t.content,
-      date: t.createdAt.toISOString(),
-      verified: t.verified,
-      likes: t.likes,
+    // Transform comments for CommentsSlider
+    const comments = (category.comments || []).map((c) => ({
+      id: c.id,
+      userName: c.userName || `${c.user?.firstName || ""} ${c.user?.lastName || ""}`.trim() || "کاربر",
+      userAvatar: c.userAvatar || c.user?.avatarUrl || "/images/default-avatar.png",
+      userRole: c.userRole || "کاربر",
+      rating: c.rating || 5,
+      content: c.text,
+      date: c.createdAt,
+      verified: c.verified,
+      likes: c.likes?.length || 0,
     }));
 
     // Transform tags for TagsList

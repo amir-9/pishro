@@ -16,7 +16,7 @@ import {
   getCategoryBySlug,
   getCategoryTags,
   getCategoryFAQs,
-  getCategoryTestimonials,
+  getCategoryComments,
   getCategoryCourses,
 } from "@/lib/services/category-service";
 
@@ -25,8 +25,8 @@ export const revalidate = 3600; // ISR: Revalidate every 1 hour
 /**
  * GET category by slug with optional filters
  * Query params:
- * - include: Comma-separated list of relations to include (tags,faqs,testimonials,courses)
- * - limit: Limit for courses, tags, faqs, testimonials
+ * - include: Comma-separated list of relations to include (tags,faqs,comments,courses)
+ * - limit: Limit for courses, tags, faqs, comments
  * - page: Page number for courses
  * - level: Filter courses by level
  */
@@ -42,7 +42,7 @@ export async function GET(
     const include = searchParams.get("include")?.split(",") || [
       "tags",
       "faqs",
-      "testimonials",
+      "comments",
       "courses",
     ];
     const limit = parseInt(searchParams.get("limit") || "12");
@@ -89,9 +89,9 @@ export async function GET(
       response.faqs = await getCategoryFAQs(slug, limit);
     }
 
-    // Add testimonials
-    if (include.includes("testimonials") || include.includes("all")) {
-      response.testimonials = await getCategoryTestimonials(slug, limit);
+    // Add comments (testimonials)
+    if (include.includes("comments") || include.includes("testimonials") || include.includes("all")) {
+      response.comments = await getCategoryComments(slug, limit);
     }
 
     // Add courses with pagination

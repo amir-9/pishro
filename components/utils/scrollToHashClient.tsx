@@ -1,6 +1,6 @@
 "use client";
 
-import useScrollToHash from "@/hooks/useScrollToHash";
+import useScrollToHash from "@/lib/hooks/useScrollToHash";
 
 const ScrollToHashClient = () => {
   useScrollToHash();

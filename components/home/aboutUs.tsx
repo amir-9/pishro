@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { aboutUsData } from "@/public/data";
-import { useCounter } from "@/hooks/useCounter";
+import { useCounter } from "@/lib/hooks/useCounter";
 import { AboutUsDecorations } from "./aboutUsDecorations";
 
 const AboutUs: React.FC = () => {

@@ -8,31 +8,31 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  phone         String    @unique
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  phone         String   @unique
   passwordHash  String
-  phoneVerified Boolean   @default(false)
-  role          UserRole  @default(USER)
+  phoneVerified Boolean  @default(false)
+  role          UserRole @default(USER)
 
   // Personal Info
-  firstName     String?
-  lastName      String?
-  email         String?
-  nationalCode  String?
-  birthDate     DateTime?
-  avatarUrl     String?
+  firstName    String?
+  lastName     String?
+  email        String?
+  nationalCode String?
+  birthDate    DateTime?
+  avatarUrl    String?
 
   // Pay Info
-  cardNumber    String?
-  shebaNumber   String?
-  accountOwner  String?
+  cardNumber   String?
+  shebaNumber  String?
+  accountOwner String?
 
-  createdAt     DateTime      @default(now())
-  comments      Comment[]     @relation("UserComments")
-  orders        Order[]       @relation("UserOrders")
-  enrollments   Enrollment[]  @relation("UserEnrollments")
-  transactions  Transaction[] @relation("UserTransactions")
-  newsComments  NewsComment[] @relation("UserNewsComments")
+  createdAt    DateTime      @default(now())
+  comments     Comment[]     @relation("UserComments")
+  orders       Order[]       @relation("UserOrders")
+  enrollments  Enrollment[]  @relation("UserEnrollments")
+  transactions Transaction[] @relation("UserTransactions")
+  newsComments NewsComment[] @relation("UserNewsComments")
 }
 
 model TempUser {
@@ -51,7 +51,7 @@ model Otp {
 }
 
 model Course {
-  id              String       @id @default(auto()) @map("_id") @db.ObjectId
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
   subject         String
   price           Int
   img             String?
@@ -61,39 +61,39 @@ model Course {
   time            String?
   students        Int?
   videosCount     Int?
-  createdAt       DateTime     @default(now())
+  createdAt       DateTime @default(now())
 
-  category        Category?    @relation("CategoryCourses", fields: [categoryId], references: [id], onDelete: SetNull)
-  categoryId      String?      @db.ObjectId
+  category   Category? @relation("CategoryCourses", fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId String?   @db.ObjectId
 
-  relatedTags     Tag[]        @relation("CourseTags", fields: [tagIds], references: [id])
-  tagIds          String[]     @db.ObjectId
+  relatedTags Tag[]    @relation("CourseTags", fields: [tagIds], references: [id])
+  tagIds      String[] @db.ObjectId
 
-  slug            String?      @unique
-  level           CourseLevel?
-  language        Language       @default(FA)
-  prerequisites   String[]     @default([])
-  learningGoals   String[]     @default([])
-  instructor      String?
-  status          CourseStatus @default(ACTIVE)
-  published       Boolean      @default(true)
-  featured        Boolean      @default(false)
-  views           Int          @default(0)
+  slug          String?      @unique
+  level         CourseLevel?
+  language      Language     @default(FA)
+  prerequisites String[]     @default([])
+  learningGoals String[]     @default([])
+  instructor    String?
+  status        CourseStatus @default(ACTIVE)
+  published     Boolean      @default(true)
+  featured      Boolean      @default(false)
+  views         Int          @default(0)
 
-  comments        Comment[]     @relation("CourseComments")
-  enrollments     Enrollment[]  @relation("CourseEnrollments")
-  orderItems      OrderItem[]   @relation("CourseOrderItems")
+  comments    Comment[]    @relation("CourseComments")
+  enrollments Enrollment[] @relation("CourseEnrollments")
+  orderItems  OrderItem[]  @relation("CourseOrderItems")
 
   @@index([categoryId])
   @@index([published, featured])
 }
 
 model Comment {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 
   // User relation (optional for testimonials from non-users)
-  user      User?    @relation(fields: [userId], references: [id], name: "UserComments", onDelete: SetNull)
-  userId    String?  @db.ObjectId
+  user   User?   @relation(fields: [userId], references: [id], name: "UserComments", onDelete: SetNull)
+  userId String? @db.ObjectId
 
   // For testimonials without user account
   userName    String?
@@ -102,26 +102,26 @@ model Comment {
   userCompany String?
 
   // Content
-  text      String
-  rating    Int?
+  text   String
+  rating Int?
 
   // Relations
-  course      Course?   @relation(fields: [courseId], references: [id], name: "CourseComments", onDelete: Cascade)
-  courseId    String?   @db.ObjectId
-  category    Category? @relation("CategoryComments", fields: [categoryId], references: [id], onDelete: SetNull)
-  categoryId  String?   @db.ObjectId
+  course     Course?   @relation(fields: [courseId], references: [id], name: "CourseComments", onDelete: Cascade)
+  courseId   String?   @db.ObjectId
+  category   Category? @relation("CategoryComments", fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId String?   @db.ObjectId
 
   // Engagement
-  likes     String[]  @default([])
-  dislikes  String[]  @default([])
+  likes    String[] @default([])
+  dislikes String[] @default([])
 
   // Status & Visibility
-  published   Boolean  @default(false)
-  verified    Boolean  @default(false)
-  featured    Boolean  @default(false)
+  published Boolean @default(false)
+  verified  Boolean @default(false)
+  featured  Boolean @default(false)
 
   // Analytics
-  views       Int      @default(0)
+  views Int @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -165,57 +165,57 @@ model Enrollment {
 }
 
 model Transaction {
-  id          String          @id @default(auto()) @map("_id") @db.ObjectId
-  user        User             @relation(fields: [userId], references: [id], name: "UserTransactions")
-  userId      String           @db.ObjectId
-  order       Order?           @relation(fields: [orderId], references: [id], name: "OrderTransactions")
-  orderId     String?          @db.ObjectId
+  id          String            @id @default(auto()) @map("_id") @db.ObjectId
+  user        User              @relation(fields: [userId], references: [id], name: "UserTransactions")
+  userId      String            @db.ObjectId
+  order       Order?            @relation(fields: [orderId], references: [id], name: "OrderTransactions")
+  orderId     String?           @db.ObjectId
   amount      Int
   type        TransactionType
   status      TransactionStatus
   gateway     String?
   refNumber   String?
   description String?
-  createdAt   DateTime         @default(now())
+  createdAt   DateTime          @default(now())
 }
 
 model OrderItem {
-  id              String  @id @default(auto()) @map("_id") @db.ObjectId
-  order           Order   @relation(fields: [orderId], references: [id], name: "OrderOrderItems")
-  orderId         String  @db.ObjectId
-  course          Course  @relation(fields: [courseId], references: [id], name: "CourseOrderItems")
-  courseId        String  @db.ObjectId
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  order           Order  @relation(fields: [orderId], references: [id], name: "OrderOrderItems")
+  orderId         String @db.ObjectId
+  course          Course @relation(fields: [courseId], references: [id], name: "CourseOrderItems")
+  courseId        String @db.ObjectId
   price           Int
   discountPercent Int?
 }
 
 model NewsArticle {
-  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   title       String
-  slug        String        @unique
+  slug        String    @unique
   excerpt     String
   content     String
   coverImage  String?
   author      String?
   category    String
   tags        String[]
-  published   Boolean       @default(false)
+  published   Boolean   @default(false)
   publishedAt DateTime?
-  views       Int           @default(0)
+  views       Int       @default(0)
 
-  relatedCategory Category?  @relation("CategoryNews", fields: [categoryId], references: [id], onDelete: SetNull)
-  categoryId      String?    @db.ObjectId
+  relatedCategory Category? @relation("CategoryNews", fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId      String?   @db.ObjectId
 
-  relatedTags     Tag[]      @relation("NewsTags", fields: [tagIds], references: [id])
-  tagIds          String[]   @db.ObjectId
+  relatedTags Tag[]    @relation("NewsTags", fields: [tagIds], references: [id])
+  tagIds      String[] @db.ObjectId
 
-  featured        Boolean    @default(false)
-  readingTime     Int?
-  likes           Int        @default(0)
+  featured    Boolean @default(false)
+  readingTime Int?
+  likes       Int     @default(0)
 
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  comments    NewsComment[] @relation("NewsArticleComments")
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  comments  NewsComment[] @relation("NewsArticleComments")
 
   @@index([categoryId])
   @@index([published, featured])
@@ -263,13 +263,13 @@ model DigitalBook {
   relatedTags Tag[]    @relation("BookTags", fields: [tagIds], references: [id])
   tagIds      String[] @db.ObjectId
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Category {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  slug        String   @unique
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  slug        String  @unique
   title       String
   description String?
   icon        String?
@@ -280,21 +280,21 @@ model Category {
   metaDescription String?
   metaKeywords    String[] @default([])
 
-  published   Boolean  @default(true)
-  featured    Boolean  @default(false)
-  order       Int      @default(0)
+  published Boolean @default(true)
+  featured  Boolean @default(false)
+  order     Int     @default(0)
 
-  tags        Tag[]         @relation("CategoryTags", fields: [tagIds], references: [id])
-  tagIds      String[]      @db.ObjectId
+  tags   Tag[]    @relation("CategoryTags", fields: [tagIds], references: [id])
+  tagIds String[] @db.ObjectId
 
-  courses     Course[]      @relation("CategoryCourses")
-  content     PageContent[] @relation("CategoryContent")
-  news        NewsArticle[] @relation("CategoryNews")
-  faqs        FAQ[]         @relation("CategoryFAQs")
-  comments    Comment[]     @relation("CategoryComments")
+  courses  Course[]      @relation("CategoryCourses")
+  content  PageContent[] @relation("CategoryContent")
+  news     NewsArticle[] @relation("CategoryNews")
+  faqs     FAQ[]         @relation("CategoryFAQs")
+  comments Comment[]     @relation("CategoryComments")
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([published, featured])
 }
@@ -308,68 +308,68 @@ model Tag {
   icon        String?
   published   Boolean? @default(false)
 
-  categories  Category[]     @relation("CategoryTags", fields: [categoryIds], references: [id])
-  categoryIds String[]       @db.ObjectId
+  categories  Category[] @relation("CategoryTags", fields: [categoryIds], references: [id])
+  categoryIds String[]   @db.ObjectId
 
-  courses     Course[]       @relation("CourseTags", fields: [courseIds], references: [id])
-  courseIds   String[]       @db.ObjectId
+  courses   Course[] @relation("CourseTags", fields: [courseIds], references: [id])
+  courseIds String[] @db.ObjectId
 
-  news        NewsArticle[]  @relation("NewsTags", fields: [newsIds], references: [id])
-  newsIds     String[]       @db.ObjectId
+  news    NewsArticle[] @relation("NewsTags", fields: [newsIds], references: [id])
+  newsIds String[]      @db.ObjectId
 
-  books       DigitalBook[]  @relation("BookTags", fields: [bookIds], references: [id])
-  bookIds     String[]       @db.ObjectId
+  books   DigitalBook[] @relation("BookTags", fields: [bookIds], references: [id])
+  bookIds String[]      @db.ObjectId
 
-  usageCount  Int      @default(0)
-  clicks      Int      @default(0)
+  usageCount Int @default(0)
+  clicks     Int @default(0)
 
   seoTitle       String?
   seoDescription String?
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([usageCount])
 }
 
 model PageContent {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  category    Category @relation("CategoryContent", fields: [categoryId], references: [id], onDelete: Cascade)
-  categoryId  String   @db.ObjectId
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  category   Category @relation("CategoryContent", fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId String   @db.ObjectId
 
-  type        PageContentType
-  section     String?
-  title       String?
-  subtitle    String?
-  content     Json
-  language    Language @default(FA)
-  order       Int      @default(0)
-  published   Boolean  @default(true)
-  publishAt   DateTime?
-  expireAt    DateTime?
+  type      PageContentType
+  section   String?
+  title     String?
+  subtitle  String?
+  content   Json
+  language  Language        @default(FA)
+  order     Int             @default(0)
+  published Boolean         @default(true)
+  publishAt DateTime?
+  expireAt  DateTime?
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([categoryId, type])
   @@index([published, publishAt])
 }
 
 model FAQ {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
   question    String
   answer      String
-  category    Category? @relation("CategoryFAQs", fields: [categoryId], references: [id], onDelete: Cascade)
-  categoryId  String?   @db.ObjectId
+  category    Category?    @relation("CategoryFAQs", fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId  String?      @db.ObjectId
   faqCategory FAQCategory?
-  order       Int      @default(0)
-  published   Boolean  @default(true)
-  featured    Boolean  @default(false)
-  views       Int      @default(0)
-  helpful     Int      @default(0)
-  notHelpful  Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  order       Int          @default(0)
+  published   Boolean      @default(true)
+  featured    Boolean      @default(false)
+  views       Int          @default(0)
+  helpful     Int          @default(0)
+  notHelpful  Int          @default(0)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 
   @@index([categoryId, published])
   @@index([faqCategory])

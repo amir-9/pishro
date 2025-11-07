@@ -20,7 +20,7 @@ export type CategoryWithRelations = Prisma.CategoryGetPayload<{
       };
     };
     faqs: true;
-    testimonials: true;
+    comments: true;
   };
 }>;
 
@@ -102,7 +102,7 @@ export async function getCategoryBySlug(
             { order: "asc" },
           ],
         },
-        testimonials: {
+        comments: {
           where: {
             published: true,
             verified: true,
@@ -111,7 +111,7 @@ export async function getCategoryBySlug(
             { featured: "desc" },
             { createdAt: "desc" },
           ],
-          take: 10, // Limit testimonials to 10 most recent
+          take: 10, // Limit comments to 10 most recent
         },
       },
     });
@@ -302,17 +302,17 @@ export async function getCategoryContent(
 }
 
 /**
- * Fetch testimonials for a category
+ * Fetch comments/testimonials for a category
  * @param categorySlug - Category slug
- * @param limit - Maximum number of testimonials
- * @returns Array of testimonials
+ * @param limit - Maximum number of comments
+ * @returns Array of comments
  */
-export async function getCategoryTestimonials(
+export async function getCategoryComments(
   categorySlug: string,
   limit: number = 10
 ) {
   try {
-    const testimonials = await prisma.testimonial.findMany({
+    const comments = await prisma.comment.findMany({
       where: {
         category: {
           slug: categorySlug,
@@ -322,21 +322,33 @@ export async function getCategoryTestimonials(
       },
       orderBy: [
         { featured: "desc" },
-        { likes: "desc" },
         { createdAt: "desc" },
       ],
       take: limit,
+      include: {
+        user: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            avatarUrl: true,
+          },
+        },
+      },
     });
 
-    return testimonials;
+    return comments;
   } catch (error) {
     console.error(
-      `Error fetching testimonials for category ${categorySlug}:`,
+      `Error fetching comments for category ${categorySlug}:`,
       error
     );
     throw error;
   }
 }
+
+// Backward compatibility alias
+export const getCategoryTestimonials = getCategoryComments;
 
 /**
  * Fetch courses for a specific category with pagination

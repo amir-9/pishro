@@ -36,7 +36,7 @@ export interface Category {
   content?: PageContent[];
   tags?: Tag[];
   faqs?: FAQ[];
-  testimonials?: Testimonial[];
+  comments?: Comment[];
   courses?: Course[];
   pagination?: {
     total: number;
@@ -78,21 +78,27 @@ export interface FAQ {
   notHelpful: number;
 }
 
-export interface Testimonial {
+export interface Comment {
   id: string;
-  userName: string;
+  userId: string | null;
+  userName: string | null;
   userAvatar: string | null;
   userRole: string | null;
   userCompany: string | null;
-  rating: number;
-  content: string;
+  rating: number | null;
+  text: string;
   published: boolean;
   verified: boolean;
   featured: boolean;
-  likes: number;
+  likes: string[];
+  dislikes: string[];
   views: number;
   createdAt: string;
+  updatedAt: string;
 }
+
+// Backward compatibility alias
+export type Testimonial = Comment;
 
 export interface Course {
   id: string;

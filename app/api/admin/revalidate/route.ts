@@ -153,7 +153,7 @@ export async function GET() {
         "/api/categories/stock-market",
         "/api/categories/metaverse",
       ],
-      tags: ["category", "courses", "tags", "faqs", "testimonials"],
+      tags: ["category", "courses", "tags", "faqs", "comments"],
     };
 
     const response = {

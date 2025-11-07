@@ -450,11 +450,11 @@ async function main() {
   console.log("✅ FAQs created\n");
 
   // ============================================
-  // 7. SEED TESTIMONIALS
+  // 7. SEED COMMENTS (Testimonials)
   // ============================================
-  console.log("💬 Creating testimonials...");
+  console.log("💬 Creating comments...");
 
-  await prisma.testimonial.createMany({
+  await prisma.comment.createMany({
     data: [
       {
         categoryId: airdrop.id,
@@ -463,12 +463,13 @@ async function main() {
         userRole: "STUDENT",
         userCompany: null,
         rating: 5,
-        content:
+        text:
           "دوره عالی! من تونستم از چند ایردراپ درآمد خوبی کسب کنم. پشتیبانی هم عالی بود.",
         published: true,
         verified: true,
         featured: true,
-        likes: 24,
+        likes: [],
+        dislikes: [],
         views: 150,
       },
       {
@@ -478,12 +479,13 @@ async function main() {
         userRole: "INVESTOR",
         userCompany: "استارتاپ بلاکچین",
         rating: 5,
-        content:
+        text:
           "بهترین دوره ایردراپ که تا حالا دیدم. همه چیز خیلی ساده و عملی توضیح داده شده.",
         published: true,
         verified: true,
         featured: true,
-        likes: 18,
+        likes: [],
+        dislikes: [],
         views: 98,
       },
       {
@@ -493,19 +495,20 @@ async function main() {
         userRole: "PROFESSIONAL_TRADER",
         userCompany: null,
         rating: 5,
-        content:
+        text:
           "بعد از این دوره، اولین NFT خودم رو ساختم و فروختم. واقعاً عالی بود!",
         published: true,
         verified: true,
         featured: true,
-        likes: 32,
+        likes: [],
+        dislikes: [],
         views: 210,
       },
     ],
     // skipDuplicates: true,
   });
 
-  console.log("✅ Testimonials created\n");
+  console.log("✅ Comments created\n");
 
   console.log("🎉 Seed completed successfully!\n");
 
@@ -516,14 +519,14 @@ async function main() {
   const contentCount = await prisma.pageContent.count();
   const tagsCount = await prisma.tag.count();
   const faqsCount = await prisma.fAQ.count();
-  const testimonialsCount = await prisma.testimonial.count();
+  const commentsCount = await prisma.comment.count();
 
   console.log("📊 Database Summary:");
   console.log(`   Categories: ${categoriesCount}`);
   console.log(`   Page Content: ${contentCount}`);
   console.log(`   Tags: ${tagsCount}`);
   console.log(`   FAQs: ${faqsCount}`);
-  console.log(`   Testimonials: ${testimonialsCount}`);
+  console.log(`   Comments: ${commentsCount}`);
   console.log("\n✨ Ready to build dynamic pages!");
 }
 

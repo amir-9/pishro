@@ -1,32 +1,32 @@
 // @/components/home/homeContent.tsx
+"use client";
+
 import LandingOverlay from "./landingOverlay";
 import MobileScrollSection from "./mobileScrollSection";
 import CalculatorSection from "./calculatorSection";
 import Courses from "@/components/utils/CoursesSec.server";
 import CommentsSlider from "@/components/utils/CommentsSlider";
 import NewsClub from "./newsClub";
-import { Suspense } from "react";
-import { getTestimonials } from "@/lib/services/testimonial-service";
+import { useFeaturedComments } from "@/lib/hooks";
 
-const HomePageContent = async () => {
-  // دریافت testimonials از دیتابیس
-  const testimonials = await getTestimonials({
-    published: true,
-    limit: 10, // محدود کردن به 10 نظر برتر
-  });
+const HomePageContent = () => {
+  // استفاده از هوک برای دریافت comments
+  const { data: commentsData, isLoading } = useFeaturedComments(10);
 
-  // Transform testimonials for CommentsSlider
-  const comments = testimonials.map((t) => ({
-    id: t.id,
-    userName: t.userName,
-    userAvatar: t.userAvatar || "/images/default-avatar.png",
-    userRole: t.userRole || "کاربر",
-    rating: t.rating,
-    content: t.content,
-    date: t.createdAt.toISOString(),
-    verified: t.verified,
-    likes: t.likes,
-  }));
+  // Transform comments for CommentsSlider
+  const comments = commentsData
+    ? commentsData.map((c) => ({
+        id: c.id,
+        userName: c.userName || `${c.user?.firstName || ""} ${c.user?.lastName || ""}`.trim() || "کاربر",
+        userAvatar: c.userAvatar || c.user?.avatarUrl || "/images/default-avatar.png",
+        userRole: c.userRole || "کاربر",
+        rating: c.rating || 5,
+        content: c.text,
+        date: c.createdAt,
+        verified: c.verified,
+        likes: c.likes.length,
+      }))
+    : [];
 
   return (
     <div className="w-full">
@@ -34,15 +34,12 @@ const HomePageContent = async () => {
       <MobileScrollSection />
       <CalculatorSection />
       <Courses />
-      {comments.length > 0 && (
-        <Suspense
-          fallback={<div className="h-64 animate-pulse bg-white my-8" />}
-        >
-          <CommentsSlider
-            comments={comments}
-            title="نظرات دوره آموزان"
-          />
-        </Suspense>
+      {isLoading ? (
+        <div className="h-64 animate-pulse bg-white my-8" />
+      ) : (
+        comments.length > 0 && (
+          <CommentsSlider comments={comments} title="نظرات دوره آموزان" />
+        )
       )}
       <NewsClub />
     </div>

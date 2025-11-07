@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 import { LuSquareChevronRight } from "react-icons/lu";
 import { AuthForm } from "@/components/auth/AuthForm";
 import { OtpForm } from "@/components/auth/OtpForm";
-import { useOtpTimer } from "@/hooks/useOtp";
-import { useAuthForm } from "@/hooks/useAuthForm";
+import { useOtpTimer } from "@/lib/hooks/useOtp";
+import { useAuthForm } from "@/lib/hooks/useAuthForm";
 import { Variant } from "@/lib/schemas/authSchema";
 
 const LoginPage = () => {

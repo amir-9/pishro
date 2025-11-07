@@ -1,6 +1,6 @@
-// @/app/api/testimonials/route.ts
+// @/app/api/comments/route.ts
 import { NextRequest } from "next/server";
-import { getTestimonials } from "@/lib/services/testimonial-service";
+import { getComments } from "@/lib/services/comment-service";
 import { successResponse, errorResponse, ErrorCodes } from "@/lib/api-response";
 
 export async function GET(req: NextRequest) {
@@ -9,6 +9,7 @@ export async function GET(req: NextRequest) {
 
     const categoryId = searchParams.get("categoryId") || undefined;
     const courseId = searchParams.get("courseId") || undefined;
+    const userId = searchParams.get("userId") || undefined;
     const published = searchParams.get("published") !== "false";
     const verified = searchParams.get("verified") === "true" ? true : undefined;
     const featured = searchParams.get("featured") === "true" ? true : undefined;
@@ -16,18 +17,19 @@ export async function GET(req: NextRequest) {
       ? parseInt(searchParams.get("limit")!)
       : undefined;
 
-    const testimonials = await getTestimonials({
+    const comments = await getComments({
       categoryId,
       courseId,
+      userId,
       published,
       verified,
       featured,
       limit,
     });
 
-    return successResponse(testimonials);
+    return successResponse(comments);
   } catch (error) {
-    console.error("Error fetching testimonials:", error);
+    console.error("Error fetching comments:", error);
     return errorResponse(
       "خطایی در دریافت نظرات رخ داد",
       ErrorCodes.DATABASE_ERROR

@@ -6,7 +6,7 @@ import Image from "next/image";
 import { PiInstagramLogoThin } from "react-icons/pi";
 
 import Logo from "./utils/Logo";
-import { useFooter } from "@/hooks/useFooter";
+import { useFooter } from "@/lib/hooks/useFooter";
 import { contactInfo } from "@/lib/constants/contact";
 
 const Footer = () => {
