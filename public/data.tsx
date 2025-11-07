@@ -31,23 +31,23 @@ export const navbarData = [
   // },
   {
     label: "کریپتو",
-    link: "/cryptocurrency", // Cryptocurrency section
+    link: "/courses/cryptocurrency", // Cryptocurrency section
   },
   {
     label: "بورس",
-    link: "/stock-market", // Stock market section
+    link: "/courses/stock-market", // Stock market section
   },
   {
     label: "متاورس",
-    link: "/metaverse", // Metaverse section
+    link: "/courses/metaverse", // Metaverse section
   },
   {
     label: "NFT",
-    link: "/nft", // NFT section
+    link: "/courses/nft", // NFT section
   },
   {
     label: "ایردراپ",
-    link: "/airdrop", // Airdrop section
+    link: "/courses/airdrop", // Airdrop section
   },
   {
     label: "مشاوره کسب و کار",
