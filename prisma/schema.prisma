@@ -280,6 +280,33 @@ model Category {
   metaDescription String?
   metaKeywords    String[] @default([])
 
+  // Hero/Landing section data
+  heroTitle       String?
+  heroSubtitle    String?
+  heroDescription String?
+  heroImage       String?
+  heroCta1Text    String?
+  heroCta1Link    String?
+  heroCta2Text    String?
+  heroCta2Link    String?
+
+  // About section data
+  aboutTitle1     String?
+  aboutTitle2     String?
+  aboutDescription String?
+  aboutImage       String?
+  aboutCta1Text    String?
+  aboutCta1Link    String?
+  aboutCta2Text    String?
+  aboutCta2Link    String?
+
+  // Stats/Metrics boxes (JSON array)
+  // Example: [{"text": "محتوای کاربردی", "number": "1K+", "icon": "/path/to/icon.svg"}]
+  statsBoxes Json? @default("[]")
+
+  // User level options (beginner, intermediate, advanced)
+  enableUserLevelSection Boolean @default(false)
+
   published Boolean @default(true)
   featured  Boolean @default(false)
   order     Int     @default(0)
