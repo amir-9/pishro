@@ -27,12 +27,13 @@ model User {
   shebaNumber  String?
   accountOwner String?
 
-  createdAt    DateTime      @default(now())
-  comments     Comment[]     @relation("UserComments")
-  orders       Order[]       @relation("UserOrders")
-  enrollments  Enrollment[]  @relation("UserEnrollments")
-  transactions Transaction[] @relation("UserTransactions")
-  newsComments NewsComment[] @relation("UserNewsComments")
+  createdAt     DateTime       @default(now())
+  comments      Comment[]      @relation("UserComments")
+  orders        Order[]        @relation("UserOrders")
+  enrollments   Enrollment[]   @relation("UserEnrollments")
+  transactions  Transaction[]  @relation("UserTransactions")
+  newsComments  NewsComment[]  @relation("UserNewsComments")
+  quizAttempts  QuizAttempt[]  @relation("UserQuizAttempts")
 }
 
 model TempUser {
@@ -83,6 +84,7 @@ model Course {
   comments    Comment[]    @relation("CourseComments")
   enrollments Enrollment[] @relation("CourseEnrollments")
   orderItems  OrderItem[]  @relation("CourseOrderItems")
+  quizzes     Quiz[]       @relation("CourseQuizzes")
 
   @@index([categoryId])
   @@index([published, featured])
@@ -402,6 +404,92 @@ model FAQ {
   @@index([faqCategory])
 }
 
+model Quiz {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String?
+
+  // Course relation
+  course   Course @relation("CourseQuizzes", fields: [courseId], references: [id], onDelete: Cascade)
+  courseId String @db.ObjectId
+
+  // Quiz settings
+  timeLimit      Int?    // Time limit in minutes (null = no limit)
+  passingScore   Int     @default(70) // Percentage needed to pass
+  maxAttempts    Int?    // Maximum attempts allowed (null = unlimited)
+  shuffleQuestions Boolean @default(false)
+  shuffleAnswers   Boolean @default(false)
+  showResults      Boolean @default(true) // Show results after completion
+  showCorrectAnswers Boolean @default(true) // Show correct answers after completion
+
+  // Status
+  published Boolean @default(false)
+  order     Int     @default(0)
+
+  // Relations
+  questions QuizQuestion[] @relation("QuizQuestions")
+  attempts  QuizAttempt[]  @relation("QuizAttempts")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId, published])
+  @@index([published, order])
+}
+
+model QuizQuestion {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  quiz     Quiz   @relation("QuizQuestions", fields: [quizId], references: [id], onDelete: Cascade)
+  quizId   String @db.ObjectId
+
+  question     String
+  questionType QuestionType @default(MULTIPLE_CHOICE)
+
+  // Options for multiple choice/checkbox questions (JSON array)
+  // Example: [{"text": "گزینه 1", "isCorrect": true}, {"text": "گزینه 2", "isCorrect": false}]
+  options Json @default("[]")
+
+  // For true/false questions
+  correctAnswer Boolean?
+
+  // Explanation shown after answering
+  explanation String?
+
+  // Points awarded for correct answer
+  points Int @default(1)
+
+  order Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([quizId, order])
+}
+
+model QuizAttempt {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  quiz   Quiz   @relation("QuizAttempts", fields: [quizId], references: [id], onDelete: Cascade)
+  quizId String @db.ObjectId
+
+  user   User   @relation("UserQuizAttempts", fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.ObjectId
+
+  // Attempt data
+  answers      Json    // User's answers: [{"questionId": "...", "answer": "..." or ["...", "..."] for multiple}]
+  score        Float   // Score percentage (0-100)
+  totalPoints  Int     // Total points earned
+  maxPoints    Int     // Maximum possible points
+  passed       Boolean @default(false)
+  timeSpent    Int?    // Time spent in seconds
+
+  // Status
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+
+  @@index([quizId, userId])
+  @@index([userId, completedAt])
+}
+
 //
 // ===================== ENUMS =====================
 //
@@ -466,4 +554,11 @@ enum UserRoleType {
   STUDENT
   PROFESSIONAL_TRADER
   INVESTOR
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE  // چند گزینه‌ای (یک جواب صحیح)
+  MULTIPLE_SELECT  // چند گزینه‌ای (چند جواب صحیح)
+  TRUE_FALSE       // صحیح/غلط
+  SHORT_ANSWER     // پاسخ کوتاه
 }
