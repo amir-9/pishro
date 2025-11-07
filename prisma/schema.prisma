@@ -31,6 +31,7 @@ model User {
   orders        Order[]       @relation("UserOrders")
   enrollments   Enrollment[]  @relation("UserEnrollments")
   transactions  Transaction[] @relation("UserTransactions")
+  newsComments  NewsComment[] @relation("UserNewsComments")
 }
 
 model TempUser {
@@ -138,4 +139,66 @@ model OrderItem {
   courseId        String  @db.ObjectId
   price           Int     // قیمت در زمان خرید
   discountPercent Int?    // تخفیف در زمان خرید
+}
+
+// ✅ مدل مقالات خبری
+model NewsArticle {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  slug        String        @unique
+  excerpt     String        // خلاصه مقاله
+  content     String        // محتوای کامل مقاله
+  coverImage  String?       // تصویر کاور
+  author      String?       // نویسنده
+  category    String        // دسته‌بندی خبر
+  tags        String[]      // تگ‌های مرتبط
+  published   Boolean       @default(false)
+  publishedAt DateTime?     // تاریخ انتشار
+  views       Int           @default(0) // تعداد بازدید
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  comments    NewsComment[] @relation("NewsArticleComments")
+}
+
+// ✅ مدل کامنت‌های اخبار
+model NewsComment {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  article   NewsArticle @relation(fields: [articleId], references: [id], name: "NewsArticleComments", onDelete: Cascade)
+  articleId String      @db.ObjectId
+  user      User?       @relation(fields: [userId], references: [id], name: "UserNewsComments", onDelete: SetNull)
+  userId    String?     @db.ObjectId
+  content   String
+  likes     String[]    @default([])
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+// ✅ مدل کتابخانه دیجیتال
+model DigitalBook {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  slug        String   @unique
+  author      String
+  description String
+  cover       String?  // تصویر جلد کتاب
+  publisher   String?  // ناشر
+  year        Int      // سال انتشار
+  pages       Int?     // تعداد صفحات
+  isbn        String?  // شماره ISBN
+  language    String   @default("فارسی")
+  rating      Float    @default(0) // امتیاز میانگین
+  votes       Int      @default(0) // تعداد رای‌ها
+  views       Int      @default(0) // تعداد بازدید
+  downloads   Int      @default(0) // تعداد دانلود
+  category    String   // دسته‌بندی کتاب
+  formats     String[] // فرمت‌های موجود: ["جلد سخت", "جلد نرم", "الکترونیکی", "صوتی"]
+  status      String[] @default([]) // وضعیت: ["جدید", "پرفروش", "ویژه", "محبوب"]
+  tags        String[] @default([]) // تگ‌ها
+  readingTime String?  // زمان تقریبی مطالعه
+  isFeatured  Boolean  @default(false) // کتاب ویژه
+  price       Int?     // قیمت (اختیاری - برای نسخه فیزیکی)
+  fileUrl     String?  // لینک دانلود فایل (برای نسخه الکترونیکی)
+  audioUrl    String?  // لینک فایل صوتی
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

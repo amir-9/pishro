@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useCallback, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Bookmark, BookOpen, Clock, Search, Star } from "lucide-react";
@@ -22,8 +23,30 @@ import {
   type LibraryBook,
 } from "./data";
 import { useLibraryFilters, type SortOption } from "./hooks/useLibraryFilters";
+import { useBooksList } from "@/lib/hooks/useBooks";
+
+type BooksQueryReturn = {
+  data?: {
+    items: LibraryBook[];
+    total?: number;
+  };
+  isLoading: boolean;
+  error?: Error | null;
+  refetch?: () => Promise<unknown>;
+};
 
 const LibraryPageContent = () => {
+  // Fetch books from API (با تایپ مشخص برای دسترسی به refetch)
+  const {
+    data: booksData,
+    isLoading,
+    error,
+    refetch,
+  } = useBooksList({ page: 1, limit: 100 }) as BooksQueryReturn;
+
+  // اگر API داده داشت از اون استفاده کن، در غیر این صورت به mock (libraryBooks) برگرد
+  const books = booksData?.items ?? libraryBooks;
+
   const {
     categories,
     formatOptions,
@@ -39,7 +62,7 @@ const LibraryPageContent = () => {
     filteredBooks,
     featuredBooks,
     stats,
-  } = useLibraryFilters(libraryBooks);
+  } = useLibraryFilters(books as LibraryBook[]);
 
   const hasActiveFilters =
     query.trim().length > 0 ||
@@ -55,40 +78,69 @@ const LibraryPageContent = () => {
 
   return (
     <div className="w-full pb-24">
-      <LibraryHero stats={stats} />
+      {/* اگر در حال لودینگ هستیم، skeleton کامل نمایش بده */}
+      {isLoading ? (
+        <LoadingPlaceholder />
+      ) : (
+        <>
+          {/* در صورت خطا، یک بنر نمایش بده ولی محتوای fallback (libraryBooks) هم قابل نمایش بمونه */}
+          {error && (
+            <div className="container-xl mb-6">
+              <ErrorBanner
+                message={error.message ?? "خطایی در بارگذاری داده رخ داد."}
+                onRetry={async () => {
+                  if (typeof refetch === "function") {
+                    try {
+                      await refetch();
+                    } catch {
+                      // اگر refetch هم خطا داد، اجازه بدیم بنر بمونه
+                    }
+                  } else {
+                    // fallback ساده: رفرش صفحه
+                    window.location.reload();
+                  }
+                }}
+              />
+            </div>
+          )}
 
-      <section className="relative -mt-16 z-10">
-        <div className="container-xl space-y-12">
-          <div className="rounded-3xl border border-white/30 bg-white/85 px-5 py-8 shadow-lg backdrop-blur">
-            <FilterControls
-              categories={categories}
-              selectedCategory={selectedCategory}
-              onCategoryChange={setCategory}
-              query={query}
-              onQueryChange={setQuery}
-              formatOptions={formatOptions}
-              selectedFormat={selectedFormat}
-              onFormatChange={setFormat}
-              sortOptions={sortOptions}
-              selectedSort={selectedSort}
-              onSortChange={setSort}
-              hasActiveFilters={hasActiveFilters}
-              onResetFilters={handleResetFilters}
-            />
+          <LibraryHero stats={stats} />
 
-            {hasActiveFilters ? (
-              <ResultsSummary query={query} count={filteredBooks.length} />
-            ) : (
-              <>
-                <FeaturedRow books={featuredBooks} />
-                <CollectionsRow />
-              </>
-            )}
+          <section className="relative -mt-16 z-10">
+            <div className="container-xl space-y-12">
+              <div className="rounded-3xl border border-white/30 bg-white/85 px-5 py-8 shadow-lg backdrop-blur">
+                <FilterControls
+                  categories={categories}
+                  selectedCategory={selectedCategory}
+                  onCategoryChange={setCategory}
+                  query={query}
+                  onQueryChange={setQuery}
+                  formatOptions={formatOptions}
+                  selectedFormat={selectedFormat}
+                  onFormatChange={setFormat}
+                  sortOptions={sortOptions}
+                  selectedSort={selectedSort}
+                  onSortChange={setSort}
+                  hasActiveFilters={hasActiveFilters}
+                  onResetFilters={handleResetFilters}
+                  disabled={false}
+                />
 
-            <BookGrid books={filteredBooks} />
-          </div>
-        </div>
-      </section>
+                {hasActiveFilters ? (
+                  <ResultsSummary query={query} count={filteredBooks.length} />
+                ) : (
+                  <>
+                    <FeaturedRow books={featuredBooks} />
+                    <CollectionsRow />
+                  </>
+                )}
+
+                <BookGrid books={filteredBooks} />
+              </div>
+            </div>
+          </section>
+        </>
+      )}
     </div>
   );
 };
@@ -96,7 +148,164 @@ const LibraryPageContent = () => {
 export default LibraryPageContent;
 
 // -------------------------------------------------
-// Sections
+// Loading placeholder (skeleton)
+// -------------------------------------------------
+const LoadingPlaceholder = () => {
+  return (
+    <div>
+      {/* skeleton hero */}
+      <section className="relative overflow-hidden bg-[#0d1b2a] pb-32 pt-36 text-white animate-pulse">
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/40 to-slate-900/80" />
+        <div className="container-xl relative z-10">
+          <div className="max-w-3xl space-y-6">
+            <div className="h-6 w-44 rounded-full bg-slate-700/50" />
+            <div className="h-12 w-3/4 rounded-md bg-slate-700/50" />
+            <div className="h-4 w-1/2 rounded-md bg-slate-700/50" />
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-8">
+            {new Array(4).fill(null).map((_, i) => (
+              <div
+                key={i}
+                className="flex items-center gap-3 rounded-2xl border border-white/20 bg-white/10 px-5 py-4"
+              >
+                <div className="h-10 w-10 rounded-full bg-slate-700/50" />
+                <div className="flex flex-col">
+                  <div className="h-5 w-24 rounded bg-slate-700/50 mb-2" />
+                  <div className="h-4 w-20 rounded bg-slate-700/50" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* skeleton filters and content */}
+      <section className="container-xl -mt-16">
+        <div className="rounded-3xl border border-white/30 bg-white px-5 py-8 shadow-lg backdrop-blur">
+          <div className="flex flex-col gap-6 border-b border-slate-200 pb-8">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              <div className="flex flex-col gap-3 md:flex-row md:items-center">
+                <div className="h-6 w-44 rounded bg-slate-200 animate-pulse" />
+                <div className="h-4 w-64 rounded bg-slate-200 animate-pulse mt-2" />
+              </div>
+
+              <div className="flex gap-3">
+                <div className="h-10 w-40 rounded-2xl bg-slate-200 animate-pulse" />
+                <div className="h-10 w-40 rounded-2xl bg-slate-200 animate-pulse" />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <div className="h-12 rounded-2xl bg-slate-100 p-3 shadow-sm flex items-center gap-3">
+                <div className="h-5 w-5 rounded bg-slate-200" />
+                <div className="h-6 w-full rounded bg-slate-200" />
+              </div>
+
+              <div className="flex gap-3 overflow-x-auto pb-1">
+                {new Array(6).fill(null).map((_, i) => (
+                  <div
+                    key={i}
+                    className="h-8 w-28 rounded-full bg-slate-200 animate-pulse"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* featured skeleton */}
+          <div className="mt-8 space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="h-6 w-56 rounded bg-slate-200" />
+                <div className="h-4 w-72 rounded bg-slate-100 mt-2" />
+              </div>
+              <div className="h-8 w-48 rounded bg-slate-200" />
+            </div>
+
+            <div className="flex gap-4 overflow-x-auto pb-2">
+              {new Array(3).fill(null).map((_, i) => (
+                <div
+                  key={i}
+                  className="min-w-[220px] rounded-3xl border bg-white p-4 shadow-sm"
+                >
+                  <div className="h-40 rounded-2xl bg-slate-200 mb-4" />
+                  <div className="h-5 w-40 rounded bg-slate-200 mb-2" />
+                  <div className="h-4 w-24 rounded bg-slate-200 mb-1" />
+                  <div className="h-3 w-32 rounded bg-slate-100 mt-3" />
+                </div>
+              ))}
+            </div>
+
+            {/* grid skeleton */}
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+              {new Array(6).fill(null).map((_, i) => (
+                <div
+                  key={i}
+                  className="group relative overflow-hidden rounded-3xl border bg-white p-4 shadow-sm"
+                >
+                  <div className="h-72 rounded-2xl bg-slate-200 mb-4" />
+                  <div className="h-5 w-3/4 rounded bg-slate-200 mb-2" />
+                  <div className="h-4 w-1/2 rounded bg-slate-100 mb-2" />
+                  <div className="h-3 w-1/3 rounded bg-slate-100" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+// -------------------------------------------------
+// Error banner
+// -------------------------------------------------
+const ErrorBanner = ({
+  message,
+  onRetry,
+}: {
+  message: string;
+  onRetry: () => Promise<unknown> | void;
+}) => {
+  const [isRetrying, setIsRetrying] = useState(false);
+
+  const handleRetry = useCallback(async () => {
+    setIsRetrying(true);
+    try {
+      await onRetry();
+    } finally {
+      setIsRetrying(false);
+    }
+  }, [onRetry]);
+
+  return (
+    <div className="rounded-2xl border border-rose-300 bg-rose-50 p-4 text-rose-700 flex items-center justify-between">
+      <div>
+        <p className="font-semibold">خطا در بارگذاری</p>
+        <p className="text-sm">{message}</p>
+      </div>
+
+      <div className="flex items-center gap-3">
+        <Button onClick={handleRetry} disabled={isRetrying}>
+          {isRetrying ? "در حال تلاش مجدد..." : "تلاش دوباره"}
+        </Button>
+        <Button
+          variant="ghost"
+          onClick={() => {
+            // امکان مشاهده fallback (mock) با refresh ساده (اختیاری)
+            window.location.reload();
+          }}
+        >
+          بارگذاری دوباره صفحه
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+// -------------------------------------------------
+// Sections (بدون تغییرات جزئی) — به‌علاوه امکان disabled در کنترل‌ها
 // -------------------------------------------------
 
 const LibraryHero = ({
@@ -190,6 +399,7 @@ const FilterControls = ({
   onSortChange,
   hasActiveFilters,
   onResetFilters,
+  disabled = false,
 }: {
   categories: (BookCategory | "همه")[];
   selectedCategory: BookCategory | "همه";
@@ -204,6 +414,7 @@ const FilterControls = ({
   onSortChange: (value: SortOption) => void;
   hasActiveFilters: boolean;
   onResetFilters: () => void;
+  disabled?: boolean;
 }) => {
   return (
     <div className="flex flex-col gap-6 border-b border-slate-200 pb-8">
@@ -216,8 +427,18 @@ const FilterControls = ({
           </p>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <Select value={selectedFormat} onValueChange={onFormatChange}>
-            <SelectTrigger className="w-full min-w-[180px] rounded-2xl border-slate-200 bg-white">
+          <Select
+            value={selectedFormat}
+            onValueChange={(v) => onFormatChange(v as BookFormat | "همه")}
+            disabled={disabled}
+          >
+            <SelectTrigger
+              className={cn(
+                "w-full min-w-[180px] rounded-2xl border-slate-200 bg-white",
+                disabled && "opacity-60"
+              )}
+              aria-disabled={disabled}
+            >
               <SelectValue placeholder="فرمت" />
             </SelectTrigger>
             <SelectContent>
@@ -228,8 +449,19 @@ const FilterControls = ({
               ))}
             </SelectContent>
           </Select>
-          <Select value={selectedSort} onValueChange={onSortChange}>
-            <SelectTrigger className="w-full min-w-[180px] rounded-2xl border-slate-200 bg-white">
+
+          <Select
+            value={selectedSort}
+            onValueChange={(v) => onSortChange(v as SortOption)}
+            disabled={disabled}
+          >
+            <SelectTrigger
+              className={cn(
+                "w-full min-w-[180px] rounded-2xl border-slate-200 bg-white",
+                disabled && "opacity-60"
+              )}
+              aria-disabled={disabled}
+            >
               <SelectValue placeholder="مرتب‌سازی" />
             </SelectTrigger>
             <SelectContent>
@@ -244,18 +476,26 @@ const FilterControls = ({
       </div>
 
       <div className="flex flex-col gap-4">
-        <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
+        <div
+          className={cn(
+            "flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm",
+            disabled && "opacity-60"
+          )}
+        >
           <Search className="h-4 w-4 text-slate-400" />
           <input
             value={query}
             onChange={(event) => onQueryChange(event.target.value)}
             className="w-full bg-transparent text-sm text-slate-600 outline-none"
             placeholder="جستجوی سریع در بین کتاب‌ها"
+            disabled={disabled}
+            aria-disabled={disabled}
           />
           {hasActiveFilters && (
             <button
               onClick={onResetFilters}
               className="whitespace-nowrap text-xs font-semibold text-slate-500 transition-colors hover:text-slate-800"
+              disabled={disabled}
             >
               حذف فیلترها
             </button>
@@ -271,8 +511,11 @@ const FilterControls = ({
                 "whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-all",
                 selectedCategory === category
                   ? "border-slate-900 bg-slate-900 text-white shadow"
-                  : "border-slate-200 bg-white text-slate-600 hover:bg-slate-100"
+                  : "border-slate-200 bg-white text-slate-600 hover:bg-slate-100",
+                disabled && "pointer-events-none opacity-60"
               )}
+              aria-pressed={selectedCategory === category}
+              aria-disabled={disabled}
             >
               {category}
             </button>
