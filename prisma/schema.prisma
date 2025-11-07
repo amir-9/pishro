@@ -61,9 +61,35 @@ model Course {
   students        Int?
   videosCount     Int?
   createdAt       DateTime     @default(now())
-  comments        Comment[]    @relation("CourseComments")
-  enrollments     Enrollment[] @relation("CourseEnrollments")
-  orderItems      OrderItem[]  @relation("CourseOrderItems")
+
+  // 🆕 افزودن ارتباط با دسته‌بندی
+  category        Category?    @relation("CategoryCourses", fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId      String?      @db.ObjectId
+
+  // 🆕 افزودن ارتباط با تگ‌ها
+  relatedTags     Tag[]        @relation("CourseTags", fields: [tagIds], references: [id])
+  tagIds          String[]     @db.ObjectId
+
+  // 🆕 فیلدهای جدید
+  slug            String?      @unique // برای URL دوره
+  level           String?      // "beginner", "intermediate", "advanced"
+  language        String       @default("فارسی") // زبان دوره
+  prerequisites   String[]     @default([]) // پیش‌نیازها
+  learningGoals   String[]     @default([]) // اهداف یادگیری
+  instructor      String?      // نام مدرس
+  status          String       @default("active") // "active", "coming_soon", "archived"
+  published       Boolean      @default(true)
+  featured        Boolean      @default(false) // دوره ویژه
+  views           Int          @default(0) // تعداد بازدید
+
+  // روابط موجود
+  comments        Comment[]     @relation("CourseComments")
+  enrollments     Enrollment[]  @relation("CourseEnrollments")
+  orderItems      OrderItem[]   @relation("CourseOrderItems")
+  testimonials    Testimonial[] @relation("CourseTestimonials")
+
+  @@index([categoryId])
+  @@index([published, featured])
 }
 
 model Comment {
@@ -150,14 +176,32 @@ model NewsArticle {
   content     String        // محتوای کامل مقاله
   coverImage  String?       // تصویر کاور
   author      String?       // نویسنده
-  category    String        // دسته‌بندی خبر
-  tags        String[]      // تگ‌های مرتبط
+  category    String        // دسته‌بندی خبر (نگه‌داری شده برای backward compatibility)
+  tags        String[]      // تگ‌های قدیمی (deprecated - استفاده از relatedTags توصیه می‌شود)
   published   Boolean       @default(false)
   publishedAt DateTime?     // تاریخ انتشار
   views       Int           @default(0) // تعداد بازدید
+
+  // 🆕 ارتباط با دسته‌بندی (جدید)
+  relatedCategory Category?  @relation("CategoryNews", fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId      String?    @db.ObjectId
+
+  // 🆕 ارتباط با تگ‌ها (جدید)
+  relatedTags     Tag[]      @relation("NewsTags", fields: [tagIds], references: [id])
+  tagIds          String[]   @db.ObjectId
+
+  // 🆕 فیلدهای جدید
+  featured        Boolean    @default(false) // خبر ویژه
+  readingTime     Int?       // زمان مطالعه به دقیقه
+  likes           Int        @default(0) // تعداد لایک
+
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   comments    NewsComment[] @relation("NewsArticleComments")
+
+  @@index([categoryId])
+  @@index([published, featured])
+  @@index([publishedAt])
 }
 
 // ✅ مدل کامنت‌های اخبار
@@ -190,15 +234,200 @@ model DigitalBook {
   votes       Int      @default(0) // تعداد رای‌ها
   views       Int      @default(0) // تعداد بازدید
   downloads   Int      @default(0) // تعداد دانلود
-  category    String   // دسته‌بندی کتاب
+  category    String   // دسته‌بندی کتاب (نگه‌داری شده برای backward compatibility)
   formats     String[] // فرمت‌های موجود: ["جلد سخت", "جلد نرم", "الکترونیکی", "صوتی"]
   status      String[] @default([]) // وضعیت: ["جدید", "پرفروش", "ویژه", "محبوب"]
-  tags        String[] @default([]) // تگ‌ها
+  tags        String[] @default([]) // تگ‌های قدیمی (deprecated - استفاده از relatedTags توصیه می‌شود)
   readingTime String?  // زمان تقریبی مطالعه
   isFeatured  Boolean  @default(false) // کتاب ویژه
   price       Int?     // قیمت (اختیاری - برای نسخه فیزیکی)
   fileUrl     String?  // لینک دانلود فایل (برای نسخه الکترونیکی)
   audioUrl    String?  // لینک فایل صوتی
+
+  // 🆕 روابط جدید با سیستم Tag
+  relatedTags Tag[]    @relation("BookTags", fields: [tagIds], references: [id])
+  tagIds      String[] @db.ObjectId
+
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+// ========================================
+// 🆕 مدل‌های جدید برای CMS و مدیریت محتوا
+// ========================================
+
+// 1️⃣ مدل دسته‌بندی‌های اصلی
+model Category {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  slug        String   @unique // "airdrop", "nft", "crypto", "stock-market", "metaverse"
+  title       String   // "ایردراپ", "NFT", "کریپتو", "بورس", "متاورس"
+  description String?
+  icon        String?  // مسیر آیکون یا نام آیکون
+  coverImage  String?  // تصویر کاور صفحه
+  color       String?  // کد رنگ تم دسته‌بندی (مثل "#214554")
+
+  // SEO
+  metaTitle       String?
+  metaDescription String?
+  metaKeywords    String[] @default([])
+
+  // وضعیت
+  published   Boolean  @default(true)
+  featured    Boolean  @default(false) // نمایش در صفحه اصلی
+  order       Int      @default(0) // ترتیب نمایش
+
+  // روابط
+  tags        Tag[]         @relation("CategoryTags", fields: [tagIds], references: [id])
+  tagIds      String[]      @db.ObjectId
+
+  courses     Course[]      @relation("CategoryCourses")
+  content     PageContent[] @relation("CategoryContent")
+  news        NewsArticle[] @relation("CategoryNews")
+  faqs        FAQ[]         @relation("CategoryFAQs")
+  testimonials Testimonial[] @relation("CategoryTestimonials")
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([published, featured])
+}
+
+// 2️⃣ مدل تگ‌ها (مستقل و قابل استفاده مجدد)
+model Tag {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  slug        String   @unique // "technical-analysis", "fundamental-analysis"
+  title       String   // "تحلیل تکنیکال", "تحلیل بنیادی"
+  description String?
+  color       String?  // رنگ تگ
+  icon        String?  // آیکون تگ
+
+  // روابط many-to-many
+  categories  Category[]     @relation("CategoryTags", fields: [categoryIds], references: [id])
+  categoryIds String[]       @db.ObjectId
+
+  courses     Course[]       @relation("CourseTags", fields: [courseIds], references: [id])
+  courseIds   String[]       @db.ObjectId
+
+  news        NewsArticle[]  @relation("NewsTags", fields: [newsIds], references: [id])
+  newsIds     String[]       @db.ObjectId
+
+  books       DigitalBook[]  @relation("BookTags", fields: [bookIds], references: [id])
+  bookIds     String[]       @db.ObjectId
+
+  // آمار
+  usageCount  Int      @default(0) // تعداد استفاده در محتوا
+  clicks      Int      @default(0) // تعداد کلیک روی تگ
+
+  // SEO
+  seoTitle       String?
+  seoDescription String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([usageCount])
+}
+
+// 3️⃣ مدل محتوای صفحات (برای مدیریت بخش‌های مختلف هر صفحه)
+model PageContent {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  // ارتباط با دسته‌بندی
+  category    Category @relation("CategoryContent", fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId  String   @db.ObjectId
+
+  // نوع محتوا
+  type        String   // "landing", "about", "features", "faq", "testimonial", "hero", "stats"
+  section     String?  // نام بخش (برای دسته‌بندی بیشتر)
+  title       String?
+  subtitle    String?
+
+  // محتوا (flexible JSON structure)
+  content     Json     // ساختار مختلف برای هر type
+
+  // متادیتا
+  language    String   @default("fa") // "fa", "en"
+
+  // ترتیب و وضعیت
+  order       Int      @default(0)
+  published   Boolean  @default(true)
+
+  // زمان‌بندی انتشار
+  publishAt   DateTime? // زمان انتشار برنامه‌ریزی شده
+  expireAt    DateTime? // زمان انقضا (برای محتوای موقت)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([categoryId, type])
+  @@index([published, publishAt])
+}
+
+// 4️⃣ مدل FAQ (سوالات متداول)
+model FAQ {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  question    String
+  answer      String
+
+  // ارتباط با دسته‌بندی (اختیاری - null = عمومی)
+  category    Category? @relation("CategoryFAQs", fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId  String?   @db.ObjectId
+
+  // دسته‌بندی FAQ
+  faqCategory String?   // "general", "payment", "courses", "technical"
+
+  // ترتیب و وضعیت
+  order       Int      @default(0)
+  published   Boolean  @default(true)
+  featured    Boolean  @default(false) // نمایش در صفحه اصلی
+
+  // آمار
+  views       Int      @default(0)
+  helpful     Int      @default(0) // تعداد "مفید بود"
+  notHelpful  Int      @default(0) // تعداد "مفید نبود"
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([categoryId, published])
+  @@index([faqCategory])
+}
+
+// 5️⃣ مدل Testimonial (نظرات و بازخوردهای کاربران)
+model Testimonial {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  // اطلاعات کاربر
+  userName    String
+  userAvatar  String?
+  userRole    String?  // "دانشجو", "معامله‌گر حرفه‌ای", "سرمایه‌گذار"
+  userCompany String?  // شرکت یا سازمان
+
+  // محتوای نظر
+  content     String
+  rating      Int      @default(5) // 1-5 ستاره
+
+  // ارتباط با دسته‌بندی (اختیاری - null = عمومی)
+  category    Category? @relation("CategoryTestimonials", fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryId  String?   @db.ObjectId
+
+  // ارتباط با دوره (اختیاری)
+  course      Course?   @relation("CourseTestimonials", fields: [courseId], references: [id], onDelete: SetNull)
+  courseId    String?   @db.ObjectId
+
+  // وضعیت
+  published   Boolean  @default(false) // نیاز به تایید ادمین
+  verified    Boolean  @default(false) // تایید اعتبار
+  featured    Boolean  @default(false) // نمایش در صفحه اصلی
+
+  // آمار
+  likes       Int      @default(0)
+  views       Int      @default(0)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([categoryId, published])
+  @@index([courseId, published])
+  @@index([featured])
 }
