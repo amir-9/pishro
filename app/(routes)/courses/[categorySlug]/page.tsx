@@ -147,6 +147,43 @@ export default async function CategoryPage({
         category.coverImage ||
         "/images/default-hero.jpg",
       features: landingContentData?.features?.map((f) => ({ text: f })) || [],
+      // 🟩 Floating boxes around the image
+      boxes: [
+        {
+          text: "محتوای کاربردی",
+          number: "1K+",
+          imgSrc: "/images/utiles/ring.svg",
+          top: "5%",
+          left: "-2%",
+          align: "center" as const,
+          col: true,
+        },
+        {
+          text: "ویدئوهای آموزشی",
+          number: "250+",
+          imgSrc: "/images/utiles/icon1.svg",
+          top: "80%",
+          left: "9%",
+          align: "right" as const,
+          col: false,
+        },
+        {
+          text: "دانشجویان راضی",
+          number: "3K+",
+          imgSrc: "/images/utiles/icon2.svg",
+          top: "30%",
+          left: "78%",
+          align: "right" as const,
+          col: false,
+        },
+      ],
+      // 🟦 Animated stats counters at the bottom
+      stats: [
+        { number: 1000, suffix: "+", label: "دانشجو" },
+        { number: 250, suffix: "+", label: "دوره آموزشی" },
+        { number: 95, suffix: "%", label: "رضایت کاربران" },
+        { number: 5, suffix: "سال", label: "تجربه آموزشی" },
+      ],
     };
 
     // Transform data for AboutOtherPages component (matches AboutOtherPagesProps)
