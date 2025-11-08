@@ -12,7 +12,28 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import CourseCard from "./courseCard";
-import { Course, CourseLevel } from "@prisma/client";
+import { Course, CourseLevel, Prisma } from "@prisma/client";
+
+// Type for Course with relations from getCategoryCourses
+type CourseWithRelations = Prisma.CourseGetPayload<{
+  include: {
+    category: {
+      select: {
+        id: true;
+        slug: true;
+        title: true;
+        color: true;
+      };
+    };
+    relatedTags: true;
+    _count: {
+      select: {
+        enrollments: true;
+        comments: true;
+      };
+    };
+  };
+}>;
 
 const levelOptions = [
   { label: "همه سطوح", value: null },
@@ -22,7 +43,7 @@ const levelOptions = [
 ];
 
 interface CoursesGridCategoryClientProps {
-  courses: Course[];
+  courses: CourseWithRelations[] | Course[];
   categorySlug: string;
   categoryTitle: string;
 }

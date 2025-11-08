@@ -16,8 +16,8 @@ import {
   getAllCategorySlugs,
   getCategoryTags,
 } from "@/lib/services/category-service";
-import Landing3 from "@/components/utils/Landing3";
-import AboutOtherPages from "@/components/utils/AboutOtherPages";
+import CategoryHeroSection from "@/components/utils/CategoryHeroSection";
+import CategoryAboutSection from "@/components/utils/CategoryAboutSection";
 import UserLevelSection from "@/components/utils/UserLevelSelection";
 import CoursesSectionCategory from "@/components/utils/CoursesSec.category.server";
 import CommentsSlider from "@/components/utils/CommentsSlider";
@@ -129,92 +129,119 @@ export default async function CategoryPage({
     // Fetch tags
     const tags = await getCategoryTags(categorySlug, 20);
 
-    // Extract landing and about content from PageContent
+    // Parse statsBoxes from JSON
+    let parsedStatsBoxes = [];
+    try {
+      if (category.statsBoxes) {
+        parsedStatsBoxes =
+          typeof category.statsBoxes === "string"
+            ? JSON.parse(category.statsBoxes)
+            : category.statsBoxes;
+      }
+    } catch (e) {
+      console.error("Error parsing statsBoxes:", e);
+    }
+
+    // Extract landing and about content from PageContent for fallback
     const landingContent = category.content.find((c) => c.type === "LANDING");
     const aboutContent = category.content.find((c) => c.type === "ABOUT");
 
-    // Transform data for Landing3 component (matches Landing3Props)
     const landingContentData = landingContent?.content as
       | PageContentData
       | undefined;
-    const landingData = {
-      title: landingContentData?.title || category.title,
+    const aboutContentData = aboutContent?.content as
+      | PageContentData
+      | undefined;
+
+    // Hero Section Data - استفاده از فیلدهای مستقیم مدل
+    const heroData = {
+      title: category.heroTitle || category.title,
+      subtitle: category.heroSubtitle || undefined,
       description:
-        landingContentData?.description || category.description || "",
-      button1: landingContentData?.primaryButton?.text || "مشاهده دوره‌ها",
-      button2: landingContentData?.secondaryButton?.text || "مشاوره رایگان",
+        category.heroDescription ||
+        landingContentData?.description ||
+        category.description ||
+        "",
       image:
-        landingContentData?.image ||
+        category.heroImage ||
         category.coverImage ||
         "/images/default-hero.jpg",
-      features: landingContentData?.features?.map((f) => ({ text: f })) || [
-        {
-          icon: <LuTarget className="text-myPrimary text-3xl" />,
-          text: "نقشه راه کامل از صفر",
-        },
-        {
-          icon: <LuBookOpen className="text-myPrimary text-3xl" />,
-          text: "کامل‌ترین محتوا",
-        },
-        {
-          icon: <LuUsers className="text-myPrimary text-3xl" />,
-          text: "اجتماع بزرگ دانش‌آموزان",
-        },
-      ],
-      // 🟩 Floating boxes around the image
-      boxes: [
-        {
-          text: "محتوای کاربردی",
-          number: "1K+",
-          imgSrc: "/images/utiles/ring.svg",
-          top: "5%",
-          left: "-2%",
-          align: "center" as const,
-          col: true,
-        },
-        {
-          text: "ویدئوهای آموزشی",
-          number: "250+",
-          imgSrc: "/images/utiles/icon1.svg",
-          top: "80%",
-          left: "9%",
-          align: "right" as const,
-          col: false,
-        },
-        {
-          text: "دانشجویان راضی",
-          number: "3K+",
-          imgSrc: "/images/utiles/icon2.svg",
-          top: "30%",
-          left: "78%",
-          align: "right" as const,
-          col: false,
-        },
-      ],
-      // 🟦 Animated stats counters at the bottom
-      stats: [
+      cta1Text: category.heroCta1Text || "مشاهده دوره‌ها",
+      cta1Link: category.heroCta1Link || "#courses",
+      cta2Text: category.heroCta2Text || "مشاوره رایگان",
+      cta2Link: category.heroCta2Link || "#contact",
+      statsBoxes:
+        parsedStatsBoxes.length > 0
+          ? parsedStatsBoxes
+          : [
+              {
+                text: "محتوای کاربردی",
+                number: "1K+",
+                icon: "/images/utiles/ring.svg",
+                top: "5%",
+                left: "-2%",
+                align: "center" as const,
+                col: true,
+              },
+              {
+                text: "ویدئوهای آموزشی",
+                number: "250+",
+                icon: "/images/utiles/icon1.svg",
+                top: "80%",
+                left: "9%",
+                align: "right" as const,
+                col: false,
+              },
+              {
+                text: "دانشجویان راضی",
+                number: "3K+",
+                icon: "/images/utiles/icon2.svg",
+                top: "30%",
+                left: "78%",
+                align: "right" as const,
+                col: false,
+              },
+            ],
+      statCounters: [
         { number: 1000, suffix: "+", label: "دانشجو" },
         { number: 250, suffix: "+", label: "دوره آموزشی" },
         { number: 95, suffix: "%", label: "رضایت کاربران" },
         { number: 5, suffix: "سال", label: "تجربه آموزشی" },
       ],
+      features:
+        landingContentData?.features?.map((f) => ({ text: f })) ||
+        [
+          {
+            icon: <LuTarget className="text-myPrimary text-3xl" />,
+            text: "نقشه راه کامل از صفر",
+          },
+          {
+            icon: <LuBookOpen className="text-myPrimary text-3xl" />,
+            text: "کامل‌ترین محتوا",
+          },
+          {
+            icon: <LuUsers className="text-myPrimary text-3xl" />,
+            text: "اجتماع بزرگ دانش‌آموزان",
+          },
+        ],
     };
 
-    // Transform data for AboutOtherPages component (matches AboutOtherPagesProps)
-    const aboutContentData = aboutContent?.content as
-      | PageContentData
-      | undefined;
+    // About Section Data - استفاده از فیلدهای مستقیم مدل
     const aboutData = {
-      title1: "مسیر",
-      title2: category.title,
+      title1: category.aboutTitle1 || "مسیر",
+      title2: category.aboutTitle2 || category.title,
       description:
+        category.aboutDescription ||
         aboutContentData?.description ||
         aboutContentData?.paragraphs?.join("\n\n") ||
         category.description ||
         "",
-      button1: "شروع مسیر",
-      button2: "بیشتر بدانید",
-      image: aboutContentData?.image || "/images/utiles/font-iran-section.svg",
+      image:
+        category.aboutImage || "/images/utiles/font-iran-section.svg",
+      cta1Text: category.aboutCta1Text || "شروع مسیر",
+      cta1Link: category.aboutCta1Link || "#courses",
+      cta2Text: category.aboutCta2Text || "بیشتر بدانید",
+      cta2Link: category.aboutCta2Link || undefined,
     };
 
     // Transform comments for CommentsSlider با تصحیح Type mismatch
@@ -249,7 +276,7 @@ export default async function CategoryPage({
       <main className="w-full">
         {/* 1️⃣ Hero/Landing Section */}
         <Suspense fallback={<div className="h-96 animate-pulse bg-gray-100" />}>
-          <Landing3 data={landingData} />
+          <CategoryHeroSection {...heroData} />
         </Suspense>
 
         {/* 2️⃣ About Section */}
@@ -260,7 +287,7 @@ export default async function CategoryPage({
           <Suspense
             fallback={<div className="h-64 animate-pulse bg-gray-50" />}
           >
-            <AboutOtherPages data={aboutData} />
+            <CategoryAboutSection {...aboutData} />
           </Suspense>
         </section>
 
