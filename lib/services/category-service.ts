@@ -20,9 +20,36 @@ export type CategoryWithRelations = Prisma.CategoryGetPayload<{
       };
     };
     faqs: true;
-    comments: true;
+    comments: {
+      include: {
+        user: true;
+      };
+    };
   };
 }>;
+
+/**
+ * Type for page content with proper JSON typing
+ */
+export interface PageContentData {
+  title?: string;
+  description?: string;
+  image?: string;
+  primaryButton?: {
+    text: string;
+    link: string;
+  };
+  secondaryButton?: {
+    text: string;
+    link: string;
+  };
+  features?: string[];
+  paragraphs?: string[];
+  stats?: Array<{
+    label: string;
+    value: string;
+  }>;
+}
 
 /**
  * Fetch category by slug with all related data
@@ -44,16 +71,10 @@ export async function getCategoryBySlug(
             published: true,
             AND: [
               {
-                OR: [
-                  { publishAt: null },
-                  { publishAt: { lte: new Date() } },
-                ],
+                OR: [{ publishAt: null }, { publishAt: { lte: new Date() } }],
               },
               {
-                OR: [
-                  { expireAt: null },
-                  { expireAt: { gte: new Date() } },
-                ],
+                OR: [{ expireAt: null }, { expireAt: { gte: new Date() } }],
               },
             ],
           },
@@ -97,20 +118,24 @@ export async function getCategoryBySlug(
           where: {
             published: true,
           },
-          orderBy: [
-            { featured: "desc" },
-            { order: "asc" },
-          ],
+          orderBy: [{ featured: "desc" }, { order: "asc" }],
         },
         comments: {
           where: {
             published: true,
             verified: true,
           },
-          orderBy: [
-            { featured: "desc" },
-            { createdAt: "desc" },
-          ],
+          include: {
+            user: {
+              select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                avatarUrl: true,
+              },
+            },
+          },
+          orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
           take: 10, // Limit comments to 10 most recent
         },
       },
@@ -166,10 +191,7 @@ export async function getCategoryTags(
           where: {
             published: true,
           },
-          orderBy: [
-            { usageCount: "desc" },
-            { clicks: "desc" },
-          ],
+          orderBy: [{ usageCount: "desc" }, { clicks: "desc" }],
           take: limit,
         },
       },
@@ -196,10 +218,7 @@ export async function getPopularTags(limit: number = 30) {
           gt: 0,
         },
       },
-      orderBy: [
-        { usageCount: "desc" },
-        { clicks: "desc" },
-      ],
+      orderBy: [{ usageCount: "desc" }, { clicks: "desc" }],
       take: limit,
       include: {
         _count: {
@@ -240,10 +259,7 @@ export async function getCategoryFAQs(
           where: {
             published: true,
           },
-          orderBy: [
-            { featured: "desc" },
-            { order: "asc" },
-          ],
+          orderBy: [{ featured: "desc" }, { order: "asc" }],
           take: limit,
         },
       },
@@ -276,16 +292,10 @@ export async function getCategoryContent(
         published: true,
         AND: [
           {
-            OR: [
-              { publishAt: null },
-              { publishAt: { lte: new Date() } },
-            ],
+            OR: [{ publishAt: null }, { publishAt: { lte: new Date() } }],
           },
           {
-            OR: [
-              { expireAt: null },
-              { expireAt: { gte: new Date() } },
-            ],
+            OR: [{ expireAt: null }, { expireAt: { gte: new Date() } }],
           },
         ],
       },
@@ -320,10 +330,7 @@ export async function getCategoryComments(
         published: true,
         verified: true,
       },
-      orderBy: [
-        { featured: "desc" },
-        { createdAt: "desc" },
-      ],
+      orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
       take: limit,
       include: {
         user: {
@@ -403,10 +410,7 @@ export async function getCategoryCourses(
             },
           },
         },
-        orderBy: [
-          { featured: "desc" },
-          { createdAt: "desc" },
-        ],
+        orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
         skip,
         take: limit,
       }),

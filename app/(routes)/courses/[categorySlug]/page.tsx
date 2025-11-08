@@ -2,9 +2,6 @@
  * Dynamic Category Page with ISR
  * Route: /courses/[categorySlug]
  * Examples: /courses/airdrop, /courses/nft, /courses/cryptocurrency
- *
- * این صفحه با ساختار مشابه صفحات قدیمی (old-courses) طراحی شده است
- * و از کامپوننت‌های جداگانه برای هر بخش استفاده می‌کند.
  */
 
 import { Suspense } from "react";
@@ -15,6 +12,7 @@ import {
   getCategoryBySlug,
   getAllCategorySlugs,
   getCategoryTags,
+  PageContentData,
 } from "@/lib/services/category-service";
 import CategoryHeroSection from "@/components/utils/CategoryHeroSection";
 import CategoryAboutSection from "@/components/utils/CategoryAboutSection";
@@ -23,27 +21,6 @@ import CoursesSectionCategory from "@/components/utils/CoursesSec.category.serve
 import CommentsSlider from "@/components/utils/CommentsSlider";
 import TagsListDynamic from "@/components/utils/TagsList.dynamic";
 import ScrollToHashClient from "@/components/utils/scrollToHashClient";
-
-// Type for page content JSON
-interface PageContentData {
-  title?: string;
-  description?: string;
-  image?: string;
-  primaryButton?: {
-    text: string;
-    link: string;
-  };
-  secondaryButton?: {
-    text: string;
-    link: string;
-  };
-  features?: string[];
-  paragraphs?: string[];
-  stats?: Array<{
-    label: string;
-    value: string;
-  }>;
-}
 
 // ISR Configuration: Revalidate every 1 hour
 export const revalidate = 3600;
@@ -110,6 +87,21 @@ export async function generateMetadata({
   }
 }
 
+// Helper function to safely parse JSON content
+function parseContentData(content: unknown): PageContentData | undefined {
+  if (!content) return undefined;
+
+  try {
+    if (typeof content === "string") {
+      return JSON.parse(content) as PageContentData;
+    }
+    return content as PageContentData;
+  } catch (e) {
+    console.error("Error parsing content data:", e);
+    return undefined;
+  }
+}
+
 // Main category page component
 export default async function CategoryPage({
   params,
@@ -142,18 +134,18 @@ export default async function CategoryPage({
       console.error("Error parsing statsBoxes:", e);
     }
 
-    // Extract landing and about content from PageContent for fallback
+    // Extract landing and about content from PageContent
     const landingContent = category.content.find((c) => c.type === "LANDING");
     const aboutContent = category.content.find((c) => c.type === "ABOUT");
 
-    const landingContentData = landingContent?.content as
-      | PageContentData
-      | undefined;
-    const aboutContentData = aboutContent?.content as
-      | PageContentData
-      | undefined;
+    const landingContentData = landingContent
+      ? parseContentData(landingContent.content)
+      : undefined;
+    const aboutContentData = aboutContent
+      ? parseContentData(aboutContent.content)
+      : undefined;
 
-    // Hero Section Data - استفاده از فیلدهای مستقیم مدل
+    // Hero Section Data
     const heroData = {
       title: category.heroTitle || category.title,
       subtitle: category.heroSubtitle || undefined,
@@ -163,9 +155,7 @@ export default async function CategoryPage({
         category.description ||
         "",
       image:
-        category.heroImage ||
-        category.coverImage ||
-        "/images/default-hero.jpg",
+        category.heroImage || category.coverImage || "/images/default-hero.jpg",
       cta1Text: category.heroCta1Text || "مشاهده دوره‌ها",
       cta1Link: category.heroCta1Link || "#courses",
       cta2Text: category.heroCta2Text || "مشاوره رایگان",
@@ -208,25 +198,23 @@ export default async function CategoryPage({
         { number: 95, suffix: "%", label: "رضایت کاربران" },
         { number: 5, suffix: "سال", label: "تجربه آموزشی" },
       ],
-      features:
-        landingContentData?.features?.map((f) => ({ text: f })) ||
-        [
-          {
-            icon: <LuTarget className="text-myPrimary text-3xl" />,
-            text: "نقشه راه کامل از صفر",
-          },
-          {
-            icon: <LuBookOpen className="text-myPrimary text-3xl" />,
-            text: "کامل‌ترین محتوا",
-          },
-          {
-            icon: <LuUsers className="text-myPrimary text-3xl" />,
-            text: "اجتماع بزرگ دانش‌آموزان",
-          },
-        ],
+      features: landingContentData?.features?.map((f) => ({ text: f })) || [
+        {
+          icon: <LuTarget className="text-myPrimary text-3xl" />,
+          text: "نقشه راه کامل از صفر",
+        },
+        {
+          icon: <LuBookOpen className="text-myPrimary text-3xl" />,
+          text: "کامل‌ترین محتوا",
+        },
+        {
+          icon: <LuUsers className="text-myPrimary text-3xl" />,
+          text: "اجتماع بزرگ دانش‌آموزان",
+        },
+      ],
     };
 
-    // About Section Data - استفاده از فیلدهای مستقیم مدل
+    // About Section Data
     const aboutData = {
       title1: category.aboutTitle1 || "مسیر",
       title2: category.aboutTitle2 || category.title,
@@ -236,31 +224,43 @@ export default async function CategoryPage({
         aboutContentData?.paragraphs?.join("\n\n") ||
         category.description ||
         "",
-      image:
-        category.aboutImage || "/images/utiles/font-iran-section.svg",
+      image: category.aboutImage || "/images/utiles/font-iran-section.svg",
       cta1Text: category.aboutCta1Text || "شروع مسیر",
       cta1Link: category.aboutCta1Link || "#courses",
       cta2Text: category.aboutCta2Text || "بیشتر بدانید",
       cta2Link: category.aboutCta2Link || undefined,
     };
 
-    // Transform comments for CommentsSlider با تصحیح Type mismatch
-    const comments = (category.comments || []).map((c) => ({
-      id: c.id,
-      userName: c.userName || "کاربر",
-      userAvatar: c.userAvatar || "/images/default-avatar.png",
-      userRole: c.userRole || "کاربر",
-      rating: c.rating || 5,
-      content: c.text,
-      // ✅ تبدیل Date به string برای رفع Type mismatch
-      date: c.createdAt.toLocaleDateString("fa-IR", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      }),
-      verified: c.verified,
-      likes: c.likes?.length || 0,
-    }));
+    // Transform comments for CommentsSlider
+    const comments = (category.comments || []).map((c) => {
+      // Determine user name
+      let displayName = c.userName || "کاربر";
+      if (!c.userName && c.user) {
+        const firstName = c.user.firstName || "";
+        const lastName = c.user.lastName || "";
+        displayName = `${firstName} ${lastName}`.trim() || "کاربر";
+      }
+
+      // Determine avatar
+      const avatar =
+        c.userAvatar || c.user?.avatarUrl || "/images/default-avatar.png";
+
+      return {
+        id: c.id,
+        userName: displayName,
+        userAvatar: avatar,
+        userRole: c.userRole || "کاربر",
+        rating: c.rating || 5,
+        content: c.text,
+        date: c.createdAt.toLocaleDateString("fa-IR", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }),
+        verified: c.verified,
+        likes: c.likes?.length || 0,
+      };
+    });
 
     // Transform tags for TagsListDynamic
     const tagList = tags.map((tag) => ({
@@ -292,16 +292,18 @@ export default async function CategoryPage({
         </section>
 
         {/* 3️⃣ User Level Selection Section */}
-        <section
-          className="w-full mt-8 sm:mt-12 md:mt-16"
-          aria-label="انتخاب سطح کاربری"
-        >
-          <Suspense
-            fallback={<div className="h-96 animate-pulse bg-gray-50" />}
+        {category.enableUserLevelSection && (
+          <section
+            className="w-full mt-8 sm:mt-12 md:mt-16"
+            aria-label="انتخاب سطح کاربری"
           >
-            <UserLevelSection />
-          </Suspense>
-        </section>
+            <Suspense
+              fallback={<div className="h-96 animate-pulse bg-gray-50" />}
+            >
+              <UserLevelSection />
+            </Suspense>
+          </section>
+        )}
 
         {/* 4️⃣ Courses Section */}
         <section
@@ -350,7 +352,7 @@ export default async function CategoryPage({
           </section>
         )}
 
-        {/* 7️⃣ FAQ Section - if exists */}
+        {/* 7️⃣ FAQ Section */}
         {category.faqs.length > 0 && (
           <section className="w-full py-8 sm:py-10 md:py-12 bg-gray-50">
             <div className="container mx-auto px-4 max-w-4xl">
