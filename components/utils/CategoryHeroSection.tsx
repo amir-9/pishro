@@ -76,6 +76,8 @@ const CategoryHeroSection = ({
   ],
 }: CategoryHeroSectionProps) => {
   const [isClient, setIsClient] = useState(false);
+  const [heroImageSrc, setHeroImageSrc] = useState(image);
+  const defaultHeroImage = "/images/default-hero.jpg";
 
   useEffect(() => {
     setIsClient(true);
@@ -160,10 +162,11 @@ const CategoryHeroSection = ({
             {/* تصویر اصلی */}
             <div className="size-[320px] sm:size-[350px] md:size-[420px] lg:size-[495px] rounded-full bg-emerald-500 flex items-center justify-center relative shadow-lg">
               <Image
-                src={image}
+                src={heroImageSrc}
                 alt={title}
                 fill
                 className="object-contain rounded-full"
+                onError={() => setHeroImageSrc(defaultHeroImage)}
               />
             </div>
 
@@ -205,14 +208,21 @@ const CategoryHeroSection = ({
                         : "bg-mySecondary p-0 px-0.5 sm:p-0.5 md:p-2 size-8 sm:size-12"
                     )}
                   >
-                    <Image
-                      src={box.icon}
-                      alt={box.text}
-                      width={box.col ? 56 : 24}
-                      height={box.col ? 56 : 24}
-                      className="object-contain sm:w-full sm:h-full"
-                      sizes={box.col ? "56px" : "24px"}
-                    />
+                    {/* Check if icon is a URL or an emoji */}
+                    {box.icon.startsWith("/") || box.icon.startsWith("http") ? (
+                      <Image
+                        src={box.icon}
+                        alt={box.text}
+                        width={box.col ? 56 : 24}
+                        height={box.col ? 56 : 24}
+                        className="object-contain sm:w-full sm:h-full"
+                        sizes={box.col ? "56px" : "24px"}
+                      />
+                    ) : (
+                      <span className="text-2xl sm:text-3xl md:text-4xl">
+                        {box.icon}
+                      </span>
+                    )}
                   </div>
                 )}
                 <div className={clsx(box.col && "text-center")}>
