@@ -33,7 +33,7 @@ export default function AllCoursesContent({
   return (
     <div className="w-full min-h-screen bg-gray-50">
       {/* Hero Header */}
-      <div className="bg-gradient-to-br from-myPrimary to-mySecondary text-white py-12 sm:py-16 md:py-20">
+      <div className="bg-gradient-to-br from-myPrimary to-mySecondary text-white py-12 pt-24 sm:py-16 sm:pt-28 md:py-20 md:pt-32">
         <div className="container mx-auto px-4">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -49,7 +49,8 @@ export default function AllCoursesContent({
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-center text-base sm:text-lg md:text-xl max-w-2xl mx-auto opacity-90"
           >
-            مجموعه کامل دوره‌های تخصصی پیشرو در زمینه سرمایه‌گذاری و بازارهای مالی
+            مجموعه کامل دوره‌های تخصصی پیشرو در زمینه سرمایه‌گذاری و بازارهای
+            مالی
           </motion.p>
         </div>
       </div>
@@ -70,7 +71,7 @@ export default function AllCoursesContent({
               <div className="flex items-center gap-3">
                 {category.icon && (
                   <div
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center text-2xl"
+                    className="size-10 sm:size-12 rounded-lg flex items-center justify-center text-2xl overflow-hidden"
                     style={{ backgroundColor: category.color || "#6366f1" }}
                   >
                     {category.icon}
@@ -91,7 +92,7 @@ export default function AllCoursesContent({
                 href={`/courses/${category.slug}`}
                 className="flex items-center gap-1 text-mySecondary hover:text-myPrimary transition font-bold text-sm sm:text-base"
               >
-                مشاهده همه
+                مشاهده صفحه دوره
                 <ChevronLeft size={18} />
               </Link>
             </div>

@@ -9,6 +9,7 @@ const DARK_PATHS = new Set([
   "/library",
   "/about-us",
   "/faq",
+  "/courses",
 ]);
 
 export const useIsDarkNavbar = () => {
