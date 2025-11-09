@@ -19,9 +19,10 @@ import {
 interface AuthFormProps {
   variant: Variant;
   onSubmit?: (data: LoginFormValues | SignupFormValues) => Promise<void> | void;
+  onForgotPassword?: () => void;
 }
 
-export function AuthForm({ variant, onSubmit }: AuthFormProps) {
+export function AuthForm({ variant, onSubmit, onForgotPassword }: AuthFormProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -30,9 +31,9 @@ export function AuthForm({ variant, onSubmit }: AuthFormProps) {
     reset,
     watch,
     trigger,
-    formState: { errors, touchedFields },
+    formState: { errors, touchedFields, isSubmitted },
   } = useForm<LoginFormValues | SignupFormValues>({
-    mode: "onTouched",
+    mode: "onChange",
     reValidateMode: "onChange",
     resolver: zodResolver(variant === "signup" ? signupSchema : loginSchema),
   });
@@ -76,9 +77,9 @@ export function AuthForm({ variant, onSubmit }: AuthFormProps) {
         id="username"
         label="شماره تلفن"
         placeholder="شماره تلفن"
-        icon={<Phone className={cn(errors.username && "text-red-500")} />}
+        icon={<Phone className={cn(errors.username && (isSubmitted || touchedFields.username) && "text-red-500")} />}
         {...register("username")}
-        error={errors.username?.message as string}
+        error={(isSubmitted || touchedFields.username) ? errors.username?.message as string : undefined}
         disabled={isLoading}
       />
 
@@ -87,9 +88,21 @@ export function AuthForm({ variant, onSubmit }: AuthFormProps) {
         label="رمز عبور"
         placeholder="رمز عبور"
         {...register("password")}
-        error={errors.password?.message as string}
+        error={(isSubmitted || touchedFields.password) ? errors.password?.message as string : undefined}
         disabled={isLoading}
       />
+
+      {variant === "login" && onForgotPassword && (
+        <Button
+          type="button"
+          variant="ghost"
+          onClick={onForgotPassword}
+          disabled={isLoading}
+          className="self-end text-sm text-[#3dc37b] hover:text-[#2da85f] hover:bg-transparent -mt-2 h-auto p-0"
+        >
+          فراموشی رمز عبور؟
+        </Button>
+      )}
 
       {variant === "signup" && (
         <PasswordInput
@@ -98,8 +111,9 @@ export function AuthForm({ variant, onSubmit }: AuthFormProps) {
           placeholder="رمز عبور خود را وارد کنید"
           {...register("confirmPassword")}
           error={
-            (errors as FieldErrors<SignupFormValues>).confirmPassword
-              ?.message as string
+            (isSubmitted || (touchedFields as Partial<Record<keyof SignupFormValues, boolean>>).confirmPassword)
+              ? (errors as FieldErrors<SignupFormValues>).confirmPassword?.message as string
+              : undefined
           }
           disabled={isLoading}
         />
