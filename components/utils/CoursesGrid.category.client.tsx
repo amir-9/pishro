@@ -50,7 +50,7 @@ interface CoursesGridCategoryClientProps {
 
 export default function CoursesGridCategoryClient({
   courses,
-  categorySlug: _categorySlug,
+  categorySlug,
   categoryTitle,
 }: CoursesGridCategoryClientProps) {
   const [selectedLevel, setSelectedLevel] = useState<{
@@ -132,18 +132,25 @@ export default function CoursesGridCategoryClient({
 
       {/* Grid دوره‌ها با انیمیشن */}
       <div className="mt-6 sm:mt-8 md:mt-12 lg:mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-7 md:gap-8 place-items-center pb-8 sm:pb-10 md:pb-12 lg:pb-16 w-full">
-        {filteredCourses.map((course, idx) => (
-          <motion.div
-            key={course.id}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: idx * 0.1, ease: "easeOut" }}
-            className="w-full"
-          >
-            <CourseCard data={course} link="/courses" />
-          </motion.div>
-        ))}
+        {filteredCourses.map((course, idx) => {
+          // Build dynamic link: /courses/{categorySlug}/{courseSlug}
+          const courseLink = course.slug
+            ? `/courses/${categorySlug}/${course.slug}`
+            : "/courses";
+
+          return (
+            <motion.div
+              key={course.id}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: idx * 0.1, ease: "easeOut" }}
+              className="w-full"
+            >
+              <CourseCard data={course} link={courseLink} />
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );
