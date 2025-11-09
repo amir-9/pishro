@@ -60,7 +60,7 @@ export async function seedFAQs() {
   }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   seedFAQs()
     .catch((error) => {
       console.error(error);

@@ -146,7 +146,7 @@ export async function seedPageContent() {
   }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   seedPageContent()
     .catch((error) => {
       console.error(error);

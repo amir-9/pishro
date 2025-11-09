@@ -94,7 +94,7 @@ export async function seedComments() {
   }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   seedComments()
     .catch(error => {
       console.error(error);

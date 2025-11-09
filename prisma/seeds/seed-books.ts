@@ -109,7 +109,7 @@ export async function seedBooks() {
   }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   seedBooks()
     .catch((error) => {
       console.error(error);

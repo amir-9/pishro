@@ -76,7 +76,7 @@ export async function seedNews() {
   }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   seedNews()
     .catch((error) => {
       console.error(error);

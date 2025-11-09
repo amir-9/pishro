@@ -145,7 +145,7 @@ export async function seedOrders() {
   }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   seedOrders()
     .catch((error) => {
       console.error(error);

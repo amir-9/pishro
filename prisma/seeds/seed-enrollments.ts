@@ -74,7 +74,7 @@ export async function seedEnrollments() {
   }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   seedEnrollments()
     .catch((error) => {
       console.error(error);

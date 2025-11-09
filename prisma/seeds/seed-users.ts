@@ -98,7 +98,7 @@ export async function seedUsers() {
 }
 
 // Run directly if called as main module
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   seedUsers()
     .catch(error => {
       console.error(error);
