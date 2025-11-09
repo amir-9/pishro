@@ -3,20 +3,20 @@
  * Creates page content records for categories
  */
 
-import { PrismaClient, PageContentType, Language } from '@prisma/client';
-import { PersianDataGenerator } from './persian-data-generator';
+import { PrismaClient, PageContentType, Language } from "@prisma/client";
+import { PersianDataGenerator } from "./persian-data-generator";
 
 const prisma = new PrismaClient();
 const generator = new PersianDataGenerator(12345);
 
 export async function seedPageContent() {
-  console.log('🌱 Starting to seed page content...');
+  console.log("🌱 Starting to seed page content...");
 
   try {
     const categories = await prisma.category.findMany();
 
     if (categories.length === 0) {
-      console.log('⚠️  Please seed categories first!');
+      console.log("⚠️  Please seed categories first!");
       return { created: 0, updated: 0, total: 0 };
     }
 
@@ -28,31 +28,47 @@ export async function seedPageContent() {
         PageContentType.HERO,
         PageContentType.FEATURES,
         PageContentType.TESTIMONIAL,
-        PageContentType.STATS
+        PageContentType.STATS,
       ];
 
       for (const type of contentTypes) {
-        let content: any = {};
+        let content = {};
 
         switch (type) {
           case PageContentType.HERO:
             content = {
               headline: `به دنیای ${category.title} خوش آمدید`,
               subheadline: generator.generateParagraph(),
-              ctaText: 'شروع یادگیری',
+              ctaText: "شروع یادگیری",
               ctaLink: `/courses?category=${category.slug}`,
-              backgroundImage: `https://picsum.photos/seed/hero-${category.slug}/1920/1080`
+              backgroundImage: `https://picsum.photos/seed/hero-${category.slug}/1920/1080`,
             };
             break;
 
           case PageContentType.FEATURES:
             content = {
               features: [
-                { title: 'آموزش جامع', description: generator.generateParagraph(), icon: '📚' },
-                { title: 'اساتید مجرب', description: generator.generateParagraph(), icon: '👨‍🏫' },
-                { title: 'گواهینامه معتبر', description: generator.generateParagraph(), icon: '🏆' },
-                { title: 'پشتیبانی 24/7', description: generator.generateParagraph(), icon: '💬' }
-              ]
+                {
+                  title: "آموزش جامع",
+                  description: generator.generateParagraph(),
+                  icon: "📚",
+                },
+                {
+                  title: "اساتید مجرب",
+                  description: generator.generateParagraph(),
+                  icon: "👨‍🏫",
+                },
+                {
+                  title: "گواهینامه معتبر",
+                  description: generator.generateParagraph(),
+                  icon: "🏆",
+                },
+                {
+                  title: "پشتیبانی 24/7",
+                  description: generator.generateParagraph(),
+                  icon: "💬",
+                },
+              ],
             };
             break;
 
@@ -60,23 +76,42 @@ export async function seedPageContent() {
             content = {
               testimonials: [
                 {
-                  name: generator.generateFullName().firstName + ' ' + generator.generateFullName().lastName,
-                  role: 'دانشجو',
+                  name:
+                    generator.generateFullName().firstName +
+                    " " +
+                    generator.generateFullName().lastName,
+                  role: "دانشجو",
                   text: generator.generateCommentText(),
-                  avatar: generator.generateAvatarUrl(created)
-                }
-              ]
+                  avatar: generator.generateAvatarUrl(created),
+                },
+              ],
             };
             break;
 
           case PageContentType.STATS:
             content = {
               stats: [
-                { label: 'دانشجو', value: generator.randomInt(1000, 20000), icon: '👥' },
-                { label: 'دوره', value: generator.randomInt(10, 100), icon: '📚' },
-                { label: 'ساعت آموزش', value: generator.randomInt(100, 1000), icon: '⏱️' },
-                { label: 'رضایت', value: generator.randomInt(90, 99) + '%', icon: '⭐' }
-              ]
+                {
+                  label: "دانشجو",
+                  value: generator.randomInt(1000, 20000),
+                  icon: "👥",
+                },
+                {
+                  label: "دوره",
+                  value: generator.randomInt(10, 100),
+                  icon: "📚",
+                },
+                {
+                  label: "ساعت آموزش",
+                  value: generator.randomInt(100, 1000),
+                  icon: "⏱️",
+                },
+                {
+                  label: "رضایت",
+                  value: generator.randomInt(90, 99) + "%",
+                  icon: "⭐",
+                },
+              ],
             };
             break;
         }
@@ -91,8 +126,8 @@ export async function seedPageContent() {
             content: JSON.stringify(content),
             language: Language.FA,
             order: contentTypes.indexOf(type),
-            published: true
-          }
+            published: true,
+          },
         });
 
         created++;
@@ -106,14 +141,14 @@ export async function seedPageContent() {
 
     return { created, updated: 0, total: created };
   } catch (error) {
-    console.error('❌ Error seeding page content:', error);
+    console.error("❌ Error seeding page content:", error);
     throw error;
   }
 }
 
 if (require.main === module) {
   seedPageContent()
-    .catch(error => {
+    .catch((error) => {
       console.error(error);
       process.exit(1);
     })

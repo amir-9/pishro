@@ -3,8 +3,8 @@
  * Creates newsletter subscriber records
  */
 
-import { PrismaClient } from '@prisma/client';
-import { PersianDataGenerator } from './persian-data-generator';
+import { PrismaClient } from "@prisma/client";
+import { PersianDataGenerator } from "./persian-data-generator";
 
 const prisma = new PrismaClient();
 const generator = new PersianDataGenerator(12345);
@@ -12,7 +12,7 @@ const generator = new PersianDataGenerator(12345);
 const SUBSCRIBER_COUNT = 100;
 
 export async function seedNewsletter() {
-  console.log('🌱 Starting to seed newsletter subscribers...');
+  console.log("🌱 Starting to seed newsletter subscribers...");
 
   try {
     let created = 0;
@@ -24,11 +24,12 @@ export async function seedNewsletter() {
         await prisma.newsletterSubscriber.create({
           data: {
             phone,
-            createdAt: generator.generatePastDate(365)
-          }
+            createdAt: generator.generatePastDate(365),
+          },
         });
         created++;
       } catch (error) {
+        console.log(error);
         // Skip if phone already exists
         continue;
       }
@@ -43,14 +44,14 @@ export async function seedNewsletter() {
 
     return { created, updated: 0, total: created };
   } catch (error) {
-    console.error('❌ Error seeding newsletter subscribers:', error);
+    console.error("❌ Error seeding newsletter subscribers:", error);
     throw error;
   }
 }
 
 if (require.main === module) {
   seedNewsletter()
-    .catch(error => {
+    .catch((error) => {
       console.error(error);
       process.exit(1);
     })

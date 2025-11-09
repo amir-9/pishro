@@ -31,7 +31,7 @@ export async function seedComments() {
       const hasUser = generator.randomInt(0, 10) > 3;
       const user = hasUser ? generator.choice(users) : null;
 
-      const commentData: any = {
+      const commentData = {
         text: generator.generateCommentText(),
         rating: generator.randomInt(7, 11),
         published: generator.choice([true, true, true, false]),
