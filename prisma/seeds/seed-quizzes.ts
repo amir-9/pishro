@@ -3,8 +3,8 @@
  * Creates quiz records with questions for courses
  */
 
-import { PrismaClient, QuestionType } from "@prisma/client";
-import { PersianDataGenerator } from "./persian-data-generator";
+import { PrismaClient, QuestionType, Prisma } from "@prisma/client";
+import { PersianDataGenerator } from "../persian-data-generator";
 
 const prisma = new PrismaClient();
 const generator = new PersianDataGenerator(12345);
@@ -34,7 +34,9 @@ export async function seedQuizzes() {
           data: {
             title: `آزمون ${q + 1} - ${course.subject}`,
             description: `ارزیابی میزان یادگیری شما در ${course.subject}`,
-            courseId: course.id,
+            course: {
+              connect: { id: course.id },
+            },
             timeLimit: generator.choice([null, 15, 20, 30, 45, 60]),
             passingScore: generator.choice([60, 70, 75, 80]),
             maxAttempts: generator.choice([null, 3, 5, 10]),
@@ -59,8 +61,11 @@ export async function seedQuizzes() {
             QuestionType.MULTIPLE_SELECT,
           ]);
 
-          const questionData = {
-            quizId: quiz.id,
+          // Use Prisma.QuizQuestionCreateInput type for type safety
+          const questionData: Prisma.QuizQuestionCreateInput = {
+            quiz: {
+              connect: { id: quiz.id },
+            },
             question: generator.choice([
               "کدام گزینه تعریف صحیح تحلیل تکنیکال است؟",
               "بهترین زمان برای خرید سهام در چه شرایطی است؟",
@@ -92,13 +97,14 @@ export async function seedQuizzes() {
               });
             }
 
-            questionData.options = JSON.stringify(options);
+            questionData.options = options as Prisma.InputJsonValue;
           } else if (questionType === QuestionType.TRUE_FALSE) {
-            questionData.correctAnswer = generator.choice([true, false]);
-            questionData.options = JSON.stringify([
-              { text: "صحیح", isCorrect: questionData.correctAnswer },
-              { text: "غلط", isCorrect: !questionData.correctAnswer },
-            ]);
+            const correctAnswer = generator.choice([true, false]);
+            questionData.correctAnswer = correctAnswer;
+            questionData.options = [
+              { text: "صحیح", isCorrect: correctAnswer },
+              { text: "غلط", isCorrect: !correctAnswer },
+            ] as Prisma.InputJsonValue;
           }
 
           await prisma.quizQuestion.create({ data: questionData });

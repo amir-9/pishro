@@ -3,7 +3,7 @@
  * Creates comment/testimonial records
  */
 
-import { PrismaClient, UserRoleType } from '@prisma/client';
+import { PrismaClient, UserRoleType, Prisma } from '@prisma/client';
 import { PersianDataGenerator } from './persian-data-generator';
 
 const prisma = new PrismaClient();
@@ -31,7 +31,8 @@ export async function seedComments() {
       const hasUser = generator.randomInt(0, 10) > 3;
       const user = hasUser ? generator.choice(users) : null;
 
-      const commentData = {
+      // Use Prisma.CommentCreateInput type for type safety
+      const commentData: Prisma.CommentCreateInput = {
         text: generator.generateCommentText(),
         rating: generator.randomInt(7, 11),
         published: generator.choice([true, true, true, false]),
@@ -43,21 +44,36 @@ export async function seedComments() {
       };
 
       if (user) {
-        commentData.userId = user.id;
+        commentData.user = {
+          connect: { id: user.id }
+        };
       } else {
         // Guest testimonial
         const { firstName, lastName } = generator.generateFullName();
         commentData.userName = `${firstName} ${lastName}`;
         commentData.userAvatar = generator.generateAvatarUrl(i);
-        commentData.userRole = generator.choice([UserRoleType.STUDENT, UserRoleType.PROFESSIONAL_TRADER, UserRoleType.INVESTOR]);
-        commentData.userCompany = generator.choice(['کارگزاری آگاه', 'شرکت سرمایه‌گذاری پیشرو', 'بانک ملی', undefined]);
+        commentData.userRole = generator.choice([
+          UserRoleType.STUDENT,
+          UserRoleType.PROFESSIONAL_TRADER,
+          UserRoleType.INVESTOR
+        ]);
+        commentData.userCompany = generator.choice([
+          'کارگزاری آگاه',
+          'شرکت سرمایه‌گذاری پیشرو',
+          'بانک ملی',
+          undefined
+        ]);
       }
 
       // Attach to course or category
       if (generator.randomInt(0, 10) > 3 && courses.length > 0) {
-        commentData.courseId = generator.choice(courses).id;
+        commentData.course = {
+          connect: { id: generator.choice(courses).id }
+        };
       } else if (categories.length > 0) {
-        commentData.categoryId = generator.choice(categories).id;
+        commentData.category = {
+          connect: { id: generator.choice(categories).id }
+        };
       }
 
       await prisma.comment.create({ data: commentData });
