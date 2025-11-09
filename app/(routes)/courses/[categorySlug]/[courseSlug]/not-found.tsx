@@ -4,7 +4,7 @@
  */
 
 import Link from "next/link";
-import { LuSearch, LuHome, LuArrowRight } from "react-icons/lu";
+import { LuSearch, LuHouse, LuArrowRight } from "react-icons/lu";
 
 export default function CourseNotFound() {
   return (
@@ -47,7 +47,7 @@ export default function CourseNotFound() {
             href="/"
             className="flex items-center gap-2 bg-white text-gray-900 px-8 py-3 rounded-full font-bold text-base shadow-md hover:shadow-lg transition border border-gray-200"
           >
-            <LuHome size={20} />
+            <LuHouse size={20} />
             بازگشت به خانه
           </Link>
         </div>
@@ -55,7 +55,10 @@ export default function CourseNotFound() {
         {/* Help Text */}
         <p className="text-sm text-gray-500 pt-8">
           اگر فکر می‌کنید این یک اشتباه است، لطفاً با{" "}
-          <Link href="/contact" className="text-myPrimary font-bold hover:underline">
+          <Link
+            href="/contact"
+            className="text-myPrimary font-bold hover:underline"
+          >
             پشتیبانی
           </Link>{" "}
           تماس بگیرید.

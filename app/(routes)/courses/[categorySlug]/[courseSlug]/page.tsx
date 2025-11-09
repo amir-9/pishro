@@ -16,11 +16,14 @@ import {
   LuUsers,
   LuVideo,
   LuBookOpen,
-  LuCheckCircle,
-  LuBarChart3,
+  LuCheck,
+  LuBan,
   LuGlobe,
 } from "react-icons/lu";
-import { getCourseBySlug, getAllCourseSlugs } from "@/lib/services/course-service";
+import {
+  getCourseBySlug,
+  getAllCourseSlugs,
+} from "@/lib/services/course-service";
 import RatingStars from "@/components/utils/RatingStars";
 import CommentsSlider from "@/components/utils/CommentsSlider";
 import TagsListDynamic from "@/components/utils/TagsList.dynamic";
@@ -176,7 +179,7 @@ export default async function CourseDetailPage({
     }));
 
     return (
-      <main className="w-full">
+      <main className="w-full mt-20">
         {/* Breadcrumb */}
         <section className="bg-gray-50 py-4">
           <div className="container-xl">
@@ -185,10 +188,7 @@ export default async function CourseDetailPage({
                 خانه
               </Link>
               <span>/</span>
-              <Link
-                href="/courses"
-                className="hover:text-myPrimary transition"
-              >
+              <Link href="/courses" className="hover:text-myPrimary transition">
                 دوره‌ها
               </Link>
               <span>/</span>
@@ -248,7 +248,8 @@ export default async function CourseDetailPage({
                   <div className="flex items-center gap-2 text-gray-600">
                     <LuUsers className="text-myPrimary" size={20} />
                     <span className="text-sm font-bold">
-                      {course._count?.enrollments || course.students || 0} دانشجو
+                      {course._count?.enrollments || course.students || 0}{" "}
+                      دانشجو
                     </span>
                   </div>
                 </div>
@@ -291,7 +292,11 @@ export default async function CourseDetailPage({
                       </span>
                     )}
                   </div>
-                  <Suspense fallback={<div className="w-40 h-12 animate-pulse bg-gray-200 rounded-full" />}>
+                  <Suspense
+                    fallback={
+                      <div className="w-40 h-12 animate-pulse bg-gray-200 rounded-full" />
+                    }
+                  >
                     <AddToCartButton course={course} />
                   </Suspense>
                 </div>
@@ -327,7 +332,7 @@ export default async function CourseDetailPage({
                     <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {course.learningGoals.map((goal, idx) => (
                         <li key={idx} className="flex items-start gap-3">
-                          <LuCheckCircle
+                          <LuCheck
                             className="text-green-500 flex-shrink-0 mt-1"
                             size={20}
                           />
@@ -347,7 +352,7 @@ export default async function CourseDetailPage({
                     <ul className="space-y-3">
                       {course.prerequisites.map((prereq, idx) => (
                         <li key={idx} className="flex items-start gap-3">
-                          <LuCheckCircle
+                          <LuCheck
                             className="text-myPrimary flex-shrink-0 mt-1"
                             size={20}
                           />
@@ -394,7 +399,7 @@ export default async function CourseDetailPage({
 
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2 text-gray-600">
-                        <LuBarChart3 size={20} />
+                        <LuBan size={20} />
                         <span className="text-sm">سطح دوره</span>
                       </div>
                       <span className="font-bold text-gray-900">
