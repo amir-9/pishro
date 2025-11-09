@@ -9,7 +9,7 @@ import { PrismaClient, FAQCategory } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-async function main(): Promise<void> {
+export async function seedCategories() {
   console.log("🌱 Starting category seed...\n");
 
   // ============================================
@@ -417,11 +417,14 @@ async function main(): Promise<void> {
   console.log("\n✨ Ready to build dynamic pages!");
 }
 
-main()
-  .catch((e) => {
-    console.error("❌ Error seeding database:", e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+// Run directly if called as main module
+// if (require.main === module) {
+//   seedCategories
+//     .catch((e) => {
+//       console.error("❌ Error seeding database:", e);
+//       process.exit(1);
+//     })
+//     .finally(async () => {
+//       await prisma.$disconnect();
+//     });
+// }
