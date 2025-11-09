@@ -2,14 +2,14 @@
  * Prisma Seed Script - Category Migration
  * Migrates hardcoded data from public/data.tsx to database
  *
- * Run: npx ts-node prisma/seed-categories.ts
+ * Run: npx tsx prisma/seed-categories.ts
  */
 
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma, FAQCategory } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-async function main() {
+async function main(): Promise<void> {
   console.log("🌱 Starting category seed...\n");
 
   // ============================================
@@ -98,7 +98,8 @@ async function main() {
     },
   });
 
-  const _stockMarket = await prisma.category.upsert({
+  // Stock Market category - currently not used in connections
+  await prisma.category.upsert({
     where: { slug: "stock-market" },
     update: {},
     create: {
@@ -124,7 +125,8 @@ async function main() {
     },
   });
 
-  const _metaverse = await prisma.category.upsert({
+  // Metaverse category - currently not used in connections
+  await prisma.category.upsert({
     where: { slug: "metaverse" },
     update: {},
     create: {
@@ -152,116 +154,6 @@ async function main() {
   });
 
   console.log("✅ Categories created\n");
-
-  // ============================================
-  // 2. SEED PAGE CONTENT (Landing)
-  // ============================================
-  // console.log("🎨 Creating landing page content...");
-
-  // await prisma.pageContent.upsert({
-  //   where: { id: "airdrop-landing" },
-  //   update: {},
-  //   create: {
-  //     id: "airdrop-landing",
-  //     categoryId: airdrop.id,
-  //     type: "LANDING",
-  //     content: {
-  //       title: "آموزش ایردراپ از صفر تا صد",
-  //       description:
-  //         "با دوره‌های تخصصی ما، دنیای ایردراپ را کشف کنید و از فرصت‌های طلایی بهره‌مند شوید",
-  //       image: "/images/hero/airdrop-hero.jpg",
-  //       primaryButton: {
-  //         text: "مشاهده دوره‌ها",
-  //         link: "#courses",
-  //       },
-  //       secondaryButton: {
-  //         text: "مشاوره رایگان",
-  //         link: "/consultation",
-  //       },
-  //       features: [
-  //         "آموزش عملی و کاربردی",
-  //         "پشتیبانی 24 ساعته",
-  //         "گواهینامه معتبر",
-  //         "به‌روزرسانی مادام‌العمر",
-  //       ],
-  //     },
-  //     published: true,
-  //     order: 1,
-  //   },
-  // });
-
-  // await prisma.pageContent.upsert({
-  //   where: { id: "nft-landing" },
-  //   update: {},
-  //   create: {
-  //     id: "nft-landing",
-  //     categoryId: nft.id,
-  //     type: "LANDING",
-  //     content: {
-  //       title: "دنیای NFT را کشف کنید",
-  //       description: "از ساخت تا فروش NFT، همه چیز را با ما یاد بگیرید",
-  //       image: "/images/hero/nft-hero.jpg",
-  //       primaryButton: {
-  //         text: "شروع یادگیری",
-  //         link: "#courses",
-  //       },
-  //       features: ["پروژه‌های عملی", "اساتید حرفه‌ای", "گواهینامه بین‌المللی"],
-  //     },
-  //     published: true,
-  //     order: 1,
-  //   },
-  // });
-
-  // console.log("✅ Landing content created\n");
-
-  // ============================================
-  // 3. SEED PAGE CONTENT (About)
-  // ============================================
-  // console.log("📄 Creating about page content...");
-
-  // await prisma.pageContent.upsert({
-  //   where: { id: "airdrop-about" },
-  //   update: {},
-  //   create: {
-  //     id: "airdrop-about",
-  //     categoryId: airdrop.id,
-  //     type: "ABOUT",
-  //     content: {
-  //       title: "چرا ایردراپ؟",
-  //       description:
-  //         "ایردراپ یکی از بهترین روش‌های دریافت رایگان توکن‌های کریپتو است. پروژه‌های بلاکچین برای جذب کاربر و افزایش آگاهی، توکن‌های خود را به صورت رایگان توزیع می‌کنند.",
-  //       paragraphs: [
-  //         "در دوره‌های ایردراپ پیشرو، شما یاد می‌گیرید چگونه فرصت‌های ایردراپ را شناسایی کنید، چطور در آن‌ها شرکت کنید و چگونه سود کسب کنید.",
-  //         "ما با تجربه چندین ساله در حوزه ایردراپ، بهترین استراتژی‌ها را به شما آموزش می‌دهیم.",
-  //       ],
-  //       features: [
-  //         {
-  //           title: "شناسایی فرصت‌ها",
-  //           description: "یاد بگیرید ایردراپ‌های معتبر را تشخیص دهید",
-  //           icon: "🔍",
-  //         },
-  //         {
-  //           title: "ایمن‌سازی",
-  //           description: "کیف پول خود را ایمن نگه دارید",
-  //           icon: "🔒",
-  //         },
-  //         {
-  //           title: "کسب درآمد",
-  //           description: "از ایردراپ‌ها درآمد ماهانه داشته باشید",
-  //           icon: "💰",
-  //         },
-  //       ],
-  //       stats: [
-  //         { label: "دانشجو", value: "10,000+" },
-  //         { label: "دوره", value: "50+" },
-  //         { label: "ساعت آموزش", value: "200+" },
-  //         { label: "رضایت", value: "98%" },
-  //       ],
-  //     },
-  //     published: true,
-  //     order: 2,
-  //   },
-  // });
 
   console.log("✅ About content created\n");
 
@@ -396,7 +288,7 @@ async function main() {
         answer:
           "<p>ایردراپ به معنای توزیع رایگان توکن‌های کریپتو توسط پروژه‌های بلاکچین است. پروژه‌ها برای افزایش آگاهی و جذب کاربران جدید، توکن‌های خود را به صورت رایگان توزیع می‌کنند.</p><p>شما می‌توانید با شرکت در ایردراپ‌ها، توکن‌های رایگان دریافت کنید و از آن‌ها درآمد کسب کنید.</p>",
         categoryId: airdrop.id,
-        faqCategory: "GENERAL",
+        faqCategory: "GENERAL" as FAQCategory,
         published: true,
         featured: true,
         order: 1,
@@ -409,7 +301,7 @@ async function main() {
         answer:
           "<p>برای شرکت در ایردراپ، نیاز به موارد زیر دارید:</p><ul><li>یک کیف پول دیجیتال (مانند MetaMask)</li><li>آدرس ایمیل</li><li>گاهی اوقات حساب توییتر یا دیسکورد</li><li>کمی ETH برای پرداخت هزینه گس (در برخی موارد)</li></ul>",
         categoryId: airdrop.id,
-        faqCategory: "COURSES",
+        faqCategory: "COURSES" as FAQCategory,
         published: true,
         featured: true,
         order: 2,
@@ -422,7 +314,7 @@ async function main() {
         answer:
           "<p>بیشتر ایردراپ‌های معتبر امن هستند، اما باید مراقب کلاهبرداری‌ها باشید:</p><ul><li>هیچ‌وقت کلمات بازیابی کیف پول خود را به کسی ندهید</li><li>از ایردراپ‌های پروژه‌های معتبر شرکت کنید</li><li>هزینه‌های مشکوک نپردازید</li><li>از منابع رسمی پیروی کنید</li></ul>",
         categoryId: airdrop.id,
-        faqCategory: "GENERAL",
+        faqCategory: "GENERAL" as FAQCategory,
         published: true,
         featured: true,
         order: 3,
@@ -435,7 +327,7 @@ async function main() {
         answer:
           "<p>NFT یا توکن غیرقابل تعویض (Non-Fungible Token) یک دارایی دیجیتال منحصربه‌فرد است که روی بلاکچین ذخیره می‌شود. هر NFT یک اثر هنری، عکس، ویدیو، موسیقی یا هر نوع محتوای دیجیتال دیگری را نمایندگی می‌کند.</p>",
         categoryId: nft.id,
-        faqCategory: "GENERAL",
+        faqCategory: "GENERAL" as FAQCategory,
         published: true,
         featured: true,
         order: 1,
@@ -444,7 +336,6 @@ async function main() {
         notHelpful: 0,
       },
     ],
-    // skipDuplicates: true,
   });
 
   console.log("✅ FAQs created\n");
@@ -505,7 +396,6 @@ async function main() {
         views: 210,
       },
     ],
-    // skipDuplicates: true,
   });
 
   console.log("✅ Comments created\n");

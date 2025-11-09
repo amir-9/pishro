@@ -1,8 +1,27 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma, CourseLevel, Language, CourseStatus, UserRoleType } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const libraryBooks = [
+// Type for library book data structure
+interface LibraryBookData {
+  id: string;
+  title: string;
+  author: string;
+  year: number;
+  rating: number;
+  votes: number;
+  popularity: number;
+  category: string;
+  formats: string[];
+  status: string[];
+  cover: string;
+  description: string;
+  tags: string[];
+  readingTime: string;
+  isFeatured?: boolean;
+}
+
+const libraryBooks: LibraryBookData[] = [
   {
     id: "crypto-mindset",
     title: "ذهن میلیونر کریپتو",
@@ -170,8 +189,22 @@ const libraryBooks = [
   },
 ];
 
-// اخبار فیک
-const newsArticles = [
+// Type for news article data
+interface NewsArticleData {
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  coverImage: string;
+  author: string;
+  category: string;
+  tags: string[];
+  published: boolean;
+  publishedAt: Date;
+  views: number;
+}
+
+const newsArticles: NewsArticleData[] = [
   {
     title: "بازار رمزارزها دوباره داغ شد!",
     slug: "crypto-market-rising",
@@ -222,11 +255,11 @@ const newsArticles = [
   },
 ];
 
-async function main() {
+async function main(): Promise<void> {
   console.log("⏳ Seeding database...");
 
   // ==============================================
-  // 🧹 پاک‌سازی قبلی
+  // 🧹 Cleanup old data
   // ==============================================
   console.log("🧹 Cleaning old data...");
   await prisma.comment.deleteMany();
@@ -243,7 +276,7 @@ async function main() {
   await prisma.tag.deleteMany();
 
   // ==============================================
-  // 🏷️ درج Tags (تگ‌ها)
+  // 🏷️ Insert Tags
   // ==============================================
   console.log("🏷️  Creating tags...");
   const createdTags = [];
@@ -256,15 +289,15 @@ async function main() {
   console.log(`✅ Inserted ${createdTags.length} tags`);
 
   // ==============================================
-  // 🎯 درج Categories (دسته‌بندی‌ها)
+  // 🎯 Insert Categories
   // ==============================================
   console.log("🎯 Creating categories...");
-  const createdCategories = {};
+  const createdCategories: Record<string, { id: string }> = {};
   for (const category of categories) {
     const created = await prisma.category.create({
       data: {
         ...category,
-        tagIds: createdTags.slice(0, 3).map((t) => t.id), // هر دسته 3 تگ اول
+        tagIds: createdTags.slice(0, 3).map((t) => t.id),
       },
     });
     createdCategories[category.slug] = created;
@@ -272,13 +305,13 @@ async function main() {
   console.log(`✅ Inserted ${Object.keys(createdCategories).length} categories`);
 
   // ==============================================
-  // 📚 درج Courses (دوره‌ها)
+  // 📚 Insert Courses
   // ==============================================
   console.log("📚 Creating courses...");
   const createdCourses = [];
   for (const course of courses) {
-    // پیدا کردن category مناسب
-    let categoryId = null;
+    // Find appropriate category
+    let categoryId: string | null = null;
     if (course.subject === "بورس") {
       categoryId = createdCategories["stock-market"].id;
     } else if (course.subject === "ارزهای دیجیتال") {
@@ -293,7 +326,7 @@ async function main() {
       data: {
         ...course,
         categoryId,
-        tagIds: createdTags.slice(0, 5).map((t) => t.id), // هر دوره 5 تگ اول
+        tagIds: createdTags.slice(0, 5).map((t) => t.id),
       },
     });
     createdCourses.push(created);
@@ -301,12 +334,12 @@ async function main() {
   console.log(`✅ Inserted ${createdCourses.length} courses`);
 
   // ==============================================
-  // 💬 درج Comments (نظرات)
+  // 💬 Insert Comments
   // ==============================================
   console.log("💬 Creating comments...");
   let commentCount = 0;
   for (const comment of comments) {
-    // نظرات را به دسته‌بندی‌ها متصل می‌کنیم
+    // Attach comments to categories
     for (const categorySlug of Object.keys(createdCategories)) {
       await prisma.comment.create({
         data: {
@@ -320,7 +353,7 @@ async function main() {
   console.log(`✅ Inserted ${commentCount} comments`);
 
   // ==============================================
-  // 📚 درج کتاب‌ها
+  // 📚 Insert Books
   // ==============================================
   console.log("📖 Creating digital books...");
   for (const book of libraryBooks) {
@@ -356,7 +389,7 @@ async function main() {
   console.log(`✅ Inserted ${libraryBooks.length} books`);
 
   // ==============================================
-  // 📰 درج اخبار
+  // 📰 Insert News Articles
   // ==============================================
   console.log("📰 Creating news articles...");
   for (const article of newsArticles) {
@@ -368,8 +401,8 @@ async function main() {
       },
     });
 
-    // هر خبر 2 کامنت تصادفی بگیرد
-    const fakeComments = [
+    // Add fake comments to each article
+    const fakeComments: Prisma.NewsCommentCreateManyInput[] = [
       {
         content: "خیلی مقاله خوبی بود، دیدگاه جدیدی بهم داد.",
         userId: null,
@@ -402,9 +435,9 @@ main()
   });
 
 // ==============================================
-// 🎯 داده‌های Categories (دسته‌بندی‌ها)
+// 🎯 Category Data
 // ==============================================
-const categories = [
+const categories: Prisma.CategoryCreateInput[] = [
   {
     slug: "cryptocurrency",
     title: "ارزهای دیجیتال",
@@ -500,9 +533,9 @@ const categories = [
 ];
 
 // ==============================================
-// 🏷️ داده‌های Tags (تگ‌ها)
+// 🏷️ Tag Data
 // ==============================================
-const tags = [
+const tags: Prisma.TagCreateInput[] = [
   {
     slug: "technical-analysis",
     title: "تحلیل تکنیکال",
@@ -586,9 +619,31 @@ const tags = [
 ];
 
 // ==============================================
-// 📚 داده‌های Courses (دوره‌ها)
+// 📚 Course Data
 // ==============================================
-const courses = [
+interface CourseData {
+  subject: string;
+  price: number;
+  img: string;
+  rating: number;
+  description: string;
+  discountPercent: number;
+  time: string;
+  students: number;
+  videosCount: number;
+  slug: string;
+  level: CourseLevel;
+  language: Language;
+  prerequisites: string[];
+  learningGoals: string[];
+  instructor: string;
+  status: CourseStatus;
+  published: boolean;
+  featured: boolean;
+  views: number;
+}
+
+const courses: CourseData[] = [
   {
     subject: "بورس",
     price: 2800000,
@@ -754,9 +809,21 @@ const courses = [
 ];
 
 // ==============================================
-// 💬 داده‌های Comments (نظرات دانشجویان)
+// 💬 Comment Data (Student testimonials)
 // ==============================================
-const comments = [
+interface CommentData {
+  userName: string;
+  userAvatar: string;
+  userRole: UserRoleType;
+  text: string;
+  rating: number;
+  published: boolean;
+  verified: boolean;
+  featured: boolean;
+  views: number;
+}
+
+const comments: CommentData[] = [
   {
     userName: "آزاده بهرامی",
     userAvatar: "/images/home/real-comments/1.jpg",
