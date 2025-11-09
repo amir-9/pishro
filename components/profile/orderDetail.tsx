@@ -20,7 +20,7 @@ interface OrderDetailProps {
     user?: {
       id: string;
       phone: string;
-    };
+    } | null; // 👈 اینجا تغییر کن
     items: OrderItem[];
   } | null;
 }
