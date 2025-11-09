@@ -424,6 +424,7 @@ async function seedQuizzes() {
           title: quiz.title,
           description: quiz.description,
           courseId: null, // آزمون مستقل از دوره
+          categoryId: category.id, // مرتبط با دسته‌بندی
           timeLimit: 15, // 15 دقیقه
           passingScore: 60, // حداقل 60% برای قبولی
           maxAttempts: null, // تعداد دفعات نامحدود
