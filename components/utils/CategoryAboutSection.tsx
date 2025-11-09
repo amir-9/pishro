@@ -39,6 +39,8 @@ const CategoryAboutSection = ({
   videoUrl = "/videos/landing-vid.webm",
 }: CategoryAboutSectionProps) => {
   const [open, setOpen] = useState(false);
+  const [imageSrc, setImageSrc] = useState(image);
+  const defaultImage = "/images/utiles/font-iran-section.svg";
 
   return (
     <div className="min-h-[400px] sm:min-h-[500px] md:min-h-[650px] lg:min-h-[800px] relative mt-8 sm:mt-12 md:mt-16 lg:mt-20">
@@ -46,12 +48,13 @@ const CategoryAboutSection = ({
       <div className="absolute bottom-0 left-0 w-full aspect-[1440/847] pointer-events-none !-z-10">
         <div className="size-full relative">
           <Image
-            src={image}
+            src={imageSrc}
             alt="Background Image"
             fill
             className="object-cover object-center"
             priority
             sizes="100vw"
+            onError={() => setImageSrc(defaultImage)}
           />
         </div>
       </div>
