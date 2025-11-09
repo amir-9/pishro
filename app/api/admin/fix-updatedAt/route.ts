@@ -5,10 +5,10 @@ import { auth } from "@/auth";
 import {
   successResponse,
   unauthorizedResponse,
-  errorResponse
+  errorResponse,
 } from "@/lib/api-response";
 
-export async function POST(req: NextRequest) {
+export async function POST(_req: NextRequest) {
   try {
     // Check authentication
     const session = await auth();
@@ -34,15 +34,12 @@ export async function POST(req: NextRequest) {
       updates: [
         {
           q: {
-            $or: [
-              { updatedAt: null },
-              { updatedAt: { $exists: false } }
-            ]
+            $or: [{ updatedAt: null }, { updatedAt: { $exists: false } }],
           },
           u: {
             $set: {
-              updatedAt: new Date()
-            }
+              updatedAt: new Date(),
+            },
           },
           multi: true,
         },
@@ -55,15 +52,12 @@ export async function POST(req: NextRequest) {
       updates: [
         {
           q: {
-            $or: [
-              { updatedAt: null },
-              { updatedAt: { $exists: false } }
-            ]
+            $or: [{ updatedAt: null }, { updatedAt: { $exists: false } }],
           },
           u: {
             $set: {
-              updatedAt: new Date()
-            }
+              updatedAt: new Date(),
+            },
           },
           multi: true,
         },
