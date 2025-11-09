@@ -134,7 +134,7 @@ export async function seedQuizzes() {
   }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   seedQuizzes()
     .catch((error) => {
       console.error(error);

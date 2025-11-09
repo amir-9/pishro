@@ -49,7 +49,7 @@ export async function seedNewsletter() {
   }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   seedNewsletter()
     .catch((error) => {
       console.error(error);

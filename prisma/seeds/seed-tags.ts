@@ -240,7 +240,7 @@ export async function seedTags() {
 }
 
 // Run directly if called as main module
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   seedTags()
     .catch((error) => {
       console.error(error);

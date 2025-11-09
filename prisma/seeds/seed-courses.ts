@@ -93,7 +93,7 @@ export async function seedCourses() {
   }
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   seedCourses()
     .catch(error => {
       console.error(error);
