@@ -19,7 +19,7 @@ import {
 } from "@/lib/services/dashboard-service";
 import { DashboardStats } from "@/types/dashboard";
 
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
   try {
     // احراز هویت - فقط ادمین‌ها
     const session = await auth();
