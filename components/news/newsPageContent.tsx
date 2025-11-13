@@ -43,7 +43,9 @@ const NewsPageContent = () => {
   } = useNewsFilters(news);
 
   const hasActiveFilters =
-    query.trim().length > 0 || selectedCategory !== "همه" || timeRange !== "همه";
+    query.trim().length > 0 ||
+    selectedCategory !== "همه" ||
+    timeRange !== "همه";
 
   const handleResetFilters = () => {
     setQuery("");
@@ -102,7 +104,7 @@ const NewsPageContent = () => {
                         <>
                           برای جستجوی{" "}
                           <span className="font-semibold text-slate-900">
-                            "{query}"
+                            &quot;{query}&quot;
                           </span>
                         </>
                       )}{" "}
