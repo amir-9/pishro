@@ -57,7 +57,7 @@ const NewsCard = ({ data }: NewsCardProps) => {
           href={`/news/${data.slug}`}
           className="text-[13px] font-medium text-myPrimary hover:underline transition-colors self-start"
         >
-          ادامه مطلب →
+          → ادامه مطلب
         </Link>
       </div>
     </div>
