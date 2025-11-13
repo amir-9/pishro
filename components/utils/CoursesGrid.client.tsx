@@ -54,7 +54,10 @@ export default function CoursesGridClient({ courses }: Props) {
 
   // Update selectedCategory when categories change
   useEffect(() => {
-    if (categories.length > 0 && !categories.find(c => c.label === selectedCategory.label)) {
+    if (
+      categories.length > 0 &&
+      !categories.find((c) => c.label === selectedCategory.label)
+    ) {
       setSelectedCategory(categories[0]);
     }
   }, [categories, selectedCategory.label]);
@@ -75,7 +78,7 @@ export default function CoursesGridClient({ courses }: Props) {
     >
       {/* Header */}
       <div className="w-full flex justify-center items-center text-center gap-3 sm:gap-4 mb-4 sm:mb-6 md:mb-0">
-        <div className="w-[260px]"></div>
+        <div className="w-[340px]"></div>
         <div className="flex-1 flex flex-col items-center">
           <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl flex items-center justify-center gap-2 sm:gap-2.5 md:gap-3">
             <span>دوره‌ها</span>
@@ -94,10 +97,10 @@ export default function CoursesGridClient({ courses }: Props) {
         </div>
 
         {/* Dropdown & Button */}
-        <div className="relative flex items-center justify-end gap-3 mt-2 w-[260px]">
+        <div className="relative flex items-center justify-end gap-3 mt-2 w-[340px]">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="flex items-center gap-1 bg-white border border-gray-300 px-3 py-1.5 rounded-lg shadow-sm hover:shadow-md transition text-sm font-bold">
+              <button className="flex items-center gap-1 bg-white border border-gray-300 px-3 py-2 rounded-lg shadow-sm hover:shadow-md transition text-xs font-bold">
                 <ChevronDown size={16} />
                 <span>{selectedCategory.label}</span>
               </button>
@@ -111,7 +114,7 @@ export default function CoursesGridClient({ courses }: Props) {
                 <DropdownMenuItem
                   key={cat.href}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`cursor-pointer rtl text-right text-sm px-4 py-2 hover:bg-gray-100 ${
+                  className={`cursor-pointer rtl text-right text-xs px-2 py-2 hover:bg-gray-100 ${
                     cat.label === selectedCategory.label
                       ? "font-bold text-mySecondary"
                       : ""
@@ -125,7 +128,7 @@ export default function CoursesGridClient({ courses }: Props) {
 
           <Link
             href={selectedCategory.href}
-            className="flex items-center gap-1 bg-mySecondary text-white px-4 py-1.5 rounded-lg text-sm font-bold hover:opacity-90 transition"
+            className="flex items-center gap-1 bg-mySecondary text-white px-4 py-2 rounded-lg text-xs font-bold hover:opacity-90 transition"
           >
             <Folder size={16} />
             <span>صفحه {selectedCategory.label}</span>
@@ -167,25 +170,29 @@ export default function CoursesGridClient({ courses }: Props) {
       {filteredCourses.length > 0 && (
         <div className="mt-6 sm:mt-8 md:mt-12 lg:mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-7 md:gap-8 place-items-center pb-8 sm:pb-10 md:pb-12 lg:pb-16 w-full">
           {filteredCourses.map((data, idx) => {
-          // Build dynamic link if course has category and slug
-          const courseLink =
-            data.slug && data.category?.slug
-              ? `/courses/${data.category.slug}/${data.slug}`
-              : "/courses";
+            // Build dynamic link if course has category and slug
+            const courseLink =
+              data.slug && data.category?.slug
+                ? `/courses/${data.category.slug}/${data.slug}`
+                : "/courses";
 
-          return (
-            <motion.div
-              key={data.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.1, ease: "easeOut" }}
-              className="w-full"
-            >
-              <CourseCard data={data} link={courseLink} />
-            </motion.div>
-          );
-        })}
+            return (
+              <motion.div
+                key={data.id}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.6,
+                  delay: idx * 0.1,
+                  ease: "easeOut",
+                }}
+                className="w-full"
+              >
+                <CourseCard data={data} link={courseLink} />
+              </motion.div>
+            );
+          })}
         </div>
       )}
 
