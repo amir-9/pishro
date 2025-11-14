@@ -89,6 +89,7 @@ export async function PATCH(
     if (body.title !== undefined) updateData.title = body.title;
     if (body.description !== undefined) updateData.description = body.description;
     if (body.image !== undefined) updateData.image = body.image;
+    if (body.plansIntroCards !== undefined) updateData.plansIntroCards = body.plansIntroCards;
     if (body.minAmount !== undefined) updateData.minAmount = body.minAmount;
     if (body.maxAmount !== undefined) updateData.maxAmount = body.maxAmount;
     if (body.amountStep !== undefined) updateData.amountStep = body.amountStep;

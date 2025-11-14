@@ -82,6 +82,10 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
     const {
+      mainHeroTitle,
+      mainHeroSubtitle,
+      mainHeroCta1Text,
+      mainHeroCta1Link,
       heroTitle,
       heroSubtitle,
       heroDescription,
@@ -112,6 +116,10 @@ export async function POST(req: NextRequest) {
     // Create home landing page
     const item = await prisma.homeLanding.create({
       data: {
+        mainHeroTitle,
+        mainHeroSubtitle,
+        mainHeroCta1Text,
+        mainHeroCta1Link,
         heroTitle,
         heroSubtitle,
         heroDescription,

@@ -82,6 +82,10 @@ export async function PATCH(
     const updateData: Record<string, unknown> = {};
 
     // Only include fields that are provided
+    if (body.mainHeroTitle !== undefined) updateData.mainHeroTitle = body.mainHeroTitle;
+    if (body.mainHeroSubtitle !== undefined) updateData.mainHeroSubtitle = body.mainHeroSubtitle;
+    if (body.mainHeroCta1Text !== undefined) updateData.mainHeroCta1Text = body.mainHeroCta1Text;
+    if (body.mainHeroCta1Link !== undefined) updateData.mainHeroCta1Link = body.mainHeroCta1Link;
     if (body.heroTitle !== undefined) updateData.heroTitle = body.heroTitle;
     if (body.heroSubtitle !== undefined) updateData.heroSubtitle = body.heroSubtitle;
     if (body.heroDescription !== undefined) updateData.heroDescription = body.heroDescription;
