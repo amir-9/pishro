@@ -7,7 +7,7 @@ import {
 } from "@/lib/services/landing-service";
 import { successResponse, errorResponse } from "@/lib/api-response";
 
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
   try {
     const homeLanding = await getHomeLandingData();
     const mobileSteps = await getMobileScrollerSteps();
@@ -26,9 +26,6 @@ export async function GET(req: NextRequest) {
     });
   } catch (error) {
     console.error("Error in GET /api/landing/home:", error);
-    return errorResponse(
-      "خطا در دریافت اطلاعات صفحه اصلی",
-      "DATABASE_ERROR"
-    );
+    return errorResponse("خطا در دریافت اطلاعات صفحه اصلی", "DATABASE_ERROR");
   }
 }

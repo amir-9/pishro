@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
 import { getAboutPageData } from "@/lib/services/landing-service";
 import { successResponse, errorResponse } from "@/lib/api-response";
 
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
   try {
     const aboutPage = await getAboutPageData();
 
