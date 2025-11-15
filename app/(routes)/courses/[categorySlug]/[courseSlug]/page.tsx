@@ -26,7 +26,6 @@ import {
 } from "@/lib/services/course-service";
 import RatingStars from "@/components/utils/RatingStars";
 import CommentsSlider from "@/components/utils/CommentsSlider";
-import TagsListDynamic from "@/components/utils/TagsList.dynamic";
 import AddToCartButton from "@/components/utils/AddToCartButton";
 import { CourseLevel } from "@prisma/client";
 
@@ -167,16 +166,6 @@ export default async function CourseDetailPage({
         likes: c.likes?.length || 0,
       };
     });
-
-    // Transform tags
-    const tagList = (course.relatedTags || []).map((tag) => ({
-      id: tag.id,
-      title: tag.title,
-      slug: tag.slug,
-      color: tag.color,
-      icon: tag.icon,
-      usageCount: 0,
-    }));
 
     return (
       <main className="w-full mt-20">
