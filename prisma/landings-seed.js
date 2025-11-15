@@ -1,4 +1,6 @@
 import { PrismaClient } from "@prisma/client";
+import { seedMiniSlider1 } from "./seeds/mini-slider-1-seed.js";
+import { seedMiniSlider2 } from "./seeds/mini-slider-2-seed.js";
 
 const prisma = new PrismaClient();
 
@@ -20,6 +22,7 @@ async function main() {
   await prisma.investmentTag.deleteMany();
   await prisma.investmentPlan.deleteMany();
   await prisma.investmentPlans.deleteMany();
+  await prisma.homeMiniSlider.deleteMany();
 
   console.log("✔️ Cleanup complete!");
 
@@ -540,6 +543,14 @@ async function main() {
   }
 
   console.log("✅ Investment Plans created with plans and tags");
+
+  /**
+   * -------------------------------------------------------
+   * 🖼️ Seed Mini Sliders
+   * -------------------------------------------------------
+   */
+  await seedMiniSlider1();
+  await seedMiniSlider2();
 
   console.log("✅ Database seeded successfully!");
 }
