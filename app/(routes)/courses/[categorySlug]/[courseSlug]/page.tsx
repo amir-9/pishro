@@ -449,23 +449,6 @@ export default async function CourseDetailPage({
             </Suspense>
           </section>
         )}
-
-        {/* Tags Section */}
-        {tagList.length > 0 && (
-          <section
-            className="py-12 sm:py-16 md:py-20"
-            aria-label="کلیدواژه‌های دوره"
-          >
-            <Suspense
-              fallback={<div className="h-32 animate-pulse bg-gray-50" />}
-            >
-              <TagsListDynamic
-                tags={tagList}
-                title={`کلیدواژه‌های مرتبط با ${course.subject}`}
-              />
-            </Suspense>
-          </section>
-        )}
       </main>
     );
   } catch (error) {
