@@ -22,6 +22,7 @@ import CoursesSectionCategory from "@/components/utils/CoursesSec.category.serve
 import CommentsSlider from "@/components/utils/CommentsSlider";
 import TagsListDynamic from "@/components/utils/TagsList.dynamic";
 import ScrollToHashClient from "@/components/utils/scrollToHashClient";
+import { getUserRolePersian } from "@/lib/role-utils";
 
 // ISR Configuration: Revalidate every 1 hour
 export const revalidate = 3600;
@@ -250,7 +251,7 @@ export default async function CategoryPage({
         id: c.id,
         userName: displayName,
         userAvatar: avatar,
-        userRole: c.userRole || "کاربر",
+        userRole: getUserRolePersian(c.userRole),
         rating: c.rating || 5,
         content: c.text,
         date: c.createdAt.toLocaleDateString("fa-IR", {

@@ -3,6 +3,7 @@
 
 import CommentsSlider from "@/components/utils/CommentsSlider";
 import { useFeaturedComments } from "@/lib/hooks";
+import { getUserRolePersian } from "@/lib/role-utils";
 
 export default function HomeComments() {
   const { data: commentsData, isLoading } = useFeaturedComments(10);
@@ -17,7 +18,7 @@ export default function HomeComments() {
           "کاربر",
         userAvatar:
           c.userAvatar || c.user?.avatarUrl || "/images/default-avatar.png",
-        userRole: c.userRole || "کاربر",
+        userRole: getUserRolePersian(c.userRole),
         rating: c.rating || 5,
         content: c.text,
         date: c.createdAt,

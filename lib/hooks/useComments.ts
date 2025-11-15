@@ -100,6 +100,7 @@ export function useFeaturedComments(limit: number = 10) {
   return useComments({
     published: true,
     verified: true,
+    featured: true,
     limit,
   });
 }

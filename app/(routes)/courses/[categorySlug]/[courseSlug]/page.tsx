@@ -29,6 +29,7 @@ import CommentsSlider from "@/components/utils/CommentsSlider";
 import AddToCartButton from "@/components/utils/AddToCartButton";
 import { CourseLevel } from "@prisma/client";
 import CtaSection from "@/components/courses/ctaSection";
+import { getUserRolePersian } from "@/lib/role-utils";
 
 // ISR Configuration: Revalidate every 1 hour for fresh content
 export const revalidate = 3600;
@@ -155,7 +156,7 @@ export default async function CourseDetailPage({
         id: c.id,
         userName: displayName,
         userAvatar: avatar,
-        userRole: c.userRole || "دانشجو",
+        userRole: getUserRolePersian(c.userRole),
         rating: c.rating || 5,
         content: c.text,
         date: c.createdAt.toLocaleDateString("fa-IR", {
