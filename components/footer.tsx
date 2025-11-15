@@ -43,11 +43,11 @@ const Footer = () => {
   ];
 
   const categories = [
-    { label: "کریپتو", link: "/cryptocurrency" },
-    { label: "بورس", link: "/stock-market" },
-    { label: "متاورس", link: "/metaverse" },
-    { label: "NFT", link: "/nft" },
-    { label: "ایردراپ", link: "/airdrop" },
+    { label: "کریپتو", link: "/courses/cryptocurrency" },
+    { label: "بورس", link: "/courses/stock-market" },
+    { label: "متاورس", link: "/courses/metaverse" },
+    { label: "NFT", link: "/courses/nft" },
+    { label: "ایردراپ", link: "/courses/airdrop" },
   ];
 
   const customerService = [
