@@ -306,14 +306,18 @@ const ImageZoomSliderSection = ({
       {(miniSlider1Data || miniSlider2Data) && (
         <motion.div className="relative w-full py-4 bg-black -mt-20">
           {miniSlider1Data && miniSlider1Data.length > 0 && (
-            <MiniMovingSlider isVisible={showMiniSlider} data={miniSlider1Data} />
+            <MiniMovingSlider
+              isVisible={showMiniSlider}
+              data={miniSlider1Data}
+              baseSpeed={10000}
+            />
           )}
           <div className="h-5"></div>
           {miniSlider2Data && miniSlider2Data.length > 0 && (
             <MiniMovingSlider
               isVisible={showMiniSlider}
               data={miniSlider2Data}
-              baseSpeed={6000}
+              baseSpeed={8000}
             />
           )}
         </motion.div>

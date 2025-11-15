@@ -4,33 +4,39 @@ const prisma = new PrismaClient();
 
 const miniSlider1Images = [
   {
-    imageUrl: "/images/home/mini-slider-1/img-1.jpg",
+    imageUrl: "/images/home/landing-slider/p01.webp",
     row: 1,
     order: 1,
     published: true,
   },
   {
-    imageUrl: "/images/home/mini-slider-1/img-2.jpg",
+    imageUrl: "/images/home/landing-slider/p02.webp",
     row: 1,
     order: 2,
     published: true,
   },
   {
-    imageUrl: "/images/home/mini-slider-1/img-3.jpg",
+    imageUrl: "/images/home/landing-slider/p03.webp",
     row: 1,
     order: 3,
     published: true,
   },
   {
-    imageUrl: "/images/home/mini-slider-1/img-4.jpg",
+    imageUrl: "/images/home/landing-slider/p04.webp",
     row: 1,
     order: 4,
     published: true,
   },
   {
-    imageUrl: "/images/home/mini-slider-1/img-5.jpg",
+    imageUrl: "/images/home/landing-slider/p05.jpg",
     row: 1,
     order: 5,
+    published: true,
+  },
+  {
+    imageUrl: "/images/home/landing-slider/p06.jpg",
+    row: 1,
+    order: 6,
     published: true,
   },
 ];
