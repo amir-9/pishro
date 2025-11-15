@@ -75,7 +75,7 @@ const InvestmentLandingDynamic = () => {
     <div className="relative w-full h-screen overflow-hidden isolate flex items-center justify-start text-center px-4 -mb-32">
       {/* 📷 Background Image */}
       <Image
-        src={data.image || "/images/investment-consulting/landing.jpg"}
+        src={data.image || "/images/business-consulting/landing.jpg"}
         alt="مشاوره سرمایه‌گذاری"
         fill
         className="object-cover z-0"

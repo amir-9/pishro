@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 
 const DARK_PATHS = new Set([
   "/",
-  "/investment-consulting",
+  "/business-consulting",
   "/investment-plans",
   "/investment-plans/custom",
   "/library",

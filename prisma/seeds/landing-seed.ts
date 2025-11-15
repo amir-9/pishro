@@ -17,7 +17,7 @@ export async function seedLandingPages() {
       mainHeroTitle: "پیشرو در مسیر سرمایه‌گذاری هوشمند",
       mainHeroSubtitle: "آموزش تخصصی بورس و بازارهای مالی",
       mainHeroCta1Text: "شروع مسیر موفقیت",
-      mainHeroCta1Link: "/investment-consulting",
+      mainHeroCta1Link: "/business-consulting",
 
       // Hero Section
       heroTitle: "پیشرو سرمایه",
@@ -60,7 +60,7 @@ export async function seedLandingPages() {
           title: "مشاوره یک‌به‌یک",
           text: "راهنمایی حرفه‌ای در مسیر سرمایه‌گذاری",
           btnLabel: "درخواست مشاوره",
-          btnHref: "/investment-consulting",
+          btnHref: "/business-consulting",
           imagePath: "/images/home/why-us-2.jpg",
         },
         {
@@ -324,14 +324,14 @@ export async function seedLandingPages() {
 
   // ==================== INVESTMENT CONSULTING ====================
   const investmentConsulting = await prisma.investmentConsulting.upsert({
-    where: { id: "investment-consulting-1" },
+    where: { id: "business-consulting-1" },
     update: {},
     create: {
-      id: "investment-consulting-1",
+      id: "business-consulting-1",
       title: "مشاوره کسب وکار پیشرو",
       description:
         "در بخش مشاوره کسب‌وکار، همراه شماییم تا در هر حرفه‌ای که دارید، با استفاده از دانش و تجربه‌مان، کسب‌وکارتان را به سطح بالاتری برسانید.",
-      image: "/images/investment-consulting/landing.jpg",
+      image: "/images/business-consulting/landing.jpg",
 
       // Contact Info
       phoneNumber: "0912-123-4567",

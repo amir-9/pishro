@@ -51,7 +51,7 @@ export const navbarData = [
   },
   {
     label: "مشاوره کسب و کار",
-    link: "/investment-consulting", // Airdrop section
+    link: "/business-consulting", // Airdrop section
   },
   {
     label: "سبد های سرمایه گذاری",
@@ -136,7 +136,7 @@ export const whyUsData = [
 عضویت در پیشرو یعنی دسترسی به جامعه‌ای فعال و متخصص که توش همیشه یاد می‌گیری.
 با انتخاب پیشرو، امنیت، شفافیت و آینده‌ای بهتر رو برای خودت می‌سازی.`,
     btnLabel: "اطلاعات بیشتر",
-    btnHref: "/investment-consulting",
+    btnHref: "/business-consulting",
     animationPath: "/animations/transaction-in-cryptocurrency.json",
     imagePath: "/images/landing/img-3.jpg",
   },
@@ -643,7 +643,7 @@ export const homeCommentsData = [
 export const investmentConsultingData = {
   title: "مشاوره کسب وکار پیشرو",
   text: `در بخش مشاوره کسب‌وکار، همراه شماییم تا در هر حرفه‌ای که دارید، مسیر رشد و توسعه را هموار کنیم. چه در فکر راه‌اندازی یک کسب‌وکار جدید باشید و چه بخواهید بیزنس فعلی‌تان را به مرحله‌ای بالاتر ببرید، کنار شما هستیم. با بررسی دقیق شرایط شخصی و بازار، راهکارهایی عملی برای سرمایه‌گذاری درست منابع مالی در دسترس و حتی بودجه‌های جانبی ارائه می‌دهیم. مشاوره‌های ما بر پایه تجربه، تحلیل داده‌محور و شناخت واقعی از فضای کسب‌وکار امروز شکل گرفته‌اند. آینده‌ شغلی‌تان را هوشمندانه طراحی کنید..`,
-  image: "/images/investment-consulting/landing.jpg",
+  image: "/images/business-consulting/landing.jpg",
 };
 
 export const investmentPlansData = {

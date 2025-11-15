@@ -70,6 +70,21 @@ export async function getAboutPageData() {
   }
 }
 
+// ==================== BUSINESS CONSULTING ====================
+
+export async function getBusinessConsultingData() {
+  try {
+    const data = await prisma.businessConsulting.findFirst({
+      where: { published: true },
+    });
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching business consulting data:", error);
+    return null;
+  }
+}
+
 // ==================== INVESTMENT CONSULTING ====================
 
 export async function getInvestmentConsultingData() {

@@ -159,7 +159,7 @@ const OverlayMainText = () => (
     <motion.a
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      href="/investment-consulting"
+      href="/business-consulting"
       className="bg-white text-black font-bold px-8 py-4 rounded-full text-lg shadow-lg hover:bg-white/90 transition-all"
     >
       شروع مسیر موفقیت

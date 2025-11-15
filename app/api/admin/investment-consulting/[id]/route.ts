@@ -39,7 +39,10 @@ export async function GET(
     });
 
     if (!item) {
-      return notFoundResponse("InvestmentConsulting", "صفحه مشاوره سرمایه‌گذاری یافت نشد");
+      return notFoundResponse(
+        "InvestmentConsulting",
+        "صفحه مشاوره سرمایه‌گذاری یافت نشد"
+      );
     }
 
     return successResponse(item);
@@ -75,7 +78,10 @@ export async function PATCH(
     });
 
     if (!existingItem) {
-      return notFoundResponse("InvestmentConsulting", "صفحه مشاوره سرمایه‌گذاری یافت نشد");
+      return notFoundResponse(
+        "InvestmentConsulting",
+        "صفحه مشاوره سرمایه‌گذاری یافت نشد"
+      );
     }
 
     // Prepare update data
@@ -83,21 +89,33 @@ export async function PATCH(
 
     // Only include fields that are provided
     if (body.title !== undefined) updateData.title = body.title;
-    if (body.description !== undefined) updateData.description = body.description;
+    if (body.description !== undefined)
+      updateData.description = body.description;
     if (body.image !== undefined) updateData.image = body.image;
-    if (body.phoneNumber !== undefined) updateData.phoneNumber = body.phoneNumber;
+    if (body.phoneNumber !== undefined)
+      updateData.phoneNumber = body.phoneNumber;
     if (body.telegramId !== undefined) updateData.telegramId = body.telegramId;
-    if (body.telegramLink !== undefined) updateData.telegramLink = body.telegramLink;
-    if (body.coursesLink !== undefined) updateData.coursesLink = body.coursesLink;
-    if (body.inPersonTitle !== undefined) updateData.inPersonTitle = body.inPersonTitle;
-    if (body.inPersonDescription !== undefined) updateData.inPersonDescription = body.inPersonDescription;
-    if (body.onlineTitle !== undefined) updateData.onlineTitle = body.onlineTitle;
-    if (body.onlineDescription !== undefined) updateData.onlineDescription = body.onlineDescription;
-    if (body.coursesTitle !== undefined) updateData.coursesTitle = body.coursesTitle;
-    if (body.coursesDescription !== undefined) updateData.coursesDescription = body.coursesDescription;
+    if (body.telegramLink !== undefined)
+      updateData.telegramLink = body.telegramLink;
+    if (body.coursesLink !== undefined)
+      updateData.coursesLink = body.coursesLink;
+    if (body.inPersonTitle !== undefined)
+      updateData.inPersonTitle = body.inPersonTitle;
+    if (body.inPersonDescription !== undefined)
+      updateData.inPersonDescription = body.inPersonDescription;
+    if (body.onlineTitle !== undefined)
+      updateData.onlineTitle = body.onlineTitle;
+    if (body.onlineDescription !== undefined)
+      updateData.onlineDescription = body.onlineDescription;
+    if (body.coursesTitle !== undefined)
+      updateData.coursesTitle = body.coursesTitle;
+    if (body.coursesDescription !== undefined)
+      updateData.coursesDescription = body.coursesDescription;
     if (body.metaTitle !== undefined) updateData.metaTitle = body.metaTitle;
-    if (body.metaDescription !== undefined) updateData.metaDescription = body.metaDescription;
-    if (body.metaKeywords !== undefined) updateData.metaKeywords = body.metaKeywords;
+    if (body.metaDescription !== undefined)
+      updateData.metaDescription = body.metaDescription;
+    if (body.metaKeywords !== undefined)
+      updateData.metaKeywords = body.metaKeywords;
     if (body.published !== undefined) updateData.published = body.published;
 
     const updatedItem = await prisma.investmentConsulting.update({
@@ -105,7 +123,10 @@ export async function PATCH(
       data: updateData,
     });
 
-    return successResponse(updatedItem, "صفحه مشاوره سرمایه‌گذاری با موفقیت بروزرسانی شد");
+    return successResponse(
+      updatedItem,
+      "صفحه مشاوره سرمایه‌گذاری با موفقیت بروزرسانی شد"
+    );
   } catch (error) {
     console.error("Error updating investment consulting page:", error);
     return errorResponse(
@@ -137,7 +158,10 @@ export async function DELETE(
     });
 
     if (!existingItem) {
-      return notFoundResponse("InvestmentConsulting", "صفحه مشاوره سرمایه‌گذاری یافت نشد");
+      return notFoundResponse(
+        "InvestmentConsulting",
+        "صفحه مشاوره سرمایه‌گذاری یافت نشد"
+      );
     }
 
     // Delete item
