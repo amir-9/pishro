@@ -6,7 +6,7 @@ import { useFeaturedComments } from "@/lib/hooks";
 import { getUserRolePersian } from "@/lib/role-utils";
 
 export default function HomeComments() {
-  const { data: commentsData, isLoading } = useFeaturedComments(10);
+  const { data: commentsData, isLoading } = useFeaturedComments(13);
 
   // Transform comments for CommentsSlider
   const comments = commentsData
