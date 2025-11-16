@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { BookOpen, Bookmark, Clock, Star } from "lucide-react";
+import Image from "next/image";
 
 interface LibraryHeroProps {
   stats: {
@@ -14,10 +15,22 @@ interface LibraryHeroProps {
 
 export const LibraryHero = ({ stats }: LibraryHeroProps) => {
   return (
-    <section className="relative overflow-hidden bg-[#0d1b2a] pb-32 pt-36 text-white">
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/40 to-slate-900/80" />
-      <div className="absolute -left-10 top-24 h-64 w-64 rounded-full bg-sky-500/30 blur-3xl" />
-      <div className="absolute -right-16 bottom-10 h-72 w-72 rounded-full bg-indigo-500/30 blur-3xl" />
+    <section className="relative overflow-hidden pb-32 pt-36 text-white">
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/library/landing.jpg"
+          alt="library-background"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/90 via-slate-900/70 to-slate-900/90" />
+      </div>
+
+      {/* Floating Elements for depth */}
+      <div className="absolute -left-10 top-24 h-64 w-64 rounded-full bg-sky-500/20 blur-3xl" />
+      <div className="absolute -right-16 bottom-10 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl" />
 
       <div className="container-xl relative z-10 flex flex-col gap-10">
         <div className="max-w-3xl space-y-6">
