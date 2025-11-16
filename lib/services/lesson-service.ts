@@ -22,6 +22,9 @@ export async function getLessonsByCourse(courseId: string) {
         order: true,
         views: true,
         createdAt: true,
+        updatedAt: true,
+        courseId: true,
+        published: true,
       },
     });
 
