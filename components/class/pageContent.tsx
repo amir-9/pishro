@@ -3,44 +3,43 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { MdVideoLibrary } from "react-icons/md"; // یا می‌توان از BiVideo هم استفاده کرد
+import { MdVideoLibrary } from "react-icons/md";
 import VideoPlayer from "./videoPlayer";
-import { videoList } from "@/public/data";
 import CommentsSection from "./comments";
-
-interface Video {
-  id: string;
-  label: string;
-  date: string;
-  description: string;
-  videoUrl: string;
-  thumbnail: string;
-}
+import type { Lesson } from "@/types/lesson";
 
 interface ClassPageContentProps {
-  classData?: Video;
+  lessonData?: Lesson;
+  courseLessons?: Lesson[];
 }
 
-const ClassPageContent: React.FC<ClassPageContentProps> = ({ classData }) => {
-  const [selectedVideo, setSelectedVideo] = useState<Video | null>(
-    classData || videoList[0] || null
+const ClassPageContent: React.FC<ClassPageContentProps> = ({
+  lessonData,
+  courseLessons = [],
+}) => {
+  const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(
+    lessonData || courseLessons[0] || null
   );
 
   useEffect(() => {
-    if (classData) {
-      setSelectedVideo(classData);
+    if (lessonData) {
+      setSelectedLesson(lessonData);
     }
-  }, [classData]);
+  }, [lessonData]);
 
   return (
     <div className="container-xl mt-24">
       <div className="flex gap-6">
         {/* ویدیو پلیر */}
         <div className="flex-1 w-full min-w-4xl">
-          {selectedVideo ? (
+          {selectedLesson ? (
             <VideoPlayer
-              label={selectedVideo.label}
-              videoUrl={selectedVideo.videoUrl}
+              label={selectedLesson.title}
+              videoUrl={selectedLesson.videoUrl}
+              description={selectedLesson.description}
+              duration={selectedLesson.duration}
+              views={selectedLesson.views}
+              createdAt={selectedLesson.createdAt}
             />
           ) : (
             <p className="text-center text-gray-500">
@@ -56,37 +55,45 @@ const ClassPageContent: React.FC<ClassPageContentProps> = ({ classData }) => {
             ویدیو سایر جلسات
           </h3>
           <ul className="space-y-4 max-h-[500px] overflow-y-auto">
-            {videoList.map((video) => (
+            {courseLessons.map((lesson) => (
               <li
-                key={video.id}
+                key={lesson.id}
                 className={`cursor-pointer rounded-md transition-all duration-200 ${
-                  video.id === selectedVideo?.id && "bg-gray-100"
+                  lesson.id === selectedLesson?.id && "bg-gray-100"
                 } ${"hover:bg-gray-200 dark:hover:bg-gray-800"}`}
-                onClick={() => setSelectedVideo(video)}
+                onClick={() => setSelectedLesson(lesson)}
               >
                 <Link
-                  href={`/class/${video.id}`}
+                  href={`/class/${lesson.id}`}
                   className="flex items-center gap-3 p-3 w-full"
                 >
                   {/* تصویر بندانگشتی */}
-                  <div className="relative w-20 h-16 rounded-full">
-                    <Image
-                      src={video.thumbnail}
-                      alt={video.label}
-                      fill
-                      className=" rounded-full object-cover"
-                    />
-                  </div>
+                  {lesson.thumbnail && (
+                    <div className="relative w-20 h-16 rounded-full">
+                      <Image
+                        src={lesson.thumbnail}
+                        alt={lesson.title}
+                        fill
+                        className="rounded-full object-cover"
+                      />
+                    </div>
+                  )}
 
                   {/* اطلاعات ویدیو */}
                   <div className="flex flex-col">
-                    <span className="text-xs text-[#666]">{video.date}</span>
                     <span className="font-semibold text-[#495157] text-xs">
-                      {video.label}
+                      {lesson.title}
                     </span>
-                    <p className="text-xs text-gray-700 dark:text-gray-300 line-clamp-2">
-                      {video.description}
-                    </p>
+                    {lesson.duration && (
+                      <span className="text-xs text-[#666]">
+                        مدت زمان: {lesson.duration}
+                      </span>
+                    )}
+                    {lesson.description && (
+                      <p className="text-xs text-gray-700 dark:text-gray-300 line-clamp-2">
+                        {lesson.description}
+                      </p>
+                    )}
                   </div>
                 </Link>
               </li>

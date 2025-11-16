@@ -6,9 +6,20 @@ import "plyr/dist/plyr.css";
 interface VideoPlayerProps {
   videoUrl: string;
   label: string;
+  description?: string | null;
+  duration?: string | null;
+  views?: number;
+  createdAt?: Date;
 }
 
-const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, label }) => {
+const VideoPlayer: React.FC<VideoPlayerProps> = ({
+  videoUrl,
+  label,
+  description,
+  duration,
+  views,
+  createdAt,
+}) => {
   const [isClient, setIsClient] = useState(false);
 
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -88,22 +99,25 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ videoUrl, label }) => {
       <div className="w-full max-w-4xl">
         <p className="mt-8 text-2xl font-bold">{label}</p>
         <div className="flex justify-between gap-4 flex-wrap items-center mt-2">
-          <p>دسته بندی</p>
+          {duration && <p className="text-sm text-[#666]">مدت زمان: {duration}</p>}
           <div className="flex items-center gap-4 text-sm text-[#666] font-medium">
-            <p>1403/12/26</p>
-            <p>6800 مشاهده</p>
-            <p> +10 دیدگاه</p>
+            {createdAt && (
+              <p>
+                {new Date(createdAt).toLocaleDateString("fa-IR", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                })}
+              </p>
+            )}
+            {views !== undefined && <p>{views.toLocaleString("fa-IR")} مشاهده</p>}
           </div>
-          <p>تعداد لایک</p>
         </div>
-        <div>
-          {/* {description} */}
-          <p className="text-sm text-[#666] font-medium mt-4">
-            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
-            استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در
-            ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز،
-          </p>
-        </div>
+        {description && (
+          <div>
+            <p className="text-sm text-[#666] font-medium mt-4">{description}</p>
+          </div>
+        )}
       </div>
     </div>
   );
