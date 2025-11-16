@@ -75,6 +75,42 @@ export async function incrementLessonViews(lessonId: string) {
 }
 
 /**
+ * بررسی دسترسی کاربر به درس
+ * کاربر باید در دوره مربوط به درس ثبت‌نام کرده باشد
+ */
+export async function checkUserAccessToLesson(
+  userId: string,
+  lessonId: string
+): Promise<boolean> {
+  try {
+    // پیدا کردن درس و دوره مربوطه
+    const lesson = await prisma.lesson.findUnique({
+      where: { id: lessonId },
+      select: { courseId: true },
+    });
+
+    if (!lesson) {
+      return false;
+    }
+
+    // بررسی اینکه کاربر در دوره ثبت‌نام کرده باشد
+    const enrollment = await prisma.enrollment.findUnique({
+      where: {
+        userId_courseId: {
+          userId,
+          courseId: lesson.courseId,
+        },
+      },
+    });
+
+    return !!enrollment;
+  } catch (error) {
+    console.error("Error checking user access to lesson:", error);
+    return false;
+  }
+}
+
+/**
  * ایجاد کلاس جدید (برای ادمین)
  */
 export async function createLesson(data: {
