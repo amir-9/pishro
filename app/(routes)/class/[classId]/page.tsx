@@ -1,18 +1,25 @@
-import { videoList } from "@/public/data";
+import { getLessonById, getLessonsByCourse } from "@/lib/services/lesson-service";
 import ClassPageContent from "@/components/class/pageContent";
+import { notFound } from "next/navigation";
 
-interface classPageProps {
+interface ClassPageProps {
   params: Promise<{
-    classId: string; // اگر پوشه به صورت [classId] تعریف شده است، params.classId یک رشته است.
+    classId: string;
   }>;
 }
 
-export default async function classPage({ params }: classPageProps) {
-  // await کردن params برای رفع خطا
+export default async function ClassPage({ params }: ClassPageProps) {
   const { classId } = await params;
 
-  // جستجو در داده‌های محلی بر اساس payId
-  const classData = videoList.find((vid) => vid.id === classId);
+  // دریافت اطلاعات کلاس
+  const lessonData = await getLessonById(classId);
 
-  return <ClassPageContent classData={classData} />;
+  if (!lessonData) {
+    notFound();
+  }
+
+  // دریافت تمام کلاس‌های دوره مربوطه
+  const courseLessons = await getLessonsByCourse(lessonData.courseId);
+
+  return <ClassPageContent lessonData={lessonData} courseLessons={courseLessons} />;
 }
