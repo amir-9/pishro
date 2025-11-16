@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { prisma } from "@/lib/prisma";
-import AllCoursesContent from "@/components/courses/allCoursesContent";
+import CoursesPageContent from "@/components/courses/coursesPageContent";
 
 export const metadata: Metadata = {
   title: "همه دوره‌ها | پیشرو",
@@ -56,7 +56,7 @@ export default async function AllCoursesPage() {
           </div>
         }
       >
-        <AllCoursesContent categoriesWithCourses={categoriesWithCourses} />
+        <CoursesPageContent categoriesWithCourses={categoriesWithCourses} />
       </Suspense>
     </main>
   );
