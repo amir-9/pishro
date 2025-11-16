@@ -15,7 +15,7 @@ const InvestmentPlansLanding = ({
   investmentPlansData,
 }: InvestmentPlansLandingProps) => {
   return (
-    <div className="relative w-full h-screen lg:h-screen overflow-hidden isolate flex items-center justify-start text-center px-4 -mb-28">
+    <div className="relative w-full h-screen lg:h-screen overflow-hidden isolate flex items-center justify-start text-center px-4 mb-32">
       {/* Image behind everything */}
       <Image
         src={investmentPlansData.image || "/images/investment-plans.jpg"}
