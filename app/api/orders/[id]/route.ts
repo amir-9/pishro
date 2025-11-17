@@ -30,19 +30,31 @@ export async function GET(
     }
 
     // ✅ Parse items and fetch related courses
-    const courseIds = (order.items as { courseId: string }[]).map(
-      (item) => item.courseId
-    );
+    // Validate items is an array and filter out undefined courseIds
+    const itemsArray = Array.isArray(order.items) ? order.items : [];
 
-    const courses = await prisma.course.findMany({
-      where: { id: { in: courseIds } },
-      select: {
-        id: true,
-        subject: true,
-        price: true,
-        discountPercent: true,
-      },
-    });
+    const courseIds = itemsArray
+      .filter((item): item is { courseId: string } =>
+        typeof item === 'object' &&
+        item !== null &&
+        'courseId' in item &&
+        typeof item.courseId === 'string' &&
+        item.courseId.length > 0
+      )
+      .map((item) => item.courseId);
+
+    // Only fetch courses if we have valid courseIds
+    const courses = courseIds.length > 0
+      ? await prisma.course.findMany({
+          where: { id: { in: courseIds } },
+          select: {
+            id: true,
+            subject: true,
+            price: true,
+            discountPercent: true,
+          },
+        })
+      : [];
 
     const items = courses.map((course) => ({
       courseId: course.id,
