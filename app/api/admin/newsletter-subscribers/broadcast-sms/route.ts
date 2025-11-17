@@ -6,7 +6,7 @@
 import { NextRequest } from "next/server";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { sendSmsMelipayamak } from "@/lib/sms";
+import { sendBulkSmsMelipayamak } from "@/lib/sms";
 import {
   errorResponse,
   unauthorizedResponse,
@@ -61,35 +61,20 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Send SMS to all subscribers
-    const results = {
-      total: subscribers.length,
-      success: 0,
-      failed: 0,
-      failedPhones: [] as string[],
-    };
+    // Extract phone numbers
+    const phones = subscribers.map(s => s.phone);
 
-    // Helper function to add delay between requests
-    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
-    for (const subscriber of subscribers) {
-      try {
-        await sendSmsMelipayamak(subscriber.phone, message.trim());
-        results.success++;
-
-        // Add small delay to prevent overwhelming the SMS service (200ms)
-        await delay(200);
-      } catch (error) {
-        console.error(`Failed to send SMS to ${subscriber.phone}:`, error);
-        results.failed++;
-        results.failedPhones.push(subscriber.phone);
-      }
-    }
+    // Send SMS to all subscribers using bulk sending
+    // batchSize = 50 means 50 phones per API call
+    const results = await sendBulkSmsMelipayamak(phones, message.trim(), 50);
 
     // Return results
     return successResponse(
       {
-        ...results,
+        total: results.total,
+        success: results.success,
+        failed: results.failed,
+        failedPhones: results.failedPhones,
         message: `پیامک با موفقیت به ${results.success} نفر از ${results.total} عضو ارسال شد${
           results.failed > 0 ? `. ${results.failed} مورد با خطا مواجه شد` : ""
         }`,
