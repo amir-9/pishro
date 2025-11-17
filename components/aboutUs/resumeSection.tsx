@@ -39,7 +39,8 @@ const ResumeSection = ({ resumeItems }: ResumeSectionProps) => {
           داستان <span className="text-myPrimary">پیشرو</span>
         </h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          از آغاز تا امروز، با هدف واحد: ساختن آینده‌ای روشن‌تر برای سرمایه‌گذاران
+          از آغاز تا امروز، با هدف واحد: ساختن آینده‌ای روشن‌تر برای
+          سرمایه‌گذاران
         </p>
       </motion.div>
 
