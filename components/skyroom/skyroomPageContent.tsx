@@ -61,9 +61,9 @@ const SkyRoomPageContent: React.FC<SkyRoomPageContentProps> = ({
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.6, delay: 0.4, type: "spring" }}
-            className="inline-flex items-center justify-center w-20 h-20 mb-6 bg-white/10 backdrop-blur-md rounded-full border border-white/20"
+            className="inline-flex items-center justify-center size-24 mb-6 bg-white/10 backdrop-blur-md rounded-full border border-white/20"
           >
-            <HiUsers className="text-4xl text-white" />
+            <HiUsers className="text-5xl text-white" />
           </motion.div>
 
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-4 drop-shadow-2xl">
