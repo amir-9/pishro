@@ -118,7 +118,7 @@ export function DesktopScroller({
 
                   <div className="pt-10">
                     <button className="px-10 py-3 bg-white/10 text-white rounded-full shadow-md hover:bg-white/5 transition">
-                      شروع کنید
+                      اطلاعات بیشتر
                     </button>
                   </div>
                 </div>
