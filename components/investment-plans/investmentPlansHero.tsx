@@ -231,7 +231,7 @@ export const InvestmentPlansHero = ({
                 {/* Shine effect on hover */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
 
-                <div className="relative flex flex-col gap-4">
+                <div className="relative flex flex-col items-center text-center gap-4">
                   <span
                     className={`flex h-14 w-14 items-center justify-center rounded-2xl ${item.iconBg} text-white shadow-lg backdrop-blur-sm`}
                   >
@@ -257,7 +257,7 @@ export const InvestmentPlansHero = ({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10"
       >
         <motion.div
           animate={floatAnimation}
