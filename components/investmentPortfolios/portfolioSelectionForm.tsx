@@ -260,12 +260,12 @@ const PortfolioSelectionForm = () => {
 
               {/* مدت سرمایه‌گذاری */}
               <div className="group bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg hover:shadow-myPrimary/10 hover:border-myPrimary/30 transition-all duration-300 hover:scale-[1.02]">
-                <p className="text-center text-lg font-bold mb-6 flex items-center justify-center gap-2 text-gray-900">
+                <div className="text-center text-lg font-bold mb-6 flex items-center justify-center gap-2 text-gray-900">
                   <div className="p-2 bg-myPrimary/10 rounded-xl group-hover:bg-myPrimary/20 transition-colors">
                     <Clock size={24} className="text-myPrimary" />
                   </div>
                   مدت سرمایه‌گذاری
-                </p>
+                </div>
 
                 <div className="grid grid-cols-3 gap-2">
                   {durationOptions.map((option) => (
