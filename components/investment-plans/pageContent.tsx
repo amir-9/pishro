@@ -1,7 +1,6 @@
 "use client";
 
 import { InvestmentPlansHero } from "./investmentPlansHero";
-import CalculatorSection from "@/components/investmentPortfolios/calculatorSection";
 import PortfoliosDisplay from "@/components/investmentPortfolios/portfoliosDisplay";
 import PortfolioSelectionForm from "@/components/investmentPortfolios/portfolioSelectionForm";
 import InvestmentModelsSection from "@/components/investmentPortfolios/investmentModelsSection";
@@ -22,19 +21,14 @@ const InvestmentPlansPageContent = ({
       {/* Hero Section - New Design */}
       <InvestmentPlansHero investmentPlansData={investmentPlansData} />
 
-      {/* Calculator Section with ID for scroll targeting */}
-      <CalculatorSection />
-
-      {/* Investment Models Section - with scroll to calculator */}
+      {/* Investment Models Section */}
       <InvestmentModelsSection />
 
       {/* Portfolios Display from investment-portfolios */}
       <PortfoliosDisplay />
 
-      {/* Portfolio Selection Form from investment-portfolios */}
-      <div id="portfolio-selection">
-        <PortfolioSelectionForm />
-      </div>
+      {/* Portfolio Selection Form with Add to Cart Button */}
+      <PortfolioSelectionForm />
     </div>
   );
 };

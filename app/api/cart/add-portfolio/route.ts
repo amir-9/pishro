@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
       return errorResponse("مبلغ سرمایه‌گذاری نامعتبر است", "INVALID_AMOUNT");
     }
 
-    if (portfolioDuration < 1 || portfolioDuration > 12) {
+    if (portfolioDuration < 1 || portfolioDuration > 36) {
       return errorResponse("مدت سرمایه‌گذاری نامعتبر است", "INVALID_DURATION");
     }
 
@@ -76,14 +76,16 @@ export async function POST(req: NextRequest) {
         userId: userId,
         total: price,
         status: "PENDING",
-        items: {
-          portfolioType,
-          portfolioAmount,
-          portfolioDuration,
-          expectedReturn,
-          monthlyRate,
-          price,
-        },
+        items: [
+          {
+            portfolioType,
+            portfolioAmount,
+            portfolioDuration,
+            expectedReturn,
+            monthlyRate,
+            price,
+          },
+        ],
         orderItems: {
           create: {
             portfolioType,
