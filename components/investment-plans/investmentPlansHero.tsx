@@ -31,8 +31,13 @@ export const InvestmentPlansHero = ({
     maxReturn: 11, // درصد بازدهی حداکثر
   };
 
-  const scrollToPortfolios = () => {
-    const element = document.getElementById("portfolio-selection");
+  const scrollToModels = () => {
+    const element = document.getElementById("investment-models");
+    element?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToPlans = () => {
+    const element = document.getElementById("plans-section");
     element?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -164,7 +169,7 @@ export const InvestmentPlansHero = ({
 
             <motion.div variants={itemVariants}>
               <Button
-                onClick={scrollToPortfolios}
+                onClick={scrollToModels}
                 size="lg"
                 className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white shadow-xl shadow-emerald-500/25 hover:shadow-2xl hover:shadow-emerald-500/40 transition-all duration-300 px-8 py-6 text-lg font-semibold rounded-2xl group"
               >
@@ -257,7 +262,7 @@ export const InvestmentPlansHero = ({
         <motion.div
           animate={floatAnimation}
           className="flex flex-col items-center gap-2 cursor-pointer"
-          onClick={scrollToPortfolios}
+          onClick={scrollToPlans}
         >
           <span className="text-xs text-slate-400 font-medium">
             مشاهده سبدها
