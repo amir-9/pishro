@@ -1,7 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Wallet, TrendingUp, Shield, BarChart3, ArrowDown, Sparkles } from "lucide-react";
+import {
+  Wallet,
+  TrendingUp,
+  Shield,
+  BarChart3,
+  ArrowDown,
+  Sparkles,
+} from "lucide-react";
 import Image from "next/image";
 import { InvestmentPlans, InvestmentPlan, InvestmentTag } from "@prisma/client";
 import { Button } from "@/components/ui/button";
@@ -205,7 +212,7 @@ export const InvestmentPlansHero = ({
                 iconBg: "bg-amber-500/20",
                 border: "border-amber-400/30",
               },
-            ].map((item, index) => (
+            ].map((item, _index) => (
               <motion.div
                 key={item.label}
                 variants={itemVariants}
@@ -252,7 +259,9 @@ export const InvestmentPlansHero = ({
           className="flex flex-col items-center gap-2 cursor-pointer"
           onClick={scrollToPortfolios}
         >
-          <span className="text-xs text-slate-400 font-medium">مشاهده سبدها</span>
+          <span className="text-xs text-slate-400 font-medium">
+            مشاهده سبدها
+          </span>
           <motion.div
             animate={{
               y: [0, 8, 0],
