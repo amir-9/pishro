@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { HiVideoCamera, HiArrowLeft } from "react-icons/hi";
 
@@ -7,51 +8,41 @@ interface SkyRoomPageContentProps {
   meetingLink: string | null;
 }
 
-const SkyRoomPageContent: React.FC<SkyRoomPageContentProps> = ({ meetingLink }) => {
+const SkyRoomPageContent: React.FC<SkyRoomPageContentProps> = ({
+  meetingLink,
+}) => {
   return (
     <div className="relative h-screen w-full overflow-hidden">
-      {/* Animated Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-pink-900">
-        {/* Animated Floating Shapes */}
+      {/* Background Image Layer with Next.js Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/images/skyroom/landing.jpg"
+          alt="Skyroom Background"
+          fill
+          priority
+          className="object-cover"
+        />
+      </div>
+      <div className="absolute inset-0 bg-black/70 pointer-events-none z-0"></div>
+
+      {/* Animated Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-950/20 via-purple-950/20 to-pink-950/20 pointer-events-none z-0">
+        {/* Floating Shapes */}
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
-            className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl"
-            animate={{
-              x: [0, 100, 0],
-              y: [0, -100, 0],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+            className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"
+            animate={{ x: [0, 100, 0], y: [0, -100, 0], scale: [1, 1.2, 1] }}
+            transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
-            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl"
-            animate={{
-              x: [0, -100, 0],
-              y: [0, 100, 0],
-              scale: [1, 1.3, 1],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"
+            animate={{ x: [0, -100, 0], y: [0, 100, 0], scale: [1, 1.3, 1] }}
+            transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
-            className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl"
-            animate={{
-              x: [0, 50, 0],
-              y: [0, -50, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+            className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl"
+            animate={{ x: [0, 50, 0], y: [0, -50, 0], scale: [1, 1.1, 1] }}
+            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
           />
         </div>
       </div>
@@ -88,7 +79,7 @@ const SkyRoomPageContent: React.FC<SkyRoomPageContentProps> = ({ meetingLink }) 
           </motion.p>
         </motion.div>
 
-        {/* Glassmorphism Button */}
+        {/* Button Section */}
         {meetingLink ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -99,7 +90,6 @@ const SkyRoomPageContent: React.FC<SkyRoomPageContentProps> = ({ meetingLink }) 
             {/* Glow Effect */}
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-2xl blur-xl opacity-70 group-hover:opacity-100 transition duration-500 group-hover:duration-200 animate-pulse" />
 
-            {/* Button */}
             <a
               href={meetingLink}
               target="_blank"
@@ -111,7 +101,6 @@ const SkyRoomPageContent: React.FC<SkyRoomPageContentProps> = ({ meetingLink }) 
                 whileTap={{ scale: 0.95 }}
                 className="relative px-12 py-6 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl overflow-hidden group"
               >
-                {/* Button Shimmer Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
 
                 <div className="relative flex items-center gap-4">
@@ -141,7 +130,7 @@ const SkyRoomPageContent: React.FC<SkyRoomPageContentProps> = ({ meetingLink }) 
           </motion.div>
         )}
 
-        {/* Decorative Elements */}
+        {/* Bottom Text */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -157,7 +146,7 @@ const SkyRoomPageContent: React.FC<SkyRoomPageContentProps> = ({ meetingLink }) 
         </motion.div>
       </div>
 
-      {/* Grain Texture Overlay */}
+      {/* Grain Overlay */}
       <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
     </div>
   );
