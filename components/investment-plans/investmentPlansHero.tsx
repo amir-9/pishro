@@ -9,7 +9,6 @@ import {
   ArrowDown,
   Sparkles,
 } from "lucide-react";
-import Image from "next/image";
 import { InvestmentPlans, InvestmentPlan, InvestmentTag } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 
@@ -76,7 +75,7 @@ export const InvestmentPlansHero = ({
 
   return (
     <section className="relative overflow-hidden pb-20 pt-28 text-white min-h-[90vh] flex items-center">
-      {/* Background Image with Parallax Effect */}
+      {/* Background Video with Parallax Effect */}
       <div className="absolute inset-0">
         <motion.div
           initial={{ scale: 1.1 }}
@@ -84,13 +83,15 @@ export const InvestmentPlansHero = ({
           transition={{ duration: 1.5, ease: "easeOut" }}
           className="h-full w-full"
         >
-          <Image
-            src={investmentPlansData.image || "/images/investment-plans.jpg"}
-            alt="سبدهای سرمایه‌ گذاری"
-            fill
-            className="object-cover"
-            priority
-          />
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="h-full w-full object-cover"
+          >
+            <source src="/videos/investment-plans/landing.mp4" type="video/mp4" />
+          </video>
         </motion.div>
         {/* Enhanced Gradient Overlays */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-950/95 via-slate-900/85 to-slate-950/95" />
