@@ -22,6 +22,35 @@ const ResumeSection = ({ resumeItems }: ResumeSectionProps) => {
     return IconComponent || LuIcons.LuTarget;
   };
 
+  // Background color mapping - prevents Tailwind purging
+  const bgColorMap: Record<string, string> = {
+    "bg-blue-50": "bg-blue-50",
+    "bg-green-50": "bg-green-50",
+    "bg-orange-50": "bg-orange-50",
+    "bg-pink-50": "bg-pink-50",
+    "bg-purple-50": "bg-purple-50",
+    "bg-red-50": "bg-red-50",
+    "bg-yellow-50": "bg-yellow-50",
+    "bg-indigo-50": "bg-indigo-50",
+    "bg-teal-50": "bg-teal-50",
+    "bg-cyan-50": "bg-cyan-50",
+    "bg-gray-50": "bg-gray-50",
+  };
+
+  // Gradient color mapping - prevents Tailwind purging
+  const gradientColorMap: Record<string, string> = {
+    "from-blue-500 to-purple-500": "from-blue-500 to-purple-500",
+    "from-green-500 to-emerald-500": "from-green-500 to-emerald-500",
+    "from-orange-500 to-red-500": "from-orange-500 to-red-500",
+    "from-pink-500 to-rose-500": "from-pink-500 to-rose-500",
+    "from-purple-500 to-indigo-500": "from-purple-500 to-indigo-500",
+    "from-red-500 to-orange-500": "from-red-500 to-orange-500",
+    "from-yellow-500 to-orange-500": "from-yellow-500 to-orange-500",
+    "from-indigo-500 to-purple-500": "from-indigo-500 to-purple-500",
+    "from-teal-500 to-cyan-500": "from-teal-500 to-cyan-500",
+    "from-cyan-500 to-blue-500": "from-cyan-500 to-blue-500",
+  };
+
   if (resumeItems.length === 0) {
     return null;
   }
@@ -48,8 +77,8 @@ const ResumeSection = ({ resumeItems }: ResumeSectionProps) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {resumeItems.map((item, index) => {
           const IconComponent = getIconComponent(item.icon);
-          const bgColor = item.bgColor || "bg-gray-50";
-          const gradientColor = item.color || "from-blue-500 to-purple-500";
+          const bgColor = bgColorMap[item.bgColor || ""] || "bg-gray-50";
+          const gradientColor = gradientColorMap[item.color || ""] || "from-blue-500 to-purple-500";
 
           return (
             <motion.div
