@@ -27,7 +27,14 @@ export async function PUT(req: Request) {
       },
     });
 
-    return successResponse(user, "اطلاعات پرداخت با موفقیت بروزرسانی شد");
+    return successResponse(
+      {
+        card: user.cardNumber,
+        shba: user.shebaNumber,
+        owner: user.accountOwner,
+      },
+      "اطلاعات پرداخت با موفقیت بروزرسانی شد"
+    );
   } catch (error) {
     console.error("Pay info update error:", error);
     return errorResponse(
