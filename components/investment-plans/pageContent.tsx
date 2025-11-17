@@ -28,7 +28,9 @@ const InvestmentPlansPageContent = ({
       <PortfoliosDisplay />
 
       {/* Portfolio Selection Form with Add to Cart Button */}
-      <PortfolioSelectionForm />
+      <div id="portfolio-selection">
+        <PortfolioSelectionForm />
+      </div>
     </div>
   );
 };
