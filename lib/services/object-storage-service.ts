@@ -185,7 +185,7 @@ export async function downloadFileFromStorage(
 
     // تبدیل Stream به Buffer
     const chunks: Uint8Array[] = [];
-    // @ts-ignore - Body می‌تواند stream باشد
+    // @ts-expect-error - Body می‌تواند stream باشد
     for await (const chunk of response.Body) {
       chunks.push(chunk);
     }
@@ -226,7 +226,7 @@ export async function fileExistsInStorage(filePath: string): Promise<boolean> {
 
     await s3Client.send(command);
     return true;
-  } catch (error) {
+  } catch {
     return false;
   }
 }

@@ -22,7 +22,7 @@ import type { UpdateVideoInput } from "@/types/video";
  */
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { videoId: string } }
+  { params }: { params: Promise<{ videoId: string }> }
 ) {
   try {
     const session = await auth();
@@ -30,7 +30,7 @@ export async function GET(
       return unauthorizedResponse("دسترسی غیرمجاز - فقط ادمین");
     }
 
-    const { videoId } = params;
+    const { videoId } = await params;
 
     const video = await getVideoByVideoId(videoId);
 
@@ -54,7 +54,7 @@ export async function GET(
  */
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { videoId: string } }
+  { params }: { params: Promise<{ videoId: string }> }
 ) {
   try {
     const session = await auth();
@@ -62,7 +62,7 @@ export async function PUT(
       return unauthorizedResponse("دسترسی غیرمجاز - فقط ادمین");
     }
 
-    const { videoId } = params;
+    const { videoId } = await params;
 
     // بررسی وجود ویدیو
     const existingVideo = await getVideoByVideoId(videoId);
@@ -91,7 +91,7 @@ export async function PUT(
  */
 export async function DELETE(
   _req: NextRequest,
-  { params }: { params: { videoId: string } }
+  { params }: { params: Promise<{ videoId: string }> }
 ) {
   try {
     const session = await auth();
@@ -99,7 +99,7 @@ export async function DELETE(
       return unauthorizedResponse("دسترسی غیرمجاز - فقط ادمین");
     }
 
-    const { videoId } = params;
+    const { videoId } = await params;
 
     // بررسی وجود ویدیو
     const existingVideo = await getVideoByVideoId(videoId);

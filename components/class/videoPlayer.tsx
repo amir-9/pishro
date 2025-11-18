@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState } from "react";
 import "plyr/dist/plyr.css";
 
 interface VideoPlayerProps {
-  videoUrl: string;
+  videoUrl: string | null;
   label: string;
   description?: string | null;
   duration?: string | null;
@@ -93,7 +93,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     <div className="py-8" dir="rtl">
       <div className="w-full max-w-4xl rounded-lg overflow-hidden">
         <video ref={videoRef} className="plyr__video-embed" controls>
-          <source src={videoUrl} type="video/mp4" />
+          {videoUrl && <source src={videoUrl} type="video/mp4" />}
         </video>
       </div>
       <div className="w-full max-w-4xl">

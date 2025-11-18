@@ -16,6 +16,7 @@ export async function getLessonsByCourse(courseId: string) {
         id: true,
         title: true,
         description: true,
+        videoId: true,
         videoUrl: true,
         thumbnail: true,
         duration: true,
