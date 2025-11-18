@@ -3,11 +3,29 @@ import { prisma } from "@/lib/prisma";
 import { ImageCategory } from "@prisma/client";
 import crypto from "crypto";
 import sharp from "sharp";
-import { writeFile, mkdir, unlink } from "fs/promises";
-import { join } from "path";
-import { existsSync } from "fs";
+import {
+  S3Client,
+  PutObjectCommand,
+  DeleteObjectCommand,
+} from "@aws-sdk/client-s3";
 
 const IMAGES_FOLDER = "images"; // پوشه اصلی تصاویر
+
+/**
+ * تنظیمات S3 برای تصاویر
+ */
+const s3Config = {
+  region: process.env.S3_REGION || "default",
+  endpoint: process.env.S3_ENDPOINT,
+  credentials: {
+    accessKeyId: process.env.S3_ACCESS_KEY_ID || "",
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || "",
+  },
+  forcePathStyle: true,
+};
+
+const s3Client = new S3Client(s3Config);
+const BUCKET_NAME = process.env.S3_BUCKET_NAME || "";
 
 /**
  * تولید شناسه یکتا برای تصویر
@@ -29,7 +47,7 @@ export function generateUniqueImageFileName(
 }
 
 /**
- * تولید مسیر فایل در storage (محلی)
+ * تولید مسیر فایل در storage (S3)
  */
 export function getImageStoragePath(
   category: ImageCategory,
@@ -39,30 +57,15 @@ export function getImageStoragePath(
 }
 
 /**
- * تولید مسیر کامل فایل در سیستم فایل
- */
-export function getImageFullPath(
-  category: ImageCategory,
-  fileName: string
-): string {
-  return join(
-    process.cwd(),
-    "public",
-    "uploads",
-    IMAGES_FOLDER,
-    category.toLowerCase(),
-    fileName
-  );
-}
-
-/**
- * تولید URL عمومی برای دسترسی به تصویر
+ * تولید URL عمومی برای دسترسی به تصویر (S3)
  */
 export function getImagePublicUrl(
   category: ImageCategory,
   fileName: string
 ): string {
-  return `/uploads/${IMAGES_FOLDER}/${category.toLowerCase()}/${fileName}`;
+  const filePath = getImageStoragePath(category, fileName);
+  const endpoint = process.env.S3_PUBLIC_URL || process.env.S3_ENDPOINT;
+  return `${endpoint}/${filePath}`;
 }
 
 /**
@@ -110,7 +113,7 @@ export async function getImageDimensions(
 }
 
 /**
- * آپلود تصویر به سرور و ذخیره در دیتابیس
+ * آپلود تصویر به S3 و ذخیره در دیتابیس
  */
 export async function uploadImage(params: {
   userId: string;
@@ -151,33 +154,21 @@ export async function uploadImage(params: {
   const imageId = generateImageId();
   const fileName = generateUniqueImageFileName(imageId, file.name);
   const filePath = getImageStoragePath(category, fileName);
-  const fullPath = getImageFullPath(category, fileName);
 
-  // ایجاد دایرکتوری اگر وجود ندارد
-  const uploadDir = join(
-    process.cwd(),
-    "public",
-    "uploads",
-    IMAGES_FOLDER,
-    category.toLowerCase()
-  );
-
+  // آپلود به S3
   try {
-    await mkdir(uploadDir, { recursive: true });
-  } catch (err) {
-    console.error("Error creating directory:", err);
-    throw new Error(
-      `خطا در ایجاد پوشه آپلود: ${err instanceof Error ? err.message : "خطای نامشخص"}`
-    );
-  }
+    const command = new PutObjectCommand({
+      Bucket: BUCKET_NAME,
+      Key: filePath,
+      Body: buffer,
+      ContentType: file.type,
+    });
 
-  // ذخیره فایل روی سرور
-  try {
-    await writeFile(fullPath, buffer);
+    await s3Client.send(command);
   } catch (err) {
-    console.error("Error writing file:", err);
+    console.error("Error uploading to S3:", err);
     throw new Error(
-      `خطا در ذخیره فایل: ${err instanceof Error ? err.message : "خطای نامشخص"}`
+      `خطا در آپلود تصویر: ${err instanceof Error ? err.message : "خطای نامشخص"}`
     );
   }
 
@@ -352,17 +343,16 @@ export async function deleteImage(imageId: string, userId: string) {
     throw new Error("تصویر یافت نشد");
   }
 
-  // حذف فایل از سرور
+  // حذف فایل از S3
   try {
-    const fileName = image.filePath.split("/").pop() || "";
-    const fullPath = getImageFullPath(image.category, fileName);
+    const command = new DeleteObjectCommand({
+      Bucket: BUCKET_NAME,
+      Key: image.filePath,
+    });
 
-    // بررسی وجود فایل قبل از حذف
-    if (existsSync(fullPath)) {
-      await unlink(fullPath);
-    }
+    await s3Client.send(command);
   } catch (error) {
-    console.error("Error deleting file from server:", error);
+    console.error("Error deleting file from S3:", error);
     // ادامه می‌دهیم تا حداقل از دیتابیس حذف شود
   }
 
