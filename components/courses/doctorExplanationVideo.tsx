@@ -14,10 +14,12 @@ import { Button } from "@/components/ui/button";
 
 interface DoctorExplanationVideoProps {
   videoUrl?: string;
+  posterUrl?: string;
 }
 
 export default function DoctorExplanationVideo({
-  videoUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ", // Default video URL
+  videoUrl = "/videos/doctor-explanation.mp4", // Default video URL
+  posterUrl,
 }: DoctorExplanationVideoProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -41,14 +43,17 @@ export default function DoctorExplanationVideo({
             ویدیو توضیحات تکمیلی دوره
           </DialogDescription>
         </DialogHeader>
-        <div className="relative w-full aspect-video bg-gray-100 rounded-lg overflow-hidden">
-          <iframe
+        <div className="relative w-full aspect-video bg-gray-900 rounded-lg overflow-hidden">
+          <video
             src={videoUrl}
-            title="توضیحات خانم دکتر"
-            className="absolute inset-0 w-full h-full"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+            poster={posterUrl}
+            controls
+            controlsList="nodownload"
+            className="w-full h-full object-contain"
+            preload="metadata"
+          >
+            مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+          </video>
         </div>
       </DialogContent>
     </Dialog>
