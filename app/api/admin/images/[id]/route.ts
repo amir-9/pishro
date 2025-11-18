@@ -23,13 +23,10 @@ import {
 } from "@/lib/services/image-service";
 import { ImageCategory } from "@prisma/client";
 
-interface RouteParams {
-  params: {
-    id: string;
-  };
-}
-
-export async function GET(req: NextRequest, { params }: RouteParams) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     // Auth check - only admins
     const session = await auth();
@@ -40,7 +37,7 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
       return forbiddenResponse("دسترسی محدود به ادمین");
     }
 
-    const { id } = params;
+    const { id } = await params;
 
     const image = await getImageById(id, session.user.id);
 
@@ -58,7 +55,10 @@ export async function GET(req: NextRequest, { params }: RouteParams) {
   }
 }
 
-export async function PATCH(req: NextRequest, { params }: RouteParams) {
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     // Auth check - only admins
     const session = await auth();
@@ -69,7 +69,7 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
       return forbiddenResponse("دسترسی محدود به ادمین");
     }
 
-    const { id } = params;
+    const { id } = await params;
     const body = await req.json();
 
     const { title, description, alt, tags, category, published } = body;
@@ -115,7 +115,10 @@ export async function PATCH(req: NextRequest, { params }: RouteParams) {
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: RouteParams) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
     // Auth check - only admins
     const session = await auth();
@@ -126,7 +129,7 @@ export async function DELETE(req: NextRequest, { params }: RouteParams) {
       return forbiddenResponse("دسترسی محدود به ادمین");
     }
 
-    const { id } = params;
+    const { id } = await params;
 
     try {
       await deleteImage(id, session.user.id);
