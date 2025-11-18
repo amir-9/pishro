@@ -12,8 +12,6 @@ import type {
 } from "@/types/video";
 import {
   deleteFileFromStorage,
-  getVideoStoragePath,
-  getHLSStoragePath,
 } from "./object-storage-service";
 
 /**

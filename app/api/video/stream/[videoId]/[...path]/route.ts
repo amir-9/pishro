@@ -18,10 +18,10 @@ import { downloadFileFromStorage } from "@/lib/services/object-storage-service";
  */
 export async function GET(
   req: NextRequest,
-  { params }: { params: { videoId: string; path: string[] } }
+  { params }: { params: Promise<{ videoId: string; path: string[] }> }
 ) {
   try {
-    const { videoId, path } = params;
+    const { videoId, path } = await params;
     const searchParams = req.nextUrl.searchParams;
     const token = searchParams.get("token");
 
@@ -104,7 +104,7 @@ export async function GET(
       }
 
       // برای فایل‌های segment (ts)، مستقیماً برگردانیم
-      return new NextResponse(fileBuffer, {
+      return new NextResponse(new Uint8Array(fileBuffer), {
         status: 200,
         headers: {
           "Content-Type": contentType,

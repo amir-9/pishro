@@ -6,8 +6,8 @@
  * استفاده:
  * node scripts/video-processor-worker.js
  *
- * یا با cron:
- * */5 * * * * node /path/to/video-processor-worker.js
+ * یا با cron (هر 5 دقیقه):
+ * * /5 * * * * node /path/to/video-processor-worker.js
  */
 
 import { getVideosReadyForProcessing } from "../lib/services/video-service";

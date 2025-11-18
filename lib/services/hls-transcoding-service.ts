@@ -30,7 +30,7 @@ const DEFAULT_HLS_OPTIONS: Required<HLSProcessingOptions> = {
 /**
  * تنظیمات quality برای هر سطح
  */
-const QUALITY_SETTINGS = {
+const _QUALITY_SETTINGS = {
   "360p": { width: 640, height: 360, bitrate: "800k" },
   "480p": { width: 854, height: 480, bitrate: "1400k" },
   "720p": { width: 1280, height: 720, bitrate: "2800k" },
@@ -92,7 +92,7 @@ async function transcodeToHLS(
 }> {
   return new Promise((resolve, reject) => {
     const mergedOptions = { ...DEFAULT_HLS_OPTIONS, ...options };
-    const { qualities, segmentDuration } = mergedOptions;
+    const { qualities: _qualities, segmentDuration } = mergedOptions;
 
     const outputPlaylist = path.join(outputDir, "index.m3u8");
 
@@ -303,7 +303,7 @@ export async function extractVideoMetadata(filePath: string): Promise<{
             codec: videoStream.codec_name,
             frameRate,
           });
-        } catch (err) {
+        } catch {
           reject(new Error("Failed to parse ffprobe output"));
         }
       } else {
@@ -341,7 +341,7 @@ export async function processVideoToHLS(
     await fs.mkdir(hlsOutputDir, { recursive: true });
 
     // تبدیل به HLS
-    const { playlistPath, segmentsDir } = await transcodeToHLS(
+    const { playlistPath: _playlistPath, segmentsDir: _segmentsDir } = await transcodeToHLS(
       localInputPath,
       hlsOutputDir,
       options
