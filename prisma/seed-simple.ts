@@ -5,11 +5,24 @@ const prisma = new PrismaClient();
 async function main() {
   console.log("🌱 شروع seed ساده...");
 
-  // 1. ایجاد یک کاربر تست (در صورت عدم وجود)
-  const testUser = await prisma.user.upsert({
+  // 🧹 پاک کردن داده‌های قبلی برای اجرای مجدد
+  console.log("🧹 پاک کردن داده‌های قبلی...");
+
+  // حذف به ترتیب وابستگی‌ها
+  await prisma.enrollment.deleteMany({});
+  await prisma.lesson.deleteMany({});
+  await prisma.course.deleteMany({});
+
+  // حذف کاربر تست در صورت وجود
+  await prisma.user.deleteMany({
     where: { phone: "09123456789" },
-    update: {},
-    create: {
+  });
+
+  console.log("✓ داده‌های قبلی پاک شدند");
+
+  // 1. ایجاد یک کاربر تست
+  const testUser = await prisma.user.create({
+    data: {
       phone: "09123456789",
       passwordHash:
         "$2a$10$YourHashedPasswordHere1234567890", // فقط برای تست
