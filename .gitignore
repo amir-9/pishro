@@ -47,3 +47,7 @@ next-env.d.ts
 # claude
 
 /.claude/
+
+# uploaded files
+/public/uploads/**/*
+!/public/uploads/**/.gitkeep
