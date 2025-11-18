@@ -1,13 +1,11 @@
 // @/lib/services/image-service.ts
 import { prisma } from "@/lib/prisma";
-import {
-  uploadFileToStorage,
-  deleteFileFromStorage,
-  generateSignedDownloadUrl,
-} from "./object-storage-service";
 import { ImageCategory } from "@prisma/client";
 import crypto from "crypto";
 import sharp from "sharp";
+import { writeFile, mkdir, unlink } from "fs/promises";
+import { join } from "path";
+import { existsSync } from "fs";
 
 const IMAGES_FOLDER = "images"; // پوشه اصلی تصاویر
 
@@ -31,13 +29,40 @@ export function generateUniqueImageFileName(
 }
 
 /**
- * تولید مسیر فایل در storage
+ * تولید مسیر فایل در storage (محلی)
  */
 export function getImageStoragePath(
   category: ImageCategory,
   fileName: string
 ): string {
   return `${IMAGES_FOLDER}/${category.toLowerCase()}/${fileName}`;
+}
+
+/**
+ * تولید مسیر کامل فایل در سیستم فایل
+ */
+export function getImageFullPath(
+  category: ImageCategory,
+  fileName: string
+): string {
+  return join(
+    process.cwd(),
+    "public",
+    "uploads",
+    IMAGES_FOLDER,
+    category.toLowerCase(),
+    fileName
+  );
+}
+
+/**
+ * تولید URL عمومی برای دسترسی به تصویر
+ */
+export function getImagePublicUrl(
+  category: ImageCategory,
+  fileName: string
+): string {
+  return `/uploads/${IMAGES_FOLDER}/${category.toLowerCase()}/${fileName}`;
 }
 
 /**
@@ -85,7 +110,7 @@ export async function getImageDimensions(
 }
 
 /**
- * آپلود تصویر به storage و ذخیره در دیتابیس
+ * آپلود تصویر به سرور و ذخیره در دیتابیس
  */
 export async function uploadImage(params: {
   userId: string;
@@ -105,7 +130,9 @@ export async function uploadImage(params: {
 
   // اعتبارسنجی نوع فایل
   if (!isValidImageMimeType(file.type)) {
-    throw new Error("فرمت فایل مجاز نیست. فقط JPG، PNG، GIF، WEBP و SVG مجاز است.");
+    throw new Error(
+      "فرمت فایل مجاز نیست. فقط JPG، PNG، GIF، WEBP و SVG مجاز است."
+    );
   }
 
   // اعتبارسنجی حجم فایل
@@ -124,9 +151,24 @@ export async function uploadImage(params: {
   const imageId = generateImageId();
   const fileName = generateUniqueImageFileName(imageId, file.name);
   const filePath = getImageStoragePath(category, fileName);
+  const fullPath = getImageFullPath(category, fileName);
 
-  // آپلود به storage
-  await uploadFileToStorage(filePath, buffer, file.type);
+  // ایجاد دایرکتوری اگر وجود ندارد
+  const uploadDir = join(
+    process.cwd(),
+    "public",
+    "uploads",
+    IMAGES_FOLDER,
+    category.toLowerCase()
+  );
+  try {
+    await mkdir(uploadDir, { recursive: true });
+  } catch (err) {
+    console.error("Error creating directory:", err);
+  }
+
+  // ذخیره فایل روی سرور
+  await writeFile(fullPath, buffer);
 
   // ذخیره در دیتابیس
   const image = await prisma.image.create({
@@ -147,8 +189,8 @@ export async function uploadImage(params: {
     },
   });
 
-  // تولید URL با امضا
-  const url = await generateSignedDownloadUrl(filePath, 3600); // 1 ساعت
+  // تولید URL عمومی
+  const url = getImagePublicUrl(category, fileName);
 
   return {
     id: image.id,
@@ -222,16 +264,16 @@ export async function getUserImages(params: {
     prisma.image.count({ where }),
   ]);
 
-  // تولید URL با امضا برای هر تصویر
-  const imagesWithUrls = await Promise.all(
-    images.map(async (image) => {
-      const url = await generateSignedDownloadUrl(image.filePath, 3600);
-      return {
-        ...image,
-        url,
-      };
-    })
-  );
+  // تولید URL عمومی برای هر تصویر
+  const imagesWithUrls = images.map((image) => {
+    // استخراج نام فایل از filePath
+    const fileName = image.filePath.split("/").pop() || "";
+    const url = getImagePublicUrl(image.category, fileName);
+    return {
+      ...image,
+      url,
+    };
+  });
 
   return {
     images: imagesWithUrls,
@@ -274,8 +316,9 @@ export async function getImageById(imageId: string, userId: string) {
     return null;
   }
 
-  // تولید URL با امضا
-  const url = await generateSignedDownloadUrl(image.filePath, 3600);
+  // تولید URL عمومی
+  const fileName = image.filePath.split("/").pop() || "";
+  const url = getImagePublicUrl(image.category, fileName);
 
   return {
     ...image,
@@ -298,11 +341,17 @@ export async function deleteImage(imageId: string, userId: string) {
     throw new Error("تصویر یافت نشد");
   }
 
-  // حذف از storage
+  // حذف فایل از سرور
   try {
-    await deleteFileFromStorage(image.filePath);
+    const fileName = image.filePath.split("/").pop() || "";
+    const fullPath = getImageFullPath(image.category, fileName);
+
+    // بررسی وجود فایل قبل از حذف
+    if (existsSync(fullPath)) {
+      await unlink(fullPath);
+    }
   } catch (error) {
-    console.error("Error deleting file from storage:", error);
+    console.error("Error deleting file from server:", error);
     // ادامه می‌دهیم تا حداقل از دیتابیس حذف شود
   }
 
@@ -345,8 +394,9 @@ export async function updateImage(params: {
     data: updateData,
   });
 
-  // تولید URL با امضا
-  const url = await generateSignedDownloadUrl(updatedImage.filePath, 3600);
+  // تولید URL عمومی
+  const fileName = updatedImage.filePath.split("/").pop() || "";
+  const url = getImagePublicUrl(updatedImage.category, fileName);
 
   return {
     ...updatedImage,
