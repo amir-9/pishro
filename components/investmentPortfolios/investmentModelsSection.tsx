@@ -38,6 +38,7 @@ const InvestmentModelsSection = () => {
   );
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
+  // TODO add it to cms
   // Contact information
   const contactInfo = {
     "in-person": {
@@ -257,7 +258,7 @@ const InvestmentModelsSection = () => {
             return (
               <div
                 key={model.type}
-                className="bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+                className="flex flex-col bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden hover:shadow-2xl transition-shadow duration-300"
               >
                 {/* Header با gradient */}
                 <div
@@ -279,56 +280,58 @@ const InvestmentModelsSection = () => {
                 </div>
 
                 {/* Content */}
-                <div className="p-8">
-                  {/* Features */}
-                  <div className="mb-8">
-                    <h4 className="text-lg font-bold text-gray-900 mb-4">
-                      ویژگی‌ها
-                    </h4>
-                    <div className="grid grid-cols-1 gap-4">
-                      {model.features.map((feature, idx) => {
-                        const FeatureIcon = feature.icon;
-                        return (
-                          <div
-                            key={idx}
-                            className="flex items-start gap-3 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition"
-                          >
-                            <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-white shadow-sm flex items-center justify-center">
-                              <FeatureIcon
-                                className="text-mySecondary"
-                                size={20}
-                              />
+                <div className="p-8 flex flex-col justify-between flex-1">
+                  <div>
+                    {/* Features */}
+                    <div className="mb-8">
+                      <h4 className="text-lg font-bold text-gray-900 mb-4">
+                        ویژگی‌ها
+                      </h4>
+                      <div className="grid grid-cols-1 gap-4">
+                        {model.features.map((feature, idx) => {
+                          const FeatureIcon = feature.icon;
+                          return (
+                            <div
+                              key={idx}
+                              className="flex items-start gap-3 p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition"
+                            >
+                              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-white shadow-sm flex items-center justify-center">
+                                <FeatureIcon
+                                  className="text-mySecondary"
+                                  size={20}
+                                />
+                              </div>
+                              <div>
+                                <p className="font-semibold text-gray-900 mb-1">
+                                  {feature.title}
+                                </p>
+                                <p className="text-sm text-gray-600">
+                                  {feature.description}
+                                </p>
+                              </div>
                             </div>
-                            <div>
-                              <p className="font-semibold text-gray-900 mb-1">
-                                {feature.title}
-                              </p>
-                              <p className="text-sm text-gray-600">
-                                {feature.description}
-                              </p>
-                            </div>
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Benefits */}
-                  <div className="mb-8">
-                    <h4 className="text-lg font-bold text-gray-900 mb-4">
-                      مزایا
-                    </h4>
-                    <ul className="space-y-3">
-                      {model.benefits.map((benefit, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <CheckCircle2
-                            className="flex-shrink-0 mt-0.5 text-green-600"
-                            size={20}
-                          />
-                          <span className="text-gray-700">{benefit}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    {/* Benefits */}
+                    <div className="mb-8">
+                      <h4 className="text-lg font-bold text-gray-900 mb-4">
+                        مزایا
+                      </h4>
+                      <ul className="space-y-3">
+                        {model.benefits.map((benefit, idx) => (
+                          <li key={idx} className="flex items-start gap-2">
+                            <CheckCircle2
+                              className="flex-shrink-0 mt-0.5 text-green-600"
+                              size={20}
+                            />
+                            <span className="text-gray-700">{benefit}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
 
                   {/* CTA Button */}
