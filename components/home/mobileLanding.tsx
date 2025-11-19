@@ -206,7 +206,7 @@ const FeatureCardsSection = ({ overlayTexts }: { overlayTexts?: string[] }) => {
   ];
 
   return (
-    <section className="relative w-full bg-gradient-to-b from-black via-gray-950 to-black py-16 px-6">
+    <section className="relative w-full bg-gradient-to-b from-black via-gray-950 to-black py-16 px-6 overflow-x-hidden">
       <div className="max-w-4xl mx-auto space-y-6">
         {texts.map((text, index) => (
           <motion.div
@@ -255,7 +255,7 @@ const FeatureCardsSection = ({ overlayTexts }: { overlayTexts?: string[] }) => {
 // =================================================
 const SlidesSwiperSection = ({ slides }: { slides: SlideData[] }) => {
   return (
-    <section className="relative w-full bg-gradient-to-b from-black via-gray-950 to-black py-20 px-6">
+    <section className="relative w-full bg-gradient-to-b from-black via-gray-950 to-black py-20 px-6 overflow-x-hidden">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <motion.div
