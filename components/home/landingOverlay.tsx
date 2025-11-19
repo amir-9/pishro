@@ -72,7 +72,7 @@ const LandingOverlay = ({
 
   return (
     <>
-      <section ref={ref} className="relative w-full">
+      <section ref={ref} className="relative w-full hidden lg:block">
         {/* ویدیو و اورلی تاریک */}
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <video
