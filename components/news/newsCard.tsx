@@ -45,11 +45,11 @@ const NewsCard = ({ data }: NewsCardProps) => {
   // دریافت رنگ دسته‌بندی
   const getCategoryColor = (category: string) => {
     const colors: Record<string, string> = {
-      "اخبار": "bg-blue-500",
-      "آموزش": "bg-green-500",
-      "فناوری": "bg-purple-500",
-      "رویداد": "bg-orange-500",
-      "پروژه": "bg-pink-500",
+      اخبار: "bg-blue-500",
+      آموزش: "bg-green-500",
+      فناوری: "bg-purple-500",
+      رویداد: "bg-orange-500",
+      پروژه: "bg-pink-500",
     };
     return colors[category] || "bg-myPrimary";
   };
@@ -57,9 +57,9 @@ const NewsCard = ({ data }: NewsCardProps) => {
   const readingTime = getReadingTime(data.content || data.excerpt);
 
   return (
-    <div className="group min-h-[240px] flex justify-between border border-gray-200 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-myPrimary/10 hover:border-myPrimary/30 transition-all duration-500 bg-white relative">
+    <div className="group min-h-[240px] flex justify-between border border-gray-200 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-mySecondary/10 hover:border-mySecondary/30 transition-all duration-500 bg-white relative">
       {/* Gradient accent line */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-myPrimary to-myPrimary/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-mySecondary to-mySecondary/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
       {/* تصویر */}
       <div className="relative flex-shrink-0 w-[220px] xl:w-[250px] min-h-[240px] overflow-hidden">
@@ -77,7 +77,11 @@ const NewsCard = ({ data }: NewsCardProps) => {
 
         {/* Category badge */}
         <div className="absolute top-4 right-4 z-10">
-          <span className={`${getCategoryColor(data.category)} text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg backdrop-blur-sm`}>
+          <span
+            className={`${getCategoryColor(
+              data.category
+            )} text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg backdrop-blur-sm`}
+          >
             {data.category}
           </span>
         </div>
@@ -86,7 +90,7 @@ const NewsCard = ({ data }: NewsCardProps) => {
       {/* محتوا */}
       <div className="px-6 xl:px-8 py-6 flex flex-col justify-between flex-1">
         <div className="space-y-3">
-          <h5 className="font-bold text-lg xl:text-xl text-[#131b22] line-clamp-2 leading-relaxed group-hover:text-myPrimary transition-colors duration-300">
+          <h5 className="font-bold text-lg xl:text-xl text-[#131b22] line-clamp-2 leading-relaxed group-hover:text-mySecondary transition-colors duration-300">
             {data.title}
           </h5>
 
@@ -116,12 +120,10 @@ const NewsCard = ({ data }: NewsCardProps) => {
 
           {data.author && (
             <div className="flex items-center gap-2 pt-1">
-              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-myPrimary to-myPrimary/70 flex items-center justify-center text-white text-xs font-bold">
+              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-mySecondary to-mySecondary/70 flex items-center justify-center text-white text-xs font-bold">
                 {data.author.charAt(0)}
               </div>
-              <p className="text-xs text-gray-600 font-medium">
-                {data.author}
-              </p>
+              <p className="text-xs text-gray-600 font-medium">{data.author}</p>
             </div>
           )}
         </div>
@@ -129,10 +131,12 @@ const NewsCard = ({ data }: NewsCardProps) => {
         {/* دکمه ادامه مطلب */}
         <Link
           href={`/news/${data.slug}`}
-          className="mt-4 text-sm font-bold text-myPrimary hover:text-myPrimary/80 transition-all duration-300 self-start inline-flex items-center gap-2 no-underline group-hover:gap-3"
+          className="mt-4 text-sm font-bold border border-mySecondary rounded px-2 py-1 text-mySecondary hover:text-white hover:bg-mySecondary transition-all duration-300 self-end inline-flex items-center gap-2 no-underline group-hover:gap-3"
         >
           <span>ادامه مطلب</span>
-          <span className="text-base group-hover:-translate-x-1 transition-transform duration-300">←</span>
+          <span className="text-base group-hover:-translate-x-1 transition-transform duration-300">
+            ←
+          </span>
         </Link>
       </div>
     </div>
