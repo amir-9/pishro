@@ -21,7 +21,7 @@ interface BusinessLandingProps {
 
 const BusinessLanding = ({ businessConsultingData }: BusinessLandingProps) => {
   return (
-    <div className="relative w-full h-screen overflow-hidden isolate flex items-center justify-start text-center px-4 -mb-32">
+    <div className="relative w-full h-screen overflow-hidden isolate flex items-center justify-start text-center px-4 pt-20 md:pt-0 -mb-32">
       {/* 📷 Background Image */}
       <Image
         src={businessConsultingData.image || "/images/business-consulting/landing.jpg"}
