@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -95,8 +95,8 @@ const HeroSection = ({
   videoUrl?: string;
   videoLoaded: boolean;
   setVideoLoaded: (loaded: boolean) => void;
-  opacity: any;
-  scale: any;
+  opacity;
+  scale;
 }) => {
   return (
     <motion.section
@@ -116,10 +116,7 @@ const HeroSection = ({
           onLoadedData={() => setVideoLoaded(true)}
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <source
-            src={videoUrl || "/videos/aboutUs.webm"}
-            type="video/webm"
-          />
+          <source src={videoUrl || "/videos/aboutUs.webm"} type="video/webm" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black" />
       </div>
@@ -190,11 +187,7 @@ const HeroSection = ({
 // =================================================
 //           Feature Cards Section
 // =================================================
-const FeatureCardsSection = ({
-  overlayTexts,
-}: {
-  overlayTexts?: string[];
-}) => {
+const FeatureCardsSection = ({ overlayTexts }: { overlayTexts?: string[] }) => {
   const defaultTexts = [
     "پیشرو در مسیر سرمایه‌ گذاری هوشمند",
     "ما در پیشرو با ارائه آموزش‌های تخصصی بورس، بازارهای مالی و سرمایه‌ گذاری، شما را در مسیر رشد مالی همراهی می‌کنیم.",
@@ -202,7 +195,8 @@ const FeatureCardsSection = ({
     "پیشرو انتخابی مطمئن برای کسانی است که به دنبال امنیت مالی، رشد پایدار و آینده‌ای روشن هستند.",
   ];
 
-  const texts = overlayTexts && overlayTexts.length > 0 ? overlayTexts : defaultTexts;
+  const texts =
+    overlayTexts && overlayTexts.length > 0 ? overlayTexts : defaultTexts;
 
   const gradients = [
     "from-blue-500/20 to-purple-500/20",
@@ -221,7 +215,9 @@ const FeatureCardsSection = ({
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
-            className={`relative bg-gradient-to-br ${gradients[index % gradients.length]} backdrop-blur-sm border border-white/10 rounded-3xl p-6 shadow-2xl overflow-hidden`}
+            className={`relative bg-gradient-to-br ${
+              gradients[index % gradients.length]
+            } backdrop-blur-sm border border-white/10 rounded-3xl p-6 shadow-2xl overflow-hidden`}
           >
             {/* Decorative Background */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/5 to-transparent rounded-full blur-3xl" />
@@ -230,7 +226,9 @@ const FeatureCardsSection = ({
             <div className="relative z-10">
               <div className="flex items-start gap-3 mb-3">
                 <div className="flex-shrink-0 w-8 h-8 bg-white/10 rounded-full flex items-center justify-center border border-white/20">
-                  <span className="text-white text-sm font-bold">{index + 1}</span>
+                  <span className="text-white text-sm font-bold">
+                    {index + 1}
+                  </span>
                 </div>
                 <h3 className="text-white text-lg sm:text-xl font-bold leading-relaxed flex-1">
                   {text.includes("پیشرو") ? (
