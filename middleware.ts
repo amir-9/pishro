@@ -10,8 +10,8 @@ const allowedOrigins = [
   "http://localhost:3000",
   "https://pishro-admin.vercel.app",
   "https://pishro-0.vercel.app",
-  "https://178.239.147.136:3001/",
-  "http://178.239.147.136:3001/",
+  "https://178.239.147.136:3001",
+  "http://178.239.147.136:3001",
   "https://admin.pishrosarmaye.com",
   "http://admin.pishrosarmaye.com",
 ];
