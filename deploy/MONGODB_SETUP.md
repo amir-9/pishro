@@ -50,19 +50,19 @@ sudo systemctl status mongod
 ```bash
 # اجرای MongoDB در Docker
 docker run -d \
-  --name pishro-mongodb \
+  --name pishro-mongo \
   -p 27017:27017 \
   -e MONGO_INITDB_ROOT_USERNAME=admin \
-  -e MONGO_INITDB_ROOT_PASSWORD=your-secure-password \
+  -e MONGO_INITDB_ROOT_PASSWORD="sdfjkdsDFsd7943r8eDFA" \
   -v mongodb_data:/data/db \
   --restart unless-stopped \
   mongo:7.0
 
 # بررسی logs
-docker logs -f pishro-mongodb
+docker logs -f pishro-mongo
 
 # اتصال به MongoDB shell
-docker exec -it pishro-mongodb mongosh -u admin -p your-secure-password
+docker exec -it pishro-mongo mongosh -u admin -p "sdfjkdsDFsd7943r8eDFA"
 ```
 
 ---
@@ -85,7 +85,7 @@ security:
 
 net:
   port: 27017
-  bindIp: 127.0.0.1,YOUR_SERVER_IP
+  bindIp: 127.0.0.1,178.239.147.136
 ```
 
 **نکته:** `YOUR_SERVER_IP` را با IP سرور خود جایگزین کنید. اگر فقط به صورت local استفاده می‌کنید، فقط `127.0.0.1` کافی است.
@@ -190,7 +190,7 @@ sudo nano /etc/mongod.conf
 ```yaml
 net:
   port: 27017
-  bindIp: 0.0.0.0  # برای دسترسی از همه IPها
+  bindIp: 0.0.0.0 # برای دسترسی از همه IPها
 ```
 
 ### 2. تنظیم Firewall
@@ -210,6 +210,7 @@ sudo systemctl restart mongod
 ```
 
 **⚠️ هشدار امنیتی:**
+
 - هرگز MongoDB را بدون authentication به اینترنت متصل نکنید
 - از IP whitelist استفاده کنید
 - از VPN یا SSH Tunnel استفاده کنید
@@ -272,7 +273,7 @@ storage:
     enabled: true
   wiredTiger:
     engineConfig:
-      cacheSizeGB: 2  # محدود کردن به 2GB RAM
+      cacheSizeGB: 2 # محدود کردن به 2GB RAM
 ```
 
 ### فعال‌سازی Log Rotation
@@ -428,21 +429,25 @@ mongosh --host localhost --port 27017
 پس از تنظیم MongoDB، در فایل `.env` پروژه‌ها از این connection strings استفاده کنید:
 
 ### برای پروژه اصلی (pishro):
+
 ```env
 DATABASE_URL="mongodb://pishro_user:pishro-secure-password-123@localhost:27017/pishro"
 ```
 
 ### برای پروژه CMS (pishro-admin):
+
 ```env
 DATABASE_URL="mongodb://pishro_admin_user:cms-secure-password-456@localhost:27017/pishro_admin"
 ```
 
 ### اگر MongoDB روی سرور دیگری است:
+
 ```env
 DATABASE_URL="mongodb://username:password@SERVER_IP:27017/database_name"
 ```
 
 ### با SSL/TLS:
+
 ```env
 DATABASE_URL="mongodb://username:password@SERVER_IP:27017/database_name?ssl=true&authSource=admin"
 ```
