@@ -17,8 +17,8 @@ export function getCorsHeaders(origin?: string | null): HeadersInit {
     "http://localhost:3000", // Same origin
     "https://pishro-admin.vercel.app", // Production CMS admin
     "https://pishro-0.vercel.app", // Production main site
-    "https://178.239.147.136:3001/",
-    "http://178.239.147.136:3001/",
+    "https://178.239.147.136:3001",
+    "http://178.239.147.136:3001",
     "https://admin.pishrosarmaye.com",
     "http://admin.pishrosarmaye.com",
   ].filter(Boolean) as string[];
