@@ -25,17 +25,20 @@
 ### چه چیزهایی راه‌اندازی می‌شود؟
 
 1. **MongoDB Database**
+
    - دیتابیس اصلی برای پروژه پیشرو
    - دیتابیس جداگانه برای پنل مدیریت (CMS)
    - تنظیمات امنیتی و backup
 
 2. **پروژه اصلی پیشرو**
+
    - سایت اصلی با Next.js
    - API های بکند
    - Authentication با OTP
    - پرداخت و سایر امکانات
 
 3. **پنل مدیریت (CMS)**
+
    - پنل ادمین جداگانه
    - مدیریت محتوا، دوره‌ها، کاربران
    - گزارش‌گیری و آمار
@@ -54,6 +57,7 @@
 ### نکات مهم قبل از شروع
 
 ⚠️ **مهم:**
+
 - این راهنما برای Ubuntu 20.04 یا بالاتر نوشته شده است
 - همه دستورات را **دقیقاً** کپی و اجرا کنید
 - اگر خطایی دیدید، به بخش [عیب‌یابی](#-عیبیابی) مراجعه کنید
@@ -78,24 +82,26 @@
 باید بتوانید به سرور خود با SSH وصل شوید:
 
 ```bash
-ssh root@YOUR_SERVER_IP
+ssh root@http://178.239.147.136/
 ```
 
 یا اگر کاربر دیگری دارید:
 
 ```bash
-ssh your_username@YOUR_SERVER_IP
+ssh your_username@http://178.239.147.136/
 ```
 
 ### ۳. دامنه (Domain) - اختیاری
 
 برای استفاده از SSL/HTTPS، یک دامنه نیاز دارید:
+
 - دامنه را به IP سرورتان وصل کنید (تنظیمات DNS)
 - اگر دامنه ندارید، می‌توانید با IP کار کنید (HTTP)
 
 ### ۴. حساب Object Storage (iranServer)
 
 برای ذخیره ویدیوها نیاز دارید:
+
 - یک حساب در iranServer
 - یک Bucket ساخته باشید
 - Access Key و Secret Key داشته باشید
@@ -112,10 +118,10 @@ MongoDB دیتابیس اصلی سیستم پیشرو است.
 
 ```bash
 # وصل شدن به سرور
-ssh root@YOUR_SERVER_IP
+ssh root@http://178.239.147.136/
 
 # یا با کاربر خاص
-ssh your_username@YOUR_SERVER_IP
+ssh your_username@http://178.239.147.136/
 ```
 
 ### گام ۱-۲: بروزرسانی سیستم
@@ -173,7 +179,7 @@ use admin
 
 db.createUser({
   user: "admin",
-  pwd: "YOUR_STRONG_ADMIN_PASSWORD",
+  pwd: "sdfjkdsDFsd7943r8eDFA",
   roles: [
     { role: "userAdminAnyDatabase", db: "admin" },
     { role: "readWriteAnyDatabase", db: "admin" },
@@ -182,7 +188,7 @@ db.createUser({
 })
 ```
 
-**نکته:** `YOUR_STRONG_ADMIN_PASSWORD` را با یک رمز قوی جایگزین کنید (حتماً ذخیره کنید!)
+**نکته:** `sdfjkdsDFsd7943r8eDFA` را با یک رمز قوی جایگزین کنید (حتماً ذخیره کنید!)
 
 ```bash
 # خروج از MongoDB shell
@@ -204,6 +210,7 @@ security:
 ```
 
 **ذخیره فایل:**
+
 - `Ctrl + O` → `Enter` → `Ctrl + X`
 
 ```bash
@@ -233,7 +240,7 @@ use pishro
 
 db.createUser({
   user: "pishro_user",
-  pwd: "PISHRO_DB_PASSWORD_123",
+  pwd: "sdfjkdsDFsd7943r8eDFA",
   roles: [
     { role: "readWrite", db: "pishro" },
     { role: "dbAdmin", db: "pishro" }
@@ -241,7 +248,7 @@ db.createUser({
 })
 ```
 
-**نکته:** `PISHRO_DB_PASSWORD_123` را با یک رمز قوی جایگزین کنید (ذخیره کنید!)
+**نکته:** `sdfjkdsDFsd7943r8eDFA` را با یک رمز قوی جایگزین کنید (ذخیره کنید!)
 
 ### گام ۱-۷: ساخت دیتابیس و کاربر برای پنل مدیریت
 
@@ -263,14 +270,14 @@ db.createUser({
 
 ```javascript
 // خروج از MongoDB shell
-exit
+exit;
 ```
 
 ### گام ۱-۸: تست اتصال
 
 ```bash
 # تست اتصال به database پروژه اصلی
-mongosh "mongodb://pishro_user:PISHRO_DB_PASSWORD_123@localhost:27017/pishro"
+mongosh "mongodb://pishro_user:sdfjkdsDFsd7943r8eDFA@localhost:27017/pishro"
 
 # اگر وارد shell شدید، یعنی موفق بودید!
 # برای خروج:
@@ -326,7 +333,7 @@ sudo chown -R $USER:$USER /opt/pishro
 
 # Clone کردن پروژه اصلی
 cd /opt
-git clone https://github.com/your-username/pishro.git pishro
+git clone https://github.com/amirhosseinself/pishro.git pishro
 
 # رفتن به پوشه پروژه
 cd /opt/pishro
@@ -361,7 +368,7 @@ nano .env
 # ===========================================
 # 🗄️ DATABASE
 # ===========================================
-DATABASE_URL="mongodb://pishro_user:PISHRO_DB_PASSWORD_123@localhost:27017/pishro"
+DATABASE_URL="mongodb://pishro_user:sdfjkdsDFsd7943r8eDFA@localhost:27017/pishro"
 
 # ===========================================
 # ☁️ OBJECT STORAGE (iranServer S3)
@@ -387,7 +394,7 @@ NODE_ENV="production"
 # 🔐 AUTHENTICATION
 # ===========================================
 AUTH_SECRET="generate-this-with-openssl-rand-base64-32"
-NEXTAUTH_URL="http://YOUR_SERVER_IP:3000"
+NEXTAUTH_URL="http://http://178.239.147.136/:3000"
 
 # ===========================================
 # 📱 SMS PROVIDER (melipayamak)
@@ -400,13 +407,14 @@ SMS_FROM="your-sms-sender-number"
 # 💳 PAYMENT GATEWAY (ZarinPal)
 # ===========================================
 ZARINPAL_MERCHANT_ID="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-ZARINPAL_CALLBACK_URL="http://YOUR_SERVER_IP:3000/api/payment/verify"
+ZARINPAL_CALLBACK_URL="http://http://178.239.147.136/:3000/api/payment/verify"
 ```
 
 **مهم:**
-- `PISHRO_DB_PASSWORD_123` را با رمزی که در مرحله ۱ ساختید جایگزین کنید
+
+- `sdfjkdsDFsd7943r8eDFA` را با رمزی که در مرحله ۱ ساختید جایگزین کنید
 - اطلاعات Object Storage را از پنل iranServer بگیرید
-- `YOUR_SERVER_IP` را با IP سرور خود جایگزین کنید
+- `http://178.239.147.136/` را با IP سرور خود جایگزین کنید
 
 **ساخت AUTH_SECRET:**
 
@@ -418,6 +426,7 @@ openssl rand -base64 32
 خروجی را کپی کنید و در فایل .env قرار دهید.
 
 **ذخیره فایل:**
+
 - `Ctrl + O` → `Enter` → `Ctrl + X`
 
 **⏱️ زمان تقریبی:** ۱۰-۱۵ دقیقه
@@ -433,6 +442,7 @@ npx prisma db push
 ```
 
 **✅ باید ببینید:**
+
 ```
 Your database is now in sync with your Prisma schema. Done in XXms
 ✔ Generated Prisma Client
@@ -494,8 +504,9 @@ curl http://localhost:3000
 ```
 
 یا در مرورگر باز کنید:
+
 ```
-http://YOUR_SERVER_IP:3000
+http://http://178.239.147.136/:3000
 ```
 
 ---
@@ -509,7 +520,7 @@ http://YOUR_SERVER_IP:3000
 ```bash
 # Clone کردن پروژه CMS
 cd /opt
-git clone https://github.com/your-username/pishro-admin.git pishro-admin
+git clone https://github.com/amirhosseinself/pishro-admin.git pishro-admin
 
 # رفتن به پوشه
 cd /opt/pishro-admin
@@ -542,7 +553,7 @@ DATABASE_URL="mongodb://pishro_admin_user:CMS_DB_PASSWORD_456@localhost:27017/pi
 # سایر تنظیمات مشابه پروژه اصلی...
 NODE_ENV="production"
 AUTH_SECRET="generate-different-secret-for-cms"
-NEXTAUTH_URL="http://YOUR_SERVER_IP:3001"
+NEXTAUTH_URL="http://http://178.239.147.136/:3001"
 ```
 
 **نکته:** پورت CMS را `3001` قرار دهید تا با پروژه اصلی تداخل نداشته باشد.
@@ -580,8 +591,9 @@ pm2 status
 ### تست پنل مدیریت
 
 در مرورگر باز کنید:
+
 ```
-http://YOUR_SERVER_IP:3001
+http://http://178.239.147.136/:3001
 ```
 
 ---
@@ -691,8 +703,9 @@ pm2 status
 ```
 
 در مرورگر:
-- پروژه اصلی: `http://YOUR_SERVER_IP:3000`
-- پنل مدیریت: `http://YOUR_SERVER_IP:3001`
+
+- پروژه اصلی: `http://http://178.239.147.136/:3000`
+- پنل مدیریت: `http://http://178.239.147.136/:3001`
 
 ### تست ۳: بررسی سیستم پردازش ویدیو
 
@@ -726,6 +739,7 @@ sudo bash deploy/auto-setup.sh
 ```
 
 این اسکریپت:
+
 1. MongoDB را نصب و تنظیم می‌کند
 2. پروژه اصلی را راه‌اندازی می‌کند
 3. پنل مدیریت را راه‌اندازی می‌کند

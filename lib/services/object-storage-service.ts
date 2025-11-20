@@ -52,10 +52,7 @@ export function generateUniqueFileName(
 /**
  * تولید مسیر فایل در storage
  */
-export function getVideoStoragePath(
-  videoId: string,
-  fileName: string
-): string {
+export function getVideoStoragePath(videoId: string, fileName: string): string {
   return `${VIDEOS_FOLDER}/${videoId}/${fileName}`;
 }
 
@@ -185,7 +182,7 @@ export async function downloadFileFromStorage(
 
     // تبدیل Stream به Buffer
     const chunks: Uint8Array[] = [];
-    // @ts-expect-error - Body می‌تواند stream باشد
+    // @ - Body می‌تواند stream باشد
     for await (const chunk of response.Body) {
       chunks.push(chunk);
     }
