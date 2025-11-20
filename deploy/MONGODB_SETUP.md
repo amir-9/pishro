@@ -454,6 +454,264 @@ DATABASE_URL="mongodb://username:password@SERVER_IP:27017/database_name?ssl=true
 
 ---
 
+## 🔷 راه‌اندازی Prisma با MongoDB
+
+پس از نصب MongoDB و ایجاد database، باید Prisma را راه‌اندازی کنید.
+
+### 1. بررسی فایل .env
+
+مطمئن شوید که در فایل `.env` پروژه، connection string درست تنظیم شده است:
+
+```bash
+# مشاهده فایل .env
+cat .env | grep DATABASE_URL
+```
+
+باید خروجی شبیه این ببینید:
+```
+DATABASE_URL="mongodb://pishro_user:your-password@localhost:27017/pishro"
+```
+
+### 2. تست اتصال به MongoDB
+
+قبل از اجرای Prisma، اتصال به MongoDB را تست کنید:
+
+```bash
+# تست اتصال با mongosh
+mongosh "mongodb://pishro_user:pishro-secure-password-123@localhost:27017/pishro"
+
+# باید به shell MongoDB وصل شوید
+# برای خروج: exit
+```
+
+### 3. Generate کردن Prisma Client
+
+```bash
+# رفتن به پوشه پروژه
+cd /opt/pishro  # یا مسیر پروژه شما
+
+# Generate کردن Prisma Client
+npx prisma generate
+```
+
+این دستور Prisma Client را بر اساس `schema.prisma` می‌سازد.
+
+### 4. Push کردن Schema به MongoDB
+
+برای ساختن Collections و Indexes در MongoDB:
+
+```bash
+# Push کردن schema به MongoDB
+npx prisma db push
+```
+
+این دستور:
+- تمام Collections را در MongoDB می‌سازد
+- Indexes را تنظیم می‌کند
+- Schema را Sync می‌کند
+
+**خروجی موفقیت‌آمیز:**
+```
+Your database is now in sync with your Prisma schema. Done in XXms
+
+✔ Generated Prisma Client
+```
+
+### 5. بررسی Collections ساخته شده
+
+```bash
+# اتصال به MongoDB
+mongosh "mongodb://pishro_user:your-password@localhost:27017/pishro"
+
+# نمایش collections
+show collections
+
+# خروج
+exit
+```
+
+باید collections زیر را ببینید:
+- User
+- TempUser
+- Otp
+- Course
+- Lesson
+- Video
+- Comment
+- Order
+- و...
+
+### 6. (اختیاری) Seed کردن دیتای اولیه
+
+اگر اسکریپت seed دارید، می‌توانید دیتای اولیه را وارد کنید:
+
+```bash
+# اگر اسکریپت seed در package.json تعریف شده
+npm run seed
+
+# یا اگر فایل seed.ts دارید
+npx tsx prisma/seed.ts
+```
+
+### 7. تست عملکرد Prisma
+
+یک تست ساده برای اطمینان از عملکرد Prisma:
+
+```bash
+# ساخت یک فایل تست
+cat > test-prisma.ts << 'EOF'
+import { PrismaClient } from "@prisma/client"
+
+const prisma = new PrismaClient()
+
+async function main() {
+  console.log("🔍 Testing Prisma connection...")
+
+  // تست شمارش کاربران
+  const userCount = await prisma.user.count()
+  console.log(`✅ Users count: ${userCount}`)
+
+  // تست شمارش دوره‌ها
+  const courseCount = await prisma.course.count()
+  console.log(`✅ Courses count: ${courseCount}`)
+
+  console.log("✅ Prisma is working correctly!")
+}
+
+main()
+  .catch((e) => {
+    console.error("❌ Error:", e)
+    process.exit(1)
+  })
+  .finally(async () => {
+    await prisma.$disconnect()
+  })
+EOF
+
+# اجرای تست
+npx tsx test-prisma.ts
+
+# پاک کردن فایل تست
+rm test-prisma.ts
+```
+
+---
+
+## 🔧 عیب‌یابی Prisma
+
+### خطا: "Can't reach database server"
+
+**راه‌حل:**
+```bash
+# 1. چک کردن که MongoDB در حال اجرا است
+sudo systemctl status mongod
+
+# 2. تست اتصال با mongosh
+mongosh "mongodb://localhost:27017"
+
+# 3. بررسی connection string در .env
+cat .env | grep DATABASE_URL
+
+# 4. بررسی firewall
+sudo ufw status
+```
+
+### خطا: "Authentication failed"
+
+**راه‌حل:**
+```bash
+# 1. چک کردن username و password در .env
+cat .env | grep DATABASE_URL
+
+# 2. تست اتصال دستی
+mongosh "mongodb://username:password@localhost:27017/pishro"
+
+# 3. اگر کار نکرد، کاربر را مجدد بسازید
+mongosh -u admin -p --authenticationDatabase admin
+use pishro
+db.dropUser("pishro_user")
+db.createUser({
+  user: "pishro_user",
+  pwd: "new-password",
+  roles: [
+    { role: "readWrite", db: "pishro" },
+    { role: "dbAdmin", db: "pishro" }
+  ]
+})
+exit
+
+# 4. بروزرسانی .env با password جدید
+nano .env
+```
+
+### خطا: "Prisma schema validation failed"
+
+**راه‌حل:**
+```bash
+# بررسی صحت schema
+npx prisma validate
+
+# فرمت کردن schema
+npx prisma format
+```
+
+### خطا: "Failed to push schema"
+
+**راه‌حل:**
+```bash
+# پاک کردن cache Prisma
+rm -rf node_modules/.prisma
+
+# Generate مجدد
+npx prisma generate
+
+# Push مجدد
+npx prisma db push
+```
+
+---
+
+## 🔄 دستورات مفید Prisma
+
+### مشاهده وضعیت Schema
+```bash
+npx prisma validate
+```
+
+### فرمت کردن Schema
+```bash
+npx prisma format
+```
+
+### مشاهده Schema در مرورگر (Prisma Studio)
+```bash
+npx prisma studio
+```
+
+این دستور یک رابط کاربری وب در `http://localhost:5555` باز می‌کند که می‌توانید:
+- Collections را مشاهده کنید
+- دیتا را ویرایش کنید
+- رکوردهای جدید اضافه کنید
+
+**نکته:** برای استفاده در production، از `--port` و `--browser none` استفاده کنید:
+```bash
+npx prisma studio --port 5555 --browser none
+```
+
+### Pull کردن Schema از Database
+```bash
+# اگر تغییراتی مستقیم در MongoDB انجام دادید
+npx prisma db pull
+```
+
+### Reset کردن Database (⚠️ خطرناک - تمام دیتا پاک می‌شود)
+```bash
+# تنها برای development
+npx prisma db push --force-reset
+```
+
+---
+
 ## 🔒 چک‌لیست امنیتی
 
 - [ ] Authentication فعال شده است
