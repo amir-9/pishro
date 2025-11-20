@@ -168,30 +168,37 @@ export async function uploadFileToStorage(
 export async function downloadFileFromStorage(
   filePath: string
 ): Promise<Buffer> {
-  try {
-    const command = new GetObjectCommand({
-      Bucket: BUCKET_NAME,
-      Key: filePath,
-    });
+  const command = new GetObjectCommand({
+    Bucket: BUCKET_NAME,
+    Key: filePath,
+  });
 
-    const response = await s3Client.send(command);
+  const response = await s3Client.send(command);
 
-    if (!response.Body) {
-      throw new Error("فایل یافت نشد");
-    }
+  if (!response.Body) {
+    throw new Error("فایل یافت نشد");
+  }
 
-    // تبدیل Stream به Buffer
-    const chunks: Uint8Array[] = [];
-    // @ - Body می‌تواند stream باشد
-    for await (const chunk of response.Body) {
+  const chunks: Uint8Array[] = [];
+
+  // بررسی نوع Body
+  if (
+    typeof (response.Body as AsyncIterable<Uint8Array>)[
+      Symbol.asyncIterator
+    ] === "function"
+  ) {
+    // AsyncIterable
+    for await (const chunk of response.Body as AsyncIterable<Uint8Array>) {
       chunks.push(chunk);
     }
-
-    return Buffer.concat(chunks);
-  } catch (error) {
-    console.error("Error downloading file from storage:", error);
-    throw new Error("خطا در دانلود فایل");
+  } else if (response.Body instanceof Uint8Array) {
+    // Uint8Array مستقیم
+    chunks.push(response.Body);
+  } else {
+    throw new Error("نوع بدنه فایل پشتیبانی نمی‌شود");
   }
+
+  return Buffer.concat(chunks);
 }
 
 /**
