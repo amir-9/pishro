@@ -14,6 +14,10 @@ const allowedOrigins = [
   "http://178.239.147.136:3001",
   "https://admin.pishrosarmaye.com",
   "http://admin.pishrosarmaye.com",
+  "https://pishrosarmaye.com",
+  "http://pishrosarmaye.com",
+  "https://www.pishrosarmaye.com",
+  "http://www.pishrosarmaye.com",
 ];
 
 /**
