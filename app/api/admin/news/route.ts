@@ -170,7 +170,7 @@ export async function POST(req: NextRequest) {
         slug,
         excerpt,
         content,
-        coverImage,
+        coverImage: coverImage && coverImage.trim() !== "" ? coverImage : null,
         author,
         category: category || "",
         tags,

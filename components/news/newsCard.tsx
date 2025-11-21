@@ -68,7 +68,7 @@ const NewsCard = ({ data }: NewsCardProps) => {
         {/* تصویر */}
         <div className="relative flex-shrink-0 w-full md:w-[220px] xl:w-[250px] h-[200px] md:min-h-[240px] md:h-full overflow-hidden">
           <Image
-            src={data.coverImage ?? "/images/default-news.jpg"}
+            src={data.coverImage && data.coverImage.trim() !== "" ? data.coverImage : "/images/news/post-1.jpg"}
             alt={data.title}
             fill
             className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"

@@ -122,7 +122,9 @@ export async function PATCH(
     if (body.slug !== undefined) updateData.slug = body.slug;
     if (body.excerpt !== undefined) updateData.excerpt = body.excerpt;
     if (body.content !== undefined) updateData.content = body.content;
-    if (body.coverImage !== undefined) updateData.coverImage = body.coverImage;
+    if (body.coverImage !== undefined) {
+      updateData.coverImage = body.coverImage && body.coverImage.trim() !== "" ? body.coverImage : null;
+    }
     if (body.author !== undefined) updateData.author = body.author;
     if (body.category !== undefined) updateData.category = body.category;
     if (body.tags !== undefined) updateData.tags = body.tags;

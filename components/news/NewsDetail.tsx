@@ -90,7 +90,7 @@ const NewsDetail = ({ articleId }: NewsDetailProps) => {
         </header>
 
         {/* Cover Image */}
-        {article.coverImage && (
+        {article.coverImage && article.coverImage.trim() !== "" && (
           <div className="relative w-full h-[400px] rounded-2xl overflow-hidden mb-8">
             <Image
               src={article.coverImage}
