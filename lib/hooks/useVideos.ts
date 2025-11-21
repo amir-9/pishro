@@ -141,6 +141,7 @@ export function useRequestUploadUrl() {
 
 /**
  * Hook برای آپلود فایل ویدیو به storage
+ * از fetch به جای axios استفاده می‌کند تا از مشکلات CORS جلوگیری شود
  */
 export function useUploadVideo() {
   return useMutation({
@@ -153,18 +154,47 @@ export function useUploadVideo() {
       file: File;
       onProgress?: (progress: number) => void;
     }) => {
-      await axios.put(uploadUrl, file, {
-        headers: {
-          "Content-Type": file.type,
-        },
-        onUploadProgress: (progressEvent) => {
-          if (onProgress && progressEvent.total) {
-            const progress = Math.round(
-              (progressEvent.loaded * 100) / progressEvent.total
-            );
-            onProgress(progress);
+      // استفاده از XMLHttpRequest برای پشتیبانی از progress tracking
+      return new Promise<void>((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+
+        // تنظیم event listener برای پیشرفت آپلود
+        if (onProgress) {
+          xhr.upload.addEventListener("progress", (event) => {
+            if (event.lengthComputable) {
+              const progress = Math.round((event.loaded * 100) / event.total);
+              onProgress(progress);
+            }
+          });
+        }
+
+        // تنظیم event listener برای تکمیل آپلود
+        xhr.addEventListener("load", () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve();
+          } else {
+            reject(new Error(`آپلود ناموفق: ${xhr.status} ${xhr.statusText}`));
           }
-        },
+        });
+
+        // تنظیم event listener برای خطا
+        xhr.addEventListener("error", () => {
+          reject(new Error("خطا در آپلود فایل"));
+        });
+
+        // تنظیم event listener برای لغو
+        xhr.addEventListener("abort", () => {
+          reject(new Error("آپلود لغو شد"));
+        });
+
+        // باز کردن درخواست PUT
+        xhr.open("PUT", uploadUrl);
+
+        // تنظیم Content-Type header
+        xhr.setRequestHeader("Content-Type", file.type);
+
+        // ارسال فایل
+        xhr.send(file);
       });
     },
   });
