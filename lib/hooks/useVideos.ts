@@ -275,10 +275,9 @@ export function useDeleteVideo() {
 
 /**
  * Hook کامل برای آپلود ویدیو (شامل تمام مراحل)
+ * از proxy endpoint استفاده می‌کند تا مشکل CORS حل شود
  */
 export function useCompleteVideoUpload() {
-  const requestUploadUrl = useRequestUploadUrl();
-  const uploadVideo = useUploadVideo();
   const createVideo = useCreateVideo();
 
   return useMutation({
@@ -293,40 +292,70 @@ export function useCompleteVideoUpload() {
       description?: string;
       onProgress?: (stage: string, progress: number) => void;
     }) => {
-      // مرحله 1: درخواست Upload URL
-      onProgress?.("requesting_url", 0);
-
-      const fileExtension = file.name.split(".").pop() || "mp4";
-
-      const uploadUrlData = await requestUploadUrl.mutateAsync({
-        fileName: file.name,
-        fileSize: file.size,
-        fileFormat: fileExtension,
-        title,
-        description,
-      });
-
-      // مرحله 2: آپلود فایل
+      // مرحله 1: آپلود فایل از طریق proxy
       onProgress?.("uploading", 0);
 
-      await uploadVideo.mutateAsync({
-        uploadUrl: uploadUrlData.uploadUrl,
-        file,
-        onProgress: (progress) => {
-          onProgress?.("uploading", progress);
-        },
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("title", title);
+      if (description) {
+        formData.append("description", description);
+      }
+
+      // آپلود با XMLHttpRequest برای track کردن progress
+      const uploadResult = await new Promise<{
+        videoId: string;
+        storagePath: string;
+        uniqueFileName: string;
+        fileSize: number;
+        fileFormat: string;
+      }>((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+
+        // تنظیم progress tracking
+        xhr.upload.addEventListener("progress", (event) => {
+          if (event.lengthComputable) {
+            const progress = Math.round((event.loaded * 100) / event.total);
+            onProgress?.("uploading", progress);
+          }
+        });
+
+        // تنظیم completion handler
+        xhr.addEventListener("load", () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            try {
+              const response = JSON.parse(xhr.responseText);
+              resolve(response.data);
+            } catch (error) {
+              reject(new Error("خطا در پردازش پاسخ سرور"));
+            }
+          } else {
+            reject(
+              new Error(`آپلود ناموفق: ${xhr.status} ${xhr.statusText}`)
+            );
+          }
+        });
+
+        // تنظیم error handler
+        xhr.addEventListener("error", () => {
+          reject(new Error("خطا در آپلود فایل"));
+        });
+
+        // ارسال درخواست
+        xhr.open("POST", "/api/admin/videos/upload-proxy");
+        xhr.send(formData);
       });
 
-      // مرحله 3: ایجاد رکورد در دیتابیس
+      // مرحله 2: ایجاد رکورد در دیتابیس
       onProgress?.("saving", 100);
 
       const videoRecord = await createVideo.mutateAsync({
         title,
         description,
-        videoId: uploadUrlData.videoId,
-        originalPath: uploadUrlData.storagePath,
-        fileSize: file.size,
-        fileFormat: fileExtension,
+        videoId: uploadResult.videoId,
+        originalPath: uploadResult.storagePath,
+        fileSize: uploadResult.fileSize,
+        fileFormat: uploadResult.fileFormat,
         startProcessing: true,
       });
 
