@@ -32,10 +32,7 @@ export async function getNews(
     }`;
 
     const { data } = await axios.get<ApiResponse<PaginatedData<NewsArticle>>>(
-      url,
-      {
-        headers: { "Cache-Control": "no-cache" },
-      }
+      url
     );
 
     if (data.status === "success") {
@@ -57,10 +54,7 @@ export async function getNewsById(id: string): Promise<NewsArticle> {
         : "http://localhost:3000";
 
     const { data } = await axios.get<ApiResponse<NewsArticle>>(
-      `${baseUrl}/api/news/${id}`,
-      {
-        headers: { "Cache-Control": "no-cache" },
-      }
+      `${baseUrl}/api/news/${id}`
     );
 
     if (data.status === "success") {

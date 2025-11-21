@@ -36,10 +36,7 @@ export async function getBooks(
     }`;
 
     const { data } = await axios.get<ApiResponse<PaginatedData<DigitalBook>>>(
-      url,
-      {
-        headers: { "Cache-Control": "no-cache" },
-      }
+      url
     );
 
     if (data.status === "success") {
@@ -61,10 +58,7 @@ export async function getBookById(id: string): Promise<DigitalBook> {
         : "http://localhost:3000";
 
     const { data } = await axios.get<ApiResponse<DigitalBook>>(
-      `${baseUrl}/api/library/${id}`,
-      {
-        headers: { "Cache-Control": "no-cache" },
-      }
+      `${baseUrl}/api/library/${id}`
     );
 
     if (data.status === "success") {

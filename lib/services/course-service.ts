@@ -9,9 +9,10 @@ export async function getCourses(): Promise<Course[]> {
       process.env.NODE_ENV === "production"
         ? process.env.NEXT_PUBLIC_BASE_URL || window.location.origin
         : "http://localhost:3000";
-    const { data } = await axios.get<ApiSuccessResponse<Course[]>>(`${baseUrl}/api/courses`, {
-      headers: { "Cache-Control": "no-cache" },
-    });
+    const { data } = await axios.get<ApiSuccessResponse<Course[]>>(
+      `${baseUrl}/api/courses`,
+      {}
+    );
 
     if (data.status !== "success") {
       throw new Error(data.message || "Failed to fetch courses");
@@ -143,7 +144,10 @@ export async function getAllCourseSlugs() {
     });
 
     return courses
-      .filter((course) => course.slug && course.category?.slug && course.category?.published)
+      .filter(
+        (course) =>
+          course.slug && course.category?.slug && course.category?.published
+      )
       .map((course) => ({
         categorySlug: course.category!.slug,
         courseSlug: course.slug!,
