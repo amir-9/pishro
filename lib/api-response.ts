@@ -23,6 +23,7 @@ export const ALLOWED_ORIGINS = [
   "http://pishrosarmaye.com",
   "https://www.pishrosarmaye.com",
   "http://www.pishrosarmaye.com",
+  "https://teh-1.s3.poshtiban.com"
 ];
 
 /**
